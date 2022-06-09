@@ -6,10 +6,9 @@ const RefreshTokens = require('./refresh-tokens.model')(sequelize);
 const EmailTokens = require('./email-tokens.model')(sequelize);
 
 EmailTokens.belongsTo(Users, {
-  foreignKey: {
-    name: 'userUuid',
-    allowNull: false,
-  }
+  foreignKey: 'userUuid',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
 });
 Users.hasOne(EmailTokens);
 

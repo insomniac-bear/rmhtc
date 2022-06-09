@@ -9,8 +9,6 @@ const {
 
 const minioClient = new Minio.Client({
   endPoint: STORAGE_ROUTE,
-  // accessKey: 's3-rmhtc-user',
-  // secretKey: '8MRdhUQiRZP5E78',
   accessKey: STORAGE_USER,
   secretKey: STORAGE_PASSWORD,
 });

@@ -8,7 +8,6 @@ const sequilize = require('./db/sequilize');
 const usersRoutes = require('./users/users.router');
 const tokensRoutes = require('./tokens/tokens.router');
 const authRoutes = require('./auth/auth.route');
-// const routes = require('./routes');
 const CustomError = require('./lib/custom-error');
 const { API_PREFIX } = require('./const');
 
@@ -48,7 +47,6 @@ app.use((req, res, next) => {
 app.use(`${API_PREFIX}/users`, usersRoutes);
 app.use(`${API_PREFIX}/tokens`, tokensRoutes);
 app.use(`${API_PREFIX}/`,authRoutes);
-// app.use('/api/v1', routes);
 
 // Catch all server errors
 app.use((err, _req, res, _next) => {
