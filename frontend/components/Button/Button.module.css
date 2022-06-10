@@ -1,0 +1,33 @@
+.button {
+	box-sizing: border-box;
+	padding: 10px 20px;
+
+	cursor: pointer;
+	transition: 0.5s;
+
+	border-radius: 10px;
+
+	outline: none;
+}
+
+.button_appearance_ghost {
+	color: #FF5733;
+	border: 1px solid #FF5733;
+	background-color: transparent;
+}
+
+.button_appearance_ghost:hover {
+	opacity: 0.8;
+}
+
+.button_appearance_primary {
+	color: #FEFEFE;
+	border: 1px solid transparent;
+	background-color: #FF2E00;
+
+	font-weight: 700;
+}
+
+.button_appearance_primary:hover {
+	opacity: 0.8;
+}

@@ -1,0 +1,19 @@
+@font-face {
+	font-family: RobotoSlab;
+	font-weight: 700;
+	font-style: bold;
+	font-display: swap;
+	src:
+		url("./roboto-slab-v22-latin_cyrillic-700.woff2") format("woff2"),
+		url("./roboto-slab-v22-latin_cyrillic-700.woff") format("woff");
+}
+
+@font-face {
+	font-family: TTNorms;
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	src:
+		url("./TTNorms-Regular.woff2") format("woff2"),
+		url("./TTNorms-Regular.woff") format("woff");
+}
