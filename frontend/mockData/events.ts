@@ -1,0 +1,68 @@
+const events = [
+  {
+    id: '1',
+    title: 'International High Tech Economy eventsssss',
+    img: 'mock',
+    description: 'description',
+    date: '24 DEC',
+    address: {
+      country: 'Russia',
+      city: 'Omsk',
+      street: 'Lenina',
+      house: '24',
+    },
+    price: '1',
+    time: 'time',
+    isNew: true,
+  },
+  {
+    id: '2',
+    title: 'International High Tech Economy eventsssss',
+    img: 'mock',
+    description: 'description',
+    date: '24 DEC',
+    address: {
+      country: 'Russia',
+      city: 'Omsk',
+      street: 'Lenina',
+      house: '24',
+    },
+    price: '1',
+    time: 'time',
+    isNew: true,
+  },
+  {
+    id: '3',
+    title: 'International High Tech Economy eventsssss',
+    img: 'mock',
+    description: 'description',
+    date: '24 DEC',
+    address: {
+      country: 'Russia',
+      city: 'Omsk',
+      street: 'Lenina',
+      house: '24',
+    },
+    price: '1',
+    time: 'time',
+    isNew: true,
+  },
+  {
+    id: '4',
+    title: 'International High Tech Economy eventsssss',
+    img: 'mock',
+    description: 'description',
+    date: '24 DEC',
+    address: {
+      country: 'Russia',
+      city: 'Omsk',
+      street: 'Lenina',
+      house: '24',
+    },
+    price: '1',
+    time: 'time',
+    isNew: true,
+  },
+];
+
+export default events;

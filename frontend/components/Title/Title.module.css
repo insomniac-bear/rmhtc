@@ -1,0 +1,41 @@
+.title {
+	display: block;
+
+	width: fit-content;
+	margin: 0;
+	padding: 0;
+
+	text-align: left;
+
+	color: #2B2B2B;
+
+	font-family: RobotoSlab, Arial, sans-serif;
+	font-weight: 700;
+	line-height: 1.02;
+}
+
+.title_size_s {
+	font-size: 24px;
+}
+
+.title_size_m {
+	font-size: 30px;
+}
+
+.title_size_l {
+	font-size: 59px;
+}
+
+@media screen and (max-width: 425px) {
+	.title_size_s {
+		font-size: 20px;
+	}
+
+	.title_size_m {
+		font-size: 25px;
+	}
+
+	.title_size_l {
+		font-size: 46px;
+	}
+}

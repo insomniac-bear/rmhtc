@@ -1,0 +1,44 @@
+.langList {
+	display: flex;
+
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.langList__listItem::after {
+	margin: 0 2px;
+
+	content: "|";
+
+	color: #FF2E00;
+}
+
+.langList__listItem:last-child::after {
+	content: none;
+}
+
+.langList__button {
+	padding: 0;
+
+	cursor: pointer;
+	transition: 0.3s;
+
+	color: #858383;
+	border: none;
+	background-color: transparent;
+
+	font-family: "TT Norms", Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.18;
+}
+
+.langList__button:hover {
+	opacity: 0.8;
+}
+
+.langList__button_active {
+	color: #FF2E00;
+}
