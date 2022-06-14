@@ -4,6 +4,6 @@ const tokensController = require('./tokens.controller');
 const tokensRouter = new Router();
 
 //api/tokens
-tokensRouter.get('/email-verify', tokensController.confirmEmail);
+tokensRouter.post('/email-verify', tokensController.confirmEmail);
 
 module.exports = tokensRouter;

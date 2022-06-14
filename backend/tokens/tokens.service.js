@@ -102,6 +102,15 @@ const {
     return emailToken;
   }
 
+async function getEmailVerificationToken(emailToken) {
+  const token = await EmailTokens.findOne({
+    where: {
+      emailToken,
+    }
+  });
+  return token;
+}
+
   async function dropEmailVerificationToken({tokenUuid}) {
     return await EmailTokens.destroy({
       where: {
@@ -121,5 +130,6 @@ module.exports = {
   generateEmailVerificationToken,
   validateEmailVerifiedToken,
   saveEmailVerificationToken,
+  getEmailVerificationToken,
   dropEmailVerificationToken
 };

@@ -7,10 +7,13 @@ const EmailTokens = require('./email-tokens.model')(sequelize);
 
 EmailTokens.belongsTo(Users, {
   foreignKey: 'userUuid',
+  as: 'emailTokens',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 });
-Users.hasOne(EmailTokens);
+Users.hasOne(EmailTokens, {
+  foreignKey: 'userUuid'
+});
 
 module.exports = {
   Users,
