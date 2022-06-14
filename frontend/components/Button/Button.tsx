@@ -4,7 +4,7 @@ import styles from './Button.module.css';
 import { IButtonProps } from './Button.props';
 
 export const Button: FC<IButtonProps> = ({
-  type, className, onClick, children, appearance, ...props
+  type, className, onClick, children, appearance, disabled, ...props
 }) => (
   <button
     className={`
@@ -14,6 +14,7 @@ export const Button: FC<IButtonProps> = ({
     `}
     type={type}
     onClick={onClick}
+    disabled={disabled}
     {...props}
   >
     {children}
