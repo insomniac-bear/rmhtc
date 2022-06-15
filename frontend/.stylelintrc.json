@@ -11,6 +11,7 @@
 			"tab"
 		],
 		"color-hex-case": "upper",
-		"selector-class-pattern": null
+		"selector-class-pattern": null,
+		"custom-property-pattern": null
 	}
 }

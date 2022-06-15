@@ -1,0 +1,51 @@
+.input {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 356px;
+	min-height: 44px;
+	padding: 12px 15px;
+
+	color: var(--grey-600);
+	border: 1px solid var(--grey-500);
+	border-radius: 5px;
+	outline: none;
+	background-color: var(--grey-100);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.input__wrapper {
+	width: 100%;
+
+	/* margin: 0 auto; */
+	max-width: 356px;
+}
+
+.input::placeholder {
+	color: var(--grey-500);
+}
+
+.input_type_invalid {
+	color: var(--attention-strong);
+	border: 1px solid var(--attention-strong);
+}
+
+.input__message {
+	display: block;
+
+	max-width: 356px;
+	min-height: 20px;
+	margin: 5px 0 0;
+
+	text-align: left;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+}
+
+.input__message_type_error {
+	color: var(--attention-strong);
+}
