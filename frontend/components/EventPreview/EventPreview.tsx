@@ -1,9 +1,11 @@
+import { FC } from 'react';
 import { Title } from '../Title/Title';
 import styles from './EventPreview.module.css';
+import { IEventPreviewProps } from './EventPreview.props';
 
-export const EventPreview = ({
+export const EventPreview: FC<IEventPreviewProps> = ({
   isNew, title, date, address,
-}: any) => (
+}) => (
   <div className={`
       ${styles.eventPreview}
       ${isNew && styles.eventPreview_new}

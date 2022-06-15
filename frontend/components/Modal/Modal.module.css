@@ -1,0 +1,53 @@
+.modal {
+	position: fixed;
+	z-index: 5;
+
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 545px;
+	padding: 50px 94px 70px;
+
+	border-radius: 10px;
+	background-color: #FEFEFE;
+	box-shadow: 0 5px 21px 1px rgb(66 61 58 / 18%);
+}
+
+.modal__wrapper {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal__closeBtn {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+
+	align-self: flex-end;
+
+	width: 24px;
+	height: 24px;
+
+	cursor: pointer;
+	transition: 0.3s;
+
+	border: none;
+	background-color: transparent;
+	background-image: url("../../images/cross.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.modal__closeBtn:hover {
+	opacity: 0.8;
+}

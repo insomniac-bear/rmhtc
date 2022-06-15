@@ -1,0 +1,90 @@
+.signupForm {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100%;
+
+	text-align: center;
+}
+
+.signupForm__title {
+	margin-bottom: 45px;
+
+	text-align: center;
+
+	font-size: 25px;
+}
+
+.signupForm__checkbox {
+	align-items: flex-start;
+
+	max-width: 356px;
+	margin: 0 auto;
+	margin-bottom: 50px;
+
+	text-align: left;
+}
+
+.signupForm__errorMessage {
+	min-height: 20px;
+	margin: 5px 0;
+
+	text-align: left;
+
+	color: var(--attention-strong);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.signupForm__link {
+	transition: 0.3s;
+
+	color: var(--link);
+}
+
+.signupForm__link:hover {
+	color: var(--link-hover);
+}
+
+.signupForm__caption {
+	display: flex;
+	justify-content: center;
+
+	margin-top: 30px;
+
+	font-size: 16px;
+	gap: 4px;
+}
+
+.signupForm__button {
+	width: 100%;
+	padding: 15px 35px;
+}
+
+.signupForm__captionText {
+	margin: 0;
+	padding: 0;
+
+	font-family: var(--TTNorms);
+}
+
+@media screen and (max-width: 1024px) {
+	.signupForm__caption {
+		margin-top: 15px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.signupForm__title {
+		margin-bottom: 20px;
+	}
+
+	.signupForm__caption {
+		margin-top: 10px;
+
+		font-size: 14px;
+	}
+}
