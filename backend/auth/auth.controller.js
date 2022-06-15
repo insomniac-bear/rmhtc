@@ -24,16 +24,7 @@ class AuthController {
           data: registrationSuccess
         })
     } catch (err) {
-      if (err instanceof CustomError) {
-        return res
-          .status(err.status)
-          .json({
-            status: 'failed',
-            data: null,
-          })
-      } else {
-        next (err);
-      }
+      errorResponse(err, res, next);
     }
   }
 }

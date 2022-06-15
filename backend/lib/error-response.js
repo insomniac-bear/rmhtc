@@ -5,11 +5,8 @@ module.exports = (err, res, next) => {
     return res
       .status(err.status)
       .json({
-        service_data: {
-          status: err.code,
-          message: err.message,
-        },
-        client_data: {}
+        status: err.code,
+        client_data: null
       });
   } else {
     return next(err);

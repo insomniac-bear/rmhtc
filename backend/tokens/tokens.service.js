@@ -10,18 +10,28 @@ const {
   JWT_REFRESH_SECRET,
 } = require('../const');
 
-  function generateAccessToken({ uuid, email }) {
-    return jwt.sign({ uuid, email }, JWT_ACCESS_SECRET, { expiresIn: '59s' });
-  }
+/**
+ * Generate access token
+ * @param {Object of string} uuid and email
+ * @returns { String } access token
+ */
+function generateAccessToken({ uuid, email }) {
+  return jwt.sign({ uuid, email }, JWT_ACCESS_SECRET, { expiresIn: '59s' });
+}
 
-  function validateAccessToken(token) {
-      try {
-        const {uuid, email} = jwt.verify(token, JWT_ACCESS_SECRET);
-        return { uuid, email }
-      } catch(err) {
-        return undefined;
-      }
-    }
+/**
+ * Validate access token
+ * @param { String } token
+ * @returns { Object } uuid and email
+ */
+function validateAccessToken(token) {
+  try {
+    const {uuid, email} = jwt.verify(token, JWT_ACCESS_SECRET);
+    return { uuid, email }
+  } catch(err) {
+    return undefined;
+  }
+}
 
   function generateRefreshToken({ uuid, email }) {
     return jwt.sign({ uuid, email }, JWT_REFRESH_SECRET, { expiresIn: '8h' });

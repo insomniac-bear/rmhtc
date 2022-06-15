@@ -1,8 +1,8 @@
 const { DataTypes, Model } = require('sequelize');
 
-class EmailTokens extends Model {};
+class Roles extends Model {};
 
-const define = sequelize => EmailTokens.init({
+const define = sequelize => Roles.init({
   uuid: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -10,15 +10,20 @@ const define = sequelize => EmailTokens.init({
     unique: true,
     primaryKey: true,
   },
-  emailToken: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
+  category: {
+    type: DataTypes.JSONB,
+    defaultValue: ['all'],
+    allowNull: false,
+  },
 }, {
   sequelize,
-  modelName: 'EmailTokens',
-  tableName: 'email_tokens',
+  modelName: 'Roles',
+  tableName: 'roles',
 });
 
 module.exports = define;

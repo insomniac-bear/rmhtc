@@ -16,7 +16,6 @@ async function registrationUser (email) {
   }
 
   const { uuid } = await createUser({ email });
-  console.log(uuid)
 
   const emailToken = generateEmailVerificationToken({ uuid, email });
   const accessLink = `${CLIENT_URL}/${emailToken}`;
@@ -24,14 +23,12 @@ async function registrationUser (email) {
   if (!savedToken) {
     throw new CustomError('error', StatusCodes.INTERNAL_SERVER_ERROR, 'Some problem in auth.controller.js on 30rd line');
   }
-  console.log('presend email');
   await transporter.sendMail({
     from: 'RMHTC <info@rmhtc.ru>',
     to: `${email}, ${email}`,
     subject: 'Registration on RMHTC Web Platform',
     text: `Your access link for aprove email is ${accessLink}`
   });
-  console.log('email was send')
 
   return true;
 }

@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const CustomError = require('../lib/custom-error');
+const errorResponse = require('../lib/error-response');
 const usersService = require('./users.service');
 
 class UsersController {
@@ -17,23 +17,14 @@ class UsersController {
           data: users
         });
     } catch (err) {
-      if (err instanceof CustomError) {
-        return res
-          .status(err.status)
-          .json({
-            status: 'failed',
-            data: null,
-          })
-      } else {
-        next (err);
-      }
+      errorResponse(err, res, next);
     }
   }
 
   async createUser (req, res, next) {
     try {
       const userData = req.body;
-      console.log(userData)
+
       const newUser = await usersService.createUser(userData);
       return res
         .status(StatusCodes.OK)
@@ -42,16 +33,7 @@ class UsersController {
           data: newUser
         })
     } catch (err) {
-      if (err instanceof CustomError) {
-        return res
-          .status(err.status)
-          .json({
-            status: 'failed',
-            data: null,
-          })
-      } else {
-        next (err);
-      }
+      errorResponse(err, res, next);
     }
   }
 }

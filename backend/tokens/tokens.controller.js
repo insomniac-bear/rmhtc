@@ -1,4 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
+const { validationResult } = require('express-validator');
 const CustomError = require('../lib/custom-error');
 const {
   validateEmailVerifiedToken,
@@ -14,6 +15,11 @@ class TokensController {
 
   async confirmEmail (req, res, next) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new CustomError('failed', StatusCodes.BAD_REQUEST, 'Invalid token value');
+      }
+
       const emailToken = req.body.emailToken;
       if (!emailToken) {
         throw new CustomError('failed', StatusCodes.BAD_REQUEST, 'verification token isn\'t exist');
@@ -41,16 +47,7 @@ class TokensController {
           data: updatedUser,
         })
     } catch (err) {
-      if (err instanceof CustomError) {
-        return res
-          .status(err.status)
-          .json({
-            status: 'failed',
-            data: null,
-          })
-      } else {
-        next (err);
-      }
+      errorResponse(err, res, next);
     }
   }
 }

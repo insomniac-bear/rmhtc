@@ -18,7 +18,7 @@ const define = sequelize => RefreshTokens.init({
 }, {
   sequelize,
   modelName: 'RefreshTokens',
-  tableName: 'refresh-tokens',
+  tableName: 'refresh_tokens',
 });
 
 module.exports = define;
