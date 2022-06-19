@@ -22,6 +22,11 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      shortName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,

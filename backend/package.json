@@ -6,6 +6,8 @@
   "scripts": {
     "migrate:up": "npx cross-env NODE_ENV=local sequelize-cli db:migrate",
     "migrate:undo": "npx cross-env NODE_ENV=local sequelize-cli db:migrate:undo",
+    "seed:up": "npx cross-env NODE_ENV=local sequelize-cli db:seed:all",
+    "seed:undo": "npx cross-env NODE_ENV=local sequelize-cli db:seed:undo:all",
     "start:local": "cross-env NODE_ENV=local nodemon -r dotenv/config app.js",
     "start:dev": "cross-env NODE_ENV=development node -r dotenv/config app.js",
     "start:prod": "cross-env NODE_ENV=production node -r dotenv/config app.js"
