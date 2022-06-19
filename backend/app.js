@@ -4,12 +4,12 @@ const express = require('express');
 const { StatusCodes } = require('http-status-codes');
 const logger = require('./logger');
 const { ExitCode, PORT } = require('./const');
-const sequilize = require('./db/sequilize');
 const usersRoutes = require('./users/users.router');
 const tokensRoutes = require('./tokens/tokens.router');
 const authRoutes = require('./auth/auth.route');
 const CustomError = require('./lib/custom-error');
 const { API_PREFIX } = require('./const');
+const db = require('./models');
 
 const app = express();
 
@@ -68,8 +68,7 @@ process.on(`unhandledRejection`, (reason, promise) => {
 async function server () {
   try {
     logger.info('Truing to connect to database...');
-    await sequilize.authenticate();
-    await sequilize.sync();
+    await db.sequelize.authenticate();
     app.listen(PORT, () => {
       logger.info(`API Server has been started on port ${ PORT }`);
     })

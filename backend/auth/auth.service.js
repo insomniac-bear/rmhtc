@@ -1,6 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../lib/custom-error');
-const models = require('../db/models');
 const { getUserByParam, createUser } = require('../users/users.service');
 const {
   generateEmailVerificationToken,

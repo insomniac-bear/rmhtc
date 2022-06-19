@@ -3,7 +3,7 @@ const usersController = require('./users.controller');
 
 const usersRouter = new Router();
 
-// api/users - route
+// api/v1/users - route
 usersRouter.get('/', usersController.getAllUsers);
 usersRouter.post('/', usersController.createUser);
 

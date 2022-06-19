@@ -4,7 +4,7 @@ const CustomError = require('../lib/custom-error');
 const {
   RefreshTokens,
   EmailTokens,
-} = require('../db/models');
+} = require('../models');
 const {
   JWT_ACCESS_SECRET,
   JWT_REFRESH_SECRET,

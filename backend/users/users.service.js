@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../lib/custom-error');
-const { Users } = require('../db/models');
+const { Users } = require('../models');
 
 /**
  * Функция получения всех users из БД

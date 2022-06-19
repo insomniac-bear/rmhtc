@@ -1,17 +1,17 @@
 {
+  "local": {
+    "username": "postgres",
+    "password": "root",
+    "database": "rmhtc_local",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
   "development": {
     "username": "root",
     "password": "Xjen25rdd32019",
     "database": "rmhtc_staging",
     "host": "10.16.10.1",
     "port": "5433",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "root",
-    "password": "root",
-    "database": "rmhtc_local",
-    "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
