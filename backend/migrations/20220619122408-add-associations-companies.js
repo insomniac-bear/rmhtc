@@ -54,7 +54,7 @@ module.exports = {
     .then(() => {
       return queryInterface.addColumn(
         'companies',
-        'messangerUuid',
+        'messengerUuid',
         {
           type: Sequelize.DataTypes.UUID,
           references: {

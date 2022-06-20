@@ -17,8 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.RefreshTokens, {
         foreignKey: 'userUuid',
       });
-      this.hasOne(models.Roles, {
-        foreignKey: 'userUuid',
+      this.belongsTo(models.Roles, {
+        foreignKey: 'roleUuid',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       });
       this.hasMany(models.Companies, {
         foreignKey: 'userUuid',

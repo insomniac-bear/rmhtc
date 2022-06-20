@@ -46,11 +46,24 @@ function validateAccessToken(token) {
     }
   }
 
+  async function findRefreshToken(userUuid) {
+    try {
+      const refreshToken = await RefreshTokens.findOne({
+        where: {
+          userUuid,
+        }
+      });
+      return refreshToken;
+    } catch(err) {
+      throw new CustomError('failed', StatusCodes.FORBIDDEN, 'Authorization data isn\'t valid');
+    }
+  }
+
   async function saveRefreshToken(userUuid, refreshToken) {
     try {
-      const oldToken = await this.findRefreshToken(userUuid);
+      const oldToken = await findRefreshToken(userUuid);
       if (!oldToken) {
-        await RefreshTokens.create({
+        return await RefreshTokens.create({
           refreshToken,
           userUuid,
         });
@@ -76,19 +89,6 @@ function validateAccessToken(token) {
         uuid: tokenUuid,
       }
     });
-  }
-
-  async function findRefreshToken(userUuid) {
-    try {
-      const refreshToken = await RefreshTokens.findOne({
-        where: {
-          userUuid,
-        }
-      });
-      return refreshToken;
-    } catch(err) {
-      throw new CustomError('failed', StatusCodes.FORBIDDEN, 'Authorization data isn\'t valid');
-    }
   }
 
   function generateEmailVerificationToken({ uuid, email }) {

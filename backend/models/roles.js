@@ -11,14 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Users, {
-        foreignKey: 'userUuid',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+      this.hasOne(models.Users, {
+        foreignKey: 'roleUuid',
       });
       this.belongsTo(models.Scopes, {
         foreignKey: 'scopesUuid',
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       });
     }

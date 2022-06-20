@@ -54,7 +54,6 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     regNumName: {
       type: DataTypes.STRING,
@@ -63,12 +62,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     regNumber: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
     },
     regDocUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
     },
     issuingAuthority: {
@@ -98,8 +97,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     qcEmployes: {
       type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: '1 - 50',
+      allowNull: true,
+      defaultValue: null,
     },
     moderated: {
       type: DataTypes.BOOLEAN,

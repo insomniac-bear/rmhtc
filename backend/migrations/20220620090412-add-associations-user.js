@@ -9,12 +9,12 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     return queryInterface.addColumn(
-      'roles',
-      'scopesUuid',
+      'users',
+      'roleUuid',
       {
         type: Sequelize.DataTypes.UUID,
         references: {
-          model: 'scopes',
+          model: 'roles',
           key: 'uuid',
         },
         onUpdate: 'CASCADE',
@@ -31,8 +31,8 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
     return queryInterface.removeColumn(
-      'roles',
-      'scopesUuid',
+      'users',
+      'roleUuid',
     );
   }
 };

@@ -36,9 +36,12 @@ const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
-app.use((req, res, next) => {
+app.use((err, req, res, next) => {
   logger.info(`Request on route ${req.url}`);
   res.on(`finish`, () => {
+    if (err) {
+      logger.error(`Status code is ${err.message}`);
+    }
     logger.info(`Status code is ${res.statusCode}`);
   });
   next();

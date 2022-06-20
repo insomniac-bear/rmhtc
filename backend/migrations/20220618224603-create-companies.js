@@ -20,7 +20,6 @@ module.exports = {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       regNumName: {
         type: DataTypes.STRING,
@@ -29,12 +28,12 @@ module.exports = {
       },
       regNumber: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: null,
       },
       regDocUrl: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: null,
       },
       issuingAuthority: {
@@ -64,8 +63,8 @@ module.exports = {
       },
       qcEmployes: {
         type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: '1 - 50',
+        allowNull: true,
+        defaultValue: null,
       },
       moderated: {
         type: DataTypes.BOOLEAN,
@@ -77,7 +76,7 @@ module.exports = {
         allowNull: true,
         defaultValue: null
       },
-      createdAt: {
+        createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
       },
