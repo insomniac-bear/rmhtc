@@ -1,4 +1,4 @@
-.input {
+.customInput {
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 356px;
@@ -15,23 +15,16 @@
 	font-size: 16px;
 }
 
-.input__wrapper {
-	width: 100%;
-
-	/* margin: 0 auto; */
-	max-width: 356px;
-}
-
-.input::placeholder {
+.customInput::placeholder {
 	color: var(--grey-500);
 }
 
-.input_type_invalid {
-	color: var(--attention-strong);
-	border: 1px solid var(--attention-strong);
+.customInput__wrapper {
+	width: 100%;
+	max-width: 356px;
 }
 
-.input__message {
+.customInput__message {
 	display: block;
 
 	max-width: 356px;
@@ -46,6 +39,6 @@
 	font-size: 14px;
 }
 
-.input__message_type_error {
+.customInput__message_type_error {
 	color: var(--attention-strong);
 }

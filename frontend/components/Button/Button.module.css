@@ -31,3 +31,7 @@
 .button_appearance_primary:hover {
 	opacity: 0.8;
 }
+
+.button:disabled {
+	opacity: .5;
+}

@@ -40,3 +40,20 @@
 .checkbox__input:checked {
 	background-image: url("./checkbox-checked.svg");
 }
+
+.checkbox__errorMessage {
+	display: block;
+
+	max-width: 356px;
+	width: 100%;
+	min-height: 20px;
+	margin: 5px 0 0;
+
+	text-align: left;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+	color: var(--attention-strong);
+}
