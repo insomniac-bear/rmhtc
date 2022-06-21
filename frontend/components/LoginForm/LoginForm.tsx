@@ -1,23 +1,28 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable max-len */
 // import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import {
-  FC, FormEvent, useRef, useState,
+  FC, useRef, useState,
 } from 'react';
 import { Title } from '../Title/Title';
 import { ILoginFormProps } from './LoginForm.props';
 import styles from './LoginForm.module.css';
-import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
-// import { EmailInput } from '../EmailInput/EmailInput';
-// import { PasswordInput } from '../PasswordInput/PasswordInput';
-// import { CustomLink } from '../CustomLink/CustomLink';
-// import { PrimaryButton } from '../PrimaryButton/PrimaryButton';
-// import { Checkbox } from '../Checkbox/Checkbox';
+import { CustomInput } from '../CustomInput/CustomInput';
+
+type FormData = {
+  email: string;
+  password: string;
+}
 
 export const LoginForm: FC<ILoginFormProps> = ({ className = '' }) => {
   // const router = useRouter();
   const [isFormValid, setFormValid] = useState<boolean>(false);
   const [formErrorMessage, setFormErrorMessage] = useState<string>('');
+
+  const { handleSubmit, register, formState: { errors } } = useForm<FormData>();
 
   const formRef = useRef<any>(null);
 
@@ -27,8 +32,8 @@ export const LoginForm: FC<ILoginFormProps> = ({ className = '' }) => {
     setFormValid(formValidity);
   };
 
-  const submitFormHandler = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
+  const submitFormHandler = (data: FormData) => {
+    console.log(data);
     // const email = formRef.current?.elements.email.value;
     // const password = formRef.current?.elements.password.value;
     // dispatch(loginAction(email, password))
@@ -47,14 +52,20 @@ export const LoginForm: FC<ILoginFormProps> = ({ className = '' }) => {
   };
 
   return (
-    <form ref={formRef} onChange={changeFormHandler} onSubmit={submitFormHandler} className={`${styles.loginForm} ${className}`}>
+    <form onChange={changeFormHandler} onSubmit={handleSubmit(submitFormHandler)} className={`${styles.loginForm} ${className}`}>
       <Title className={styles.loginForm__title} tag="h2" size="s">Login</Title>
       <fieldset className={styles.loginForm__fieldset}>
-        <Input
-          name="email"
+        <CustomInput
           placeholder="Email"
-          required
-          message=""
+          errors={errors.email}
+          label="Email"
+          {...register('email', {
+            required: 'Email is required.',
+            pattern: {
+              value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: 'Please input a valid email.',
+            },
+          })}
         />
         <Link
           className={styles.loginForm__link}
@@ -65,10 +76,13 @@ export const LoginForm: FC<ILoginFormProps> = ({ className = '' }) => {
             Forgot password?
           </a>
         </Link>
-        <Input
-          name="password"
+        <CustomInput
           placeholder="Password"
-          required
+          errors={errors.password}
+          label="Password"
+          {...register('password', {
+            required: 'Password is required.',
+          })}
         />
         <p className={styles.loginForm__errorMessage}>{formErrorMessage}</p>
         <Button disabled={isFormValid} className={styles.loginForm__button} appearance="primary" type="submit">Login</Button>

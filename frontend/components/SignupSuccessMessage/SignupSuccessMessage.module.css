@@ -1,0 +1,13 @@
+.signupSuccessMessage__text {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+  font-family: var(--TTNorms);
+}
+
+.signupSuccessMessage__button {
+  margin-top: 50px;
+  width: 100%;
+  padding: 15px 35px;
+  font-size: 20px;
+}
