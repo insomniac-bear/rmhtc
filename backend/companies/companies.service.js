@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../lib/custom-error');
 const { Companies } = require('../models');
+const { Op } = require('sequelize');
 
 /**
  * Функция получения всех компаний из БД
@@ -57,11 +58,34 @@ async function createCompany (company) {
   const newCompany = Companies.build(company);
   await newCompany.save();
   return newCompany;
-}
+};
+
+async function getUsersModeratedCompanyCount (userUuid) {
+  const companyCount = await Companies.count({
+    where: {
+      [Op.and]: {
+        userUuid,
+        moderated: true,
+      }
+    }
+  });
+  return companyCount;
+};
+
+async function getUsersAllCompanyCount (userUuid) {
+  const companyCount = await Companies.count({
+    where: {
+      userUuid,
+    }
+  });
+  return companyCount
+};
 
 module.exports = {
   getAllCompanies,
   getCompanyById,
   getCompanyByParam,
   createCompany,
+  getUsersAllCompanyCount,
+  getUsersModeratedCompanyCount,
 }

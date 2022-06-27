@@ -121,10 +121,10 @@ async function getEmailVerificationToken(emailToken) {
   return token;
 }
 
-  async function dropEmailVerificationToken({tokenUuid}) {
+  async function dropEmailVerificationToken(userUuid) {
     return await EmailTokens.destroy({
       where: {
-        uuid: tokenUuid,
+        userUuid,
       }
     })
   }

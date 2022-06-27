@@ -7,14 +7,15 @@ const errorResponse = require('../lib/error-response');
 const {
   generateAccessToken,
   generateRefreshToken,
-  saveRefreshToken
+  saveRefreshToken,
+  dropEmailVerificationToken,
 } = require('../tokens/tokens.service');
 const {
   updateUser,
   getUserById,
 } = require('../users/users.service');
 const { createRole } = require('../roles/roles.service');
-const { createCompany } = require('../companies/companies.service');
+const { createCompany, getUsersAllCompanyCount, getUsersModeratedCompanyCount } = require('../companies/companies.service');
 const { SALT } = require('../const');
 
 class AuthController {
@@ -61,10 +62,12 @@ class AuthController {
         businessRole,
         roleUuid: userRoleUuid,
       });
+
       const user = await getUserById(uuid);
       if (!user) {
         throw new CustomError('error', StatusCodes.BAD_GATEWAY, 'Error with updating user');
       }
+
       const { email } = user;
       const accessToken = generateAccessToken({ uuid, email });
       const refreshToken = generateRefreshToken({ uuid, email });
@@ -72,8 +75,13 @@ class AuthController {
 
       await createCompany({
         name: companyData.name,
-        userUuid: user.uuid,
+        userUuid: uuid,
       });
+
+      const companyCount = await getUsersAllCompanyCount(uuid);
+      const moderatedCompanyCount = await getUsersModeratedCompanyCount(uuid);
+
+      await dropEmailVerificationToken(uuid);
 
       res.cookie('refreshToken', refreshToken, {
         maxAge: 1000 * 60 * 60 * 24,
@@ -86,6 +94,8 @@ class AuthController {
         status: 'success',
         accessToken,
         user,
+        companyCount,
+        moderatedCompanyCount,
       });
     } catch (err) {
       errorResponse(err, res, next);
