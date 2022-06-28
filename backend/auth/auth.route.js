@@ -13,5 +13,12 @@ authRouter.post(
   authController.registrationUser
 );
 authRouter.post('/finish-registration', authController.finishRegistration);
+authRouter.post(
+  '/login',
+  body('email')
+    .isEmail()
+    .normalizeEmail(),
+  authController.authUser
+);
 
 module.exports = authRouter;

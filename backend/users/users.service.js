@@ -28,7 +28,6 @@ async function getUserById (uuid) {
         exclude: ['password', 'updatedAt', 'createdAt', 'roleUuid'],
       },
       include: [
-        { model: Companies },
         {
           model: Roles,
           attributes: {
@@ -63,7 +62,26 @@ async function getUserByParam (param, value) {
   const user = await Users.findOne({
     where: {
       [param]: value,
-    }
+    },
+    attributes: {
+      exclude: ['updatedAt', 'createdAt', 'roleUuid'],
+    },
+    include: [
+      {
+        model: Roles,
+        attributes: {
+          exclude: ['scopesUuid', 'updatedAt', 'createdAt']
+        },
+        include: [
+          {
+            model: Scopes,
+            attributes: {
+             exclude: ['uuid', 'updatedAt', 'createdAt']
+            }
+          }
+        ]
+      }
+    ]
   })
   if (!user) {
     return undefined;
