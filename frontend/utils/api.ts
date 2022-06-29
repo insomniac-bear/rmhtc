@@ -44,20 +44,21 @@ export const setPrimaryPassword = (uuid: string, password: string, role: string,
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
   body: JSON.stringify({
-    user: {
+    userData: {
       uuid,
       password,
       role,
     },
-    company: {
+    companyData: {
       name: company,
     },
   }),
 })
   .then(checkResponce)
   .then((res) => {
-    if (res.service_data.status === 'success') return res;
+    if (res.status === 'success') return res;
     return Promise.reject(res);
   });
 

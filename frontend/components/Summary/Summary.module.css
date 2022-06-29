@@ -1,0 +1,76 @@
+.summary {
+	display: grid;
+	justify-content: center;
+
+	box-sizing: border-box;
+	padding: 50px 155px;
+	gap: 20px;
+	grid-template-columns: 320px 320px;
+	grid-template-areas:
+		"objects objects"
+		"companies requests"
+		"offers news";
+}
+
+.summary__objects {
+	grid-area: objects;
+}
+
+.summary__companies {
+	grid-area: companies;
+}
+
+.summary__requests {
+	grid-area: requests;
+}
+
+.summary__offers {
+	grid-area: offers;
+}
+
+.summary__news {
+	grid-area: news;
+}
+
+.summary__containerTitle {
+	display: flex;
+	gap: 10px;
+
+	align-items: flex-end;
+}
+
+.summary__title {
+	color: var(--accent-red-400);
+
+	font-family: var(--TTNorms);
+	font-weight: 400;
+}
+
+.summary__title_size_xl {
+	font-size: 20px;
+	line-height: 26px;
+}
+
+.summary__title_size_l {
+	font-size: 14px;
+	line-height: 17px;
+}
+
+.summary__counter {
+	color: var(--accent-red-400);
+
+	font-family: var(--RobotoSlab);
+	line-height: 1;
+}
+
+.summary__counter_size_l {
+	font-size: 25px;
+}
+
+.summary__counter_size_xl {
+	font-size: 48px;
+}
+
+.summary__moderationStatusList {
+	margin-top: 10px;
+}

@@ -1,0 +1,34 @@
+.moderationStatusList {
+	display: flex;
+	flex-direction: column;
+
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.moderationStatusList__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	box-sizing: border-box;
+	padding: 7px 0 8px;
+
+	color: var(--grey-600);
+	border-bottom: 1px solid var(--grey-400);
+	gap: 20px;
+}
+
+.moderationStatusList__caption {
+	margin: 0;
+
+	font-family: var(--TTNorms);
+	font-size: 13px;
+}
+
+.moderationStatusList__counter {
+	font-family: var(--RobotoSlab);
+	font-size: 18px;
+}

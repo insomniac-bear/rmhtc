@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useAppDispatch } from '../services/hooks';
-import { verifySignupEmailToken } from '../services/slices/users';
+import { useAppDispatch } from '../../services/hooks';
+import { verifySignupEmailToken } from '../../services/slices/users';
 
 const VerifySignupTokenPage: NextPage = () => {
   const dispatch = useAppDispatch();

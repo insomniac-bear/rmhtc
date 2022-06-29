@@ -1,0 +1,17 @@
+.container {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 25px;
+
+	border: 1px solid var(--accent-blue-200);
+	border-radius: 10px;
+	background-color: var(--grey-100);
+	box-shadow: 0 5px 21px 1px rgb(66 61 58 / 18%);
+}
+
+.container_backgroundLogo {
+	background-image: url("../../images/opacityLogo.svg");
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 40%;
+}
