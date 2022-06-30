@@ -44,16 +44,17 @@
 .checkbox__errorMessage {
 	display: block;
 
-	max-width: 356px;
 	width: 100%;
+
+	max-width: 356px;
 	min-height: 20px;
 	margin: 5px 0 0;
 
 	text-align: left;
 
 	color: var(--grey-500);
+	color: var(--attention-strong);
 
 	font-family: var(--TTNorms);
 	font-size: 14px;
-	color: var(--attention-strong);
 }

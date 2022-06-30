@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
+const { Sequelize } = require('sequelize');
 const CustomError = require('../lib/custom-error');
-const { Users } = require('../models');
+const { Users, Companies, Roles, Scopes } = require('../models');
 
 /**
  * Функция получения всех users из БД
@@ -21,7 +22,29 @@ async function getAllUsers () {
  * @returns {Object} user
  */
 async function getUserById (uuid) {
-  const user = await Users.findByPk(uuid);
+  const user = await Users.findByPk(uuid,
+    {
+      attributes: {
+        exclude: ['password', 'updatedAt', 'createdAt', 'roleUuid'],
+      },
+      include: [
+        {
+          model: Roles,
+          attributes: {
+            exclude: ['scopesUuid', 'updatedAt', 'createdAt']
+          },
+          include: [
+            {
+              model: Scopes,
+              attributes: {
+               exclude: ['uuid', 'updatedAt', 'createdAt']
+              }
+            }
+          ]
+        }
+      ]
+    }
+  );
   if (!user) {
     throw new CustomError('failed', StatusCodes.NOT_FOUND, 'User not found');
   }
@@ -39,7 +62,26 @@ async function getUserByParam (param, value) {
   const user = await Users.findOne({
     where: {
       [param]: value,
-    }
+    },
+    attributes: {
+      exclude: ['updatedAt', 'createdAt', 'roleUuid'],
+    },
+    include: [
+      {
+        model: Roles,
+        attributes: {
+          exclude: ['scopesUuid', 'updatedAt', 'createdAt']
+        },
+        include: [
+          {
+            model: Scopes,
+            attributes: {
+             exclude: ['uuid', 'updatedAt', 'createdAt']
+            }
+          }
+        ]
+      }
+    ]
   })
   if (!user) {
     return undefined;

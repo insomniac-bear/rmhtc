@@ -1,13 +1,16 @@
 .signupSuccessMessage__text {
-  margin: 0;
-  font-size: 20px;
-  text-align: center;
-  font-family: var(--TTNorms);
+	margin: 0;
+
+	text-align: center;
+
+	font-family: var(--TTNorms);
+	font-size: 20px;
 }
 
 .signupSuccessMessage__button {
-  margin-top: 50px;
-  width: 100%;
-  padding: 15px 35px;
-  font-size: 20px;
+	width: 100%;
+	margin-top: 50px;
+	padding: 15px 35px;
+
+	font-size: 20px;
 }

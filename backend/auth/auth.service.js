@@ -1,4 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
+const bcrypt = require('bcryptjs');
 const CustomError = require('../lib/custom-error');
 const { getUserByParam, createUser } = require('../users/users.service');
 const {
@@ -17,7 +18,9 @@ async function registrationUser (email) {
   const { uuid } = await createUser({ email });
 
   const emailToken = generateEmailVerificationToken({ uuid, email });
-  const accessLink = `${CLIENT_URL}/${emailToken}`;
+  const accessLink = process.env.NODE_ENV === 'local'
+    ? `${CLIENT_URL}/${emailToken}:3000`
+    : `${CLIENT_URL}/${emailToken}`;
   const savedToken = await saveEmailVerificationToken(emailToken, uuid);
   if (!savedToken) {
     throw new CustomError('error', StatusCodes.INTERNAL_SERVER_ERROR, 'Some problem in auth.controller.js on 30rd line');
@@ -32,6 +35,21 @@ async function registrationUser (email) {
   return true;
 }
 
+async function authUser (email, password) {
+  const candidate = await getUserByParam('email', email);
+  if (!candidate) {
+    throw new CustomError('failed', StatusCodes.FORBIDDEN, 'Invalid email or password');
+  }
+
+  const passwordIsMatch = bcrypt.compareSync(password, candidate.password);
+  if (!passwordIsMatch) {
+    throw new CustomError('failed', StatusCodes.FORBIDDEN, 'Invalid email or password');
+  }
+
+  return candidate;
+}
+
 module.exports = {
-  registrationUser
+  registrationUser,
+  authUser
 };

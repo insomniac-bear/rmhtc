@@ -1,0 +1,29 @@
+.profileLayout__wrapper {
+	display: grid;
+
+	min-height: 100vh;
+
+	background-color: var(--grey-200);
+	gap: 2px;
+	grid-template: 84px 1fr / 285px 1fr;
+	grid-template-areas:
+		"header header"
+		"sidemenu body";
+}
+
+.profileLayout__header {
+	z-index: 1;
+
+	max-width: 1920px;
+	padding: 16px 50px;
+
+	background-color: var(--grey-100);
+	gap: 182px;
+	grid-template-columns: auto 1fr auto;
+	grid-area: header;
+}
+
+.profileLayout__sideMenu {
+	box-shadow: 0 5px 21px 1px rgb(66 61 58 / 18%);
+	grid-area: sidemenu;
+}

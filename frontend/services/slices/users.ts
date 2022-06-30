@@ -1,10 +1,12 @@
 /* eslint-disable no-param-reassign */
+import Cookies from 'js-cookie';
 import { createSlice } from '@reduxjs/toolkit';
 import { registerUser, setPrimaryPassword, verifyEmailToken } from '../../utils/api';
 import { AppDispatch, AppThunk } from '../store';
 
 interface IInitialState {
   signupEmail: string;
+  isAuth: boolean,
   status: string;
   user: {
     uuid: string;
@@ -21,6 +23,7 @@ interface IInitialState {
 
 const initialState: IInitialState = {
   signupEmail: '',
+  isAuth: false,
   status: 'success',
   user: {
     uuid: '',
@@ -40,12 +43,16 @@ export const userSlice = createSlice({
     setRegistrationEmail(state, action) {
       state.signupEmail = action.payload;
     },
+    setUserAuth(state, action) {
+      state.isAuth = action.payload;
+    },
   },
 });
 
 export const {
   setUser,
   setRegistrationEmail,
+  setUserAuth,
 } = userSlice.actions;
 
 export const signup: AppThunk = (email: string) => (dispatch: AppDispatch) => registerUser(email)
@@ -63,7 +70,12 @@ export const verifySignupEmailToken: AppThunk = (token: string) => (dispatch: Ap
 export const confirmPassword: AppThunk = ({
   uuid, password, role, company,
 }: any) => (dispatch: AppDispatch) => setPrimaryPassword(uuid, password, role, company)
-  .then((res) => dispatch(setUser(res.data)))
+  .then((res) => {
+    dispatch(setUser(res.user));
+    Cookies.set('accessToken', res.accessToken);
+    dispatch(setUserAuth(true));
+    return res;
+  })
   .catch((error) => {
     throw new Error(error);
   });

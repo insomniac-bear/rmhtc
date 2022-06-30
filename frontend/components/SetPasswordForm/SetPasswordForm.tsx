@@ -1,3 +1,4 @@
+import router from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { confirmPassword } from '../../services/slices/users';
@@ -24,11 +25,9 @@ export const SetPasswordForm = () => {
   const watchAllFields = watch();
 
   const submitFormHandler = (data: FormData) => {
-    console.log('GO GO GO');
-
     const preparedData = { ...data, uuid: user.uuid };
     dispatch(confirmPassword(preparedData))
-      .then((res: any) => console.log(res));
+      .then(() => router.push('/profile/summary'));
   };
 
   return (
@@ -39,7 +38,7 @@ export const SetPasswordForm = () => {
         <PasswordInput
           placeholder="Password"
           errors={errors.password}
-          label="Password"
+          label="password"
           {...register('password', {
             required: 'Password is required.',
             pattern: {
