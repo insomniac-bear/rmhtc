@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { body } = require('express-validator');
+const authMiddleware = require('../middlewares/auth-middleware');
 const authController = require('./auth.controller');
 
 const authRouter = new Router();
@@ -20,5 +21,7 @@ authRouter.post(
     .normalizeEmail(),
   authController.authUser
 );
+authRouter.get('/check-auth', authMiddleware, authController.checkAuth);
+authRouter.get('/logout', authMiddleware, authController.logout);
 
 module.exports = authRouter;

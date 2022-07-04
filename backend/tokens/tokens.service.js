@@ -59,6 +59,19 @@ function validateAccessToken(token) {
     }
   }
 
+  async function findRefreshTokenByName(refreshToken) {
+    try {
+      const token = await RefreshTokens.findOne({
+        where: {
+          refreshToken,
+        }
+      });
+      return token;
+    } catch(err) {
+      throw new CustomError('failed', StatusCodes.FORBIDDEN, 'Authorization data isn\'t valid');
+    }
+  }
+
   async function saveRefreshToken(userUuid, refreshToken) {
     try {
       const oldToken = await findRefreshToken(userUuid);
@@ -87,6 +100,14 @@ function validateAccessToken(token) {
     return await RefreshTokens.destroy({
       where: {
         uuid: tokenUuid,
+      }
+    });
+  }
+
+  async function dropRefreshTokenByParam(param, value) {
+    return await RefreshTokens.destroy({
+      where: {
+        [param]: value,
       }
     });
   }
@@ -136,7 +157,9 @@ module.exports = {
   validateRefreshToken,
   saveRefreshToken,
   dropRefreshToken,
+  dropRefreshTokenByParam,
   findRefreshToken,
+  findRefreshTokenByName,
   generateEmailVerificationToken,
   validateEmailVerifiedToken,
   saveEmailVerificationToken,

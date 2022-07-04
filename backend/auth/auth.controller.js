@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const CustomError = require('../lib/custom-error');
 const errorResponse = require('../lib/error-response');
+const UserDto = require('../users/dto/userDto');
 
 const {
   registrationUser,
@@ -12,6 +13,7 @@ const {
   generateAccessToken,
   generateRefreshToken,
   saveRefreshToken,
+  dropRefreshTokenByParam,
   dropEmailVerificationToken,
 } = require('../tokens/tokens.service');
 const {
@@ -130,8 +132,7 @@ class AuthController {
         uuid: user.uuid,
         email,
       });
-      const userData = user.get();
-      delete userData.password;
+      const userData = new UserDto(user);
 
       await saveRefreshToken(user.uuid, refreshToken);
       const companyCount = await getUsersAllCompanyCount(user.uuid);
@@ -154,10 +155,48 @@ class AuthController {
     } catch (err) {
       errorResponse(err, res, next);
     }
+  }
+
+  async checkAuth (req, res, next) {
+    try {
+      const userUuid = req.userUuid;
+      const newAccessToken = req.newAccessToken;
+      const newRefreshToken = req.newRefreshToken;
+
+      const userData = await getUserById(userUuid);
+      const user = new UserDto(userData);
+      res.cookie('refreshToken', newRefreshToken, {
+        maxAge: 1000 * 60 * 60 * 24,
+        httpOnly: true,
+        sameSite: 'lax',
+      });
+      return res
+      .status(StatusCodes.OK)
+      .json({
+        status: 'success',
+        accessToken: newAccessToken,
+        user,
+      });
 
     } catch (err) {
       errorResponse(err, res, next);
     }
+  }
+
+  async logout (req, res, next) {
+    try {
+      const userUuid = req.userUuid;
+      await dropRefreshTokenByParam('userUuid', userUuid);
+      res.clearCookie('refreshToken');
+      return res
+        .status(StatusCodes.OK)
+        .json({
+          status: 'success',
+        })
+    } catch (err) {
+      errorResponse(err);
+    }
+  }
 }
 
 module.exports = new AuthController();

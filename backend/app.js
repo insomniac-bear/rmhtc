@@ -34,8 +34,6 @@ const app = express();
 //   credentials: true,
 // }));
 
-app.use(cookieParser());
-app.use(express.json());
 app.use((err, req, res, next) => {
   logger.info(`Request on route ${req.url}`);
   res.on(`finish`, () => {
@@ -43,9 +41,12 @@ app.use((err, req, res, next) => {
       logger.error(`Status code is ${err.message}`);
     }
     logger.info(`Status code is ${res.statusCode}`);
+    console.log(`Status code is ${res.statusCode}`);
   });
   next();
 });
+app.use(cookieParser());
+app.use(express.json());
 
 app.use(`${API_PREFIX}/users`, usersRoutes);
 app.use(`${API_PREFIX}/tokens`, tokensRoutes);
