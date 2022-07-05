@@ -108,6 +108,10 @@ async function createUser (user) {
  * @returns user
  */
 async function updateUser (uuid, updateData) {
+  if (!updateData) {
+    throw new CustomError('failed', StatusCodes.BAD_REQUEST, 'You dont\'t sent data for update');
+  }
+
   const user = Users.findByPk(uuid);
   if (!user) {
     throw new CustomError('failed', StatusCodes.NOT_FOUND, 'user not found');
@@ -115,18 +119,11 @@ async function updateUser (uuid, updateData) {
 
   const updateUserData = Object.assign({}, updateData);
 
-  await Users.update(updateUserData, {
+  return await Users.update(updateUserData, {
     where: {
       uuid,
     }
   });
-
-  return await Users.findByPk(uuid, {
-    attributes: {
-      exclude: ['password'],
-    },
-    include: [],
-  })
 }
 
 module.exports = {

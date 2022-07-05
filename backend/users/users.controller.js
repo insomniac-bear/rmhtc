@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const errorResponse = require('../lib/error-response');
 const usersService = require('./users.service');
+const userDto = require('./dto/userDto');
 
 class UsersController {
   constructor () {
@@ -9,7 +10,6 @@ class UsersController {
   async getAllUsers (req, res, next) {
     try {
       const users = await usersService.getAllUsers();
-      console.log(users)
       return res
         .status(StatusCodes.OK)
         .json({
@@ -35,6 +35,16 @@ class UsersController {
     } catch (err) {
       errorResponse(err, res, next);
     }
+  }
+
+  async updateUser (req, res, next) {
+    try {
+      const userData = userDto(req.body);
+      const userUUID = req.userUUID;
+      const accessToken = req.newAccessToken;
+      const refreshToken = req.newRefreshToken;
+
+    } catch (err) {}
   }
 }
 
