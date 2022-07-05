@@ -108,6 +108,7 @@ async function createUser (user) {
  * @returns user
  */
 async function updateUser (uuid, updateData) {
+  console.log(uuid)
   if (!updateData) {
     throw new CustomError('failed', StatusCodes.BAD_REQUEST, 'You dont\'t sent data for update');
   }

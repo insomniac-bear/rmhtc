@@ -17,6 +17,7 @@ module.exports = async (req, res, next) => {
         const accessTokenData = validateAccessToken(accessToken);
         if (accessTokenData) {
           const { uuid, email } = accessTokenData;
+          console.log(uuid)
           const newAccessToken = generateAccessToken({ uuid, email });
           const newRefreshToken = generateRefreshToken({ uuid, email });
           req.userUUID = uuid;
