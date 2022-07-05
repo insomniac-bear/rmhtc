@@ -60,6 +60,11 @@ async function createCompany (company) {
   return newCompany;
 };
 
+/**
+ * Функция возвращения количества отмодерированных компаний пользователя
+ * @param {String} userUuid
+ * @returns Count of moderated companies
+ */
 async function getUsersModeratedCompanyCount (userUuid) {
   const companyCount = await Companies.count({
     where: {
@@ -72,6 +77,11 @@ async function getUsersModeratedCompanyCount (userUuid) {
   return companyCount;
 };
 
+/**
+ * Функция получения количества всех компаний пользователя
+ * @param {String} userUuid
+ * @returns Count of all user's companies
+ */
 async function getUsersAllCompanyCount (userUuid) {
   const companyCount = await Companies.count({
     where: {
