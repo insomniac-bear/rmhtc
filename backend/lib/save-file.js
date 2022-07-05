@@ -11,6 +11,7 @@ const minioClient = new Minio.Client({
   endPoint: STORAGE_ROUTE,
   accessKey: STORAGE_USER,
   secretKey: STORAGE_PASSWORD,
+  useSSL: true,
 });
 
 module.exports.putObject = function (fileName, buffer, isPrivate = false) {
@@ -18,6 +19,7 @@ module.exports.putObject = function (fileName, buffer, isPrivate = false) {
 
   minioClient.putObject(bucketName, fileName, buffer, function (err, etag) {
     if (err) {
+      console.log(err);
       return err;
     }
     return etag;
@@ -33,7 +35,6 @@ module.exports.presignetPutObject = function (fileName) {
     if (err) {
       return err;
     }
-    console.log(presignedUrl);
     return presignedUrl;
   })
 }

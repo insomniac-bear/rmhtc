@@ -50,6 +50,6 @@ module.exports.SALT = 6;
 
 module.exports.STORAGE_USER = process.env.STORAGE_USER;
 module.exports.STORAGE_PASSWORD = process.env.STORAGE_PASSWORD;
-module.exports.STORAGE_ROUTE = MODE === 'production' ? process.env.STORAGE_PROD_ROUTE : process.env.STORAGE_DEV_ROUTE;
+module.exports.STORAGE_ROUTE = process.env.STORAGE_DEV_ROUTE;
 module.exports.STORAGE_PUBLIC_BUCKET = process.env.STORAGE_PUBLIC_BUCKET;
 module.exports.STORAGE_PRIVATE_BUCKET = process.env.STORAGE_PRIVATE_BUCKET;

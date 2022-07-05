@@ -3,6 +3,8 @@ const errorResponse = require('../lib/error-response');
 const usersService = require('./users.service');
 const userDto = require('./dto/userDto');
 const CustomError = require('../lib/custom-error');
+const { putObject } = require('../lib/save-file');
+const { getExt } = require('../lib/get-ext');
 const {
   getUsersAllCompanyCount,
   getUsersModeratedCompanyCount
@@ -50,6 +52,53 @@ class UsersController {
       const refreshToken = req.newRefreshToken;
 
       const isUpdate = await usersService.updateUser(userUuid, userData);
+
+      if (isUpdate.length < 0) {
+        throw new CustomError('failed', StatusCodes.INTERNAL_SERVER_ERROR, 'Some problem with update user');
+      }
+
+      const updatedUser = await usersService.getUserById(userUuid);
+      const updatedUserData = new userDto(updatedUser);
+      const companyCount = await getUsersAllCompanyCount(userUuid);
+      const moderatedCompanyCount = await getUsersModeratedCompanyCount(userUuid);
+
+      res.cookie('refreshToken', refreshToken, {
+        maxAge: 1000 * 60 * 60 * 24,
+        httpOnly: true,
+        sameSite: 'lax',
+      });
+      return res
+      .status(StatusCodes.OK)
+      .json({
+        status: 'success',
+        accessToken,
+        user: updatedUserData,
+        companyCount,
+        moderatedCompanyCount,
+      });
+    } catch (err) {
+      errorResponse(err, res, next);
+    }
+  }
+
+  async uploadAvatar (req, res, next) {
+    try {
+      const userUuid = req.userUuid;
+      const accessToken = req.newAccessToken;
+      const refreshToken = req.newRefreshToken;
+
+      if (req.file.size > 3145728) {
+        throw new CustomError('error', StatusCodes.BAD_REQUEST, 'File larger than 3 Mb')
+      }
+
+      const originalExt = getExt(req.file.originalname);
+
+      if (originalExt !== 'jpg' && originalExt !== 'png' && originalExt !== 'svg') {
+        throw new CustomError('error', StatusCodes.BAD_REQUEST, 'Incorrect file format');
+      }
+
+      const avatarUrl = putObject(`avatars/${userUuid}/avatar.${originalExt}`, req.file.buffer);
+      const isUpdate = await usersService.updateUser(userUuid, { avatarUrl });
 
       if (isUpdate.length < 0) {
         throw new CustomError('failed', StatusCodes.INTERNAL_SERVER_ERROR, 'Some problem with update user');
