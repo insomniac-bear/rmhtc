@@ -7,11 +7,11 @@ import { IProfileSideMenu } from './ProfileSideMenu.props';
 import styles from './ProfileSideMenu.module.css';
 import { menuData } from './menuData';
 
-export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className }) => {
+export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className = '', ...props }) => {
   const router = useRouter();
 
   return (
-    <div className={`${styles.profileSideMenu} ${className}`}>
+    <div className={`${styles.profileSideMenu} ${className}`} {...props}>
       <Title className={styles.profileSideMenu__title} tag="h2" size="s">Personal office</Title>
       <nav className={styles.profileSideMenu__nav}>
         <ul className={styles.profileSideMenu__menuList}>

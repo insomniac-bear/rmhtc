@@ -1,13 +1,10 @@
 /* eslint-disable no-param-reassign */
-import Cookies from 'js-cookie';
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, setPrimaryPassword, verifyEmailToken } from '../../utils/api';
+import { verifyEmailToken } from '../api/api';
 import { AppDispatch, AppThunk } from '../store';
 
 interface IInitialState {
-  signupEmail: string;
   isAuth: boolean,
-  status: string;
   user: {
     uuid: string;
     email: string;
@@ -18,13 +15,12 @@ interface IInitialState {
     avatarUrl?: any;
     createdAt?: Date;
     updatedAt?: Date;
+    accessToken?: string;
   }
 }
 
 const initialState: IInitialState = {
-  signupEmail: '',
   isAuth: false,
-  status: 'success',
   user: {
     uuid: '',
     emailVerified: false,
@@ -40,8 +36,8 @@ export const userSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
     },
-    setRegistrationEmail(state, action) {
-      state.signupEmail = action.payload;
+    clearUser() {
+      return initialState;
     },
     setUserAuth(state, action) {
       state.isAuth = action.payload;
@@ -51,31 +47,12 @@ export const userSlice = createSlice({
 
 export const {
   setUser,
-  setRegistrationEmail,
+  clearUser,
   setUserAuth,
 } = userSlice.actions;
 
-export const signup: AppThunk = (email: string) => (dispatch: AppDispatch) => registerUser(email)
-  .then(() => dispatch(setRegistrationEmail(email)))
-  .catch((error) => {
-    throw new Error(error);
-  });
-
 export const verifySignupEmailToken: AppThunk = (token: string) => (dispatch: AppDispatch) => verifyEmailToken(token)
   .then((res) => dispatch(setUser(res.data)))
-  .catch((error) => {
-    throw new Error(error);
-  });
-
-export const confirmPassword: AppThunk = ({
-  uuid, password, role, company,
-}: any) => (dispatch: AppDispatch) => setPrimaryPassword(uuid, password, role, company)
-  .then((res) => {
-    dispatch(setUser(res.user));
-    Cookies.set('accessToken', res.accessToken);
-    dispatch(setUserAuth(true));
-    return res;
-  })
   .catch((error) => {
     throw new Error(error);
   });

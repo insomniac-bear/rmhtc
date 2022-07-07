@@ -3,7 +3,7 @@ import { ITitleProps } from './Title.props';
 import styles from './Title.module.css';
 
 export const Title: FC<ITitleProps> = ({
-  tag, size, children, className, ...props
+  tag, size, children, className = '', ...props
 }) => {
   switch (tag) {
     case 'h1':

@@ -4,10 +4,10 @@ import styles from './ModerationStatusList.module.css';
 import { IModerationStatusListProps } from './ModerationStatusList.props';
 
 export const ModerationStatusList: FC<IModerationStatusListProps> = ({
-  className = '', active = 0, inProgress = 0, declined = 0,
+  className = '', active = 0, inProgress = 0, declined = 0, ...props
 }) => {
   return (
-    <ul className={`${styles.moderationStatusList} ${className}`}>
+    <ul className={`${styles.moderationStatusList} ${className}`} {...props}>
       <li className={styles.moderationStatusList__item}>
         <p className={styles.moderationStatusList__caption}>Active</p>
         <span className={styles.moderationStatusList__counter}>{active}</span>

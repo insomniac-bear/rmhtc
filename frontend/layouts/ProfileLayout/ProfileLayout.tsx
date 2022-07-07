@@ -3,8 +3,9 @@ import { FC } from 'react';
 import { ProfileSideMenu } from '../../components/ProfileSideMenu/ProfileSideMenu';
 import { Header } from '../../components/Header/Header';
 import styles from './ProfileLayout.module.css';
+import { IProfileLayoutProps } from './ProfileLayout.props';
 
-export const ProfileLayout = ({ children }: any) => {
+export const ProfileLayout: FC<IProfileLayoutProps> = ({ children }) => {
   return (
     <div className={styles.profileLayout__wrapper}>
       <Header logoSize={50} middle="searchBar" className={styles.profileLayout__header} />

@@ -1,12 +1,14 @@
 /* eslint-disable arrow-body-style */
+import { FC } from 'react';
 import { Container } from '../Container/Container';
 import { ModerationStatusList } from '../ModerationStatusList/ModerationStatusList';
 import { Title } from '../Title/Title';
 import styles from './Summary.module.css';
+import { ISummaryProps } from './Summary.props';
 
-export const Summary = () => {
+export const Summary: FC<ISummaryProps> = ({ className = '', ...props }) => {
   return (
-    <div className={styles.summary}>
+    <div className={`${styles.summary} ${className}`} {...props}>
       <Container isBackgroundLogo className={`${styles.summary__objects}`}>
         <div className={styles.summary__containerTitle}>
           <span className={`${styles.summary__counter} ${styles.summary__counter_size_xl}`}>40</span>

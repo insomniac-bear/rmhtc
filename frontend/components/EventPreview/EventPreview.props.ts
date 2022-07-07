@@ -8,6 +8,6 @@ export interface IEventPreviewProps extends DetailedHTMLProps<HTMLAttributes<HTM
     country: string;
     city: string;
     street: string;
-    number: string;
+    house: string;
   }
 }

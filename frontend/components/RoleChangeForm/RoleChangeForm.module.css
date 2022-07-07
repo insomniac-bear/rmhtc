@@ -1,0 +1,34 @@
+.roleChangeForm {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	width: 100%;
+}
+
+.roleChangeForm__fieldset {
+	margin: 0;
+	padding: 0;
+
+	border: none;
+}
+
+.roleChangeForm__caption {
+	margin: 0;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+}
+
+.roleChangeForm__buttons {
+	display: flex;
+	gap: 10px;
+
+	justify-content: space-between;
+}
+
+.roleChangeForm__button {
+	width: 100%;
+}

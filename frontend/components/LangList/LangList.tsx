@@ -3,7 +3,7 @@ import { ILangListProps } from './LangList.props';
 import { langListMockData } from './langListMockData';
 import styles from './LangList.module.css';
 
-export const LangList: FC<ILangListProps> = ({ className, ...props }) => {
+export const LangList: FC<ILangListProps> = ({ className = '', ...props }) => {
   const [lang, setLang] = useState<{id: string, title: string}>(langListMockData[1]);
 
   const changeLangHandler = (langToSet: {id: string, title: string}) => {
