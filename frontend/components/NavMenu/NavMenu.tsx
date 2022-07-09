@@ -4,7 +4,7 @@ import { INavMenuProps } from './NavMenu.props';
 import styles from './NavMenu.module.css';
 import { navMenuMockData } from './navMenuMockData';
 
-export const NavMenu: FC<INavMenuProps> = ({ className, ...props }) => (
+export const NavMenu: FC<INavMenuProps> = ({ className = '', ...props }) => (
   <nav>
     <ul className={`${styles.navMenu} ${className}`} {...props}>
       {navMenuMockData.map((navMenuItem) => (

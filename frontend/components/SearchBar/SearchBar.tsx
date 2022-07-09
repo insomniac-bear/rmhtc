@@ -1,10 +1,12 @@
 /* eslint-disable no-shadow */
+import { FC } from 'react';
 import Select from 'react-select';
 import { Button } from '../Button/Button';
 
 import styles from './SearchBar.module.css';
+import { ISearchBar } from './SearchBar.props';
 
-export const SearchBar = () => {
+export const SearchBar: FC<ISearchBar> = ({ className = '', ...props }) => {
   const options = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
@@ -26,7 +28,6 @@ export const SearchBar = () => {
       BoxSizing: 'border-box',
     }),
     control: () => ({
-      // none of react-select's styles are passed to <Control />
       minWidth: '105px',
       display: 'flex',
       BoxSizing: 'border-box',
@@ -47,8 +48,9 @@ export const SearchBar = () => {
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
   };
+
   return (
-    <form onSubmit={handleSubmit} className={styles.searchBar}>
+    <form onSubmit={handleSubmit} className={`${styles.searchBar} ${className}`} {...props}>
       <fieldset className={styles.searchBar__fieldset}>
         <Select
           instanceId="selectbox"

@@ -1,0 +1,160 @@
+.personalData {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 774px;
+	margin: 0 auto;
+	padding: 90px 20px;
+}
+
+.personalData__container {
+	display: flex;
+	align-items: center;
+
+	padding: 0;
+}
+
+.personalData__avatar {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	box-sizing: border-box;
+	padding: 40px;
+}
+
+.personalData__avatarLabel {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.personalData__avatarInput {
+	display: none;
+}
+
+.personalData__avatarImg {
+	position: relative;
+
+	width: 120px;
+	height: 120px;
+
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.personalData__avatarImg:hover {
+	opacity: 0.8;
+}
+
+.personalData__avatarCaption {
+	margin: 0;
+
+	cursor: pointer;
+
+	color: var(--link);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.personalData__info {
+	display: flex;
+	flex-direction: column;
+
+	box-sizing: border-box;
+	width: 100%;
+	padding: 40px;
+
+	border-left: 1px solid var(--grey-400);
+	gap: 35px;
+}
+
+.personalData__fullName {
+	display: flex;
+	gap: 15px;
+}
+
+.personalData__fullNameTitle {
+	font-size: 25px;
+}
+
+.personalData__contacts {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.personalData__contactInfo {
+	display: flex;
+	flex-direction: column;
+
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+	gap: 20px;
+}
+
+.personalData__contactItem {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.personalData__contactCaption {
+	margin: 0;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 15px;
+}
+
+.personalData__contact {
+	margin: 0;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 20px;
+}
+
+.personalData__editIcon {
+	width: 20px;
+	height: 20px;
+
+	background-image: url("../../images/edit-icon.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.personalData__controls {
+	display: flex;
+	justify-content: space-between;
+
+	width: 100%;
+	margin-top: 25px;
+	gap: 20px;
+}
+
+.personalData__logOutButton {
+	padding: 0;
+
+	color: var(--link);
+	border: none;
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.personalData__deleteAccountButton {
+	padding: 0;
+
+	color: var(--grey-500);
+	border: none;
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}

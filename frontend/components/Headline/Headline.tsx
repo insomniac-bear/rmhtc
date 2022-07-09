@@ -3,8 +3,8 @@ import { IHeadlineProps } from './Headline.props';
 import styles from './Headline.module.css';
 import { Title } from '../Title/Title';
 
-export const Headline: FC<IHeadlineProps> = () => (
-  <section className={styles.headline}>
+export const Headline: FC<IHeadlineProps> = ({ className = '', ...props }) => (
+  <section className={`${styles.headline} ${className}`} {...props}>
     <div className={styles.headline__background}>
       <div className={styles.headline__backPhoto} />
       <div className={styles.headline__backGraphic} />

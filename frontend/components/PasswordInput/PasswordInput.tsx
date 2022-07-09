@@ -1,6 +1,4 @@
-import {
-  forwardRef, useState,
-} from 'react';
+import { forwardRef, useState } from 'react';
 import styles from './PasswordInput.module.css';
 
 export const PasswordInput = forwardRef(({

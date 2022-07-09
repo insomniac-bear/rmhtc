@@ -2,10 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { ActionCreator, AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { rootReducer } from '../slices';
+import { userAPI } from '../userService';
 
 const state = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userAPI.middleware),
   devTools: true,
 });
 

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import Link from 'next/link';
 import { SectionTitle } from '../SectionTitle/SectionTitle';
 import events from '../../mockData/events';
@@ -5,9 +6,10 @@ import { EventPreview } from '../EventPreview/EventPreview';
 import styles from './Events.module.css';
 import { Button } from '../Button/Button';
 import eventsTags from '../../mockData/eventsTags';
+import { IEventsProps } from './Events.props';
 
-export const Events = () => (
-  <section className={styles.events}>
+export const Events: FC<IEventsProps> = ({ className = '', ...props }) => (
+  <section className={`${styles.events} ${className}`} {...props}>
     <SectionTitle>Events</SectionTitle>
     <div className={styles.events__wrapper}>
       <div className={styles.events__filter}>

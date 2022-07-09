@@ -14,3 +14,26 @@
 .header__authMenu {
 	justify-self: flex-end;
 }
+
+.header__profile {
+	position: relative;
+}
+
+.header__profileMenu {
+	position: absolute;
+	z-index: 3;
+	top: 70px;
+	right: 0;
+}
+
+button.header__profileButton {
+	width: 30px;
+	height: 30px;
+	padding: 0;
+
+	border: none;
+	background-image: url("../../images/profile-icon.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}

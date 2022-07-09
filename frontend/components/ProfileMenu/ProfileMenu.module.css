@@ -1,0 +1,85 @@
+.profileMenu {
+	box-sizing: border-box;
+	min-width: 257px;
+
+	border-radius: 10px;
+	background-color: var(--grey-100);
+	box-shadow: 0 5px 21px 1px rgb(66 61 58 / 18%);
+}
+
+.profileMenu__user {
+	display: flex;
+	align-items: center;
+
+	box-sizing: border-box;
+	padding: 20px 20px 10px;
+
+	border-bottom: 1px solid var(--grey-400);
+	gap: 14px;
+}
+
+.profileMenu__userImg {
+	position: relative;
+
+	width: 40px;
+	height: 40px;
+}
+
+.profileMenu__userName {
+	margin: 0;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	line-height: 1.24;
+}
+
+.profileMenu__navLinks {
+	display: flex;
+	flex-direction: column;
+
+	box-sizing: border-box;
+	margin: 0;
+	padding: 24px 20px 40px;
+
+	list-style: none;
+	gap: 5px;
+}
+
+.profileMenu__link {
+	transition: 0.3s;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.profileMenu__link:hover {
+	color: var(--accent-red-300);
+}
+
+.profileMenu__controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	box-sizing: border-box;
+	padding: 0 20px 20px;
+	gap: 10px;
+}
+
+.profileMenu__logOutButton {
+	padding: 0;
+
+	color: var(--link);
+	border: none;
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.profileMenu__langList > li > button {
+	font-size: 14px;
+}

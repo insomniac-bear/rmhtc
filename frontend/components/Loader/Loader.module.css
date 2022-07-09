@@ -1,0 +1,71 @@
+.loader {
+	position: relative;
+
+	width: 165px;
+	height: 165px;
+}
+
+.loader__circle1 {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 165px;
+	height: 165px;
+
+	animation: circle 1.2s infinite linear;
+
+	border: 2px solid;
+	border-color: transparent var(--accent-blue-400) var(--accent-blue-400) var(--accent-blue-400);
+	border-radius: 50%;
+}
+
+.loader__circle2 {
+	position: absolute;
+	top: calc(50% - 66px);
+	left: calc(50% - 66px);
+
+	width: 132px;
+	height: 132px;
+
+	animation: circle-reverse 1.2s infinite linear;
+
+	border: 2px solid;
+	border-color: var(--accent-blue-400) var(--accent-blue-400) transparent var(--accent-blue-400);
+	border-radius: 50%;
+}
+
+.loader__circle3 {
+	position: absolute;
+	top: calc(50% - 50px);
+	left: calc(50% - 50px);
+
+	width: 100px;
+	height: 100px;
+
+	animation: circle 1.2s infinite linear;
+
+	border: 2px solid;
+	border-color: transparent var(--accent-blue-400) var(--accent-blue-400) var(--accent-blue-400);
+	border-radius: 50%;
+}
+
+@keyframes circle {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes circle-reverse {
+	from {
+		transform: rotate(360deg);
+	}
+
+	to {
+		transform: rotate(0deg);
+	}
+}

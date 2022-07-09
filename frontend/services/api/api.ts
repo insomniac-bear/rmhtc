@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 const API_URL = 'http://localhost:8000';
 
 const checkResponce = (res: Response) => {
@@ -37,29 +39,6 @@ export const verifyEmailToken = (token: string) => fetch(`${API_URL}/api/v1/toke
   })
   .catch((error) => {
     throw new Error(error);
-  });
-
-export const setPrimaryPassword = (uuid: string, password: string, role: string, company: string) => fetch(`${API_URL}/api/v1/finish-registration`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  credentials: 'include',
-  body: JSON.stringify({
-    userData: {
-      uuid,
-      password,
-      role,
-    },
-    companyData: {
-      name: company,
-    },
-  }),
-})
-  .then(checkResponce)
-  .then((res) => {
-    if (res.status === 'success') return res;
-    return Promise.reject(res);
   });
 
 // export const login = (email: string, password: string) => fetch(`${API_URL}/api/v1/users/authorization`, {
@@ -110,15 +89,19 @@ export const setPrimaryPassword = (uuid: string, password: string, role: string,
 //     throw new Error(error);
 //   });
 
-// export const logoutUser = () => fetch(`${API_URL}/api/v1/users/logout`, {
-//   method: 'GET',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   credentials: 'include',
-// })
-//   .then(checkResponce)
-//   .then((res) => {
-//     if (res.service_data.status === 'success' && res.service_data.message === 'redirect') return res;
-//     return Promise.reject(res);
-//   });
+export const logoutUser = () => {
+  const token = Cookies.get('accessToken');
+  fetch(`${API_URL}/api/v1/users/logout`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    credentials: 'include',
+  })
+    .then(checkResponce)
+    .then((res) => {
+      if (res.service_data.status === 'success' && res.service_data.message === 'redirect') return res;
+      return Promise.reject(res);
+    });
+};

@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { IHeaderProps } from './Header.props';
 import styles from './Header.module.css';
 import { NavMenu } from '../NavMenu/NavMenu';
@@ -7,13 +8,16 @@ import { Logo } from '../Logo/Logo';
 // import { LangList } from '../LangList/LangList';
 import { AuthMenu } from '../AuthMenu/AuthMenu';
 import { useAppSelector } from '../../services/hooks';
-import { Title } from '../Title/Title';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { Button } from '../Button/Button';
+import { ProfileMenu } from '../ProfileMenu/ProfileMenu';
 
 export const Header: FC<IHeaderProps> = ({
-  className, middle = 'navMenu', logoSize, ...props
+  className = '', middle = 'navMenu', logoSize, ...props
 }) => {
   const isAuth = useAppSelector((store) => store.user.isAuth);
+
+  const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
   return (
     <header className={`${styles.header} ${className}`} {...props}>
@@ -25,7 +29,17 @@ export const Header: FC<IHeaderProps> = ({
       {middle === 'navMenu' && <NavMenu className={styles.header__navMenu} />}
       {middle === 'searchBar' && <SearchBar />}
       {/* {!isAuth && <LangList />} */}
-      {!isAuth ? <AuthMenu className={styles.header__authMenu} /> : <Title tag="h3" size="s">AUTH</Title>}
+      {!isAuth ? <AuthMenu className={styles.header__authMenu} /> : (
+        <div className={styles.header__profile}>
+          <Button
+            onClick={() => setShowProfileMenu(!showProfileMenu)}
+            className={styles.header__profileButton}
+            type="button"
+          />
+
+          {showProfileMenu && <ProfileMenu className={styles.header__profileMenu} />}
+        </div>
+      )}
     </header>
   );
 };
