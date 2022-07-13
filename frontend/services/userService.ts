@@ -74,5 +74,12 @@ export const userAPI = createApi({
         return response;
       },
     }),
+    checkAuth: build.mutation({
+      query: () => ({
+        url: '/api/v1/check-auth',
+        method: 'GET',
+        credentials: 'include',
+      }),
+    }),
   }),
 });

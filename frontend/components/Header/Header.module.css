@@ -27,13 +27,19 @@
 }
 
 button.header__profileButton {
+	position: relative;
+
+	overflow: hidden;
+
 	width: 30px;
 	height: 30px;
 	padding: 0;
 
 	border: none;
-	background-image: url("../../images/profile-icon.svg");
+
+	/* background-image: url("../../images/profile-icon.svg");
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: cover;
+	background-size: cover; */
+	border-radius: 50%;
 }
