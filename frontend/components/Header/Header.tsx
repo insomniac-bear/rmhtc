@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { IHeaderProps } from './Header.props';
@@ -16,6 +17,7 @@ export const Header: FC<IHeaderProps> = ({
   className = '', middle = 'navMenu', logoSize, ...props
 }) => {
   const isAuth = useAppSelector((store) => store.user.isAuth);
+  const user = useAppSelector((store) => store.user.user);
 
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
@@ -35,7 +37,9 @@ export const Header: FC<IHeaderProps> = ({
             onClick={() => setShowProfileMenu(!showProfileMenu)}
             className={styles.header__profileButton}
             type="button"
-          />
+          >
+            <Image layout="fill" alt="profile icon" src={user.avatarUrl || '/profile-icon.svg'} />
+          </Button>
 
           {showProfileMenu && <ProfileMenu className={styles.header__profileMenu} />}
         </div>

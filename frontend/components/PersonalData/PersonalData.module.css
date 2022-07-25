@@ -36,11 +36,15 @@
 .personalData__avatarImg {
 	position: relative;
 
+	overflow: hidden;
+
 	width: 120px;
 	height: 120px;
 
 	cursor: pointer;
 	transition: 0.3s;
+
+	border-radius: 50%;
 }
 
 .personalData__avatarImg:hover {

@@ -1,0 +1,89 @@
+.fileInput {
+	/* box-sizing: border-box;
+	width: 100%;
+	max-width: 356px;
+	min-height: 40px;
+	padding: 10px 15px;
+
+	color: var(--grey-600);
+	border: 1px solid var(--grey-500);
+	border-radius: 5px;
+	outline: none;
+	background-color: var(--grey-100);
+
+	font-family: var(--TTNorms);
+	font-size: 16px; */
+
+	display: none;
+}
+
+.fileInput__placeholder {
+	display: flex;
+	align-items: center;
+
+	margin: 0;
+
+	color: var(--grey-500);
+	gap: 5px;
+}
+
+.fileInput__wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.fileInput__label {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 495px;
+	max-height: 40px;
+	padding: 10px 15px;
+
+	cursor: pointer;
+
+	color: var(--grey-600);
+	border: 1px solid var(--grey-400);
+	border-radius: 5px;
+	outline: none;
+	background-color: var(--grey-100);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.fileInput__message {
+	display: block;
+
+	max-width: 356px;
+	min-height: 30px;
+	margin: 15px 0 0;
+
+	text-align: left;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+}
+
+.fileInput__message_type_error {
+	color: var(--attention-strong);
+}
+
+.fileInput__clipIcon {
+	width: 20px;
+	height: 20px;
+
+	background-image: url("../../images/clip-icon.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.fileInput__fileList {
+	padding: 0;
+	margin: 10px 0px;
+	gap: 10px;
+	display: flex;
+	list-style: none;
+}

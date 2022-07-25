@@ -1,0 +1,60 @@
+.combineSelectInput__fields {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.combineSelectInput__fieldItem {
+	display: grid;
+	grid-template-columns: 1fr 266px 20px;
+	gap: 10px;
+}
+
+.combineSelectInput__addFieldBtn {
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+	color: var(--link);
+	font-size: 16px;
+	font-family: var(--TTNorms);
+	transition: .3s;
+}
+
+.combineSelectInput__addFieldBtn:hover {
+	color: var(--link-hover);
+}
+
+.combineSelectInput__removeFieldBtn {
+	margin-top: 12px;
+	cursor: pointer;
+	width: 15px;
+	height: 15px;
+	background-color: transparent;
+	background-image: url("../../images/cross.svg");
+	background-position: center;
+	background-repeat: no-repeat;
+	border: none;
+	transition: .3s;
+	filter: invert(50%);
+	justify-self: end;
+}
+
+.combineSelectInput__removeFieldBtn:hover {
+	opacity: .8;
+}
+
+input.combineSelectInput__input {
+	box-sizing: border-box;
+	max-width: 495px;
+	height: 40px;
+	min-height: 0;
+
+	border: 1px solid var(--grey-400);
+}
+
+.combineSelectInput__error {
+	margin: 0;
+	color: var(--attention-strong);
+	font-size: 14px;
+	font-family: var(--TTNorms);
+}

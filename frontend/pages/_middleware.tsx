@@ -20,22 +20,22 @@ export default function middleware(req: NextRequest) {
   //     return NextResponse.redirect('/login');
   //   });
 
-  const jwt = cookies.refreshToken || cookies.accessToken;
+  // const jwt = cookies.refreshToken || cookies.accessToken;
 
-  if (url?.pathname.includes('/profile') && !jwt) {
-    url.pathname = '/';
-    return NextResponse.redirect(url);
-  }
+  // if (url?.pathname.includes('/profile') && !jwt) {
+  //   url.pathname = '/';
+  //   return NextResponse.redirect(url);
+  // }
 
-  if (jwt && (
-    url?.pathname.includes('/signup')
-    || url?.pathname.includes('/login')
-    || url?.pathname.includes('/signup-success')
-    || url?.pathname.includes('/verify-email-success')
-  )) {
-    url.pathname = '/profile/summary';
-    return NextResponse.redirect(url);
-  }
+  // if (jwt && (
+  //   url?.pathname.includes('/signup')
+  //   || url?.pathname.includes('/login')
+  //   || url?.pathname.includes('/signup-success')
+  //   || url?.pathname.includes('/verify-email-success')
+  // )) {
+  //   url.pathname = '/profile/summary';
+  //   return NextResponse.redirect(url);
+  // }
 
-  return NextResponse.next();
+  // return NextResponse.next();
 }
