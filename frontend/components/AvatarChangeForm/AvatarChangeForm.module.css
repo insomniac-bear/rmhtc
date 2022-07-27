@@ -1,0 +1,48 @@
+.avatarChangeForm {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	box-sizing: border-box;
+	padding: 40px;
+}
+
+.avatarChangeForm__label {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.avatarChangeForm__input {
+	display: none;
+}
+
+.avatarChangeForm__img {
+	position: relative;
+
+	overflow: hidden;
+
+	width: 120px;
+	height: 120px;
+
+	cursor: pointer;
+	transition: 0.3s;
+
+	border-radius: 50%;
+}
+
+.avatarChangeForm__img:hover {
+	opacity: 0.8;
+}
+
+.avatarChangeForm__caption {
+	margin: 0;
+
+	cursor: pointer;
+
+	color: var(--link);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}

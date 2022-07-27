@@ -1,0 +1,74 @@
+.newCompanyForm {
+	width: 100%;
+	max-width: 718px;
+}
+
+.newCompanyForm__fieldset {
+	display: grid;
+
+	margin: 45px 0 50px;
+	padding: 0;
+
+	border: none;
+	grid-template-columns: 1fr 495px;
+	gap: 10px;
+}
+
+.newCompanyForm__addressFieldset {
+	display: grid;
+
+	margin: 0;
+	padding: 0;
+
+	border: none;
+	grid-template-columns: 240px 240px;
+	gap: 0 15px;
+}
+
+.newCompanyForm__regNumberFieldset {
+	display: flex;
+
+	margin: 0;
+	padding: 0;
+
+	border: none;
+	gap: 10px;
+}
+
+.newCompanyForm__caption {
+	margin: 0;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+input.newCompanyForm__input {
+	box-sizing: border-box;
+	max-width: 495px;
+	height: 40px;
+	min-height: 0;
+
+	border: 1px solid var(--grey-400);
+}
+
+textarea.newCompanyForm__textarea {
+	max-width: 495px;
+	height: 155px;
+
+	resize: none;
+}
+
+.newCompanyForm__buttons {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px;
+}
+
+.newCompanyForm__error {
+	margin: 0;
+	color: var(--attention-strong);
+	font-size: 14px;
+	font-family: var(--TTNorms);
+}

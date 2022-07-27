@@ -1,4 +1,4 @@
-.customInput {
+.customTextarea {
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 356px;
@@ -6,7 +6,7 @@
 	padding: 12px 15px;
 
 	color: var(--grey-600);
-	border: 1px solid var(--grey-500);
+	border: 1px solid var(--grey-400);
 	border-radius: 5px;
 	outline: none;
 	background-color: var(--grey-100);
@@ -15,15 +15,17 @@
 	font-size: 16px;
 }
 
-.customInput::placeholder {
+.customTextarea::placeholder {
 	color: var(--grey-500);
 }
 
-.customInput__wrapper {
+/*
+.customTextarea__wrapper {
 	width: 100%;
-}
+	max-width: 356px;
+} */
 
-.customInput__message {
+.customTextarea__message {
 	display: block;
 
 	max-width: 356px;
@@ -38,6 +40,6 @@
 	font-size: 14px;
 }
 
-.customInput__message_type_error {
+.customTextarea__message_type_error {
 	color: var(--attention-strong);
 }
