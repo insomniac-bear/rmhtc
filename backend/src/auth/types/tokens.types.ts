@@ -3,3 +3,9 @@ export type Tokens = {
   refreshToken?: string;
   emailToken?: string;
 };
+
+export type JwtPayload = {
+  sub: string;
+  email: string;
+  role: string;
+};

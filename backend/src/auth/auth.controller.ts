@@ -8,7 +8,7 @@ import {
   Post,
   Req,
   Res,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegistrationResponseDto } from './dto';
@@ -76,6 +76,12 @@ export class AuthController {
     return this.authService.logout(user.sub, res);
   }
 
+  @ApiOperation({ summary: 'Обновление Refresh и Access Tokens' })
+  @ApiHeader({
+    name: 'Authorization with Bearer',
+    description: 'Необходимо отправлять access token в заголовке'
+  })
+  @ApiResponse({ status: 200, type: UserDto })
   @UseGuards(AuthGuard('jwt-refresh'))
   @Get('/refresh')
   refresh(
@@ -86,5 +92,22 @@ export class AuthController {
     const { refreshToken } = req.cookies;
 
     return this.authService.refresh(user, refreshToken, res);
+  }
+
+  @ApiOperation({ summary: 'Проверка авторизации' })
+  @ApiHeader({
+    name: 'Authorization with Bearer',
+    description: 'Необходимо отправлять access token в заголовке'
+  })
+  @ApiResponse({ status: 200, type: UserDto })
+  @Get('/check')
+  check(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+  ) {
+    const accessToken = req.headers.authorization.split(' ')[1];
+    const { refreshToken } = req.cookies;
+
+    return this.authService.checkAuth(accessToken, refreshToken, res);
   }
 }

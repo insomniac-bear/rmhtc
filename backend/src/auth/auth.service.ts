@@ -1,4 +1,4 @@
-import { forwardRef, Injectable, Inject, HttpException, ForbiddenException, HttpStatus } from '@nestjs/common';
+import { Injectable, Inject, HttpException, ForbiddenException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from 'src/users/users.service';
@@ -7,7 +7,7 @@ import { CompanyService } from 'src/company/company.service';
 import { EmailToken } from './entity/email-token.entity';
 import { RefreshToken } from './entity/refresh-token.entity';
 import { User } from 'src/users/entity/user.entity';
-import { Tokens } from './types';
+import { Tokens, JwtPayload } from './types';
 import { UserDataDto } from 'src/users/dto';
 import { EMAIL_TOKEN_REPOSITORY, REFRESH_TOKEN_REPOSITORY, USER_REPOSITORY } from 'src/core/constants';
 
@@ -121,6 +121,57 @@ export class AuthService {
     return {
       status: 'success',
     };
+  }
+
+  async checkAuth(at: string, rt: string, res) {
+    try {
+      const accessPayload: JwtPayload = this.jwtService.verify(at, {
+        secret: process.env.JWT_ACCESS_SECRET,
+      });
+
+      if (accessPayload.sub) {
+        const user = await this.usersService.getUserByParam('uuid', accessPayload.sub);
+
+        const { accessToken, refreshToken } = await this.getTokens(user.uuid, user.email, user.role);
+
+        await this.saveRefreshToken(user.uuid, refreshToken);
+
+        res.cookie('refreshToken', refreshToken, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+          sameSite: 'lax',
+        });
+
+        return {
+          accessToken,
+          userData: user,
+        }
+      }
+    } catch (err) {
+      const refreshPayload: JwtPayload = this.jwtService.verify(rt, {
+        secret: process.env.JWT_REFRESH_SECRET,
+      });
+
+      if (!refreshPayload.sub) throw new ForbiddenException('Access Denied');
+
+      const user = await this.usersService.getUserByParam('uuid', refreshPayload.sub);
+
+      const { accessToken, refreshToken } = await this.getTokens(user.uuid, user.email, user.role);
+
+      await this.saveRefreshToken(user.uuid, refreshToken);
+
+      res.cookie('refreshToken', refreshToken, {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
+        sameSite: 'lax',
+      });
+
+      return {
+        accessToken,
+        userData: user,
+      }
+    }
+
   }
 
   async refresh(user, rt: string, res) {
