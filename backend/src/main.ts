@@ -1,12 +1,35 @@
 import { NestFactory } from '@nestjs/core';
+import { ForbiddenException } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
+
+const allowedDomains = [
+  'http://10.16.10.1:3002/',
+  'http://10.16.10.1:3002',
+  'http://10.16.10.1:3001/',
+  'http://10.16.10.1:3001',
+  'http://localhost:3000/',
+  'http://localhost:3000',
+  'http://localhost:8000',
+  'http://localhost:8000/',
+];
 
 async function bootstrap() {
   const PORT = process.env.PORT || 8000;
   const app = await NestFactory.create(AppModule);
 
+  // app.enableCors({
+  //   origin: (origin, cb) => {
+  //     if (!allowedDomains.includes(origin)) {
+  //       const msg = 'Access denied, CORS';
+  //       return cb(new ForbiddenException('Access Denied! CORS POLICY'), false);
+  //     }
+  //     return cb(null, true);
+  //   },
+  //   methods: 'GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS',
+  //   credentials: true,
+  // });
   app.use(cookieParser());
 
   const config = new DocumentBuilder()
