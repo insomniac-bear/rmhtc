@@ -2,10 +2,10 @@ import { FC, useCallback, useMemo, useState } from 'react';
 import styles from './ModerationCardList.module.css';
 import { IModerationCardList } from './ModerationCardList.props';
 import { cardData } from './cardData';
-import { CompanyCard } from '../CompanyCard/CompanyCard';
+import { CompanyCardPreview } from '../CompanyCardPreview/CompanyCardPreview';
 import { Pagination } from '../Pagination/Pagination';
 
-export const ModerationCardList: FC<IModerationCardList> = () => {
+export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ...props }) => {
   const [currentPage, setCurrenPage] = useState(1);
   const [elementsPerPage] = useState(6);
 
@@ -20,18 +20,16 @@ export const ModerationCardList: FC<IModerationCardList> = () => {
     return numbers;
   }, [cardData, elementsPerPage]);
 
-  console.log(currentPage);
-
   const handleGoToPage = useCallback((num: number) => setCurrenPage(num), []);
   const handleGoForward = useCallback(() => currentPage !== pageNumbers.length && setCurrenPage((prev) => prev + 1), [currentPage]);
   const handleGoBack = useCallback(() => currentPage !== 1 && setCurrenPage((prev) => prev - 1), [currentPage]);
 
   return (
     <section className={styles.moderation}>
-      <ul className={styles.cardList}>
-        {currentElements.map((item: any) => (
+      <ul className={`${styles.cardList} ${className}`} {...props}>
+        {currentElements.map((item) => (
           <li key={item.id}>
-            <CompanyCard card={item} />
+            <CompanyCardPreview card={item} />
           </li>
         ))}
       </ul>
