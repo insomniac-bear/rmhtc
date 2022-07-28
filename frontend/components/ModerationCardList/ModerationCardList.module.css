@@ -10,6 +10,7 @@
 	display: grid;
 
 	width: 100vw;
+	min-height: 428px;
 	max-width: 733px;
 	margin: 0 0 35px;
 	padding: 0;

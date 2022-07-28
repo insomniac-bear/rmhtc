@@ -133,4 +133,11 @@ export const cardData = [
     createDate: '12.02.2022',
     toggled: false,
   },
+  {
+    id: '19',
+    type: 'News',
+    name: 'Great event',
+    createDate: '12.02.2022',
+    toggled: false,
+  },
 ];

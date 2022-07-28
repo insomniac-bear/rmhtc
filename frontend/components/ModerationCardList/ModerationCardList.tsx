@@ -14,13 +14,10 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   const lastIndex = useMemo(() => currentPage * elementsPerPage, [currentPage, elementsPerPage]);
   const firstIndex = useMemo(() => lastIndex - elementsPerPage, [lastIndex, elementsPerPage]);
   const currentElements = useMemo(() => cardData.slice(firstIndex, lastIndex), [firstIndex, lastIndex]);
-  const pageNumbers = useMemo(() => {
-    const numbers = [];
-    for (let i = 1; i <= Math.ceil(cardData.length / elementsPerPage); i + 1) {
-      numbers.push(i);
-    }
-    return numbers;
-  }, [elementsPerPage]);
+  const pageNumbers = useMemo(
+    () => new Array(Math.ceil(cardData.length / elementsPerPage)).fill(1).map((_a, i) => i + 1),
+    [elementsPerPage],
+  );
 
   const handleGoToPage = useCallback((num: number) => setCurrenPage(num), []);
   const handleGoForward = useCallback(
@@ -38,7 +35,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
           </li>
         ))}
       </ul>
-      <Pagination pageNumbers={pageNumbers} goToPage={handleGoToPage} goForward={handleGoForward} goBack={handleGoBack} />
+      <Pagination currentPage={currentPage} pageNumbers={pageNumbers} goToPage={handleGoToPage} goForward={handleGoForward} goBack={handleGoBack} />
     </section>
   );
 };
