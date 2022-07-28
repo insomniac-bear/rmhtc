@@ -24,21 +24,6 @@ module.exports = {
     .then(() => {
       return queryInterface.addColumn(
         'companies',
-        'addressUuid',
-        {
-          type: Sequelize.DataTypes.UUID,
-          references: {
-            model: 'addresses',
-            key: 'uuid',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-        }
-      )
-    })
-    .then(() => {
-      return queryInterface.addColumn(
-        'companies',
         'contactUuid',
         {
           type: Sequelize.DataTypes.UUID,

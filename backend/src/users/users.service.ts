@@ -11,6 +11,7 @@ import { User } from './entity/user.entity';
 export class UsersService {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userEntity: typeof User,
+    @Inject(forwardRef(() => CompanyService))
     private readonly companyService: CompanyService,
     private readonly rolesService: RolesService,
     @Inject(forwardRef(() => AuthService))

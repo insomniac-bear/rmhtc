@@ -1,6 +1,7 @@
 'use strict';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { v4: uuidv4 } = require('uuid');
+const { hashSync } = require('bcryptjs');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -13,7 +14,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-
+    const adminPassword = hashSync('11111111', 7);
     const roles = await queryInterface.sequelize.query(
       'SELECT uuid from ROLES;'
     );
@@ -25,7 +26,7 @@ module.exports = {
         uuid: uuidv4(),
         email: 'support@add.company',
         emailVerified: true,
-        password: '',
+        password: `${adminPassword}`,
         businessRole: 'Менеджер ITC',
         name: 'Support',
         surname: 'ITC',

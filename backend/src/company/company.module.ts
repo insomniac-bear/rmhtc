@@ -1,11 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CompanyController } from './company.controller';
 import { companyProviders } from './company.providers';
+import { AuthModule } from 'src/auth/auth.module';
+import { AddressModule } from 'src/address/address.module';
 
 @Module({
-  providers: [CompanyService, ...companyProviders],
   controllers: [CompanyController],
-  exports: [CompanyService]
+  providers: [CompanyService, ...companyProviders],
+  imports: [forwardRef(() => AuthModule), AddressModule],
+  exports: [CompanyService, ...companyProviders]
 })
 export class CompanyModule {}
