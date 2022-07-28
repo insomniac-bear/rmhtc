@@ -1,4 +1,6 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import {
+  FC, useCallback, useMemo, useState,
+} from 'react';
 import styles from './ModerationCardList.module.css';
 import { IModerationCardList } from './ModerationCardList.props';
 import { cardData } from './cardData';
@@ -14,14 +16,17 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   const currentElements = useMemo(() => cardData.slice(firstIndex, lastIndex), [firstIndex, lastIndex]);
   const pageNumbers = useMemo(() => {
     const numbers = [];
-    for (let i = 1; i <= Math.ceil(cardData.length / elementsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(cardData.length / elementsPerPage); i + 1) {
       numbers.push(i);
     }
     return numbers;
-  }, [cardData, elementsPerPage]);
+  }, [elementsPerPage]);
 
   const handleGoToPage = useCallback((num: number) => setCurrenPage(num), []);
-  const handleGoForward = useCallback(() => currentPage !== pageNumbers.length && setCurrenPage((prev) => prev + 1), [currentPage]);
+  const handleGoForward = useCallback(
+    () => currentPage !== pageNumbers.length && setCurrenPage((prev) => prev + 1),
+    [currentPage, pageNumbers.length],
+  );
   const handleGoBack = useCallback(() => currentPage !== 1 && setCurrenPage((prev) => prev - 1), [currentPage]);
 
   return (

@@ -1,18 +1,19 @@
 .moderation {
-  display: grid;
-  justify-content: center;
-  padding: 68px 0 0 0;
-  box-sizing: border-box;
+	display: grid;
+	justify-content: center;
+
+	box-sizing: border-box;
+	padding: 68px 0 0;
 }
 
 .cardList {
-  display: grid;
+	display: grid;
 
-  width: 100vw;
-  max-width: 733px;
-  margin: 0 0 35px;
-  padding: 0;
+	width: 100vw;
+	max-width: 733px;
+	margin: 0 0 35px;
+	padding: 0;
 
-  list-style-type: none;
-  gap: 10px 0;
+	list-style-type: none;
+	gap: 10px 0;
 }
