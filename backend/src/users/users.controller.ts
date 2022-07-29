@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post, Put, Res, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Patch, Res, Req, UseGuards, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserDataDto, UserDto } from './dto';
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
+import { BufferedFile } from 'src/core/minio-client/types/minio.interface';
 
 @ApiTags('Users')
 @Controller('users')
@@ -20,7 +22,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Обновление данных пользователя' })
   @ApiResponse({ status: 200, type: UserDto })
   @UseGuards(AuthGuard('jwt'))
-  @Put()
+  @Patch()
   update(
     @Req() req,
     @Res({ passthrough: true }) res,
@@ -28,6 +30,19 @@ export class UsersController {
   ) {
     const { sub } = req.user;
     return this.userService.updateUser(sub, userData, res);
+  }
+
+  @ApiOperation({ summary: 'Сохранение аватара пользователя' })
+  @UseGuards(AuthGuard('jwt'))
+  @Post('avatar')
+  @UseInterceptors(FileInterceptor('image'))
+  uploadAvatar(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @UploadedFile() image: BufferedFile
+  ) {
+    const { sub } = req.user;
+    return this.userService.uploadAvatar(sub, image, res);
   }
 
   @Get()

@@ -3,6 +3,8 @@ import * as bcrypt from 'bcryptjs';
 import { AuthService } from 'src/auth/auth.service';
 import { CompanyService } from 'src/company/company.service';
 import { USER_REPOSITORY } from 'src/core/constants';
+import { MinioClientService } from 'src/core/minio-client/minio-client.service';
+import { BufferedFile } from 'src/core/minio-client/types/minio.interface';
 import { RolesService } from 'src/roles/roles.service';
 import { dto, UserDto, UserDataDto } from './dto/';
 import { User } from './entity/user.entity';
@@ -16,6 +18,7 @@ export class UsersService {
     private readonly rolesService: RolesService,
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
+    private readonly minioClientService: MinioClientService,
   ) {}
 
   async createUser(userDto: UserDataDto): Promise<UserDto> {
@@ -55,6 +58,39 @@ export class UsersService {
   async getAllUsers() {
     const users = await this.userEntity.findAll();
     return users;
+  }
+
+  async uploadAvatar(uuid: string, avatar: BufferedFile, res) {
+    if (avatar.size > 314578) throw new HttpException('Uploading file to large', HttpStatus.BAD_REQUEST);
+
+    const user = await this.getUserByParam('uuid', uuid);
+    if (!user) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+
+    if (user.avatarUrl) {
+      const pathArr = user.avatarUrl.split('/');
+      const objectName = pathArr[pathArr.length - 1];
+      await this.minioClientService.delete(`avatars/${uuid}/`, objectName);
+    }
+
+    const avatarUrl = await this.minioClientService.upload(`avatars/${uuid}/`, avatar);
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(user.uuid, user.email, user.role);
+
+    const updatedUser = await this.update(uuid, { avatarUrl });
+
+    await this.authService.saveRefreshToken(uuid, refreshToken);
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      userData: updatedUser,
+    }
   }
 
   async update(uuid: string, updatedData: UserDataDto): Promise<UserDto> {
