@@ -1,14 +1,16 @@
 .moderation {
 	display: grid;
 	justify-content: center;
-
+	grid-template-areas: "filter list"
+												"filter pagination";
+	grid-template-columns: 1fr 2fr 1fr;													
 	box-sizing: border-box;
 	padding: 68px 0 0;
 }
 
-.cardList {
+.moderation_cardList {
 	display: grid;
-
+	grid-area: list;
 	width: 100vw;
 	min-height: 428px;
 	max-width: 733px;
@@ -17,4 +19,13 @@
 
 	list-style-type: none;
 	gap: 10px 0;
+}
+
+.moderation__filter {
+	grid-area: filter;
+	justify-self: end;
+	padding: 0 70px 0 0;
+}
+.moderation__pagination {
+	grid-area: pagination;
 }

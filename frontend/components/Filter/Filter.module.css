@@ -1,0 +1,33 @@
+.filter {
+  max-width: 200px;
+}
+
+.filter__heading {
+  font-family: var(----RobotoSlab);
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0 0 15px 0;
+}
+
+.filter__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px 0;
+  margin: 0 0 20px 0;
+}
+
+.filter__checkbox > input {
+  width: 15px;
+  height: 15px;
+}
+
+.filter__controls {
+  display: flex;
+  gap: 0 5px;
+}
+
+.filter__button {
+  font-size: 14px;
+  line-height: 17px;
+}

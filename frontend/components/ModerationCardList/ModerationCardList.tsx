@@ -6,6 +6,7 @@ import { IModerationCardList } from './ModerationCardList.props';
 import { cardData } from './cardData';
 import { CompanyCardPreview } from '../CompanyCardPreview/CompanyCardPreview';
 import { Pagination } from '../Pagination/Pagination';
+import { Filter } from '../Filter/Filter';
 
 export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ...props }) => {
   const [currentPage, setCurrenPage] = useState(1);
@@ -14,10 +15,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   const lastIndex = useMemo(() => currentPage * elementsPerPage, [currentPage, elementsPerPage]);
   const firstIndex = useMemo(() => lastIndex - elementsPerPage, [lastIndex, elementsPerPage]);
   const currentElements = useMemo(() => cardData.slice(firstIndex, lastIndex), [firstIndex, lastIndex]);
-  const pageNumbers = useMemo(
-    () => new Array(Math.ceil(cardData.length / elementsPerPage)).fill(1).map((_a, i) => i + 1),
-    [elementsPerPage],
-  );
+  const pageNumbers = useMemo(() => new Array(Math.ceil(cardData.length / elementsPerPage)).fill(1).map((_a, i) => i + 1), [elementsPerPage]);
 
   const handleGoToPage = useCallback((num: number) => setCurrenPage(num), []);
   const handleGoForward = useCallback(
@@ -28,14 +26,22 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
 
   return (
     <section className={styles.moderation}>
-      <ul className={`${styles.cardList} ${className}`} {...props}>
+      <ul className={`${styles.moderation_cardList} ${className}`} {...props}>
         {currentElements.map((item) => (
           <li key={item.id}>
             <CompanyCardPreview card={item} />
           </li>
         ))}
       </ul>
-      <Pagination currentPage={currentPage} pageNumbers={pageNumbers} goToPage={handleGoToPage} goForward={handleGoForward} goBack={handleGoBack} />
+      <Pagination
+        className={styles.moderation__pagination}
+        currentPage={currentPage}
+        pageNumbers={pageNumbers}
+        goToPage={handleGoToPage}
+        goForward={handleGoForward}
+        goBack={handleGoBack}
+      />
+      <Filter className={styles.moderation__filter} />
     </section>
   );
 };

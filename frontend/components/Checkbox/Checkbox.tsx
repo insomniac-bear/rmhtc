@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import styles from './Checkbox.module.css';
 
 export const Checkbox = forwardRef(({
-  className = '', onChange, children, name, errors,
+  className = '', onChange, children, name, errors, isValidated = true,
 }: any, ref: any) => (
   <>
     <label htmlFor={name} className={`${styles.checkbox} ${className}`}>
@@ -16,6 +16,6 @@ export const Checkbox = forwardRef(({
       />
       <span className={styles.checkbox__text}>{children}</span>
     </label>
-    <span className={styles.checkbox__errorMessage}>{errors && errors.message}</span>
+    {isValidated && <span className={styles.checkbox__errorMessage}>{errors && errors.message}</span>}
   </>
 ));
