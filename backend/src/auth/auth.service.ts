@@ -1,4 +1,4 @@
-import { Injectable, Inject, HttpException, ForbiddenException, HttpStatus } from '@nestjs/common';
+import { Injectable, Inject, HttpException, ForbiddenException, HttpStatus, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from 'src/users/users.service';
@@ -18,6 +18,7 @@ export class AuthService {
     @Inject(REFRESH_TOKEN_REPOSITORY) private readonly refreshTokenEntity: typeof RefreshToken,
     @Inject(USER_REPOSITORY) private readonly userEntity: typeof User,
     private readonly usersService: UsersService,
+    @Inject(forwardRef(() => CompanyService))
     private readonly companyService: CompanyService,
     private readonly jwtService: JwtService,
     private readonly mailService: MailService

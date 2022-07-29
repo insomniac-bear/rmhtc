@@ -1,11 +1,11 @@
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { ADDRESS_REPOSITORY, ADDRESS_TYPE_REPOSITORY, CITY_REPOSITORY, COUNTRY_REPOSITORY } from 'src/core/constants';
-import { AddressDto, AddressTypeDto } from './dto';
+import { createAddressDto, AddressTypeDto } from './dto';
 import { AddressType } from './entity/address-type.entity';
 import { Address } from './entity/address.entity';
 import { City } from './entity/city.entity';
 import { Country } from './entity/country.entity';
-import { AddressTypes } from './types';
+import { TAddressTypeValue } from './types';
 
 @Injectable()
 export class AddressService {
@@ -16,7 +16,7 @@ export class AddressService {
     @Inject(CITY_REPOSITORY) private readonly cityEntity: typeof City,
   ) {}
 
-  async createAddress(companyUuid: string, addressType: AddressTypes = 'Actual') {
+  async createAddress(companyUuid: string, addressType: TAddressTypeValue = 'Actual') {
     const foundAddressType = await this.getAddressTypeByParam('value', addressType);
     const newAddress = {
       companyUuid,
@@ -28,7 +28,7 @@ export class AddressService {
   async getAllAddressTypes() {
     const addressTypes = await this.addressTypeEntity.findAll();
 
-    if (!!addressTypes) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    if (!addressTypes) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
 
     return addressTypes;
   }
@@ -52,7 +52,7 @@ export class AddressService {
   async getAddressTypeByParam(param: string, value: string): Promise<AddressTypeDto> {
     const addressType = param === 'uuid' ? await this.addressTypeEntity.findByPk(value) : await this.addressTypeEntity.findOne({ where: { [param]: value } });
 
-    if (!!addressType) throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    if (!addressType) throw new HttpException('Not found', HttpStatus.NOT_FOUND);
 
     return addressType;
   }

@@ -1,6 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AddressService } from './address.service';
+import { AddressTypeDto } from './dto';
+import { IAddressType } from './types'
 
 @ApiTags('Address')
 @Controller('address')
@@ -8,7 +10,7 @@ export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
   @ApiOperation({ summary: 'Получение всех типов адресов' })
-  @ApiResponse({ status: 200, isArray: true, description: '["Actual", "Legal"] e.t.c.' })
+  @ApiResponse({ status: 200, type: AddressTypeDto })
   @Get('/types')
   getAddressTypes() {
     return this.addressService.getAllAddressTypes();

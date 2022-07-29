@@ -11,7 +11,7 @@ import {
 } from 'sequelize-typescript';
 import { Address } from 'src/address/entity/address.entity';
 import { User } from 'src/users/entity/user.entity';
-import { moderatedT, qcEmployesT, budgetOfYearT } from '../interfaces/ICompanies';
+import { TModerated, TQcEmployes, TBudgetOfYear } from '../types';
 
 @Table({
   tableName: 'companies',
@@ -61,7 +61,7 @@ export class Company extends Model<Company> {
   regNumber: string;
 
   @ApiProperty({
-    example: 'https://s3.rmhtc.add.company/companyUuid/docs/regDoc.pdf',
+    example: 'https://s3.rmhtc.add.company/companyUuid/regDoc/hashed-file-name.pdf',
     description: 'Ссылка на документ, подтверждающий регистрацию компании',
   })
   @Column({
@@ -138,7 +138,7 @@ export class Company extends Model<Company> {
     type: DataType.STRING,
     allowNull: true,
   })
-  qcEmployees: qcEmployesT;
+  qcEmployees: TQcEmployes;
 
   @ApiProperty({
     example: '0 - 100 000',
@@ -148,7 +148,7 @@ export class Company extends Model<Company> {
     type: DataType.STRING,
     allowNull: true,
   })
-  budgetOfYear: budgetOfYearT;
+  budgetOfYear: TBudgetOfYear;
 
   @ApiProperty({
     example: 'RUR',
@@ -165,11 +165,11 @@ export class Company extends Model<Company> {
     description: 'Статус модерации',
   })
   @Column({
-    type: DataType.BOOLEAN,
+    type: DataType.STRING,
     defaultValue: 'idle',
     allowNull: false,
   })
-  moderated: moderatedT;
+  moderated: TModerated;
 
   @ApiProperty({
     example: 'Failed documents',

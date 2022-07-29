@@ -11,7 +11,7 @@ import { AtStrategy, RtStrategy } from './strategies';
 @Module({
   controllers: [AuthController],
   providers: [AuthService, AtStrategy, RtStrategy, ...tokensProviders],
-  imports: [forwardRef(() => UsersModule), JwtModule, MailModule, CompanyModule],
+  imports: [forwardRef(() => UsersModule), CompanyModule, JwtModule, MailModule, CompanyModule],
   exports: [AuthService],
 })
 export class AuthModule {}

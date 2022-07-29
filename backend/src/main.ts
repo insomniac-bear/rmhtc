@@ -13,6 +13,8 @@ const allowedDomains = [
   'http://localhost:3000',
   'http://localhost:8000',
   'http://localhost:8000/',
+  'https://localhost:8000',
+  'https://localhost:8000/',
 ];
 
 async function bootstrap() {
@@ -22,7 +24,6 @@ async function bootstrap() {
   // app.enableCors({
   //   origin: (origin, cb) => {
   //     if (!allowedDomains.includes(origin)) {
-  //       const msg = 'Access denied, CORS';
   //       return cb(new ForbiddenException('Access Denied! CORS POLICY'), false);
   //     }
   //     return cb(null, true);

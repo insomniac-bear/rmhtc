@@ -1,9 +1,14 @@
-export class AddressDto {
-  readonly postCode: string;
-  readonly street: string;
-  readonly buildNum: string;
-  readonly roomNum: string;
-  readonly addressType: string;
-  readonly country: string;
-  readonly city: string;
+import { Address } from "../entity/address.entity";
+import { IAddress } from "../types/adress.interface";
+
+export const createAddressDto = (addressRawData: Address): IAddress => {
+  return {
+    postCode: addressRawData?.postCode,
+    street: addressRawData?.street,
+    buildNum: addressRawData?.buildNum,
+    roomNum: addressRawData?.roomNum,
+    addressType: addressRawData?.addressTypes?.value,
+    country: addressRawData?.countries?.value,
+    city: addressRawData?.cities?.value,
+  }
 }

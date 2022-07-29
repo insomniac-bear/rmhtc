@@ -1,1 +1,0 @@
-export type AddressTypes = 'Legal' | 'Mailing' | 'Actual';
