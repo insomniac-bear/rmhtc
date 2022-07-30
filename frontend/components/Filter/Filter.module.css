@@ -1,33 +1,35 @@
 .filter {
-  max-width: 200px;
+	max-width: 200px;
 }
 
 .filter__heading {
-  font-family: var(----RobotoSlab);
-  font-size: 14px;
-  line-height: 17px;
-  margin: 0 0 15px 0;
+	margin: 0 0 15px;
+
+	font-family: var(----RobotoSlab);
+	font-size: 14px;
+	line-height: 17px;
 }
 
 .filter__container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px 0;
-  margin: 0 0 20px 0;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+
+	margin: 0 0 20px;
+	gap: 10px 0;
 }
 
 .filter__checkbox > input {
-  width: 15px;
-  height: 15px;
+	width: 15px;
+	height: 15px;
 }
 
 .filter__controls {
-  display: flex;
-  gap: 0 5px;
+	display: flex;
+	gap: 0 5px;
 }
 
 .filter__button {
-  font-size: 14px;
-  line-height: 17px;
+	font-size: 14px;
+	line-height: 17px;
 }

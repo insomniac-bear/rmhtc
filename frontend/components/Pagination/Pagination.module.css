@@ -46,9 +46,9 @@
 }
 
 .pagination__item_active {
-	composes: pagination__item;
-	background-color: #182339;
 	color: #FEFEFE;
+	background-color: #182339;
+	composes: pagination__item;
 }
 
 .pagination__button:first-of-type {

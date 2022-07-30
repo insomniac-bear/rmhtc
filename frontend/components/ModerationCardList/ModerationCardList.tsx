@@ -23,6 +23,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
     [currentPage, pageNumbers.length],
   );
   const handleGoBack = useCallback(() => currentPage !== 1 && setCurrenPage((prev) => prev - 1), [currentPage]);
+  const filters = Array.from(new Set(cardData.map((item) => item.type)));
 
   return (
     <section className={styles.moderation}>
@@ -41,7 +42,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
         goForward={handleGoForward}
         goBack={handleGoBack}
       />
-      <Filter className={styles.moderation__filter} />
+      <Filter className={styles.moderation__filter} filters={filters} />
     </section>
   );
 };
