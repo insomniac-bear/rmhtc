@@ -4,7 +4,9 @@ import { ILogoProps } from './Logo.props';
 import styles from './Logo.module.css';
 import logo from '../../public/logo.svg';
 
-export const Logo: FC<ILogoProps> = ({ className = '', size = 70, ...props }) => (
+export const Logo: FC<ILogoProps> = ({
+  className = '', size = 70, src = logo, alt = 'RMHTC Logo', ...props
+}) => (
   <div
     style={{
       width: size,
@@ -14,9 +16,9 @@ export const Logo: FC<ILogoProps> = ({ className = '', size = 70, ...props }) =>
     {...props}
   >
     <Image
-      src={logo}
+      src={src}
       layout="fill"
-      alt="RMHTC Logo"
+      alt={alt}
     />
   </div>
 );
