@@ -1,7 +1,7 @@
 .pagination {
 	display: flex;
 
-	color: #182339;
+	color: var(--accent-blue-400);
 
 	font-family: TTNorms, Arial, Helvetica, sans-serif;
 	font-size: 16px;
@@ -19,7 +19,7 @@
 	cursor: pointer;
 
 	border: none;
-	background-color: #D1D3D8;
+	background-color: var(--accent-blue-100);
 }
 
 .pagination__list {
@@ -42,12 +42,12 @@
 
 	cursor: pointer;
 
-	background-color: #D1D3D8;
+	background-color: var(--accent-blue-100);
 }
 
 .pagination__item_active {
-	color: #FEFEFE;
-	background-color: #182339;
+	color: var(--grey-100);
+	background-color: var(--accent-blue-400);
 	composes: pagination__item;
 }
 

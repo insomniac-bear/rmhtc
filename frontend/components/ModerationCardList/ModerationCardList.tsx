@@ -42,7 +42,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
         goForward={handleGoForward}
         goBack={handleGoBack}
       />
-      <Filter className={styles.moderation__filter} filters={filters} />
+      <Filter className={styles.moderation__filter} filters={filters} name="objectType" htmlType="radio" />
     </section>
   );
 };

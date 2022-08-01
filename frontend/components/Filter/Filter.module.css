@@ -5,7 +5,7 @@
 .filter__heading {
 	margin: 0 0 15px;
 
-	font-family: var(----RobotoSlab);
+	font-family: var(--RobotoSlab);
 	font-size: 14px;
 	line-height: 17px;
 }
@@ -22,14 +22,4 @@
 .filter__checkbox > input {
 	width: 15px;
 	height: 15px;
-}
-
-.filter__controls {
-	display: flex;
-	gap: 0 5px;
-}
-
-.filter__button {
-	font-size: 14px;
-	line-height: 17px;
 }
