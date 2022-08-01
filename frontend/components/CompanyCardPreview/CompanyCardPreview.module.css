@@ -1,0 +1,98 @@
+.card {
+	display: grid;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 100%;
+	max-width: 733px;
+	height: 100vh;
+	max-height: 63px;
+	padding-right: 60px;
+
+	border: 1px solid #8B909C;
+	border-radius: 5px;
+	background-color: #FEFEFE;
+	grid-template-columns: 20px repeat(3, minmax(100px, 180px)) 22px;
+}
+
+.card_character {
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+
+	width: 100%;
+	max-width: 180px;
+	margin: 0;
+
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	color: #2B2B2B;
+
+	font-family: TTNorms, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.24;
+}
+
+.card_characterType {
+	overflow: hidden;
+
+	max-width: 180px;
+
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	color: #858383;
+
+	font-size: 13px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 15px;
+}
+
+.card_identifier {
+	width: 100%;
+	max-width: 17px;
+	height: 100%;
+
+	border-radius: 5px 0 0 5px;
+}
+
+.card_identifier_color_Offer {
+	background-color: #9B51E0;
+}
+
+.card_identifier_color_Requests {
+	background-color: #2D9CDB;
+}
+
+.card_identifier_color_News {
+	background-color: #F2994A;
+}
+
+.card_identifier_color_Company {
+	background-color: #27AE60;
+}
+
+.icon {
+	width: 22px;
+	height: 22px;
+
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.card_lockIcon {
+	composes: icon;
+
+	background-image: url("../../images/lock-icon.svg");
+}
+
+.card_unlockIcon {
+	composes: icon;
+
+	background-image: url("../../images/unlock-icon.svg");
+}

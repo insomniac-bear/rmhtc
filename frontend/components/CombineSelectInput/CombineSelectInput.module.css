@@ -1,6 +1,7 @@
 .combineSelectInput__fields {
 	margin: 0;
 	padding: 0;
+
 	list-style: none;
 }
 
@@ -11,13 +12,15 @@
 }
 
 .combineSelectInput__addFieldBtn {
-	border: none;
 	cursor: pointer;
-	background-color: transparent;
+	transition: 0.3s;
+
 	color: var(--link);
-	font-size: 16px;
+	border: none;
+	background-color: transparent;
+
 	font-family: var(--TTNorms);
-	transition: .3s;
+	font-size: 16px;
 }
 
 .combineSelectInput__addFieldBtn:hover {
@@ -25,22 +28,24 @@
 }
 
 .combineSelectInput__removeFieldBtn {
-	margin-top: 12px;
-	cursor: pointer;
 	width: 15px;
 	height: 15px;
+	margin-top: 12px;
+
+	cursor: pointer;
+	transition: 0.3s;
+
+	border: none;
 	background-color: transparent;
 	background-image: url("../../images/cross.svg");
-	background-position: center;
 	background-repeat: no-repeat;
-	border: none;
-	transition: .3s;
+	background-position: center;
 	filter: invert(50%);
 	justify-self: end;
 }
 
 .combineSelectInput__removeFieldBtn:hover {
-	opacity: .8;
+	opacity: 0.8;
 }
 
 input.combineSelectInput__input {
@@ -54,7 +59,9 @@ input.combineSelectInput__input {
 
 .combineSelectInput__error {
 	margin: 0;
+
 	color: var(--attention-strong);
-	font-size: 14px;
+
 	font-family: var(--TTNorms);
+	font-size: 14px;
 }
