@@ -12,6 +12,8 @@ import {
 import { Address } from 'src/address/entity/address.entity';
 import { User } from 'src/users/entity/user.entity';
 import { TModerated, TQcEmployes, TBudgetOfYear } from '../types';
+import { BusinessType } from './business-type.entity';
+import { LegalForm } from './legal-form.entity';
 
 @Table({
   tableName: 'companies',
@@ -184,8 +186,20 @@ export class Company extends Model<Company> {
   @ForeignKey(() => User)
   userUuid: string;
 
+  @ForeignKey(() => BusinessType)
+  businessTypeUuid: string;
+
+  @ForeignKey(() => LegalForm)
+  legalFormUuid: string;
+
   @BelongsTo(() => User)
   user: User;
+
+  @BelongsTo(() => BusinessType)
+  businessType: BusinessType;
+
+  @BelongsTo(() => LegalForm)
+  legalForm: LegalForm;
 
   @HasMany(() => Address)
   adressess: Address;

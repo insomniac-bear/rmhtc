@@ -38,7 +38,13 @@ export class UsersService {
     if (!user) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     const { accessToken, refreshToken } = await this.authService.getTokens(user.uuid, user.email, user.role);
 
-    const updatedUser = await this.update(uuid, userData);
+    const updatedData = { ...userData }
+
+    if (userData?.password) {
+      updatedData.password = await bcrypt.hash(userData.password, 7);
+    }
+
+    const updatedUser = await this.update(uuid, updatedData);
 
     await this.authService.saveRefreshToken(uuid, refreshToken);
 

@@ -153,7 +153,7 @@ export class AuthService {
         secret: process.env.JWT_REFRESH_SECRET,
       });
 
-      if (!refreshPayload.sub) throw new ForbiddenException('Access Denied');
+      if (!refreshPayload.sub) throw new ForbiddenException('Expired');
 
       const user = await this.usersService.getUserByParam('uuid', refreshPayload.sub);
 
