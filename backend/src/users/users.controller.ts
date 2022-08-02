@@ -1,11 +1,12 @@
 import { Body, Controller, Get, Post, Patch, Res, Req, UseGuards, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserDataDto, UserDto } from './dto';
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
 import { BufferedFile } from 'src/core/minio-client/types/minio.interface';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -20,8 +21,9 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Обновление данных пользователя' })
+
   @ApiResponse({ status: 200, type: UserDto })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Patch()
   update(
     @Req() req,
@@ -33,7 +35,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Сохранение аватара пользователя' })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Post('avatar')
   @UseInterceptors(FileInterceptor('image'))
   uploadAvatar(

@@ -19,6 +19,12 @@ export class CompanyDto {
   readonly name?: string;
 
   @ApiProperty({
+    example: 'https://s3.rmhtc.add.company/companyUuid/images/[hashed data of create].png',
+    description: 'Ссылка на логотип компании',
+  })
+  readonly logoUrl?: string;
+
+  @ApiProperty({
     example: 'OGRN',
     description: 'Название идентификатора компании',
   })
@@ -117,6 +123,7 @@ export const dto = (companyRawData): CompanyDto => {
   return {
     uuid: companyRawData?.uuid,
     name: companyRawData?.name,
+    logoUrl: companyRawData?.logoUrl,
     regNumber: companyRawData?.regNumber,
     regNumName: companyRawData?.regNumName,
     regDocUrl: companyRawData?.regDocUrl,

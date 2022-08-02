@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Put, Res, Req, UseGuards } from '@nestjs/c
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CompanyService } from './company.service';
+import { CompanyDto } from './dto/company.dto';
 
 @ApiTags('Companies')
 @Controller('companies')
@@ -11,9 +12,13 @@ export class CompanyController {
   ) {}
 
   @ApiOperation({ summary: 'Получение компаний пользователя' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({
+    status: 200,
+    description: 'Получение всех компаний пользователя',
+    type: CompanyDto
+  })
   @UseGuards(JwtAuthGuard)
-  @Get()
+  @Get('/user')
   getUsersCompanies(
     @Req() req,
     @Res({ passthrough: true }) res,

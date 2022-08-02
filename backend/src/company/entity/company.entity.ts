@@ -43,6 +43,17 @@ export class Company extends Model<Company> {
   name: string;
 
   @ApiProperty({
+    example: 'https://s3.rmhtc.add.company/companyUuid/image/companyUuid.jpg',
+    description: 'Ссылка на логотип компании',
+  })
+  @Column({
+    type: DataType.STRING,
+    unique: false,
+    allowNull: true,
+  })
+  logoUrl: string;
+
+  @ApiProperty({
     example: 'OGRN',
     description: 'Название регистрационного номера компании',
   })
