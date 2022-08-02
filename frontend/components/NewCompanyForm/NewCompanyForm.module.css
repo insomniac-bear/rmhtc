@@ -68,7 +68,9 @@ textarea.newCompanyForm__textarea {
 
 .newCompanyForm__error {
 	margin: 0;
+
 	color: var(--attention-strong);
-	font-size: 14px;
+
 	font-family: var(--TTNorms);
+	font-size: 14px;
 }

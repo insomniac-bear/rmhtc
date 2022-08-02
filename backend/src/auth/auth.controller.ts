@@ -10,11 +10,18 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiHeader, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiHeader,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { RegistrationResponseDto } from './dto';
 import { AuthService } from './auth.service';
 import { UserDataDto, UserDto } from 'src/users/dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { Response } from 'express';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -36,7 +43,10 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Подтверждение email' })
   @ApiResponse({ status: 200, type: UserDto })
-  @ApiQuery({ name: 'emailToken', example: '?emailToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' })
+  @ApiQuery({
+    name: 'emailToken',
+    example: '?emailToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+  })
   @HttpCode(HttpStatus.OK)
   @Get('/email-verify')
   confirmEmail(@Query() query) {
@@ -65,15 +75,12 @@ export class AuthController {
   @ApiOperation({ summary: 'Выход из приложения' })
   @ApiHeader({
     name: 'Authorization with Bearer',
-    description: 'Необходимо отправлять access token в заголовке'
+    description: 'Необходимо отправлять access token в заголовке',
   })
   @UseGuards(JwtAuthGuard)
   @Get('/logout')
   @HttpCode(HttpStatus.OK)
-  logout(
-    @Req() req,
-    @Res({ passthrough: true }) res: Response
-  ) {
+  logout(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
     return this.authService.logout(user.sub, res);
   }
@@ -81,14 +88,11 @@ export class AuthController {
   @ApiOperation({ summary: 'Проверка авторизации' })
   @ApiHeader({
     name: 'Authorization with Bearer',
-    description: 'Необходимо отправлять access token в заголовке'
+    description: 'Необходимо отправлять access token в заголовке',
   })
   @ApiResponse({ status: 200, type: UserDto })
   @Get('/check')
-  check(
-    @Req() req,
-    @Res({ passthrough: true }) res,
-  ) {
+  check(@Req() req, @Res({ passthrough: true }) res) {
     const accessToken = req.headers.authorization.split(' ')[1];
     const { refreshToken } = req.cookies;
 
