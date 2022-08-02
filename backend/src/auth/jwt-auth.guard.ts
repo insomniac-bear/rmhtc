@@ -9,13 +9,14 @@ export class JwtAuthGuard implements CanActivate {
   ) {}
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    const req = context.switchToHttp().getRequest()
+    const req = context.switchToHttp().getRequest();
+    const res = context.switchToHttp().getResponse();
     try {
       const authorization = req.headers.authorization;
       const bearer = authorization.split(' ')[0];
       const accessToken = authorization.split(' ')[1];
 
-      if (bearer !== 'Bearer' || !accessToken) throw new UnauthorizedException({ message: 'jwt expired in try' });
+      if (bearer !== 'Bearer' || !accessToken) throw new UnauthorizedException({ message: 'jwt expired' });
 
       const user = this.jwtService.verify(accessToken, {
         secret: process.env.JWT_ACCESS_SECRET,
@@ -26,7 +27,10 @@ export class JwtAuthGuard implements CanActivate {
     } catch (err) {
       const { refreshToken } = req.cookies;
       console.log(refreshToken)
-      if (!refreshToken) throw new UnauthorizedException({message: 'jwt expired'});
+      if (!refreshToken) {
+        res.clearCookie('refreshToken');
+        throw new UnauthorizedException({message: 'jwt expired'})
+      };
 
       const user = this.jwtService.verify(refreshToken, {
         secret: process.env.JWT_REFRESH_SECRET,
@@ -39,6 +43,4 @@ export class JwtAuthGuard implements CanActivate {
     }
 
   }
-
-
 }
