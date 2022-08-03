@@ -7,7 +7,7 @@ export const company = {
   regDocUrl: 'https:fb.com/feed',
   issuingAuthority: 'FHS  No 46',
   // eslint-disable-next-line max-len
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus ducimus dolores iure illum explicabo perspiciatis, dolorum ipsa earum. Non eos ex quis autem quod mollitia voluptas ab iure perspiciatis amet! Exercitationem odit pariatur, voluptatum beatae optio, nobis voluptate officia sint aspernatur repudiandae quam dignissimos, dicta velit. Est cumque deleniti hic architecto! Labore ab, aspernatur recusandae doloribus quo cumque dolore suscipit perspiciatis consectetur soluta expedita fugiat ipsam in, ea culpa vitae cum laborum reprehenderit beatae aut quod nostrum ex reiciendis. Fuga incidunt aspernatur, officiis, corrupti vel cum cumque deleniti earum esse culpa quasi excepturi aliquam architecto facere sunt voluptas porro saepe ipsum laborum qui voluptate, officia repellendus perspiciatis magni? Repellat temporibus quidem natus quas voluptas deserunt tempora id odit, dolor dolorem. Alias amet dolorem optio et incidunt, laborum ipsam nam omnis rerum, quo officiis soluta ex explicabo nulla qui eos a facere porro fugit ducimus doloribus. Quas illo sit dolorum expedita? ',
+  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus ducimus dolores iure illum explicabo perspiciatis, dolorum ipsa earum. Non eos ex quis autem quod mollitia voluptas ab iure perspiciatis amet! Exercitationem odit pariatur, voluptatum beatae optio, nobis voluptate officia sint aspernatur repudiandae quam dignissimos, dicta velit. Est cumque deleniti hic architecto! Labore ab, aspernatur recusandae doloribus quo cumque dolore suscipit perspiciatis consectetur soluta expedita fugiat ipsam in, ea culpa vitae cum laborum reprehenderit beatae aut quod nostrum ex.',
   yearOfFoundation: 1439,
   website: 'https://link.com/',
   ceo: 'Ivanov Ivan Ivanovich',
@@ -22,6 +22,15 @@ export const company = {
       postCode: 178567,
       country: 'Russia',
       city: 'Moscow',
+      street: 'Red Square',
+      buildNum: 'house 1',
+      roomNum: 'office 1',
+      addressType: 'Legal',
+    },
+    {
+      postCode: 178567,
+      country: 'Russia',
+      city: 'St. Petersburg',
       street: 'Lenina st.',
       buildNum: 'house 67',
       roomNum: 'office 49',
@@ -34,23 +43,45 @@ export const company = {
       street: 'Tylenina st.',
       buildNum: 'house 32',
       roomNum: '54',
-      addressType: 'Post',
+      addressType: 'Mailing',
     },
   ],
   legalForm: 'Partnership',
   bussinesType: 'Diller',
+  messangers: [
+    {
+      type: 'Telegram',
+      value: 'https://link.com/',
+    },
+    {
+      type: 'WhatsApp',
+      value: 'https://link.com/',
+    },
+    {
+      type: 'LinkedIn',
+      value: 'https://link.com/',
+    },
+    {
+      type: 'Facebook',
+      value: 'https://link.com/',
+    },
+  ],
   contacts: [
     {
-      name: 'Facebook',
-      url: 'https://link.com/',
+      type: 'Work phone',
+      value: '8123456789',
     },
     {
-      name: 'VK',
-      url: 'https://link.com/',
+      type: 'Mobile phone',
+      value: '71523456789',
     },
     {
-      name: 'Twitter',
-      url: 'https://link.com/',
+      type: 'Fax',
+      value: '71523456789',
+    },
+    {
+      type: 'Email',
+      value: 'https://link.com/',
     },
   ],
 };

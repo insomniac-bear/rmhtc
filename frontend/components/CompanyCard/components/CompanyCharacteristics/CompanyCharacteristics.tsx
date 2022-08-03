@@ -19,7 +19,23 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
     yearOfFoundation: 'Year of foundation of the company',
     regDocUrl: 'Registration document',
     [data?.regNumName]: `${data?.regNumName}`,
+    // Actual: 'Actual address',
+    // Legal: 'Legal address',
+    // Mailing: 'Mailing address',
+    // Fax: 'Fax',
+    // Mobilephone: 'Mobile phone',
+    // Email: 'Email',
+    // Facebook: 'Facebook',
+    // LinkedIn: 'LinkedIn',
+    // Telegram: 'Telegram',
+    // WhatsApp: 'WhatsApp',
+    // Workphone: 'Workphone',
   };
+  // const reg = /http/; // https @  t.me
+  // if(transformedKeys[el] === 'Email || Telegram || Facebook') {
+
+  // }
+
   return (
     <div className={`${styles.card} ${className}`} {...props}>
       <h2 className={styles.card__title}>{title}</h2>
