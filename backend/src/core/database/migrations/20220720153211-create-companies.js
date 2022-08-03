@@ -21,6 +21,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      logoUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       regNumName: {
         type: DataTypes.STRING,
         allowNull: true,

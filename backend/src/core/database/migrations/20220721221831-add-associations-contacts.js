@@ -20,7 +20,22 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       }
-    );
+    )
+    .then(() => {
+      return queryInterface.addColumn(
+        'contacts',
+        'companyUuid',
+        {
+          type: Sequelize.DataTypes.UUID,
+          references: {
+            model: 'companies',
+            key: 'uuid',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
+        }
+      )
+    });
   },
 
   async down (queryInterface, Sequelize) {
@@ -33,6 +48,10 @@ module.exports = {
     return queryInterface.removeColumn(
       'contacts',
       'contactTypeUuid',
-    );
+    )
+    .then(() => queryInterface.removeColumn(
+      'contacts',
+      'companyUuid',
+    ));
   }
 };

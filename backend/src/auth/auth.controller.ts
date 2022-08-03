@@ -20,13 +20,15 @@ import {
 import { RegistrationResponseDto } from './dto';
 import { AuthService } from './auth.service';
 import { UserDataDto, UserDto } from 'src/users/dto';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from './jwt-auth.guard';
 import { Response } from 'express';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+  ) {}
 
   @ApiOperation({ summary: 'Регистрация пользователя' })
   @ApiResponse({ status: 201, type: RegistrationResponseDto })
@@ -75,27 +77,12 @@ export class AuthController {
     name: 'Authorization with Bearer',
     description: 'Необходимо отправлять access token в заголовке',
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Get('/logout')
   @HttpCode(HttpStatus.OK)
   logout(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
     return this.authService.logout(user.sub, res);
-  }
-
-  @ApiOperation({ summary: 'Обновление Refresh и Access Tokens' })
-  @ApiHeader({
-    name: 'Authorization with Bearer',
-    description: 'Необходимо отправлять access token в заголовке',
-  })
-  @ApiResponse({ status: 200, type: UserDto })
-  @UseGuards(AuthGuard('jwt-refresh'))
-  @Get('/refresh')
-  refresh(@Req() req, @Res({ passthrough: true }) res: Response) {
-    const user = req.user;
-    const { refreshToken } = req.cookies;
-
-    return this.authService.refresh(user, refreshToken, res);
   }
 
   @ApiOperation({ summary: 'Проверка авторизации' })

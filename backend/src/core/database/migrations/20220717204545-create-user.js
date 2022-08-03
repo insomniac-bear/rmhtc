@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
       },
       password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         defaultValue: undefined,
         allowNull: true,
       },

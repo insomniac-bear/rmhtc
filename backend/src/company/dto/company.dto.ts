@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { createAddressDto } from 'src/address/dto';
 import { IAddress } from 'src/address/types';
-import { Company } from '../entity/company.entity';
+import { createContact } from 'src/messengers/dto/messenger.dto';
+import { IMessenger } from 'src/messengers/types';
 import { TBudgetOfYear, TModerated, TQcEmployes } from '../types';
 
 export class CompanyDto {
@@ -16,6 +17,12 @@ export class CompanyDto {
     description: 'Название компании',
   })
   readonly name?: string;
+
+  @ApiProperty({
+    example: 'https://s3.rmhtc.add.company/companyUuid/images/[hashed data of create].png',
+    description: 'Ссылка на логотип компании',
+  })
+  readonly logoUrl?: string;
 
   @ApiProperty({
     example: 'OGRN',
@@ -105,12 +112,18 @@ export class CompanyDto {
     description: 'Массив адресов компании'
   })
   addressess?: Array<IAddress>;
+
+  @ApiProperty({
+    description: 'Массив контактов компании'
+  })
+  contacts?: Array<IMessenger>;
 }
 
 export const dto = (companyRawData): CompanyDto => {
   return {
     uuid: companyRawData?.uuid,
     name: companyRawData?.name,
+    logoUrl: companyRawData?.logoUrl,
     regNumber: companyRawData?.regNumber,
     regNumName: companyRawData?.regNumName,
     regDocUrl: companyRawData?.regDocUrl,
@@ -126,5 +139,6 @@ export const dto = (companyRawData): CompanyDto => {
     moderated: companyRawData?.moderated,
     moderatedReason: companyRawData?.moderatedReason,
     addressess: companyRawData.adressess.map(address => createAddressDto(address)),
+    contacts: companyRawData.contacts.map(contact => createContact(contact))
   }
 }

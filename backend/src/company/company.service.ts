@@ -52,7 +52,7 @@ export class CompanyService {
     return {
       status: 'success',
       accessToken,
-      companies: companiesRawData.map(company => dto(company)),
+     companies: companiesRawData.map(company => dto(company)),
     }
   }
 

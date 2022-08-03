@@ -24,36 +24,6 @@ module.exports = {
     .then(() => {
       return queryInterface.addColumn(
         'companies',
-        'contactUuid',
-        {
-          type: Sequelize.DataTypes.UUID,
-          references: {
-            model: 'contacts',
-            key: 'uuid',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-        }
-      )
-    })
-    .then(() => {
-      return queryInterface.addColumn(
-        'companies',
-        'messengerUuid',
-        {
-          type: Sequelize.DataTypes.UUID,
-          references: {
-            model: 'messengers',
-            key: 'uuid',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-        }
-      )
-    })
-    .then(() => {
-      return queryInterface.addColumn(
-        'companies',
         'legalFormUuid',
         {
           type: Sequelize.DataTypes.UUID,
@@ -99,18 +69,6 @@ module.exports = {
       return queryInterface.removeColumn(
         'companies',
         'addressUuid',
-      )
-    })
-    .then(() => {
-      return queryInterface.removeColumn(
-        'companies',
-        'contactUuid',
-      )
-    })
-    .then(() => {
-      return queryInterface.removeColumn(
-        'companies',
-        'messengerUuid',
       )
     })
     .then(() => {
