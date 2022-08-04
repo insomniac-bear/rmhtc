@@ -42,7 +42,7 @@ export const basicInfoDataDto = (data: ICompanyData) => ({
   ceoDocUrl: data?.ceoDocUrl,
 });
 
-export const legalInfoDataDto = (data) => ({
+export const legalInfoDataDto = (data: ICompanyData) => ({
   legalForm: data?.legalForm,
   qcEmployees: data?.qcEmployees,
   budgetOfYear: data?.budgetOfYear,
@@ -58,3 +58,7 @@ export const legalInfoDataDto = (data) => ({
 //   ...arrayToObj(data?.contacts),
 //   ...arrayToObj(data?.messangers),
 // });
+
+export const contactsIfoDataDto = (data: ICompanyData) => ({
+  contacts: data?.addresses.map((el) => addressDataDto(el)).concat(data?.contacts, data?.messangers),
+});

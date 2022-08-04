@@ -8,10 +8,12 @@ export const CompanyContactsList: FC<ICompanyContactsList> = ({
   <div className={`${styles.contacts} ${className}`} {...props}>
     <h2 className={styles.contacts__title}>{title}</h2>
     <ul className={styles.contacts__list}>
-      <li className={styles.contacts__listItem}>
-        <p className={styles.contacts__fieldName}>f</p>
-        <p className={styles.contacts__fieldValue}>f</p>
-      </li>
+      {data.contacts.map((el) => (
+        <li className={styles.contacts__listItem}>
+          <p className={styles.contacts__fieldName}>{el.type}</p>
+          <p className={styles.contacts__fieldValue}>{el.value}</p>
+        </li>
+      ))}
     </ul>
   </div>
 );
