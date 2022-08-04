@@ -6,6 +6,7 @@ import { company } from './companyData';
 import { CompanyCharacteristics } from './components/CompanyCharacteristics/CompanyCharacteristics';
 import { Button } from '../Button/Button';
 import { headerDataDto, basicInfoDataDto, legalInfoDataDto } from './constants';
+import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
 
 export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const companyData: ICompanyData = company;
@@ -14,6 +15,7 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
     <section className={`${styles.company} ${className}`} {...props}>
       <CardHeader data={headerData} />
       <CompanyCharacteristics title="Basic information" data={companyData} dto={basicInfoDataDto} />
+      <CompanyContactsList title="Contact information" />
       <CompanyCharacteristics title="Legal information" data={companyData} dto={legalInfoDataDto} />
       <div className={styles.company__controls}>
         <Button type="button" appearance="primary">Approve</Button>
