@@ -4,7 +4,9 @@ import { ILogoProps } from './Logo.props';
 import styles from './Logo.module.css';
 import logo from '../../public/logo.svg';
 
-export const Logo: FC<ILogoProps> = ({ className = '', size = 70, ...props }) => (
+export const Logo: FC<ILogoProps> = ({
+  className = '', size = 70, ...props
+}) => (
   <div
     style={{
       width: size,

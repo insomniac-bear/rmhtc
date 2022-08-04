@@ -1,0 +1,66 @@
+.card {
+  max-width: 922px;
+  width: 100%;
+  background-color: var(--grey-100);
+  border: 1px solid var(--accent-blue-200);
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 70px 96px;
+  box-shadow: 0px 5px 21px 1px rgba(66, 61, 58, 0.18);
+}
+
+.text {
+  margin: 0;
+  font-family: var(--TTNorms);
+  font-weight: 400;
+  width: 100%;
+}
+
+.card__title {
+  margin: 0 0 49px 0;
+  font-family: var(--RobotoSlab);
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 27px;
+  color: var(--grey-600);
+}
+
+.card__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card__item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 15px 0;
+  min-height: 75px;
+  gap: 0 75px;
+  border-bottom: 1px solid var(--grey-400);
+}
+
+.card__fieldName {
+  composes: text;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--grey-500);
+  max-width: 301px;
+}
+
+.card__fieldValue {
+  composes: text;
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--grey-600);
+  max-width: 356px;
+}
+
+.card__filedLink {
+  composes: card__fieldValue;
+  color: var(--link);
+}
