@@ -11,7 +11,7 @@ export const CardHeader: FC<ICompanyHeader> = ({
     <Image
       className={styles.header__logo}
       src={data.logoUrl ? data.logoUrl : logoPlaceholder}
-      alt={data.name}
+      alt={data.name ? data.name : ''}
       width={70}
       height={70}
     />

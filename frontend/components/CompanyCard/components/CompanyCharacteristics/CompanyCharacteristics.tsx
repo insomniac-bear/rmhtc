@@ -2,12 +2,17 @@ import { FC } from 'react';
 import styles from './CompanyCharacteristics.module.css';
 import { ICompanyCharacteristics } from './CompanyCharacteristics.props';
 
+function hrefFilter<TValue>(value: TValue | null | undefined | number): value is TValue {
+  return value !== null && value !== undefined && typeof value !== 'number';
+}
+
+const linkRegex = /document|Document|Link/;
 export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
   title, data, dto, className = '', ...props
 }) => {
   const dataProperties = dto(data);
-  const dataKeys = Object.keys(dataProperties);
-  const transformedKeys: {[key: string]: string} = {
+  const dataKeys: string[] = Object.keys(dataProperties);
+  const transformedKeys: { [key: string]: string } = {
     issuingAuthority: 'Registration authority',
     website: 'Link',
     ceo: 'Head of company’s name',
@@ -18,32 +23,28 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
     budgetOfYear: 'Annual turner',
     yearOfFoundation: 'Year of foundation of the company',
     regDocUrl: 'Registration document',
-    [data?.regNumName]: `${data?.regNumName}`,
-    // Actual: 'Actual address',
-    // Legal: 'Legal address',
-    // Mailing: 'Mailing address',
-    // Fax: 'Fax',
-    // Mobilephone: 'Mobile phone',
-    // Email: 'Email',
-    // Facebook: 'Facebook',
-    // LinkedIn: 'LinkedIn',
-    // Telegram: 'Telegram',
-    // WhatsApp: 'WhatsApp',
-    // Workphone: 'Workphone',
+    [data?.regNumName || '']: `${data?.regNumName}`, // Не уверен что это хорошее решение
   };
-  // const reg = /http/; // https @  t.me
-  // if(transformedKeys[el] === 'Email || Telegram || Facebook') {
-
-  // }
-
   return (
     <div className={`${styles.card} ${className}`} {...props}>
       <h2 className={styles.card__title}>{title}</h2>
       <ul className={styles.card__list}>
         {dataKeys.map((el) => (
           <li className={styles.card__item}>
-            <p className={styles.card__fieldName}>{transformedKeys[el]}</p>
-            <p className={styles.card__fieldValue}>{dataProperties[el]}</p>
+            <p className={styles.card__name}>{transformedKeys[el]}</p>
+            { linkRegex.test(transformedKeys[el]) ? (
+              <a
+                className={styles.card__link}
+                rel="noreferrer"
+                target="_blank"
+                href={hrefFilter(dataProperties[el]) ? dataProperties[el]?.toString() : ''}
+                //  Все равно ругается что это может быть не строка, по этому toString()
+              >
+                {transformedKeys[el] === 'Link' ? dataProperties[el] : 'Document link'}
+              </a>
+            ) : (
+              <p className={styles.card__value}>{dataProperties[el]}</p>
+            )}
           </li>
         ))}
       </ul>

@@ -1,66 +1,83 @@
 .contacts {
-  max-width: 922px;
-  width: 100%;
-  background-color: var(--grey-100);
-  border: 1px solid var(--accent-blue-200);
-  border-radius: 10px;
-  box-sizing: border-box;
-  padding: 70px 96px;
-  box-shadow: 0px 5px 21px 1px rgba(66, 61, 58, 0.18);
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 922px;
+	padding: 70px 96px;
+
+	border: 1px solid var(--accent-blue-200);
+	border-radius: 10px;
+	background-color: var(--grey-100);
+	box-shadow: 0 5px 21px 1px rgb(66 61 58 / 18%);
 }
 
 .text {
-  margin: 0;
-  font-family: var(--TTNorms);
-  font-weight: 400;
-  width: 100%;
+	width: 100%;
+	margin: 0;
+
+	font-family: var(--TTNorms);
+	font-weight: 400;
 }
 
 .contacts__title {
-  margin: 0 0 49px 0;
-  font-family: var(--RobotoSlab);
-  font-weight: 500;
-  font-size: 21px;
-  line-height: 27px;
-  color: var(--grey-600);
+	margin: 0 0 49px;
+
+	color: var(--grey-600);
+
+	font-family: var(--RobotoSlab);
+	font-size: 21px;
+	font-weight: 500;
+	line-height: 27px;
 }
 
 .contacts__list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+	display: flex;
+	flex-direction: column;
+
+	margin: 0;
+	padding: 0;
+
+	list-style-type: none;
+	gap: 4px;
 }
 
 .contacts__listItem {
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 15px 0;
-  min-height: 75px;
-  gap: 0 75px;
-  border-bottom: 1px solid var(--grey-400);
+	display: flex;
+	align-items: center;
+
+	box-sizing: border-box;
+	min-height: 75px;
+	padding: 15px 0;
+
+	border-bottom: 1px solid var(--grey-400);
+	gap: 0 75px;
 }
 
-.contacts__fieldName {
-  composes: text;
-  font-size: 16px;
-  line-height: 20px;
-  color: var(--grey-500);
-  max-width: 301px;
+.contacts__name {
+	max-width: 301px;
+
+	color: var(--grey-500);
+
+	font-size: 16px;
+	line-height: 20px;
+	composes: text;
 }
 
-.contacts__fieldValue {
-  composes: text;
-  font-size: 20px;
-  line-height: 26px;
-  color: var(--grey-600);
-  max-width: 356px;
+.contacts__value {
+	max-width: 356px;
+
+	color: var(--grey-600);
+
+	font-size: 20px;
+	line-height: 26px;
+	composes: text;
 }
 
-.contacts__filedLink {
-  composes: contacts__fieldValue;
-  color: var(--link);
+.contacts__link {
+	composes: contacts__value;
+
+	color: var(--link);
+}
+
+.contacts__phoneLink {
+	composes: contacts__value;
 }
