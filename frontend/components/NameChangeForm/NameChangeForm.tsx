@@ -30,7 +30,7 @@ export const NameChangeForm: FC<INameChangeFormProps> = () => {
   const submitFormHandler = async (data: FormData) => {
     try {
       const newUserData: any = await updateUser(data);
-      dispatch(setUser(newUserData.data.user));
+      dispatch(setUser(newUserData.data.userData));
     } catch (error: any) {
       throw new Error(error);
     }
