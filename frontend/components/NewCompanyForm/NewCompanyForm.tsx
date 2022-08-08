@@ -55,10 +55,11 @@ type TFormData = {
   registrationAuthority: string;
 };
 
-export const NewCompanyForm: FC<INewCompanyFormProps> = ({ className, ...props }) => {
+export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, className, ...props }) => {
   const defaultValues = {
     socials: [{}],
     contacts: [{}],
+    name: company.name,
   };
 
   const {

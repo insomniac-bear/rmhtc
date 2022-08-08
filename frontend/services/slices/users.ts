@@ -6,6 +6,7 @@ import { AppDispatch, AppThunk } from '../store';
 interface IInitialState {
   isAuth: boolean,
   user: {
+    [x: string]: any;
     uuid: string;
     email: string;
     emailVerified: boolean;
@@ -17,6 +18,7 @@ interface IInitialState {
     updatedAt?: Date;
     accessToken?: string;
   }
+  userCompanies: any[];
 }
 
 const initialState: IInitialState = {
@@ -27,6 +29,7 @@ const initialState: IInitialState = {
     name: '',
     email: '',
   },
+  userCompanies: [],
 };
 
 export const userSlice = createSlice({
@@ -42,6 +45,12 @@ export const userSlice = createSlice({
     setUserAuth(state, action) {
       state.isAuth = action.payload;
     },
+    setAccessToken(state, action) {
+      state.user.accessToken = action.payload.accessToken;
+    },
+    setCompanies(state, action) {
+      state.userCompanies = action.payload;
+    },
   },
 });
 
@@ -49,6 +58,7 @@ export const {
   setUser,
   clearUser,
   setUserAuth,
+  setCompanies,
 } = userSlice.actions;
 
 export const verifySignupEmailToken: AppThunk = (token: string) => (dispatch: AppDispatch) => verifyEmailToken(token)

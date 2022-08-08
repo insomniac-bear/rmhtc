@@ -1,32 +1,47 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const userAPI = createApi({
   reducerPath: 'userAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8000',
+    prepareHeaders: (headers) => {
+      const token = Cookies.get('accessToken');
+
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (build) => ({
     signupUser: build.mutation<{email: string}, any>({
       query: (email) => ({
-        url: 'api/v1/registration',
+        url: 'api/v1/auth/registration',
         method: 'POST',
         body: {
           email,
         },
       }),
     }),
+    confirmEmail: build.mutation<{token: string}, any>({
+      query: (token) => ({
+        url: `api/v1/auth/email-verify?emailToken=${token}`,
+        method: 'GET',
+      }),
+    }),
     confirmUserInfo: build.mutation<any, any>({
       query: ({
-        uuid, password, role, company,
+        uuid, password, businessRole, company,
       }) => ({
-        url: 'api/v1/finish-registration',
+        url: 'api/v1/auth/finish-registration',
         method: 'POST',
         credentials: 'include',
         body: {
           userData: {
             uuid,
             password,
-            role,
+            businessRole,
           },
           companyData: {
             name: company,
@@ -38,7 +53,7 @@ export const userAPI = createApi({
       query: ({
         email, password,
       }) => ({
-        url: 'api/v1/login',
+        url: 'api/v1/auth/login',
         method: 'POST',
         credentials: 'include',
         body: { email, password },
@@ -46,7 +61,7 @@ export const userAPI = createApi({
     }),
     logOut: build.mutation<any, any>({
       query: () => ({
-        url: 'api/v1/logout',
+        url: 'api/v1/auth/logout',
         method: 'GET',
         credentials: 'include',
       }),
@@ -62,7 +77,7 @@ export const userAPI = createApi({
     updateAvatar: build.mutation<any, any>({
       async queryFn(file, _queryApi, _extraOptions, fetchWithBQ) {
         const formData = new FormData();
-        formData.append('avatar', file);
+        formData.append('image', file);
 
         const response = await fetchWithBQ({
           url: '/api/v1/users/avatar',
@@ -74,10 +89,21 @@ export const userAPI = createApi({
         return response;
       },
     }),
-    checkAuth: build.mutation({
+    checkAuth: build.mutation<any, any>({
       query: () => ({
-        url: '/api/v1/check-auth',
-        method: 'GET',
+        url: '/api/v1/auth/check',
+        credentials: 'include',
+      }),
+    }),
+    refreshToken: build.mutation<any, any>({
+      query: () => ({
+        url: '/api/v1/auth/refresh',
+        credentials: 'include',
+      }),
+    }),
+    getUserCompanies: build.mutation<any, any>({
+      query: () => ({
+        url: '/api/v1/companies/user',
         credentials: 'include',
       }),
     }),

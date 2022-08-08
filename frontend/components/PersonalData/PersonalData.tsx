@@ -25,9 +25,9 @@ export const PersonalData: FC<IPersonalDataProps> = ({ className }) => {
     } catch (error: any) {
       throw new Error(error.message);
     } finally {
-      Cookies.remove('accessToken');
-      dispatch(clearUser());
       router.push('/');
+      dispatch(clearUser());
+      Cookies.remove('accessToken');
     }
   };
   return (

@@ -4,7 +4,7 @@ const nextConfig = {
   generateEtags: false,
   images: {
     minimumCacheTTL: 1,
-    domains: ['s3.rmhtc.ru'],
+    domains: ['s3.rmhtc.ru', 's3.rmhtc.add.company'],
   },
 };
 
