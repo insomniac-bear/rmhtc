@@ -1,13 +1,14 @@
 import { FC } from 'react';
 import styles from './CompanyCard.module.css';
-import { ICompanyCard, ICompanyData } from './CompanyCard.props';
+import { ICompanyData } from './types';
+import { ICompanyCard } from './CompanyCard.props';
 import { CardHeader } from './components/CardHeader/CardHeader';
-import { company } from './companyData';
+import { company } from './mokData';
 import { CompanyCharacteristics } from './components/CompanyCharacteristics/CompanyCharacteristics';
 import { Button } from '../Button/Button';
 import {
   headerDataDto, basicInfoDataDto, legalInfoDataDto, contactsIfoDataDto,
-} from './constants';
+} from './dataDto/dataDto';
 import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
 
 export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {

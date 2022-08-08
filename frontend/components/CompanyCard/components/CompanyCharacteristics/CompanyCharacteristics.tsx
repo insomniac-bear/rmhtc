@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { Container } from '../../../Container/Container';
+import { Title } from '../../../Title/Title';
 import styles from './CompanyCharacteristics.module.css';
 import { ICompanyCharacteristics } from './CompanyCharacteristics.props';
 
@@ -8,7 +10,7 @@ function hrefFilter<TValue>(value: TValue | null | undefined | number): value is
 
 const linkRegex = /document|Document|Link/;
 export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
-  title, data, dto, className = '', ...props
+  title, data, dto,
 }) => {
   const dataProperties = dto(data);
   const dataKeys: string[] = Object.keys(dataProperties);
@@ -26,8 +28,8 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
     [data?.regNumName || '']: `${data?.regNumName}`, // Не уверен что это хорошее решение
   };
   return (
-    <div className={`${styles.card} ${className}`} {...props}>
-      <h2 className={styles.card__title}>{title}</h2>
+    <Container className={styles.card}>
+      <Title tag="h2" size="s" className={styles.card__title}>{title}</Title>
       <ul className={styles.card__list}>
         {dataKeys.map((el) => (
           <li className={styles.card__item}>
@@ -48,6 +50,6 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
           </li>
         ))}
       </ul>
-    </div>
+    </Container>
   );
 };

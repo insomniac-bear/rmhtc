@@ -1,15 +1,7 @@
-.header {
+div.cardHeader {
 	display: grid;
-
-	box-sizing: border-box;
-	width: 100%;
 	max-width: 922px;
 	padding: 70px 96px;
-
-	border: 1px solid var(--accent-blue-200);
-	border-radius: 10px;
-	background-color: var(--grey-100);
-	box-shadow: 0 5px 21px 1px rgb(66 61 58 / 18%);
 	gap: 30px 15px;
 	grid-template-columns: 70px 1fr;
 	grid-template-areas:
@@ -17,23 +9,15 @@
 		"description description";
 }
 
-.header__nameWrapper {
+.cardHeader__nameWrapper {
 	grid-area: name;
 }
 
-.header__name {
-	margin: 0;
-
-	color: var(--grey-600);
-
-	font-family: var(--RobotoSlab);
-	font-size: 30px;
-	font-weight: 700;
-	line-height: 40px;
+.cardHeader__name {
 	grid-area: title;
 }
 
-.header__geo {
+.cardHeader__geo {
 	position: relative;
 
 	display: flex;
@@ -48,7 +32,7 @@
 	background-color: var(--grey-300);
 }
 
-.header__geo::before {
+.cardHeader__geo::before {
 	width: 12px;
 	height: 15px;
 
@@ -60,7 +44,7 @@
 	background-size: contain;
 }
 
-.header__geoText {
+.cardHeader__geoText {
 	margin: 0 0 0 10px;
 
 	color: var(--grey-600);
@@ -71,11 +55,11 @@
 	line-height: 14px;
 }
 
-.header__logo {
+.cardHeader__logo {
 	grid-area: logo;
 }
 
-.header__description {
+.cardHeader__description {
 	margin: 0;
 
 	color: var(--grey-600);

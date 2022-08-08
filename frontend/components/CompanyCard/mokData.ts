@@ -26,6 +26,7 @@ export const company = {
       buildNum: 'house 1',
       roomNum: 'office 1',
       addressType: 'Legal',
+      uuid: '1',
     },
     {
       postCode: 178567,
@@ -35,6 +36,7 @@ export const company = {
       buildNum: 'house 67',
       roomNum: 'office 49',
       addressType: 'Actual',
+      uuid: '2',
     },
     {
       postCode: 178567,
@@ -44,44 +46,53 @@ export const company = {
       buildNum: 'house 32',
       roomNum: '54',
       addressType: 'Mailing',
+      uuid: '3',
     },
   ],
   legalForm: 'Partnership',
   bussinesType: 'Diller',
-  messangers: [
+  messengers: [
     {
       type: 'Telegram',
       value: 'https://t.me/',
+      uuid: '1',
     },
     {
       type: 'WhatsApp',
       value: 'https://www.whatsapp.com/',
+      uuid: '2',
     },
     {
       type: 'LinkedIn',
       value: 'https://www.linkedin.com/',
+      uuid: '3',
     },
     {
       type: 'Facebook',
       value: 'https://m.facebook.com//',
+      uuid: '4',
     },
   ],
   contacts: [
     {
       type: 'Work phone',
       value: '8123456789',
+      uuid: '1',
     },
     {
       type: 'Mobile phone',
       value: '+71523456789',
+      uuid: '2',
     },
     {
       type: 'Fax',
       value: '+71523456789',
+      uuid: '3',
     },
     {
       type: 'Email',
       value: 'any.mail@mail.com',
+      uuid: '4',
     },
   ],
 };
