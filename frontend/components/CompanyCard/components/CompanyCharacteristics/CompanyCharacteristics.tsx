@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import { Container } from '../../../Container/Container';
 import { Title } from '../../../Title/Title';
 import styles from './CompanyCharacteristics.module.css';
@@ -35,15 +36,15 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
           <li className={styles.card__item}>
             <p className={styles.card__name}>{transformedKeys[el]}</p>
             { linkRegex.test(transformedKeys[el]) ? (
-              <a
-                className={styles.card__link}
+              <Link
                 rel="noreferrer"
                 target="_blank"
-                href={hrefFilter(dataProperties[el]) ? dataProperties[el]?.toString() : ''}
-                //  Все равно ругается что это может быть не строка, по этому toString()
+                href={hrefFilter(dataProperties[el]) ? dataProperties[el]?.toString()! : ''}
               >
-                {transformedKeys[el] === 'Link' ? dataProperties[el] : 'Document link'}
-              </a>
+                <a className={styles.card__link}>
+                  {transformedKeys[el] === 'Link' ? dataProperties[el] : 'Document link'}
+                </a>
+              </Link>
             ) : (
               <p className={styles.card__value}>{dataProperties[el]}</p>
             )}
