@@ -5,7 +5,7 @@ import styles from './Logo.module.css';
 import logo from '../../public/logo.svg';
 
 export const Logo: FC<ILogoProps> = ({
-  className = '', size = 70, src = logo, alt = 'RMHTC Logo', ...props
+  className = '', size = 70, ...props
 }) => (
   <div
     style={{
@@ -16,9 +16,9 @@ export const Logo: FC<ILogoProps> = ({
     {...props}
   >
     <Image
-      src={src}
+      src={logo}
       layout="fill"
-      alt={alt}
+      alt="RMHTC Logo"
     />
   </div>
 );

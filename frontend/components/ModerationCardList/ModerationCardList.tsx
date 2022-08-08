@@ -1,6 +1,7 @@
 import {
   FC, useCallback, useMemo, useState,
 } from 'react';
+import Link from 'next/link';
 import styles from './ModerationCardList.module.css';
 import { IModerationCardList } from './ModerationCardList.props';
 import { cardData } from './cardData';
@@ -30,7 +31,9 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
       <ul className={`${styles.moderation_cardList} ${className}`} {...props}>
         {currentElements.map((item) => (
           <li key={item.id}>
-            <CompanyCardPreview card={item} />
+            <Link href={`/admin/moderation/company/${item.id}`}>
+              <CompanyCardPreview card={item} />
+            </Link>
           </li>
         ))}
       </ul>

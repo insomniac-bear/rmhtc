@@ -1,35 +1,29 @@
 import { FC } from 'react';
-import { Logo } from '../Logo/Logo';
 import styles from './CompanyCard.module.css';
-import { ICompanyCard } from './CompanyCard.props';
-import logo from './logoPlaceholder.png';
+import { ICompanyCard, ICompanyData } from './CompanyCard.props';
+import { CardHeader } from './components/CardHeader/CardHeader';
+import { company } from './companyData';
+import { CompanyCharacteristics } from './components/CompanyCharacteristics/CompanyCharacteristics';
+import { Button } from '../Button/Button';
+import { headerDataDto, basicInfoDataDto, legalInfoDataDto, contactsIfoDataDto } from './constants';
+import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
 
-export const CompanyCard: FC<ICompanyCard> = () => (
-  <section className={styles.company}>
-    <article className={styles.company__mainInfo}>
-      <Logo className={styles.company__logo} src={logo} alt="Logo" />
-      <div className={styles.company__nameWrapper}>
-        <h1 className={styles.company__name}>Roga Invest Holding</h1>
-        <div className={styles.company__geo}><p className={styles.company__geoText}>Russia, Moscow</p></div>
+export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
+  const companyData: ICompanyData = company;
+  const headerData = headerDataDto(companyData);
+  const contactsData = contactsIfoDataDto(companyData);
+  console.log(contactsData);
+  
+  return (
+    <section className={`${styles.company} ${className}`} {...props}>
+      <CardHeader data={headerData} />
+      <CompanyCharacteristics title="Basic information" data={companyData} dto={basicInfoDataDto} />
+      <CompanyContactsList title="Contact information" data={contactsData} />
+      <CompanyCharacteristics title="Legal information" data={companyData} dto={legalInfoDataDto} />
+      <div className={styles.company__controls}>
+        <Button type="button" appearance="primary">Approve</Button>
+        <Button type="button" appearance="ghost">Reject</Button>
       </div>
-      <p className={styles.company__description}>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-        architecto beatae vitae dicta sunt explicabo. Nemo
-      </p>
-    </article>
-    <div className={styles.info}>
-      <h2 className={styles.info__title}>Basic</h2>
-      <ul className={styles.info__list}>
-        <li className={styles.info__item}>
-          <p className={styles.info__field}>Legal form</p>
-          <p className={styles.info__value}>Partnership</p>
-        </li>
-        <li className={styles.info__item}>
-          <p className={styles.info__field}>Document confirming the authority of  the head of company</p>
-          <a className={styles.info__value}>Company document No 647443</a>
-        </li>
-      </ul>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
