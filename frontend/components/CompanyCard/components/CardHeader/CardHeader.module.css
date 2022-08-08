@@ -1,5 +1,6 @@
 div.cardHeader {
 	display: grid;
+
 	max-width: 922px;
 	padding: 70px 96px;
 	gap: 30px 15px;
