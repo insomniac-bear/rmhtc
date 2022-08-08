@@ -1,19 +1,5 @@
-import { ICompanyAddress, ICompanyData } from './CompanyCard.props';
-
-export const arrayToObj = (arr: object[]) => arr.reduce((obj: any, item: any) => {
-  const oldObj = obj;
-  const newObj = (oldObj[item.type.replace(' ', '')] = item.value, oldObj);
-  return newObj;
-}, {});
-
-// добавить возможность настройки актуального адреса?
-export const findGeo = (arr: object[]) => {
-  const current = arr.find((el: any) => el.addressType === 'Legal' || 'Actual' || 'Mailing');
-  if (typeof current !== 'undefined') {
-    return `${current.address.country}, ${current.address.city}`;
-  }
-  return null;
-};
+import { findGeo } from './utils';
+import { ICompanyAddress, ICompanyData } from '../types';
 
 export const addressDataDto = (data: ICompanyAddress) => ({
   type: data?.addressType,
@@ -26,6 +12,7 @@ export const addressDataDto = (data: ICompanyAddress) => ({
     roomNum: data?.roomNum,
   },
   value: Object.values(data).join(', ').replace(`, ${data?.addressType}`, ''),
+  uuid: data?.uuid,
 });
 
 export const headerDataDto = (data: ICompanyData) => ({
@@ -49,16 +36,11 @@ export const legalInfoDataDto = (data: ICompanyData) => ({
   yearOfFoundation: data?.yearOfFoundation,
   regDocUrl: data?.regDocUrl,
   issuingAuthority: data?.issuingAuthority,
-  [data?.regNumName]: data?.regNumber,
+  [data?.regNumName || 0]: data?.regNumber,
 });
 
-// Объект со всеми контактами
-// export const contactsInfoDataDto = (data) => ({
-//   ...arrayToObj(data?.addresses.map((el) => addressDataDto(el))),
-//   ...arrayToObj(data?.contacts),
-//   ...arrayToObj(data?.messangers),
-// });
-
 export const contactsIfoDataDto = (data: ICompanyData) => ({
-  contacts: data?.addresses.map((el) => addressDataDto(el)).concat(data?.contacts, data?.messangers),
+  addresses: data?.addresses.map((el) => addressDataDto(el)),
+  contacts: data?.contacts,
+  messengers: data?.messengers,
 });
