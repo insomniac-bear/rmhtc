@@ -10,7 +10,7 @@ export const Headline: FC<IHeadlineProps> = ({ className = '', ...props }) => (
       <div className={styles.headline__backGraphic} />
     </div>
     <div className={styles.headline__titleContent}>
-      <Title className={styles.headline__title} tag="h1" size="l">Russian Malasian High Tech Center</Title>
+      <Title className={styles.headline__title} tag="h1" size="l">International Technology Center</Title>
       <Title className={styles.headline__subtitle} tag="h2" size="s">
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
       </Title>
