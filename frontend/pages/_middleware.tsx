@@ -12,22 +12,20 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (cookies.accessToken) {
-    const user = await fetch('http://localhost:8000/api/v1/auth/check', {
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer ${cookies.accessToken}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          // return Promise.reject(new Error(`Ошибка: ${res.status}`));
-          console.log(`Ошибка: ${res.status}`);
-        }
-        return res.json();
-      });
-    console.log(user);
-  }
+  // if (cookies.accessToken) {
+  //   const user = await fetch('http://localhost:8000/api/v1/auth/check', {
+  //     credentials: 'include',
+  //     headers: {
+  //       Authorization: `Bearer ${cookies.accessToken}`,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       if (!res.ok) {
+  //         return Promise.reject(new Error(`Ошибка: ${res.status}`));
+  //       }
+  //       return res.json();
+  //     });
+  // }
 
   if (jwt && (
     url?.pathname.includes('/signup')
