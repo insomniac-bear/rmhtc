@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import styles from './RejectForm.module.css';
 import { CustomTextarea } from '../CustomTextarea/CustomTextarea';
@@ -7,17 +8,21 @@ import { IRejectForm } from './RejectForm.props';
 import { Button } from '../Button/Button';
 
 type FormData = {
-  reason: string;
+  rejectReason: string;
 }
 
 export const RejectForm: FC<IRejectForm> = ({ className = '', ...props }) => {
-  const { handleSubmit, register, formState: { errors } } = useForm<FormData>();
-
+  const router = useRouter();
+  const { handleSubmit, register, formState: { errors } } = useForm<FormData>({
+    defaultValues: {
+      rejectReason: '',
+    },
+  });
   const submitFormHandler = (data: FormData) => {
-    const { reason } = data;
-    console.log(reason);
+    const { rejectReason } = data;
+    console.log(rejectReason);
+    router.push('/admin/moderation/company/1/?modal=rejected');
   };
-
   return (
     <form
       className={`${styles.form} ${className}`}
@@ -28,14 +33,14 @@ export const RejectForm: FC<IRejectForm> = ({ className = '', ...props }) => {
       <CustomTextarea
         className={styles.form__textarea}
         placeholder="Enter reject reason"
-        label="reason"
-        errors={errors.reason}
-        {...register('reason', {
+        label="rejectReason"
+        errors={errors.rejectReason}
+        {...register('rejectReason', {
           required: 'Reason is required',
         })}
       />
       <div className={styles.form__controls}>
-        <Button type="submit" appearance="primary" disabled={!!errors.reason}>Save</Button>
+        <Button type="submit" appearance="primary" disabled={!!errors.rejectReason}>Save</Button>
         <Button type="button">Cancel</Button>
       </div>
     </form>
