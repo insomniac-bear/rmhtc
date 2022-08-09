@@ -42,31 +42,17 @@ export const LoginForm: FC<ILoginFormProps> = ({ className = '', ...props }) => 
 
   const submitFormHandler = async ({ email, password }: FormData) => {
     try {
-      const userData: any = await login({ email, password });
-      if (userData.data.status === 'success') {
-        dispatch(setUser(userData.data.user));
-        Cookies.set('accessToken', userData.data.accessToken);
+      const response: any = await login({ email: email.toLowerCase(), password });
+      if (response.data.userData) {
+        dispatch(setUser(response.data.userData));
+        Cookies.set('accessToken', response.data.accessToken);
         dispatch(setUserAuth(true));
-        router.push('/profile/summary');
+        if (response.data.userData.role === 'USER') router.push('/profile/summary');
+        if (response.data.userData.role === 'ADMINISTRATOR') router.push('/admin/moderation');
       }
     } catch (error: any) {
       throw new Error(error);
     }
-    // const email = formRef.current?.elements.email.value;
-    // const password = formRef.current?.elements.password.value;
-    // dispatch(loginAction(email, password))
-    //   .then(() => router.push('/profile/companies'))
-    //   .catch((error: {message: string}) => {
-    //     if (error.message === 'Error: 400') {
-    //       setFormErrorMessage('Переданые некорректные данные.');
-    //     }
-    //     if (error.message === 'Error: 403') {
-    //       setFormErrorMessage('Неверный логин или пароль.');
-    //     }
-    //     if (error.message === 'Error: 500') {
-    //       router.push('/500');
-    //     }
-    //   });
   };
 
   return (
@@ -88,11 +74,10 @@ export const LoginForm: FC<ILoginFormProps> = ({ className = '', ...props }) => 
               })}
             />
             <Link
-              className={styles.loginForm__link}
               href="/registration"
               passHref
             >
-              <a className={styles.loginForm__link}>
+              <a className={`${styles.loginForm__link} ${styles.loginForm__link_forgotPass}`}>
                 Forgot password?
               </a>
             </Link>

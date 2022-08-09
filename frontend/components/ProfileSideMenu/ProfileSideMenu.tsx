@@ -6,16 +6,24 @@ import { Title } from '../Title/Title';
 import { IProfileSideMenu } from './ProfileSideMenu.props';
 import styles from './ProfileSideMenu.module.css';
 import { menuData } from './menuData';
+import { adminMenuData } from './adminMenuData';
 
 export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className = '', ...props }) => {
   const router = useRouter();
+  const isAdmin = router.pathname.includes('admin');
+  const isUser = router.pathname.includes('profile') || router.pathname.includes('objects');
+
+  const menuDataToRender = isAdmin ? adminMenuData : menuData;
 
   return (
     <div className={`${styles.profileSideMenu} ${className}`} {...props}>
-      <Title className={styles.profileSideMenu__title} tag="h2" size="s">Personal office</Title>
+      <Title className={styles.profileSideMenu__title} tag="h2" size="s">
+        {isUser && 'Personal office'}
+        {isAdmin && 'Administrative office'}
+      </Title>
       <nav className={styles.profileSideMenu__nav}>
         <ul className={styles.profileSideMenu__menuList}>
-          {menuData.map((menuItem) => (
+          {menuDataToRender.map((menuItem) => (
             <li className={styles.profileSideMenu__menuItem} key={menuItem.id}>
               {menuItem.innerLinks.length ? (
                 <>
@@ -43,10 +51,9 @@ export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className = '', ...props
                           <Link href={`/${menuItem.title.toLowerCase()}${innerLink.link}`} passHref>
                             <a className={`
                               ${styles.profileSideMenu__innerLink}
-                              ${router.pathname === `/${menuItem.title.toLowerCase()}${innerLink.link}`
+                              ${router.pathname.includes(`/${menuItem.title.toLowerCase()}${innerLink.link}`)
                               ? styles.profileSideMenu__innerLink_active
                               : ''}
-                              
                             `}
                             >
                               {innerLink.title}
@@ -58,10 +65,10 @@ export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className = '', ...props
                   </div>
                 </>
               ) : (
-                <Link href={`/profile${menuItem.link}` || ''} passHref>
+                <Link href={`/${menuItem.link}` || ''} passHref>
                   <a className={`
                     ${styles.profileSideMenu__menuTitle}
-                    ${router.pathname === `/profile${menuItem.link}` ? styles.profileSideMenu__menuTitle_active : ''}
+                    ${router.pathname === `/${menuItem.link}` ? styles.profileSideMenu__menuTitle_active : ''}
                     `}
                   >
                     {menuItem.title}

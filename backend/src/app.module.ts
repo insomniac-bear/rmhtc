@@ -9,7 +9,6 @@ import { CompanyModule } from './company/company.module';
 import { AddressModule } from './address/address.module';
 import { MinioClientModule } from './core/minio-client/minio-client.module';
 import { MessengersModule } from './messengers/messengers.module';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -23,6 +22,6 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     AddressModule,
     MinioClientModule,
     MessengersModule,
- ],
+  ],
 })
 export class AppModule {}

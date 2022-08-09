@@ -47,6 +47,10 @@
 	font-size: 16px;
 }
 
+.loginForm__link_forgotPass {
+	align-self: flex-end;
+}
+
 .loginForm__errorMessage {
 	margin: 5px 0;
 

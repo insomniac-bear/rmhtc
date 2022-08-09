@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Error from 'next/error';
+// import Error from 'next/error';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
@@ -25,9 +25,9 @@ export const ProfileMenu: FC<IProfileMenuProps> = ({ className = '', ...props })
     } catch (error: any) {
       throw new Error(error.message);
     } finally {
-      Cookies.remove('accessToken');
-      dispatch(clearUser());
       router.push('/');
+      dispatch(clearUser());
+      Cookies.remove('accessToken');
     }
   };
 

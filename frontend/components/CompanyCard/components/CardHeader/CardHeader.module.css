@@ -1,75 +1,73 @@
-.header {
-  max-width: 922px;
-  width: 100%;
-  background-color: var(--grey-100);
-  border: 1px solid var(--accent-blue-200);
-  border-radius: 10px;
-  box-sizing: border-box;
-  padding: 70px 96px;
-  display: grid;
-  gap: 30px 15px;
-  grid-template-columns: 70px 1fr;
-  grid-template-areas: 
-  'logo name'
-  'description description';
-  box-shadow: 0px 5px 21px 1px rgba(66, 61, 58, 0.18);
+div.cardHeader {
+	display: grid;
+
+	max-width: 922px;
+	padding: 70px 96px;
+	gap: 30px 15px;
+	grid-template-columns: 70px 1fr;
+	grid-template-areas:
+		"logo name"
+		"description description";
 }
 
-.header__nameWrapper {
-  grid-area: name;
+.cardHeader__nameWrapper {
+	grid-area: name;
 }
 
-.header__name {
-  grid-area: title;
-  margin: 0;
-  font-family: var(--RobotoSlab);
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 40px;
-  color: var(--grey-600);
+.cardHeader__name {
+	grid-area: title;
 }
 
-.header__geo {
-  background-color: var(--grey-300);
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 5px 10px;
-  border-radius: 5px;
-  position: relative;
-  margin: 5px 0 0 0;
+.cardHeader__geo {
+	position: relative;
+
+	display: flex;
+	align-items: center;
+
+	box-sizing: border-box;
+	width: fit-content;
+	margin: 5px 0 0;
+	padding: 5px 10px;
+
+	border-radius: 5px;
+	background-color: var(--grey-300);
 }
 
-.header__geo::before {
-  content: "";
-  background-image: url("../../../../images/geo-point.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 12px;
-  height: 15px;
+.cardHeader__geo::before {
+	width: 12px;
+	height: 15px;
+
+	content: "";
+
+	background-image: url("../../../../images/geo-point.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 }
 
-.header__geoText {
-  margin: 0 0 0 10px;
-  font-family: var(--TTNorms);
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  color: var(--grey-600);
+.cardHeader__geoText {
+	margin: 0 0 0 10px;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 14px;
 }
 
-.header__logo {
-  grid-area: logo;
+.cardHeader__logo {
+	grid-area: logo;
 }
 
-.header__description {
-  grid-area: description;
-  margin: 0;
-  font-family: var(--TTNorms);
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 26px;
-  color: var(--grey-600);
+.cardHeader__description {
+	margin: 0;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 26px;
+	grid-area: description;
 }

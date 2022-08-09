@@ -17,7 +17,7 @@ type FormData = {
   password: string;
   confirmPassword: string;
   company: string;
-  role: string;
+  businessRole: string;
 }
 
 export const SetPasswordForm: FC<ISetPasswordForm> = ({ className = '', ...props }) => {
@@ -84,9 +84,9 @@ export const SetPasswordForm: FC<ISetPasswordForm> = ({ className = '', ...props
             />
             <CustomInput
               placeholder="Business role in company"
-              errors={errors.role}
+              errors={errors.businessRole}
               label="role"
-              {...register('role', {
+              {...register('businessRole', {
                 required: 'Business role in company is required.',
               })}
             />

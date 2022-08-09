@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
@@ -18,8 +19,10 @@ export const AvatarChangeForm: FC<IAvatarChangeForm> = ({ className, ...props })
   const handleSetAvatar = async (data: any) => {
     try {
       const newUserData: any = await updateAvatar(data.avatar[0]);
+      console.log(data.avatar[0]);
 
-      dispatch(setUser(newUserData.data.user));
+      dispatch(setUser(newUserData.data.userData));
+      Cookies.set('accessToken', newUserData.data.accessToken);
     } catch (error: any) {
       throw new Error(error.message);
     } finally {

@@ -31,10 +31,14 @@ export const SignupForm: FC<ISignupForm> = ({ className = '', ...props }): JSX.E
   const submitFormHandler = async (data: FormData) => {
     const { email } = data;
     try {
-      await signup(email);
-      router.push(`/?modal=signup_success&signupEmail=${email.toLowerCase()}`, '/signup-success');
-    } catch {
-      setFormErrorMessage('error');
+      const res: any = await signup(email);
+      if (res.data.status === 'success') {
+        router.push(`/?modal=signup_success&signupEmail=${email.toLowerCase()}`, '/signup-success');
+      } else {
+        throw new Error(res.error);
+      }
+    } catch (error: any) {
+      setFormErrorMessage(error.message);
     }
   };
 

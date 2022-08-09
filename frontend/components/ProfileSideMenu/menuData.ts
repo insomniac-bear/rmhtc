@@ -49,7 +49,7 @@ export const menuData = [
   },
   {
     id: '4',
-    title: 'RMHTC services',
+    title: 'ITC services',
     innerLinks: [],
     link: '/services',
   },

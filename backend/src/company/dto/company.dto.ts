@@ -19,7 +19,8 @@ export class CompanyDto {
   readonly name?: string;
 
   @ApiProperty({
-    example: 'https://s3.rmhtc.add.company/companyUuid/images/[hashed data of create].png',
+    example:
+      'https://s3.rmhtc.add.company/companyUuid/images/[hashed data of create].png',
     description: 'Ссылка на логотип компании',
   })
   readonly logoUrl?: string;
@@ -37,7 +38,8 @@ export class CompanyDto {
   readonly regNumber?: string;
 
   @ApiProperty({
-    example: 'https://s3.rmhtc.add.company/companyUuid/regDoc/hashed-file-name.pdf',
+    example:
+      'https://s3.rmhtc.add.company/companyUuid/regDoc/hashed-file-name.pdf',
     description: 'Ссылка на скан документа о регистрации компании',
   })
   readonly regDocUrl?: string;
@@ -109,12 +111,12 @@ export class CompanyDto {
   moderatedReason?: string;
 
   @ApiProperty({
-    description: 'Массив адресов компании'
+    description: 'Массив адресов компании',
   })
   addressess?: Array<IAddress>;
 
   @ApiProperty({
-    description: 'Массив контактов компании'
+    description: 'Массив контактов компании',
   })
   contacts?: Array<IMessenger>;
 }
@@ -138,7 +140,9 @@ export const dto = (companyRawData): CompanyDto => {
     currencyOfBudget: companyRawData?.currencyOfBudget,
     moderated: companyRawData?.moderated,
     moderatedReason: companyRawData?.moderatedReason,
-    addressess: companyRawData.adressess.map(address => createAddressDto(address)),
-    contacts: companyRawData.contacts.map(contact => createContact(contact))
-  }
-}
+    addressess: companyRawData?.adressess.map((address) =>
+      createAddressDto(address)
+    ),
+    contacts: companyRawData?.contacts.map((contact) => createContact(contact)),
+  };
+};
