@@ -13,12 +13,11 @@ type FormData = {
 
 export const RejectForm: FC<IRejectForm> = ({ className = '', ...props }) => {
   const router = useRouter();
-  const { uuid } = router.query;
   const { handleSubmit, register, formState: { errors } } = useForm<FormData>();
   const submitFormHandler = (data: FormData) => {
     const { rejectReason } = data;
     console.log(rejectReason);
-    router.push(`/admin/moderation/company/${uuid}/?modal=rejected`);
+    router.push('/admin/moderation/?modal=rejected');
   };
   return (
     <form

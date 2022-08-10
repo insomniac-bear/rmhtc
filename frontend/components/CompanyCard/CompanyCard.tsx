@@ -32,7 +32,7 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
       <CompanyContactsList title="Contact information" data={contactsData} />
       <CompanyCharacteristics title="Legal information" data={companyData} dto={legalInfoDataDto} />
       <div className={styles.company__controls}>
-        <Link href={`/admin/moderation/company/${uuid}/?modal=approved`}>
+        <Link href="/admin/moderation/?modal=approved">
           <a>
             <Button className={styles.company__button} onClick={handleApprove} type="button" appearance="primary">Approve</Button>
           </a>
