@@ -33,7 +33,7 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
       <Title tag="h2" size="s" className={styles.card__title}>{title}</Title>
       <ul className={styles.card__list}>
         {dataKeys.map((el) => (
-          <li className={styles.card__item}>
+          <li className={styles.card__item} key={el}>
             <p className={styles.card__name}>{transformedKeys[el]}</p>
             { linkRegex.test(transformedKeys[el]) ? (
               <Link

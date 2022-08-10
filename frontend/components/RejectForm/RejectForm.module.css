@@ -1,0 +1,29 @@
+.form {
+	display: grid;
+
+	width: 100vw;
+	max-width: 393px;
+}
+
+.form__title {
+	margin: 0 0 35px;
+}
+
+.form__textarea {
+	width: 100%;
+	max-width: 356px;
+	height: 116px;
+
+	resize: none;
+}
+
+.form__controls {
+	display: grid;
+
+	width: 100%;
+	max-width: 260px;
+	margin: 55px 0 0;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 10px;
+	justify-self: end;
+}

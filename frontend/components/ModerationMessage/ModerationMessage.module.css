@@ -1,0 +1,22 @@
+.moderationMessage {
+	display: grid;
+
+	width: 100%;
+	max-width: 270px;
+
+	text-align: center;
+}
+
+.moderationMessage__message {
+	margin: 40px 0 80px;
+
+	color: var(--black);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.moderationMessage__button {
+	width: 112px;
+	justify-self: end;
+}
