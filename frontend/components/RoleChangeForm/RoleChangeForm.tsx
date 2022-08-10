@@ -10,7 +10,7 @@ import { Button } from '../Button/Button';
 import { CustomInput } from '../CustomInput/CustomInput';
 import { Title } from '../Title/Title';
 import { IRoleChangeFormProps } from './RoleChangeForm.props';
-import styles from './roleChangeForm.module.css';
+import styles from './RoleChangeForm.module.css';
 
 type FormData = {
   businessRole: string;
