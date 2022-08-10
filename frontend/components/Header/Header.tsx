@@ -12,12 +12,15 @@ import { useAppSelector } from '../../services/hooks';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { Button } from '../Button/Button';
 import { ProfileMenu } from '../ProfileMenu/ProfileMenu';
+import { menuData } from '../../mockData/userMenuData';
+import { adminMenuData } from '../../mockData/adminMenuData';
 
 export const Header: FC<IHeaderProps> = ({
   className = '', middle = 'navMenu', logoSize, ...props
 }) => {
   const isAuth = useAppSelector((store) => store.user.isAuth);
   const user = useAppSelector((store) => store.user.user);
+  const profileMenuData = user.role === 'USER' ? menuData : adminMenuData;
 
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
@@ -41,7 +44,7 @@ export const Header: FC<IHeaderProps> = ({
             <Image layout="fill" alt="profile icon" src={user.avatarUrl || '/profile-icon.svg'} />
           </Button>
 
-          {showProfileMenu && <ProfileMenu className={styles.header__profileMenu} />}
+          {showProfileMenu && <ProfileMenu menuData={profileMenuData} className={styles.header__profileMenu} />}
         </div>
       )}
     </header>
