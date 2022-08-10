@@ -21,7 +21,6 @@ async function bootstrap() {
   const PORT = process.env.API_LOCAL_PORT || 8000;
   const app = await NestFactory.create(AppModule);
 
-
   // app.enableCors({
   //   origin: (origin, cb) => {
   //     if (!allowedDomains.includes(origin)) {
