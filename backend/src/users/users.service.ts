@@ -1,4 +1,10 @@
-import { forwardRef, Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { AuthService } from 'src/auth/auth.service';
 import { CompanyService } from 'src/company/company.service';
@@ -18,7 +24,7 @@ export class UsersService {
     private readonly rolesService: RolesService,
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
-    private readonly minioClientService: MinioClientService,
+    private readonly minioClientService: MinioClientService
   ) {}
 
   async createUser(userDto: UserDataDto): Promise<UserDto> {
@@ -26,7 +32,7 @@ export class UsersService {
     const role = await this.rolesService.getRoleByValue('USER');
     user.roleUuid = role.uuid;
     await user.save();
-    const savedUser = user.get()
+    const savedUser = user.get();
     const counts = await this.companyService.getUsersCompanyCounts(user.uuid);
     const transformUser = dto(savedUser, counts);
 
@@ -36,9 +42,13 @@ export class UsersService {
   async updateUser(uuid, userData: UserDataDto, res) {
     const user = await this.getUserByParam('uuid', uuid);
     if (!user) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    const { accessToken, refreshToken } = await this.authService.getTokens(user.uuid, user.email, user.role);
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      user.uuid,
+      user.email,
+      user.role
+    );
 
-    const updatedData = { ...userData }
+    const updatedData = { ...userData };
 
     if (userData?.password) {
       updatedData.password = await bcrypt.hash(userData.password, 7);
@@ -58,7 +68,7 @@ export class UsersService {
       status: 'success',
       accessToken,
       userData: updatedUser,
-    }
+    };
   }
 
   async getAllUsers() {
@@ -67,7 +77,11 @@ export class UsersService {
   }
 
   async uploadAvatar(uuid: string, avatar: BufferedFile, res) {
-    if (avatar.size > 314578) throw new HttpException('Uploading file to large', HttpStatus.BAD_REQUEST);
+    if (avatar.size > 314578)
+      throw new HttpException(
+        'Uploading file to large',
+        HttpStatus.BAD_REQUEST
+      );
 
     const user = await this.getUserByParam('uuid', uuid);
     if (!user) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
@@ -78,9 +92,16 @@ export class UsersService {
       await this.minioClientService.delete(`avatars/${uuid}/`, objectName);
     }
 
-    const avatarUrl = await this.minioClientService.upload(`avatars/${uuid}/`, avatar);
+    const avatarUrl = await this.minioClientService.upload(
+      `avatars/${uuid}/`,
+      avatar
+    );
 
-    const { accessToken, refreshToken } = await this.authService.getTokens(user.uuid, user.email, user.role);
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      user.uuid,
+      user.email,
+      user.role
+    );
 
     const updatedUser = await this.update(uuid, { avatarUrl });
 
@@ -96,11 +117,14 @@ export class UsersService {
       status: 'success',
       accessToken,
       userData: updatedUser,
-    }
+    };
   }
 
   async update(uuid: string, updatedData: UserDataDto): Promise<UserDto> {
-    const user = await this.userEntity.findOne({ where: { uuid }, include: { all: true} });
+    const user = await this.userEntity.findOne({
+      where: { uuid },
+      include: { all: true },
+    });
     if (!user) throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
 
     await user.update(updatedData);
@@ -118,24 +142,25 @@ export class UsersService {
   }
 
   async getUserByParam(param: string, value: string): Promise<UserDto> {
-    const rawUser = param === 'uuid'
-      ? await this.userEntity.findByPk(value, { include: { all: true} })
-      : await this.userEntity.findOne(
-        {
-          where: {
-            [param]: value
-          },
-          include: {
-            all: true
-          }
-        }
-      );
+    const rawUser =
+      param === 'uuid'
+        ? await this.userEntity.findByPk(value, { include: { all: true } })
+        : await this.userEntity.findOne({
+            where: {
+              [param]: value,
+            },
+            include: {
+              all: true,
+            },
+          });
 
-      if (!rawUser) {
-        return {};
-      }
+    if (!rawUser) {
+      return {};
+    }
 
-      const counts = await this.companyService.getUsersCompanyCounts(rawUser.uuid);
+    const counts = await this.companyService.getUsersCompanyCounts(
+      rawUser.uuid
+    );
 
     return dto(rawUser, counts);
   }

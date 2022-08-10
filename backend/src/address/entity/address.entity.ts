@@ -1,6 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UUIDV4 } from 'sequelize';
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Company } from 'src/company/entity/company.entity';
 import { AddressType } from './address-type.entity';
 import { City } from './city.entity';

@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { createAddressDto } from 'src/address/dto';
 import { IAddress } from 'src/address/types';
-import { createContact } from 'src/messengers/dto/messenger.dto';
+import { IContact } from 'src/contacts/types';
 import { IMessenger } from 'src/messengers/types';
 import { TBudgetOfYear, TModerated, TQcEmployes } from '../types';
 
@@ -111,6 +110,24 @@ export class CompanyDto {
   moderatedReason?: string;
 
   @ApiProperty({
+    example: 'Manufacture',
+    description: 'Тип компании',
+  })
+  businessType?: string;
+
+  @ApiProperty({
+    example: 'Limited Liability Company',
+    description: 'Организационно-правовая форма',
+  })
+  legalForm?: string;
+
+  @ApiProperty({
+    example: 'LLC',
+    description: 'Сокращенная организационно-правовая форма',
+  })
+  shortLegalForm?: string;
+
+  @ApiProperty({
     description: 'Массив адресов компании',
   })
   addressess?: Array<IAddress>;
@@ -118,10 +135,15 @@ export class CompanyDto {
   @ApiProperty({
     description: 'Массив контактов компании',
   })
-  contacts?: Array<IMessenger>;
+  contacts?: Array<IContact>;
+
+  @ApiProperty({
+    description: 'Массив мессенджеров компании',
+  })
+  messengers?: Array<IMessenger>;
 }
 
-export const dto = (companyRawData): CompanyDto => {
+export const createCompanyDto = (companyRawData) => {
   return {
     uuid: companyRawData?.uuid,
     name: companyRawData?.name,
@@ -140,9 +162,5 @@ export const dto = (companyRawData): CompanyDto => {
     currencyOfBudget: companyRawData?.currencyOfBudget,
     moderated: companyRawData?.moderated,
     moderatedReason: companyRawData?.moderatedReason,
-    addressess: companyRawData?.adressess.map((address) =>
-      createAddressDto(address)
-    ),
-    contacts: companyRawData?.contacts.map((contact) => createContact(contact)),
   };
 };

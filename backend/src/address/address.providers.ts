@@ -1,4 +1,9 @@
-import { ADDRESS_REPOSITORY, ADDRESS_TYPE_REPOSITORY, CITY_REPOSITORY, COUNTRY_REPOSITORY } from 'src/core/constants';
+import {
+  ADDRESS_REPOSITORY,
+  ADDRESS_TYPE_REPOSITORY,
+  CITY_REPOSITORY,
+  COUNTRY_REPOSITORY,
+} from 'src/core/constants';
 import { AddressType } from './entity/address-type.entity';
 import { Address } from './entity/address.entity';
 import { City } from './entity/city.entity';

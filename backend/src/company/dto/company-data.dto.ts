@@ -1,10 +1,11 @@
 import { TQcEmployes, TBudgetOfYear, TModerated } from '../types';
 import { IAddress } from '../../address/types';
 import { IMessenger } from 'src/messengers/types';
+import { IContact } from 'src/contacts/types';
 
 export class CompanyDataDto {
   name?: string;
-  logoUrl: string;
+  logoUrl?: string;
   regNumName?: string;
   regNumber?: string;
   regDocUrl?: string;
@@ -20,7 +21,8 @@ export class CompanyDataDto {
   moderated?: TModerated;
   moderatedReason?: string;
   addressess?: Array<IAddress>;
-  contacts?: Array<IMessenger>;
+  contacts?: Array<IContact>;
+  messengers?: Array<IMessenger>;
   businessType?: string;
   legalForm?: string;
 }
