@@ -9,12 +9,15 @@ const ModerationPage: NextPage = () => {
   const router = useRouter();
   const isModal = router.query.modal;
   const isReject = router.query.modal === 'reject';
+  const { uuid } = router.query;
+
+  console.log(router);
   return (
     <div>
       <CompanyCard />
-      {isModal && (
-        <Modal style={{ width: 'fit-content' }}>
-          {isReject && <RejectForm />}
+      {isModal && isReject && (
+        <Modal onClose={() => router.push(`${uuid}`)} style={{ width: 'fit-content' }}>
+          <RejectForm />
         </Modal>
       )}
     </div>

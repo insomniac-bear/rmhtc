@@ -31,12 +31,28 @@ const Home: NextPage = () => {
       <Headline />
       <Events />
       {isModal && (
-        <Modal>
-          {isSignUpModal && <SignupForm />}
-          {isSignupSuccessModal && <SignupSuccessMessage />}
-          {isLoginModal && <LoginForm />}
-          {isVerifyEmailSuccessModal && <SetPasswordForm />}
-        </Modal>
+        <>
+          {isSignUpModal && (
+            <Modal>
+              <SignupForm />
+            </Modal>
+          )}
+          {isLoginModal && (
+            <Modal>
+              <LoginForm />
+            </Modal>
+          )}
+          {isVerifyEmailSuccessModal && (
+            <Modal>
+              <SetPasswordForm />
+            </Modal>
+          )}
+          {isSignupSuccessModal && (
+            <Modal>
+              <SignupSuccessMessage />
+            </Modal>
+          )}
+        </>
       )}
     </div>
   );
