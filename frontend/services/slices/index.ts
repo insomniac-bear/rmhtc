@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import { userAPI } from '../userService';
+import { apiService } from '../apiService';
+import { adminSlice } from './admin';
 import { userSlice } from './users';
 
 export const rootReducer = combineReducers({
   user: userSlice.reducer,
-  [userAPI.reducerPath]: userAPI.reducer,
+  admin: adminSlice.reducer,
+  [apiService.reducerPath]: apiService.reducer,
 });

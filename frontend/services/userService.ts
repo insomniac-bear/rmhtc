@@ -1,19 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import Cookies from 'js-cookie';
+import { apiService } from './apiService';
 
-export const userAPI = createApi({
-  reducerPath: 'userAPI',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000',
-    prepareHeaders: (headers) => {
-      const token = Cookies.get('accessToken');
-
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+export const userAPI = apiService.injectEndpoints({
   endpoints: (build) => ({
     signupUser: build.mutation<{email: string}, any>({
       query: (email) => ({

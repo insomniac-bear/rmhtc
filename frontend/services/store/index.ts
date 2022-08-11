@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { ActionCreator, AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { apiService } from '../apiService';
 import { rootReducer } from '../slices';
-import { userAPI } from '../userService';
 
 const state = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userAPI.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiService.middleware),
   devTools: true,
 });
 
