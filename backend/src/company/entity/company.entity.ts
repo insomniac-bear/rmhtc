@@ -10,6 +10,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Address } from 'src/address/entity/address.entity';
+import { Contact } from 'src/contacts/entity/contact.entity';
+import { Messenger } from 'src/messengers/entity/messenger.entity';
 import { User } from 'src/users/entity/user.entity';
 import { TModerated, TQcEmployes, TBudgetOfYear } from '../types';
 import { BusinessType } from './business-type.entity';
@@ -74,7 +76,8 @@ export class Company extends Model<Company> {
   regNumber: string;
 
   @ApiProperty({
-    example: 'https://s3.rmhtc.add.company/companyUuid/regDoc/hashed-file-name.pdf',
+    example:
+      'https://s3.rmhtc.add.company/companyUuid/regDoc/hashed-file-name.pdf',
     description: 'Ссылка на документ, подтверждающий регистрацию компании',
   })
   @Column({
@@ -214,4 +217,10 @@ export class Company extends Model<Company> {
 
   @HasMany(() => Address)
   adressess: Address;
+
+  @HasMany(() => Contact)
+  contacts: Contact;
+
+  @HasMany(() => Messenger)
+  messengers: Messenger;
 }

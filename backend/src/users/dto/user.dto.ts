@@ -24,15 +24,18 @@ class objectCountDto {
   })
   offerCount?: number;
   @ApiProperty({
-    description: 'Количество офферов созданных пользователем, прошедших модерацию',
+    description:
+      'Количество офферов созданных пользователем, прошедших модерацию',
   })
   moderatedOfferCount?: number;
   @ApiProperty({
-    description: 'Количество офферов созданных пользователем, ожидающих модерацию',
+    description:
+      'Количество офферов созданных пользователем, ожидающих модерацию',
   })
   idleModerateOfferCount?: number;
   @ApiProperty({
-    description: 'Количество офферов созданных пользователем, отклоненных с модерации',
+    description:
+      'Количество офферов созданных пользователем, отклоненных с модерации',
   })
   failedModeratedOfferCount?: number;
 
@@ -41,15 +44,18 @@ class objectCountDto {
   })
   requestCount?: number;
   @ApiProperty({
-    description: 'Количество запросов созданных пользователем, прошедших модерацию',
+    description:
+      'Количество запросов созданных пользователем, прошедших модерацию',
   })
   moderatedRequestCount?: number;
   @ApiProperty({
-    description: 'Количество запросов созданных пользователем, ожидающих модерацию',
+    description:
+      'Количество запросов созданных пользователем, ожидающих модерацию',
   })
   idleModerateRequestCount?: number;
   @ApiProperty({
-    description: 'Количество запросов созданных пользователем, отклоненных с модерации',
+    description:
+      'Количество запросов созданных пользователем, отклоненных с модерации',
   })
   failedModeratedRequestCount?: number;
 
@@ -58,18 +64,21 @@ class objectCountDto {
   })
   newsCount?: number;
   @ApiProperty({
-    description: 'Количество новостей созданных пользователем, прошедших модерацию',
+    description:
+      'Количество новостей созданных пользователем, прошедших модерацию',
   })
   moderatedNewsCount?: number;
   @ApiProperty({
-    description: 'Количество новостей созданных пользователем, ожидающих модерацию',
+    description:
+      'Количество новостей созданных пользователем, ожидающих модерацию',
   })
   idleModerateNewsCount?: number;
   @ApiProperty({
-    description: 'Количество новостей созданных пользователем, отклоненных с модерации',
+    description:
+      'Количество новостей созданных пользователем, отклоненных с модерации',
   })
   failedModeratedNewsCount?: number;
-};
+}
 
 export class UserDto {
   @ApiProperty({
@@ -115,7 +124,8 @@ export class UserDto {
   readonly surname?: string;
 
   @ApiProperty({
-    example: 'https://s3.rmhtc.add.company/users/2dfd7435-f7ce-4dd5-99d4-70e7ca3a849c/avatars/avatar.jpg',
+    example:
+      'https://s3.rmhtc.add.company/users/2dfd7435-f7ce-4dd5-99d4-70e7ca3a849c/avatars/avatar.jpg',
     description: 'Ссылка на аватар пользователя',
   })
   readonly avatarUrl?: string;
@@ -143,5 +153,5 @@ export const dto = (userData: User, objectCount: objectCountDto): UserDto => {
     avatarUrl: userData?.avatarUrl,
     role: userData?.role?.name,
     counts: objectCount,
-  }
-}
+  };
+};

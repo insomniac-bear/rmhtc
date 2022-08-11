@@ -1,7 +1,17 @@
-import { Body, Controller, Get, Post, Patch, Res, Req, UseGuards, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Res,
+  Req,
+  UseGuards,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthGuard } from '@nestjs/passport';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags, ApiHeader } from '@nestjs/swagger';
 import { UserDataDto, UserDto } from './dto';
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
@@ -21,20 +31,30 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Обновление данных пользователя' })
-
+  @ApiHeader({
+    name: 'Authorization',
+    allowEmptyValue: false,
+    description: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+  })
   @ApiResponse({ status: 200, type: UserDto })
   @UseGuards(JwtAuthGuard)
   @Patch()
   update(
     @Req() req,
     @Res({ passthrough: true }) res,
-    @Body() userData: UserDataDto,
+    @Body() userData: UserDataDto
   ) {
     const { sub } = req.user;
     return this.userService.updateUser(sub, userData, res);
   }
 
   @ApiOperation({ summary: 'Сохранение аватара пользователя' })
+  @ApiHeader({
+    name: 'Authorization',
+    allowEmptyValue: false,
+    description: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+  })
+  @ApiResponse({ status: 200, type: UserDto })
   @UseGuards(JwtAuthGuard)
   @Post('avatar')
   @UseInterceptors(FileInterceptor('image'))

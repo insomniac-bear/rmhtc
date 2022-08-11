@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IAddressType } from '../types';
 
 export class AddressTypeDto {
   @ApiProperty({
@@ -13,4 +12,4 @@ export class AddressTypeDto {
     description: 'Тип адресса',
   })
   readonly value?: string;
-};
+}

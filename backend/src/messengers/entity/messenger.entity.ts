@@ -1,11 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UUIDV4 } from 'sequelize';
-import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Company } from '../../company/entity/company.entity';
 import { MessengerType } from './messenger-type.entity';
 
 @Table({
-  tableName: 'messengerss',
+  tableName: 'messengers',
 })
 export class Messenger extends Model<Messenger> {
   @ApiProperty({

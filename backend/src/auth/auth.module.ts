@@ -10,7 +10,13 @@ import { tokensProviders } from './entity/tokens.providers';
 @Module({
   controllers: [AuthController],
   providers: [AuthService, ...tokensProviders],
-  imports: [forwardRef(() => UsersModule), CompanyModule, JwtModule, MailModule, CompanyModule],
+  imports: [
+    forwardRef(() => UsersModule),
+    CompanyModule,
+    JwtModule,
+    MailModule,
+    CompanyModule,
+  ],
   exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

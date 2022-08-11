@@ -1,5 +1,5 @@
-import { Address } from "../entity/address.entity";
-import { IAddress } from "../types/adress.interface";
+import { Address } from '../entity/address.entity';
+import { IAddress } from '../types/adress.interface';
 
 export const createAddressDto = (addressRawData: Address): IAddress => {
   return {
@@ -10,5 +10,5 @@ export const createAddressDto = (addressRawData: Address): IAddress => {
     addressType: addressRawData?.addressTypes?.value,
     country: addressRawData?.countries?.value,
     city: addressRawData?.cities?.value,
-  }
-}
+  };
+};

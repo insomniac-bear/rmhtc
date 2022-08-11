@@ -44,7 +44,8 @@ export class UserDataDto {
   readonly surname?: string;
 
   @ApiProperty({
-    example: 'https://s3.rmhtc.add.company/users/2dfd7435-f7ce-4dd5-99d4-70e7ca3a849c/avatars/avatar.jpg',
+    example:
+      'https://s3.rmhtc.add.company/users/2dfd7435-f7ce-4dd5-99d4-70e7ca3a849c/avatars/avatar.jpg',
     description: 'Ссылка на аватар пользователя',
   })
   readonly avatarUrl?: string;

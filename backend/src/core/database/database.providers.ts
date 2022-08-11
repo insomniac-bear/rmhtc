@@ -8,6 +8,8 @@ import { RefreshToken } from 'src/auth/entity/refresh-token.entity';
 import { BusinessType } from 'src/company/entity/business-type.entity';
 import { Company } from 'src/company/entity/company.entity';
 import { LegalForm } from 'src/company/entity/legal-form.entity';
+import { ContactType } from 'src/contacts/entity/contact-type.entity';
+import { Contact } from 'src/contacts/entity/contact.entity';
 import { MessengerType } from 'src/messengers/entity/messenger-type.entity';
 import { Messenger } from 'src/messengers/entity/messenger.entity';
 import { Role } from 'src/roles/entity/roles.entity';
@@ -48,8 +50,8 @@ export const databaseProviders = [
         LegalForm,
         MessengerType,
         Messenger,
-        // Contacts,
-        // ContactsType,
+        Contact,
+        ContactType,
       ]);
       return sequelize;
     },

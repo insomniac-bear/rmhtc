@@ -3,9 +3,7 @@ import { MessengersService } from './messengers.service';
 
 @Controller('messengers')
 export class MessengersController {
-  constructor(
-    private readonly messengerService: MessengersService,
-  ) {}
+  constructor(private readonly messengerService: MessengersService) {}
 
   @Get('/types')
   getTypesOfMessenger() {
@@ -17,7 +15,7 @@ export class MessengersController {
     @Body()
     value: string,
     messengerTypeUuid: string,
-    companyUuid: string,
+    companyUuid: string
   ) {
     this.messengerService.saveMessenger(messengerTypeUuid, value, companyUuid);
   }

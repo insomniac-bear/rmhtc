@@ -1,9 +1,9 @@
-import { Messenger } from '../entity/messenger.entity'
-import { IMessenger } from '../types'
+import { Messenger } from '../entity/messenger.entity';
+import { IMessenger } from '../types';
 
-export const createContact = (messenger: Messenger): IMessenger => {
+export const createMessengerDto = (messenger: Messenger): IMessenger => {
   return {
     value: messenger?.value,
     type: messenger?.messengerType?.value,
-  }
-}
+  };
+};

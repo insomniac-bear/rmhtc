@@ -1,4 +1,9 @@
-export type TAppMime = 'image/png' | 'image/jpeg' | 'application/pdf' | 'image/svg+xml' | 'image/webp';
+export type TAppMime =
+  | 'image/png'
+  | 'image/jpeg'
+  | 'application/pdf'
+  | 'image/svg+xml'
+  | 'image/webp';
 
 export interface BufferedFile {
   fieldname: string;
