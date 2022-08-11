@@ -41,20 +41,11 @@ export const ProfileMenu: FC<IProfileMenuProps> = ({ menuData, className = '', .
         {user.role === 'ADMINISTRATOR' && <span className={styles.profileMenu__userRole}>Administrator</span>}
       </div>
       <ul className={styles.profileMenu__navLinks}>
-        {menuData.map((el:any) => (
+        {menuData.map((el) => (
           <li>
             <Link href={el.link} passHref><a className={styles.profileMenu__link}>{el.title}</a></Link>
           </li>
         ))}
-        {/* <li>
-          <Link href="/profile/summary" passHref><a className={styles.profileMenu__link}>Profile</a></Link>
-        </li>
-        <li>
-          <Link href="/objects/requests" passHref><a className={styles.profileMenu__link}>Requests</a></Link>
-        </li>
-        <li>
-          <Link href="/objects/offers" passHref><a className={styles.profileMenu__link}>Offers</a></Link>
-        </li> */}
       </ul>
       <div className={styles.profileMenu__controls}>
         <Button onClick={handleLogOut} className={styles.profileMenu__logOutButton} type="button">Log Out</Button>

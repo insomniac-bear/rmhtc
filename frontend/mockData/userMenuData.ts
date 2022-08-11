@@ -41,7 +41,7 @@ export const menuData = [
         link: '/news',
       },
     ],
-    link: '/companies',
+    link: '/objects',
   },
   {
     id: '3',
