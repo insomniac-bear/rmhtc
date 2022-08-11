@@ -26,9 +26,7 @@ import { Response } from 'express';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({ summary: 'Регистрация пользователя' })
   @ApiResponse({ status: 201, type: RegistrationResponseDto })
@@ -74,8 +72,9 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Выход из приложения' })
   @ApiHeader({
-    name: 'Authorization with Bearer',
-    description: 'Необходимо отправлять access token в заголовке',
+    name: 'Authorization',
+    allowEmptyValue: false,
+    description: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
   @UseGuards(JwtAuthGuard)
   @Get('/logout')
@@ -87,8 +86,9 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Проверка авторизации' })
   @ApiHeader({
-    name: 'Authorization with Bearer',
-    description: 'Необходимо отправлять access token в заголовке',
+    name: 'Authorization',
+    allowEmptyValue: false,
+    description: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
   @ApiResponse({ status: 200, type: UserDto })
   @Get('/check')

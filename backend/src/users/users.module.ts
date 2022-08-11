@@ -1,6 +1,5 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { AuthModule } from 'src/auth/auth.module';
-import { AuthService } from 'src/auth/auth.service';
 import { CompanyModule } from 'src/company/company.module';
 import { MinioClientModule } from 'src/core/minio-client/minio-client.module';
 import { RolesModule } from 'src/roles/roles.module';
@@ -15,7 +14,7 @@ import { UsersService } from './users.service';
     CompanyModule,
     RolesModule,
     forwardRef(() => AuthModule),
-    MinioClientModule
+    MinioClientModule,
   ],
   exports: [UsersService, ...usersProviders],
 })

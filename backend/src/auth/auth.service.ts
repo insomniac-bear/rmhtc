@@ -1,4 +1,11 @@
-import { Injectable, Inject, HttpException, ForbiddenException, HttpStatus, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  HttpException,
+  ForbiddenException,
+  HttpStatus,
+  forwardRef,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from 'src/users/users.service';
@@ -9,13 +16,19 @@ import { RefreshToken } from './entity/refresh-token.entity';
 import { User } from 'src/users/entity/user.entity';
 import { Tokens, JwtPayload } from './types';
 import { UserDataDto } from 'src/users/dto';
-import { EMAIL_TOKEN_REPOSITORY, REFRESH_TOKEN_REPOSITORY, USER_REPOSITORY } from 'src/core/constants';
+import {
+  EMAIL_TOKEN_REPOSITORY,
+  REFRESH_TOKEN_REPOSITORY,
+  USER_REPOSITORY,
+} from 'src/core/constants';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(EMAIL_TOKEN_REPOSITORY) private readonly emailTokenEntity: typeof EmailToken,
-    @Inject(REFRESH_TOKEN_REPOSITORY) private readonly refreshTokenEntity: typeof RefreshToken,
+    @Inject(EMAIL_TOKEN_REPOSITORY)
+    private readonly emailTokenEntity: typeof EmailToken,
+    @Inject(REFRESH_TOKEN_REPOSITORY)
+    private readonly refreshTokenEntity: typeof RefreshToken,
     @Inject(USER_REPOSITORY) private readonly userEntity: typeof User,
     private readonly usersService: UsersService,
     @Inject(forwardRef(() => CompanyService))
@@ -25,7 +38,10 @@ export class AuthService {
   ) {}
 
   async registration(email) {
-    const candidate = await this.usersService.getUserByParam('email', email.email);
+    const candidate = await this.usersService.getUserByParam(
+      'email',
+      email.email
+    );
 
     if (!!candidate.uuid) {
       throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
@@ -49,21 +65,24 @@ export class AuthService {
   }
 
   async confirmEmail(query: Tokens) {
-    const {
-      sub: userUuid,
-    } = await this.jwtService.verify(query.emailToken, { secret: process.env.JWT_MAIL_SECRET, });
+    const { sub: userUuid } = await this.jwtService.verify(query.emailToken, {
+      secret: process.env.JWT_MAIL_SECRET,
+    });
     if (!userUuid) throw new ForbiddenException('Access denied');
 
     const savedToken = this.emailTokenEntity.findOne({ where: { userUuid } });
     if (!savedToken) throw new ForbiddenException('Access denied');
 
-    await this.userEntity.update({ emailVerified: true }, { where: { uuid: userUuid } });
+    await this.userEntity.update(
+      { emailVerified: true },
+      { where: { uuid: userUuid } }
+    );
     const user = await this.usersService.getUserByParam('uuid', userUuid);
 
     return {
       status: 'success',
       data: user,
-    }
+    };
   }
 
   async finishRegistration(updatedData, res) {
@@ -72,11 +91,18 @@ export class AuthService {
 
     await this.companyService.createCompany(name, uuid);
     const hashedPassword = await bcrypt.hash(password, 7);
-    const user = await this.usersService.update(uuid, { password: hashedPassword, businessRole });
+    const user = await this.usersService.update(uuid, {
+      password: hashedPassword,
+      businessRole,
+    });
 
     await this.emailTokenEntity.destroy({ where: { userUuid: uuid } });
 
-    const { accessToken, refreshToken } = await this.getTokens(user.uuid, user.email, user.role);
+    const { accessToken, refreshToken } = await this.getTokens(
+      user.uuid,
+      user.email,
+      user.role
+    );
     await this.saveRefreshToken(user.uuid, refreshToken);
 
     res.cookie('refreshToken', refreshToken, {
@@ -89,17 +115,24 @@ export class AuthService {
       status: 'success',
       accessToken,
       userData: user,
-    }
+    };
   }
 
   async login(userDto: UserDataDto, res) {
     const user = await this.usersService.getUserByParam('email', userDto.email);
     if (!user) throw new ForbiddenException('Access denied');
 
-    const passwordMatches = await this.usersService.compareUserPassword(user.uuid, userDto.password);
+    const passwordMatches = await this.usersService.compareUserPassword(
+      user.uuid,
+      userDto.password
+    );
     if (!passwordMatches) throw new ForbiddenException('Access denied');
 
-    const { accessToken, refreshToken } = await this.getTokens(user.uuid, user.email, user.role);
+    const { accessToken, refreshToken } = await this.getTokens(
+      user.uuid,
+      user.email,
+      user.role
+    );
 
     await this.saveRefreshToken(user.uuid, refreshToken);
 
@@ -112,7 +145,7 @@ export class AuthService {
     return {
       accessToken,
       userData: user,
-    }
+    };
   }
 
   async logout(userUuid, res) {
@@ -131,9 +164,16 @@ export class AuthService {
       });
 
       if (accessPayload.sub) {
-        const user = await this.usersService.getUserByParam('uuid', accessPayload.sub);
+        const user = await this.usersService.getUserByParam(
+          'uuid',
+          accessPayload.sub
+        );
 
-        const { accessToken, refreshToken } = await this.getTokens(user.uuid, user.email, user.role);
+        const { accessToken, refreshToken } = await this.getTokens(
+          user.uuid,
+          user.email,
+          user.role
+        );
 
         await this.saveRefreshToken(user.uuid, refreshToken);
 
@@ -146,7 +186,7 @@ export class AuthService {
         return {
           accessToken,
           userData: user,
-        }
+        };
       }
     } catch (err) {
       const refreshPayload: JwtPayload = this.jwtService.verify(rt, {
@@ -155,9 +195,16 @@ export class AuthService {
 
       if (!refreshPayload.sub) throw new ForbiddenException('Expired');
 
-      const user = await this.usersService.getUserByParam('uuid', refreshPayload.sub);
+      const user = await this.usersService.getUserByParam(
+        'uuid',
+        refreshPayload.sub
+      );
 
-      const { accessToken, refreshToken } = await this.getTokens(user.uuid, user.email, user.role);
+      const { accessToken, refreshToken } = await this.getTokens(
+        user.uuid,
+        user.email,
+        user.role
+      );
 
       await this.saveRefreshToken(user.uuid, refreshToken);
 
@@ -170,18 +217,22 @@ export class AuthService {
       return {
         accessToken,
         userData: user,
-      }
+      };
     }
-
   }
 
   async refresh(user, rt: string, res) {
     const savedToken = await this.getRefreshToken(user.sub);
     if (!savedToken) throw new ForbiddenException('Access denied');
 
-    if (rt !== savedToken.refreshToken) throw new ForbiddenException('Access denied');
+    if (rt !== savedToken.refreshToken)
+      throw new ForbiddenException('Access denied');
 
-    const { accessToken, refreshToken } = await this.getTokens(user.sub, user.email, user.role);
+    const { accessToken, refreshToken } = await this.getTokens(
+      user.sub,
+      user.email,
+      user.role
+    );
     await this.saveRefreshToken(user.sub, refreshToken);
 
     res.cookie('refreshToken', refreshToken, {
@@ -192,14 +243,18 @@ export class AuthService {
 
     return {
       status: 'success',
-      accessToken
+      accessToken,
     };
   }
 
   /**
    * Функция для генерирования Access и Refresh токенов
-  */
-  async getTokens(userUuid: string, email: string, role: string): Promise<Tokens> {
+   */
+  async getTokens(
+    userUuid: string,
+    email: string,
+    role: string
+  ): Promise<Tokens> {
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(
         {
@@ -232,12 +287,12 @@ export class AuthService {
 
   /**
    * Функция сохранения Refresh Token в БД
-  */
+   */
   async saveRefreshToken(userUuid: string, refreshToken: string) {
     const oldToken = await this.refreshTokenEntity.findOne({
       where: {
         userUuid,
-      }
+      },
     });
     if (!!oldToken) {
       await oldToken.update({ refreshToken });
@@ -245,15 +300,17 @@ export class AuthService {
       await this.refreshTokenEntity.create({
         refreshToken,
         userUuid,
-      })
+      });
     }
   }
 
   /**
    * Функция удаления Refresh Token из БД
-  */
+   */
   async dropRefreshToken(userUuid) {
-    const candidateForDrop = await this.refreshTokenEntity.findOne({ where: { userUuid } });
+    const candidateForDrop = await this.refreshTokenEntity.findOne({
+      where: { userUuid },
+    });
     if (!candidateForDrop) throw new ForbiddenException('Forbidden');
 
     await this.refreshTokenEntity.destroy({ where: { userUuid } });
@@ -261,12 +318,12 @@ export class AuthService {
 
   /**
    * Функция поиска Refresh Token в БД
-  */
+   */
   async getRefreshToken(userUuid) {
     const token = await this.refreshTokenEntity.findOne({
       where: {
         userUuid,
-      }
+      },
     });
 
     if (!token) {
@@ -278,7 +335,7 @@ export class AuthService {
 
   /**
    * Функция для генерирования Email Token
-  */
+   */
   async getMailToken(userUuid: string, email: string): Promise<string> {
     return await this.jwtService.signAsync(
       {

@@ -6,4 +6,4 @@ export interface IAddress {
   readonly addressType?: string;
   readonly country?: string;
   readonly city?: string;
-};
+}

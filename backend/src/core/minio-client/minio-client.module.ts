@@ -9,7 +9,7 @@ import { MinioClientService } from './minio-client.service';
       useSSL: true,
       accessKey: process.env.STORAGE_USER,
       secretKey: process.env.STORAGE_PASSWORD,
-    })
+    }),
   ],
   providers: [MinioClientService],
   exports: [MinioClientService],
