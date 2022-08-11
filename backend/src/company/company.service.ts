@@ -158,6 +158,7 @@ export class CompanyService {
       : null;
 
     const companyData = createCompanyDto(rawCompanyData);
+    companyData.moderated = 'pending';
 
     await company.update({
       ...companyData,
@@ -176,5 +177,45 @@ export class CompanyService {
 
     await company.update({ ...companyData });
     return company;
+  }
+
+  async getCompaniesForModerate() {
+    return await this.companyEntity.findAll({
+      where: {
+        moderated: 'pending',
+      },
+      include: [
+        {
+          model: Address,
+          include: [
+            {
+              model: AddressType,
+            },
+          ],
+        },
+        {
+          model: Contact,
+          include: [
+            {
+              model: ContactType,
+            },
+          ],
+        },
+        {
+          model: Messenger,
+          include: [
+            {
+              model: MessengerType,
+            },
+          ],
+        },
+        {
+          model: BusinessType,
+        },
+        {
+          model: LegalForm,
+        },
+      ],
+    });
   }
 }

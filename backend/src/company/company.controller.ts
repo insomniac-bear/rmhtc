@@ -42,4 +42,10 @@ export class CompanyController {
   ) {
     return this.companiesService.updateUsersCompany(companyData, res);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/moderate')
+  getCompaniesForModerate() {
+    return this.companiesService.getCompaniesForModerate();
+  }
 }
