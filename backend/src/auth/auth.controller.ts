@@ -22,6 +22,8 @@ import { AuthService } from './auth.service';
 import { UserDataDto, UserDto } from 'src/users/dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Response } from 'express';
+import { Roles } from './roles-auth.decorator';
+import { RolesGuard } from './roles.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -91,6 +93,8 @@ export class AuthController {
     description: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
   @ApiResponse({ status: 200, type: UserDto })
+  @Roles('USER', 'ADMINISTRATOR')
+  @UseGuards(RolesGuard)
   @Get('/check')
   check(@Req() req, @Res({ passthrough: true }) res) {
     const accessToken = req.headers.authorization.split(' ')[1];
