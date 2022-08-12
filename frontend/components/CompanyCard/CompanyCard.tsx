@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './CompanyCard.module.css';
@@ -11,10 +11,25 @@ import {
   headerDataDto, basicInfoDataDto, legalInfoDataDto, contactsIfoDataDto,
 } from './dataDto/dataDto';
 import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
-import { useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { adminAPI } from '../../services/adminService';
+import { setModerateCompanies } from '../../services/slices/admin';
+import { Loader } from '../Loader/Loader';
 
 export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const { moderateCompanies } = useAppSelector((store) => store.admin);
+  // Поменять на запрос одной конкретной компании когда будет endpoint--------------------
+  const [getModerateCompanies, { isLoading }] = adminAPI.useGetModerateCompaniesMutation();
+  const dispatch = useAppDispatch();
+  const getCompanies = async () => {
+    try {
+      const response: any = await getModerateCompanies('');
+      dispatch(setModerateCompanies(response.data));
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+  //-------------------------------------------------------------------------------------
   const router = useRouter();
   const { uuid } = router.query;
   const companyData: ICompanyData | undefined = moderateCompanies.find((el: ICompanyData) => el.uuid === uuid);
@@ -26,9 +41,14 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const handleReject = () => {
     console.log('Rejected!');
   };
+
+  useEffect(() => {
+    getCompanies();
+  }, []);
   return (
     <section className={`${styles.company} ${className}`} {...props}>
-      {companyData && headerData && (
+      {isLoading && <Loader />}
+      {companyData && headerData && !isLoading && (
         <>
           <CardHeader data={headerData} />
           <CompanyCharacteristics title="Basic information" data={companyData} dto={basicInfoDataDto} />

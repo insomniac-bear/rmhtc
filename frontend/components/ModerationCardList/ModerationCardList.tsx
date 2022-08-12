@@ -17,19 +17,6 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   const { moderateCompanies } = useAppSelector((store) => store.admin);
   const [getModerateCompanies, { isLoading }] = adminAPI.useGetModerateCompaniesMutation();
   const dispatch = useAppDispatch();
-  // const [currentPage, setCurrenPage] = useState(1);
-  // const [elementsPerPage] = useState(6);
-  // const lastIndex = useMemo(() => currentPage * elementsPerPage, [currentPage, elementsPerPage]);
-  // const firstIndex = useMemo(() => lastIndex - elementsPerPage, [lastIndex, elementsPerPage]);
-  // const currentElements = useMemo(() => moderateCompanies?.slice(firstIndex, lastIndex), [firstIndex, lastIndex]);
-  // const pageNumbers = useMemo(() => new Array(Math.ceil(cardData.length / elementsPerPage)).fill(1).map((_a, i) => i + 1), [elementsPerPage]);
-
-  // const handleGoToPage = useCallback((num: number) => setCurrenPage(num), []);
-  // const handleGoForward = useCallback(
-  //   () => currentPage !== pageNumbers.length && setCurrenPage((prev) => prev + 1),
-  //   [currentPage, pageNumbers.length],
-  // );
-  // const handleGoBack = useCallback(() => currentPage !== 1 && setCurrenPage((prev) => prev - 1), [currentPage]);
   const filters = Array.from(new Set(cardData.map((item) => item.type)));
   const getCompanies = async () => {
     try {
@@ -43,15 +30,15 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   useEffect(() => {
     getCompanies();
   }, []);
-
+  // Убрать хардкод type когда появится что то помимо компаний
   return (
     <section className={styles.moderation}>
       <ul className={`${styles.moderation_cardList} ${className}`} {...props}>
         {isLoading && <Loader />}
-        {moderateCompanies && moderateCompanies.map((item: any) => (
+        {moderateCompanies && !isLoading && moderateCompanies.map((item: any) => (
           <li key={item.uuid}>
             <Link href={`/admin/moderation/company/${item.uuid}`}>
-              <CompanyCardPreview card={item} />
+              <CompanyCardPreview card={item} type="Company" />
             </Link>
           </li>
         ))}

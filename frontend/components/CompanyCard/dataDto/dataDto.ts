@@ -25,7 +25,7 @@ export const headerDataDto = (data: ICompanyData) => ({
 export const basicInfoDataDto = (data: ICompanyData) => ({
   website: data?.website,
   ceo: data?.ceo,
-  bussinesType: data?.bussinesType,
+  businessType: data?.businessType?.value,
   ceoDocUrl: data?.ceoDocUrl,
 });
 
