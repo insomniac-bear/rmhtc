@@ -54,6 +54,10 @@ export class UsersService {
       updatedData.password = await bcrypt.hash(userData.password, 7);
     }
 
+    if (userData?.email) {
+      updatedData.emailVerified = false;
+    }
+
     const updatedUser = await this.update(uuid, updatedData);
 
     await this.authService.saveRefreshToken(uuid, refreshToken);

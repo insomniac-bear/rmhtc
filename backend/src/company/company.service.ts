@@ -140,7 +140,11 @@ export class CompanyService {
     };
   }
 
-  async updateUsersCompany(rawCompanyData: IFullCompany, res) {
+  async updateUsersCompany(
+    rawCompanyData: IFullCompany,
+    isModerate = false,
+    res
+  ) {
     const company = await this.companyEntity.findByPk(rawCompanyData.uuid);
 
     if (!company)
@@ -158,7 +162,7 @@ export class CompanyService {
       : null;
 
     const companyData = createCompanyDto(rawCompanyData);
-    companyData.moderated = 'pending';
+    if (isModerate) companyData.moderated = 'pending';
 
     await company.update({
       ...companyData,

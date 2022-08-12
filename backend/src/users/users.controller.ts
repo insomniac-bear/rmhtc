@@ -17,6 +17,8 @@ import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
 import { BufferedFile } from 'src/core/minio-client/types/minio.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/auth/roles-auth.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -38,6 +40,8 @@ export class UsersController {
   })
   @ApiResponse({ status: 200, type: UserDto })
   @UseGuards(JwtAuthGuard)
+  @Roles('USER', 'ADMINISTRATOR')
+  @UseGuards(RolesGuard)
   @Patch()
   update(
     @Req() req,
@@ -56,6 +60,8 @@ export class UsersController {
   })
   @ApiResponse({ status: 200, type: UserDto })
   @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR', 'USER')
+  @UseGuards(RolesGuard)
   @Post('avatar')
   @UseInterceptors(FileInterceptor('image'))
   uploadAvatar(

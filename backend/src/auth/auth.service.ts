@@ -70,6 +70,11 @@ export class AuthService {
     });
     if (!userUuid) throw new ForbiddenException('Access denied');
 
+    const existUser = this.usersService.getUserByParam('uuid', userUuid);
+    if (!existUser) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
     const savedToken = this.emailTokenEntity.findOne({ where: { userUuid } });
     if (!savedToken) throw new ForbiddenException('Access denied');
 
@@ -88,6 +93,11 @@ export class AuthService {
   async finishRegistration(updatedData, res) {
     const { uuid, password, businessRole } = updatedData.userData;
     const { name } = updatedData.companyData;
+
+    const existUser = this.usersService.getUserByParam('uuid', uuid);
+    if (!existUser) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
 
     await this.companyService.createCompany(name, uuid);
     const hashedPassword = await bcrypt.hash(password, 7);
