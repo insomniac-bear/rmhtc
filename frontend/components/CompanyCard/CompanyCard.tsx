@@ -21,14 +21,6 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   // Поменять на запрос одной конкретной компании когда будет endpoint--------------------
   const [getModerateCompanies, { isLoading }] = adminAPI.useGetModerateCompaniesMutation();
   const dispatch = useAppDispatch();
-  const getCompanies = async () => {
-    try {
-      const response: any = await getModerateCompanies('');
-      dispatch(setModerateCompanies(response.data));
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
   //-------------------------------------------------------------------------------------
   const router = useRouter();
   const { uuid } = router.query;
@@ -43,8 +35,18 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   };
 
   useEffect(() => {
+  // Поменять на запрос одной конкретной компании когда будет endpoint--------------------
+    const getCompanies = async () => {
+      try {
+        const response: any = await getModerateCompanies('');
+        dispatch(setModerateCompanies(response.data));
+      } catch (error: any) {
+        throw new Error(error.message);
+      }
+    };
     getCompanies();
-  }, []);
+  //-------------------------------------------------------------------------------------
+  }, [dispatch, getModerateCompanies]);
   return (
     <section className={`${styles.company} ${className}`} {...props}>
       {isLoading && <Loader />}

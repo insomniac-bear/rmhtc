@@ -18,19 +18,20 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   const [getModerateCompanies, { isLoading }] = adminAPI.useGetModerateCompaniesMutation();
   const dispatch = useAppDispatch();
   const filters = Array.from(new Set(cardData.map((item) => item.type)));
-  const getCompanies = async () => {
-    try {
-      const response: any = await getModerateCompanies('');
-      dispatch(setModerateCompanies(response.data));
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
 
   useEffect(() => {
+    const getCompanies = async () => {
+      try {
+        const response: any = await getModerateCompanies('');
+        dispatch(setModerateCompanies(response.data));
+      } catch (error: any) {
+        throw new Error(error.message);
+      }
+    };
     getCompanies();
-  }, []);
+  }, [dispatch, getModerateCompanies]);
   // Убрать хардкод type когда появится что то помимо компаний
+
   return (
     <section className={styles.moderation}>
       <ul className={`${styles.moderation_cardList} ${className}`} {...props}>
