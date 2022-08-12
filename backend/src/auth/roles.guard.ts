@@ -44,7 +44,6 @@ export class RolesGuard implements CanActivate {
         secret: process.env.JWT_ACCESS_SECRET,
       });
 
-      console.log(user);
       return requiredRoles.includes(user.role);
     } catch (err) {
       const { refreshToken } = req.cookies;
@@ -58,7 +57,6 @@ export class RolesGuard implements CanActivate {
       });
 
       if (user) {
-        console.log(user);
         return requiredRoles.includes(user.role);
       } else {
         throw new HttpException('Not enought rights', HttpStatus.FORBIDDEN);

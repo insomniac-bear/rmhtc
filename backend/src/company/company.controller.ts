@@ -13,6 +13,7 @@ import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { CompanyService } from './company.service';
 import { CompanyDataDto, CompanyDto } from './dto';
+import { IFullCompany } from './types';
 
 @ApiTags('Companies')
 @Controller('companies')
@@ -43,10 +44,16 @@ export class CompanyController {
   @UseGuards(RolesGuard)
   @Patch('/user')
   updateUserCompany(
+    @Req() req,
     @Res({ passthrough: true }) res,
-    @Body() companyData: CompanyDataDto
+    @Body() companyData: IFullCompany
   ) {
-    return this.companiesService.updateUsersCompany(companyData, res, true);
+    return this.companiesService.updateUsersCompany(
+      req.user,
+      companyData,
+      true,
+      res
+    );
   }
 
   @UseGuards(JwtAuthGuard)

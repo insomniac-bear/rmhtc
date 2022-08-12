@@ -9,6 +9,8 @@ import { Op } from 'sequelize';
 import { AddressService } from 'src/address/address.service';
 import { AddressType } from 'src/address/entity/address-type.entity';
 import { Address } from 'src/address/entity/address.entity';
+import { City } from 'src/address/entity/city.entity';
+import { Country } from 'src/address/entity/country.entity';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtPayload } from 'src/auth/types';
 import { ContactsService } from 'src/contacts/contacts.service';
@@ -112,6 +114,52 @@ export class CompanyService {
     };
   }
 
+  async getUserCompany(companyUuid) {
+    return await this.companyEntity.findOne({
+      where: {
+        uuid: companyUuid,
+      },
+      include: [
+        {
+          model: Address,
+          include: [
+            {
+              model: AddressType,
+            },
+            {
+              model: City,
+            },
+            {
+              model: Country,
+            },
+          ],
+        },
+        {
+          model: Contact,
+          include: [
+            {
+              model: ContactType,
+            },
+          ],
+        },
+        {
+          model: Messenger,
+          include: [
+            {
+              model: MessengerType,
+            },
+          ],
+        },
+        {
+          model: BusinessType,
+        },
+        {
+          model: LegalForm,
+        },
+      ],
+    });
+  }
+
   async getUsersCompanyCounts(userUuid) {
     const companyCount = await this.companyEntity.count({
       where: { userUuid },
@@ -141,10 +189,12 @@ export class CompanyService {
   }
 
   async updateUsersCompany(
+    accessTokenPayload: JwtPayload,
     rawCompanyData: IFullCompany,
     isModerate = false,
     res
   ) {
+    const { sub, role, email } = accessTokenPayload;
     const company = await this.companyEntity.findByPk(rawCompanyData.uuid);
 
     if (!company)
@@ -161,6 +211,14 @@ export class CompanyService {
         })
       : null;
 
+    const listOfAdressPromise =
+      rawCompanyData.addressess.length > 0
+        ? rawCompanyData.addressess.map((address) =>
+            this.addressService.createOrUpdateAddress(company.uuid, address)
+          )
+        : [];
+    await Promise.all(listOfAdressPromise);
+
     const companyData = createCompanyDto(rawCompanyData);
     if (isModerate) companyData.moderated = 'pending';
 
@@ -170,17 +228,25 @@ export class CompanyService {
       businessTypeUuid: businessType.uuid,
     });
 
-    return await company.get();
-  }
+    const updatedCompany = await this.getUserCompany(company.uuid);
 
-  async updateCompanyData(companyData) {
-    const company = await this.companyEntity.findByPk(companyData.uuid);
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
 
-    if (!company)
-      throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
 
-    await company.update({ ...companyData });
-    return company;
+    return {
+      status: 'success',
+      accessToken,
+      company: createCompanyDto(updatedCompany),
+    };
   }
 
   async getCompaniesForModerate() {

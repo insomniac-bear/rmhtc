@@ -1,4 +1,4 @@
-import { IAddress } from 'src/address/types';
+import { IRawAddress } from 'src/address/types/rawAddress.interface';
 import { IContact } from 'src/contacts/types';
 import { IMessenger } from 'src/messengers/types';
 
@@ -33,7 +33,7 @@ export class ICompany {
 export class IFullCompany extends ICompany {
   businessType?: string;
   legalForm?: string;
-  addressess?: Array<IAddress>;
+  addressess?: Array<IRawAddress>;
   contacts?: Array<IContact>;
   messengers?: Array<IMessenger>;
 }

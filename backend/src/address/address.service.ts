@@ -10,6 +10,7 @@ import { AddressType } from './entity/address-type.entity';
 import { Address } from './entity/address.entity';
 import { City } from './entity/city.entity';
 import { Country } from './entity/country.entity';
+import { IRawAddress } from './types/rawAddress.interface';
 
 @Injectable()
 export class AddressService {
@@ -20,6 +21,55 @@ export class AddressService {
     @Inject(COUNTRY_REPOSITORY) private readonly countryEntity: typeof Country,
     @Inject(CITY_REPOSITORY) private readonly cityEntity: typeof City
   ) {}
+
+  async createOrUpdateAddress(
+    companyUuid,
+    {
+      addressTypeUuid,
+      countryUuid,
+      cityUuid,
+      postCode,
+      street,
+      buildNum,
+      roomNum,
+    }
+  ): Promise<IRawAddress> {
+    const existAddress = await this.addressEntity.findOne({
+      where: {
+        addressTypeUuid,
+        companyUuid,
+      },
+    });
+
+    if (existAddress) {
+      await existAddress.update({
+        countryUuid,
+        cityUuid,
+        postCode,
+        street,
+        buildNum,
+        roomNum,
+      });
+    } else {
+      await this.addressEntity.create({
+        companyUuid,
+        addressTypeUuid,
+        countryUuid,
+        cityUuid,
+        postCode,
+        street,
+        buildNum,
+        roomNum,
+      });
+    }
+
+    return this.addressEntity.findOne({
+      where: {
+        addressTypeUuid,
+        companyUuid,
+      },
+    });
+  }
 
   async createAddress(addressData) {
     const { companyUuid, addressType = 'Actual' } = addressData;

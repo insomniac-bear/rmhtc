@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { createAddressDto } from 'src/address/dto';
 import { IAddress } from 'src/address/types';
 import { IContact } from 'src/contacts/types';
 import { IMessenger } from 'src/messengers/types';
@@ -162,5 +163,8 @@ export const createCompanyDto = (companyRawData) => {
     currencyOfBudget: companyRawData?.currencyOfBudget,
     moderated: companyRawData?.moderated,
     moderatedReason: companyRawData?.moderatedReason,
+    addresses: companyRawData?.addressess?.map((address) =>
+      createAddressDto(address)
+    ),
   };
 };
