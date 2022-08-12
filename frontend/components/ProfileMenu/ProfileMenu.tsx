@@ -12,7 +12,7 @@ import { LangList } from '../LangList/LangList';
 import { userAPI } from '../../services/userService';
 import { clearUser } from '../../services/slices/users';
 
-export const ProfileMenu: FC<IProfileMenuProps> = ({ className = '', ...props }) => {
+export const ProfileMenu: FC<IProfileMenuProps> = ({ menuData, className = '', ...props }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user.user);
@@ -33,22 +33,19 @@ export const ProfileMenu: FC<IProfileMenuProps> = ({ className = '', ...props })
 
   return (
     <div className={`${styles.profileMenu} ${className}`} {...props}>
-      <div className={styles.profileMenu__user}>
+      <div className={user.role === 'ADMINISTRATOR' ? `${styles.profileMenu__admin}` : `${styles.profileMenu__user}`}>
         <div className={styles.profileMenu__userImg}>
           <Image priority alt="profile icon" src={user.avatarUrl || '/profile-icon.svg'} layout="fill" />
         </div>
         <p className={styles.profileMenu__userName}>{`${user.name || ''} ${user.surname || ''}`}</p>
+        {user.role === 'ADMINISTRATOR' && <span className={styles.profileMenu__userRole}>Administrator</span>}
       </div>
       <ul className={styles.profileMenu__navLinks}>
-        <li>
-          <Link href="/profile/summary" passHref><a className={styles.profileMenu__link}>Profile</a></Link>
-        </li>
-        <li>
-          <Link href="/objects/requests" passHref><a className={styles.profileMenu__link}>Requests</a></Link>
-        </li>
-        <li>
-          <Link href="/objects/offers" passHref><a className={styles.profileMenu__link}>Offers</a></Link>
-        </li>
+        {menuData.map((el) => (
+          <li>
+            <Link href={el.link} passHref><a className={styles.profileMenu__link}>{el.title}</a></Link>
+          </li>
+        ))}
       </ul>
       <div className={styles.profileMenu__controls}>
         <Button onClick={handleLogOut} className={styles.profileMenu__logOutButton} type="button">Log Out</Button>

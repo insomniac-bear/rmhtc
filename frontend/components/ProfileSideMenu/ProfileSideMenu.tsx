@@ -5,8 +5,8 @@ import { FC } from 'react';
 import { Title } from '../Title/Title';
 import { IProfileSideMenu } from './ProfileSideMenu.props';
 import styles from './ProfileSideMenu.module.css';
-import { menuData } from './menuData';
-import { adminMenuData } from './adminMenuData';
+import { menuData } from '../../mockData/userMenuData';
+import { adminMenuData } from '../../mockData/adminMenuData';
 
 export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className = '', ...props }) => {
   const router = useRouter();
