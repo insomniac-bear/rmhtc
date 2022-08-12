@@ -19,7 +19,7 @@ export const headerDataDto = (data: ICompanyData) => ({
   logoUrl: data?.logoUrl,
   name: data?.name,
   description: data?.description,
-  geo: findGeo(data?.addresses.map((el) => addressDataDto(el))),
+  geo: findGeo(data?.addresses?.map((el) => addressDataDto(el))),
 });
 
 export const basicInfoDataDto = (data: ICompanyData) => ({
@@ -30,7 +30,7 @@ export const basicInfoDataDto = (data: ICompanyData) => ({
 });
 
 export const legalInfoDataDto = (data: ICompanyData) => ({
-  legalForm: data?.legalForm,
+  legalForm: data?.legalForm?.shortValue,
   qcEmployees: data?.qcEmployees,
   budgetOfYear: data?.budgetOfYear,
   yearOfFoundation: data?.yearOfFoundation,
@@ -40,7 +40,7 @@ export const legalInfoDataDto = (data: ICompanyData) => ({
 });
 
 export const contactsIfoDataDto = (data: ICompanyData) => ({
-  addresses: data?.addresses.map((el) => addressDataDto(el)),
+  addresses: data?.addresses?.map((el) => addressDataDto(el)),
   contacts: data?.contacts,
   messengers: data?.messengers,
 });

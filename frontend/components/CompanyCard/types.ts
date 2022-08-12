@@ -1,3 +1,11 @@
+export interface ILegalForm {
+  createdAt: string | null;
+  shortValue: string | null;
+  updatedAt: string | null;
+  uuid: string | null;
+  value: string | null;
+}
+
 export interface ICompanyContact {
   type: string | null;
   value: string | null;
@@ -32,7 +40,7 @@ export interface ICompanyData {
   moderated: string | null;
   moderatedReason: string | null;
   addresses: ICompanyAddress[] | [];
-  legalForm: string | null;
+  legalForm: ILegalForm | null | undefined;
   bussinesType: string | null;
   messengers: ICompanyContact[] | [];
   contacts: ICompanyContact[] | [];
@@ -67,13 +75,13 @@ export type TBasicInfoData = {
 }
 
 export type TLegalInfoData = {
-  legalForm: string | null;
+  legalForm: string | null | undefined;
   qcEmployees: string | null;
   budgetOfYear: string | null;
   yearOfFoundation: number | null;
   regDocUrl: string | null;
   issuingAuthority: string | null;
-  [key: string]: string | number | null;
+  [key: string]: string | number | null | undefined;
 }
 
 export type TContactsData = {
