@@ -21,11 +21,23 @@ const PersonalDataPage: NextPage = () => {
     <>
       <PersonalData />
       {isModal && (
-        <Modal className={styles.personalData__modal}>
-          {isNameEditModal && <NameChangeForm />}
-          {isEmailEditModal && <EmailChangeForm />}
-          {isRoleEditModal && <RoleChangeForm />}
-        </Modal>
+        <>
+          {isNameEditModal && (
+            <Modal className={styles.personalData__modal}>
+              <NameChangeForm />
+            </Modal>
+          )}
+          {isEmailEditModal && (
+            <Modal className={styles.personalData__modal}>
+              <EmailChangeForm />
+            </Modal>
+          )}
+          {isRoleEditModal && (
+            <Modal className={styles.personalData__modal}>
+              <RoleChangeForm />
+            </Modal>
+          )}
+        </>
       )}
     </>
   );

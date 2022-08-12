@@ -48,7 +48,7 @@ export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className = '', ...props
                     {menuItem.innerLinks.map((innerLink) => {
                       return (
                         <div key={innerLink.id}>
-                          <Link href={`/${menuItem.title.toLowerCase()}${innerLink.link}`} passHref>
+                          <Link href={`${menuItem.link}${innerLink.link}`} passHref>
                             <a className={`
                               ${styles.profileSideMenu__innerLink}
                               ${router.pathname.includes(`/${menuItem.title.toLowerCase()}${innerLink.link}`)
@@ -65,7 +65,7 @@ export const ProfileSideMenu: FC<IProfileSideMenu> = ({ className = '', ...props
                   </div>
                 </>
               ) : (
-                <Link href={`/${menuItem.link}` || ''} passHref>
+                <Link href={`${menuItem.link}` || ''} passHref>
                   <a className={`
                     ${styles.profileSideMenu__menuTitle}
                     ${router.pathname === `/${menuItem.link}` ? styles.profileSideMenu__menuTitle_active : ''}

@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import Link from 'next/link';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';

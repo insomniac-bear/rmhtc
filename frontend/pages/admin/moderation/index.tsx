@@ -14,13 +14,25 @@ const ModerationPage: NextPage = () => {
     <>
       <ModerationCardList />
       {isModal && (
-        <Modal style={{ width: 'fit-content' }}>
-          {isApproved && <ModerationMessage message="Сompany successfully published" />}
-          {isRejected && <ModerationMessage message="Сompany rejected" />}
-        </Modal>
+        <>
+          {isApproved && (
+            <Modal onClose={() => router.push(router.pathname)} style={{ width: 'fit-content' }}>
+              <ModerationMessage message="Сompany successfully published" />
+            </Modal>
+          )}
+          {isRejected && (
+            <Modal onClose={() => router.push(router.pathname)} style={{ width: 'fit-content' }}>
+              <ModerationMessage message="Сompany rejected" />
+            </Modal>
+          )}
+        </>
       )}
     </>
   );
 };
 
+// <Modal style={{ width: 'fit-content' }}>
+//   {isApproved && <ModerationMessage message="Сompany successfully published" />}
+//   {isRejected && <ModerationMessage message="Сompany rejected" />}
+// </Modal>
 export default withAuthLayout(ModerationPage);
