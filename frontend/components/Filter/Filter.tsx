@@ -6,7 +6,8 @@ import { IFilter } from './Filter.props';
 export const Filter: FC<IFilter> = ({
   filters, name, htmlType, className = '', ...props
 }) => {
-  const [current, setCurrent] = useState(filters[0]);
+  // Убрать хардкод фильтра когда появится что-то кроме компаний
+  const [current, setCurrent] = useState(filters[2]);
   const handleChange = (filter: string) => setCurrent(filter);
 
   return (

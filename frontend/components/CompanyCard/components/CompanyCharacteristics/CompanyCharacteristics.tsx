@@ -19,7 +19,7 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
     issuingAuthority: 'Registration authority',
     website: 'Link',
     ceo: 'Head of company’s name',
-    bussinesType: 'Company type',
+    businessType: 'Company type',
     ceoDocUrl: 'Document confirming the authority of  the head of company',
     legalForm: 'Legal form',
     qcEmployees: 'Total number of employees',
@@ -28,6 +28,7 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
     regDocUrl: 'Registration document',
     [data?.regNumName || '']: `${data?.regNumName}`, // Не уверен что это хорошее решение
   };
+
   return (
     <Container className={styles.card}>
       <Title tag="h2" size="s" className={styles.card__title}>{title}</Title>

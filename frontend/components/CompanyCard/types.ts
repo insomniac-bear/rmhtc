@@ -1,3 +1,18 @@
+export interface IBusinessType {
+  createdAt: string | null;
+  updatedAt: string | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface ILegalForm {
+  createdAt: string | null;
+  shortValue: string | null;
+  updatedAt: string | null;
+  uuid: string | null;
+  value: string | null;
+}
+
 export interface ICompanyContact {
   type: string | null;
   value: string | null;
@@ -32,8 +47,8 @@ export interface ICompanyData {
   moderated: string | null;
   moderatedReason: string | null;
   addresses: ICompanyAddress[] | [];
-  legalForm: string | null;
-  bussinesType: string | null;
+  legalForm: ILegalForm | null | undefined;
+  businessType: IBusinessType | null | undefined;
   messengers: ICompanyContact[] | [];
   contacts: ICompanyContact[] | [];
 }
@@ -61,19 +76,19 @@ export type THeaderData = {
 export type TBasicInfoData = {
   website: string | null;
   ceo:string | null;
-  bussinesType: string | null;
+  businessType: string | null | undefined;
   ceoDocUrl: string | null;
-  [key: string]: string | null;
+  [key: string]: string | null | undefined;
 }
 
 export type TLegalInfoData = {
-  legalForm: string | null;
+  legalForm: string | null | undefined;
   qcEmployees: string | null;
   budgetOfYear: string | null;
   yearOfFoundation: number | null;
   regDocUrl: string | null;
   issuingAuthority: string | null;
-  [key: string]: string | number | null;
+  [key: string]: string | number | null | undefined;
 }
 
 export type TContactsData = {
