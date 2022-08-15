@@ -30,11 +30,11 @@
   grid-area: filtersBar;
 }
 
-.catalog {
+.content__catalog {
   grid-area: catalog;
 }
 
-.nav {
+.content__nav {
   display: flex;
   list-style-type: none;
   gap: 0 10px;

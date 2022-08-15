@@ -1,10 +1,11 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from './Catalog.module.css';
+import styles from './CatalogPage.module.css';
 import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 import { Filter } from '../../../components/Filter/Filter';
+import { Catalog } from '../../../components/Catalog/Catalog';
 
 const filters = ['Some filter', 'Some filter', 'Some filter', 'Some filter', 'Some filter'];
 
@@ -20,7 +21,7 @@ const CatalogPage: NextPage = () => (
       <div className={styles.content__searchBar}>
         <SimpleSearch />
         <nav>
-          <ul className={styles.nav}>
+          <ul className={styles.content__nav}>
             <li><Link href="/catalog/companies"><a className={`${styles.nav__link} ${styles.nav__link_active}`}>Companies</a></Link></li>
             <li><Link href="/catalog/companies"><a className={styles.nav__link}>Offers</a></Link></li>
             <li><Link href="/catalog/companies"><a className={styles.nav__link}>Requests</a></Link></li>
@@ -33,11 +34,7 @@ const CatalogPage: NextPage = () => (
         <Filter filters={filters} name="Filter" htmlType="checkbox" />
         <Filter filters={filters} name="Filter" htmlType="checkbox" />
       </div>
-      <ul className={styles.catalog}>
-        <li className={styles.catalog__item}><h1>Company</h1></li>
-        <li className={styles.catalog__item}><h1>Company</h1></li>
-        <li className={styles.catalog__item}><h1>Company</h1></li>
-      </ul>
+      <Catalog className={styles.content__catalog} />
     </main>
     <footer className={styles.footer}><h2>footer</h2></footer>
   </div>
