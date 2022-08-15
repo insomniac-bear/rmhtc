@@ -4,6 +4,9 @@ import Link from 'next/link';
 import styles from './Catalog.module.css';
 import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
+import { Filter } from '../../../components/Filter/Filter';
+
+const filters = ['Some filter', 'Some filter', 'Some filter', 'Some filter', 'Some filter'];
 
 const CatalogPage: NextPage = () => (
   <div className={styles.page}>
@@ -14,14 +17,27 @@ const CatalogPage: NextPage = () => (
     </Head>
     <Header middle="navMenu" />
     <main className={styles.content}>
-      <SimpleSearch className={styles.content__searchBar} />
-      <nav>
-        <ul className={styles.nav}>
-          <li><Link href="/companies"><a className={`${styles.nav__link} ${styles.nav__link_active}`}>Companies</a></Link></li>
-          <li><Link href="/companies"><a className={styles.nav__link}>Offers</a></Link></li>
-          <li><Link href="/companies"><a className={styles.nav__link}>Requests</a></Link></li>
-        </ul>
-      </nav>
+      <div className={styles.content__searchBar}>
+        <SimpleSearch />
+        <nav>
+          <ul className={styles.nav}>
+            <li><Link href="/catalog/companies"><a className={`${styles.nav__link} ${styles.nav__link_active}`}>Companies</a></Link></li>
+            <li><Link href="/catalog/companies"><a className={styles.nav__link}>Offers</a></Link></li>
+            <li><Link href="/catalog/companies"><a className={styles.nav__link}>Requests</a></Link></li>
+          </ul>
+        </nav>
+      </div>
+      <div className={styles.content__filtersBar}>
+        <Filter filters={filters} name="Filter" htmlType="checkbox" />
+        <Filter filters={filters} name="Filter" htmlType="checkbox" />
+        <Filter filters={filters} name="Filter" htmlType="checkbox" />
+        <Filter filters={filters} name="Filter" htmlType="checkbox" />
+      </div>
+      <ul className={styles.catalog}>
+        <li className={styles.catalog__item}><h1>Company</h1></li>
+        <li className={styles.catalog__item}><h1>Company</h1></li>
+        <li className={styles.catalog__item}><h1>Company</h1></li>
+      </ul>
     </main>
     <footer className={styles.footer}><h2>footer</h2></footer>
   </div>
