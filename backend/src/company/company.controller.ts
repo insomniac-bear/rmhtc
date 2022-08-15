@@ -5,16 +5,22 @@ import {
   Patch,
   Res,
   Req,
+  Param,
   UseGuards,
 } from '@nestjs/common';
-import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiHeader,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiParam,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { CompanyService } from './company.service';
 import {
   BusinessTypeDocDescription,
-  CompanyDataDto,
   CompanyDto,
   LegalFormDocDescription,
 } from './dto';
@@ -61,12 +67,28 @@ export class CompanyController {
     );
   }
 
+  @ApiOperation({ summary: 'Получение компаний для модерации' })
+  @ApiResponse({ status: 200, type: [CompanyDto] })
   @UseGuards(JwtAuthGuard)
   @Roles('ADMINISTRATOR')
   @UseGuards(RolesGuard)
   @Get('/moderate')
   getCompaniesForModerate() {
     return this.companiesService.getCompaniesForModerate();
+  }
+
+  @ApiOperation({ summary: 'Получение компании для модерации' })
+  @ApiResponse({ status: 200, type: CompanyDto })
+  @ApiParam({
+    name: 'Company uuid',
+    example: '9e4536eb-26f5-48b0-8c79-bd5ef7d71be9',
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Get('/moderate/:uuid')
+  getCompanyForModerate(@Param() uuid) {
+    return this.companiesService.getCompanyForModerate(uuid);
   }
 
   @ApiOperation({ summary: 'Получение юридических форм' })

@@ -293,6 +293,52 @@ export class CompanyService {
     });
   }
 
+  async getCompanyForModerate(uuid) {
+    console.log(uuid);
+    return await this.companyEntity.findOne({
+      where: {
+        [Op.and]: [
+          uuid,
+          {
+            moderated: 'pending',
+          },
+        ],
+      },
+      include: [
+        {
+          model: Address,
+          include: [
+            {
+              model: AddressType,
+            },
+          ],
+        },
+        {
+          model: Contact,
+          include: [
+            {
+              model: ContactType,
+            },
+          ],
+        },
+        {
+          model: Messenger,
+          include: [
+            {
+              model: MessengerType,
+            },
+          ],
+        },
+        {
+          model: BusinessType,
+        },
+        {
+          model: LegalForm,
+        },
+      ],
+    });
+  }
+
   async getLegalForms() {
     const rawLegalFormsData = await this.legalFormEntity.findAll();
     return rawLegalFormsData.map((rawLegalForm) =>
