@@ -97,28 +97,28 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
   ];
 
   const legalFormsOptions = [
-    { value: 'llc', label: 'Limited Liability Company' },
-    { value: 'jointStockCompany', label: 'Joint-stock company' },
-    { value: 'partnership', label: 'Partnership' },
-    { value: 'internetStore', label: 'Internet store' },
-    { value: 'productioCooperative', label: 'Production cooperative' },
-    { value: 'consumerCooperative', label: 'Consumer cooperative' },
-    { value: 'stateUnitaryEnterprise', label: 'State unitary enterprise' },
-    { value: 'municipalUnitaryEnterprise', label: 'Municipal unitary enterprise' },
-    { value: 'fund', label: 'Fund' },
+    { value: 'Limited Liability Company', label: 'Limited Liability Company' },
+    { value: 'Limited trade development', label: 'Joint-stock company' },
+    { value: 'Limited Liability Partnerships', label: 'Limited Liability Partnerships' },
+    { value: 'Open Joint Stock Company', label: 'Open Joint Stock Company' },
+    { value: 'Individual Entrepreneur ', label: 'Individual Entrepreneur ' },
+    // { value: 'consumerCooperative', label: 'Consumer cooperative' },
+    // { value: 'stateUnitaryEnterprise', label: 'State unitary enterprise' },
+    // { value: 'municipalUnitaryEnterprise', label: 'Municipal unitary enterprise' },
+    // { value: 'fund', label: 'Fund' },
   ];
 
   const companyTypeOptions = [
-    { value: 'manufacturer', label: 'Manufacturer' },
-    { value: 'wholesaler', label: 'Wholesaler' },
-    { value: 'reseller', label: 'Reseller' },
-    { value: 'dropshipper', label: 'Dropshipper' },
-    { value: 'tradingCompany', label: 'Trading Company' },
-    { value: 'buyingOffice', label: 'Buying Office' },
-    { value: 'agent', label: 'Agent' },
-    { value: 'association', label: 'Association' },
-    { value: 'government', label: 'Government' },
-    { value: 'businessService', label: 'Business Service' },
+    { value: 'Manufacturer', label: 'Manufacturer' },
+    { value: 'Wholesaler', label: 'Wholesaler' },
+    { value: 'Reseller', label: 'Reseller' },
+    { value: 'Dropshipper', label: 'Dropshipper' },
+    { value: 'Trading Company', label: 'Trading Company' },
+    { value: 'Buying Office', label: 'Buying Office' },
+    { value: 'Agent', label: 'Agent' },
+    { value: 'Association', label: 'Association' },
+    { value: 'Government', label: 'Government' },
+    { value: 'Business Service', label: 'Business Service' },
   ];
 
   const employeesOptions = [
@@ -183,8 +183,8 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
       qcEmployees: data.employees,
       budgetOfYear: data.annualTurnover,
       currencyOfBudget: 'RUB',
-      businessType: 'Dropshipper',
-      legalForm: 'Open Joint Stock Company',
+      businessType: data.type,
+      legalForm: data.legalForm,
     };
     try {
       const response = await updateCompany(preparedFormData);
