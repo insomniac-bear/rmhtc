@@ -49,7 +49,7 @@ export const CombineSelectInput = ({
               control={control}
               name={`${name}Select${fieldIndex}`}
               {...register(`${`${name}.${fieldIndex}`}.name`, {
-                required: `Select ${name}`,
+                // required: `Select ${name}`,
               })}
               render={({ field: { value, onChange } }) => (
                 <div>
@@ -71,7 +71,7 @@ export const CombineSelectInput = ({
               className={styles.combineSelectInput__input}
               errors={errors[name] && errors[name][0].data}
               {...register(`${`${name}.${fieldIndex}`}.data`, {
-                required: `${name.charAt(0).toUpperCase() + name.slice(1)} is required`,
+                // required: `${name.charAt(0).toUpperCase() + name.slice(1)} is required`,
               })}
             />
             <button

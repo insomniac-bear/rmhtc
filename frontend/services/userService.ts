@@ -94,5 +94,13 @@ export const userAPI = apiService.injectEndpoints({
         credentials: 'include',
       }),
     }),
+    editCompany: build.mutation<any, any>({
+      query: (data) => ({
+        method: 'PATCH',
+        url: '/api/v1/companies/user',
+        credentials: 'include',
+        body: data,
+      }),
+    }),
   }),
 });

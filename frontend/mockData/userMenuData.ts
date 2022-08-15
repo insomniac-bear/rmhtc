@@ -14,7 +14,7 @@ export const menuData = [
         link: '/personal-data',
       },
     ],
-    link: '/summary',
+    link: '/profile',
   },
   {
     id: '2',

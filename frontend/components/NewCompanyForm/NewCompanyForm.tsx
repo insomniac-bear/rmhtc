@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import { FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import Select, { SingleValue } from 'react-select';
 import { Title } from '../Title/Title';
 import { INewCompanyFormProps } from './NewCompanyForm.props';
@@ -10,6 +11,7 @@ import { CustomTextarea } from '../CustomTextarea/CustomTextarea';
 import { FileInput } from '../FileInput/FileInput';
 import { Button } from '../Button/Button';
 import { CombineSelectInput } from '../CombineSelectInput/CombineSelectInput';
+import { userAPI } from '../../services/userService';
 
 type TLegalAddress = {
   country: string;
@@ -56,6 +58,9 @@ type TFormData = {
 };
 
 export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, className, ...props }) => {
+  const router = useRouter();
+  const [updateCompany] = userAPI.useEditCompanyMutation();
+
   const defaultValues = {
     socials: [{}],
     contacts: [{}],
@@ -117,15 +122,15 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
   ];
 
   const employeesOptions = [
-    { value: '<50', label: 'Up to 50' },
-    { value: '50><100', label: 'From 50 to 100' },
-    { value: '100<', label: 'More 100' },
+    { value: '0 - 50', label: 'Up to 50' },
+    { value: '50 - 100', label: 'From 50 to 100' },
+    { value: '100+', label: 'More 100' },
   ];
 
   const annualTurnoverOptions = [
-    { value: '<50', label: 'From 50 million' },
-    { value: '50><100', label: 'From 50 to 100 million' },
-    { value: '100<', label: 'More 100 million' },
+    { value: '0 - 100000', label: 'Up to 100000 million' },
+    { value: '100000 - 1000000', label: 'From 100000 to 1 million' },
+    { value: '1000000+', label: 'More 1 million' },
   ];
 
   const regNumberOptions = [
@@ -161,8 +166,33 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
     }),
   };
 
-  const submitFormHandler = (data: TFormData) => {
-    console.log(data);
+  const submitFormHandler = async (data: TFormData) => {
+    const preparedFormData = {
+      uuid: router.query.uuid,
+      name: data.name,
+      logoUrl: null,
+      regNumName: data.registrationNumber.name,
+      regNumber: data.registrationNumber.number,
+      regDocUrl: null,
+      issuingAuthority: data.registrationAuthority,
+      description: data.description,
+      yearOfFoundation: data.year,
+      website: data.link,
+      ceo: data.head,
+      ceoDocUrl: null,
+      qcEmployees: data.employees,
+      budgetOfYear: data.annualTurnover,
+      currencyOfBudget: 'RUB',
+      businessType: 'Dropshipper',
+      legalForm: 'Open Joint Stock Company',
+    };
+    try {
+      const response = await updateCompany(preparedFormData);
+      console.log(response);
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+    console.log(preparedFormData);
   };
 
   return (
@@ -214,7 +244,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
           errors={errors.authDocument}
           accept="image/*,.pdf"
           {...register('authDocument', {
-            required: 'Document to confirm is required.',
+            // required: 'Document to confirm is required.',
           })}
         />
         <p className={styles.newCompanyForm__caption}>Company type</p>
@@ -245,7 +275,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
           errors={errors.logo}
           accept="image/*"
           {...register('logo', {
-            required: 'Logo is required.',
+            // required: 'Logo is required.',
           })}
         />
       </fieldset>
@@ -260,7 +290,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.country}
             label="country"
             {...register('legalAddress.country', {
-              required: 'Country is required.',
+              // required: 'Country is required.',
             })}
           />
           <CustomInput
@@ -269,7 +299,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.city}
             label="city"
             {...register('legalAddress.city', {
-              required: 'City is required.',
+              // required: 'City is required.',
             })}
           />
           <CustomInput
@@ -278,7 +308,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.street}
             label="street"
             {...register('legalAddress.street', {
-              required: 'Street is required.',
+              // required: 'Street is required.',
             })}
           />
           <CustomInput
@@ -287,7 +317,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.house}
             label="house"
             {...register('legalAddress.house', {
-              required: 'House is required.',
+              // required: 'House is required.',
             })}
           />
           <CustomInput
@@ -296,7 +326,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.postCode}
             label="postCode"
             {...register('legalAddress.postCode', {
-              required: 'Post code is required.',
+              // required: 'Post code is required.',
             })}
           />
           <CustomInput
@@ -305,7 +335,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.office}
             label="office"
             {...register('legalAddress.office', {
-              required: 'Office is required.',
+              // required: 'Office is required.',
             })}
           />
         </fieldset>
@@ -402,7 +432,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
           errors={errors.registrationDocument}
           accept="image/*,.pdf"
           {...register('registrationDocument', {
-            required: 'Registration document is required.',
+            // required: 'Registration document is required.',
           })}
         />
         <p className={styles.newCompanyForm__caption}>Registration number</p>
