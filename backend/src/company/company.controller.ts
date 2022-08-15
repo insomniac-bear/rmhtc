@@ -12,7 +12,12 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { CompanyService } from './company.service';
-import { CompanyDataDto, CompanyDto } from './dto';
+import {
+  BusinessTypeDocDescription,
+  CompanyDataDto,
+  CompanyDto,
+  LegalFormDocDescription,
+} from './dto';
 import { IFullCompany } from './types';
 
 @ApiTags('Companies')
@@ -62,5 +67,27 @@ export class CompanyController {
   @Get('/moderate')
   getCompaniesForModerate() {
     return this.companiesService.getCompaniesForModerate();
+  }
+
+  @ApiOperation({ summary: 'Получение юридических форм' })
+  @ApiResponse({
+    status: 200,
+    description: 'Получение всех юридических форм',
+    type: LegalFormDocDescription,
+  })
+  @Get('/legal-forms')
+  getLegalFroms() {
+    return this.companiesService.getLegalForms();
+  }
+
+  @ApiOperation({ summary: 'Получение типов бизнеса' })
+  @ApiResponse({
+    status: 200,
+    description: 'Получение всех возможных типов бизнеса',
+    type: BusinessTypeDocDescription,
+  })
+  @Get('/business-types')
+  getBusinessType() {
+    return this.companiesService.getBusinessTypes();
   }
 }

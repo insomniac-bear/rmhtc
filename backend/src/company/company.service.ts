@@ -24,7 +24,11 @@ import {
 import { MessengerType } from 'src/messengers/entity/messenger-type.entity';
 import { Messenger } from 'src/messengers/entity/messenger.entity';
 import { MessengersService } from 'src/messengers/messengers.service';
-import { createCompanyDto } from './dto';
+import {
+  createCompanyDto,
+  createBusinesTypeDto,
+  createLegalFormsDto,
+} from './dto';
 import { BusinessType } from './entity/business-type.entity';
 import { Company } from './entity/company.entity';
 import { LegalForm } from './entity/legal-form.entity';
@@ -287,5 +291,19 @@ export class CompanyService {
         },
       ],
     });
+  }
+
+  async getLegalForms() {
+    const rawLegalFormsData = await this.legalFormEntity.findAll();
+    return rawLegalFormsData.map((rawLegalForm) =>
+      createLegalFormsDto(rawLegalForm)
+    );
+  }
+
+  async getBusinessTypes() {
+    const rawBusinessTypesData = await this.businessTypeEntity.findAll();
+    return rawBusinessTypesData.map((rawBusinessType) =>
+      createBusinesTypeDto(rawBusinessType)
+    );
   }
 }
