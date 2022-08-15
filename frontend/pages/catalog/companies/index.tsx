@@ -1,10 +1,11 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import styles from './Catalog.module.css';
 import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 
-const Catalog: NextPage = () => (
+const CatalogPage: NextPage = () => (
   <div className={styles.page}>
     <Head>
       <title>RMHTC</title>
@@ -13,10 +14,17 @@ const Catalog: NextPage = () => (
     </Head>
     <Header middle="navMenu" />
     <main className={styles.content}>
-      <SimpleSearch />
+      <SimpleSearch className={styles.content__searchBar} />
+      <nav>
+        <ul className={styles.nav}>
+          <li><Link href="/companies"><a className={`${styles.nav__link} ${styles.nav__link_active}`}>Companies</a></Link></li>
+          <li><Link href="/companies"><a className={styles.nav__link}>Offers</a></Link></li>
+          <li><Link href="/companies"><a className={styles.nav__link}>Requests</a></Link></li>
+        </ul>
+      </nav>
     </main>
     <footer className={styles.footer}><h2>footer</h2></footer>
   </div>
 );
 
-export default Catalog;
+export default CatalogPage;

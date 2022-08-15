@@ -8,3 +8,33 @@
 .content {
   flex: 1;
 }
+
+.content__searchBar {
+  margin: 0 0 24px 0;
+}
+
+.nav {
+  display: flex;
+  list-style-type: none;
+  gap: 0 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  font-family: var(-TTNorms);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  display: block;
+  padding: 3px 15px;
+  border: 1px solid var(--grey-400);
+  background: var(--grey-300);
+  border-radius: 10px;
+}
+
+.nav__link_active {
+  border: 1px solid var(--accent-blue-400);
+}
+
