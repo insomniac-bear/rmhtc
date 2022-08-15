@@ -17,4 +17,10 @@ export const navMenuMockData = [
     titleEN: 'News',
     link: '/news',
   },
+  {
+    id: '4',
+    titleRU: 'Каталог',
+    titleEN: 'Catalog',
+    link: '/catalog/companies',
+  },
 ];
