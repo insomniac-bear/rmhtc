@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import styles from './Catalog.module.css';
 import { Header } from '../../../components/Header/Header';
+import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 
 const Catalog: NextPage = () => (
   <div className={styles.page}>
@@ -12,7 +13,7 @@ const Catalog: NextPage = () => (
     </Head>
     <Header middle="navMenu" />
     <main className={styles.content}>
-      <h1>Catalog</h1>
+      <SimpleSearch />
     </main>
     <footer className={styles.footer}><h2>footer</h2></footer>
   </div>
