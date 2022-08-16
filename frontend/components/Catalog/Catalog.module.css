@@ -1,0 +1,38 @@
+.catalog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 709px;
+  width: 100%;
+  gap: 45px 0;
+}
+
+.catalog__itemsList {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  align-content: start;
+  width: 100%;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill,minmax(223px,1fr));
+}
+
+.catalog__moreButton {
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+  margin: 0;
+  padding: 0 25px 0 0;
+  background-image: url(../../images/button-arrow-grey.svg);
+  background-repeat: no-repeat;
+  background-position: top 0 right 5px;
+  background-size: contain;
+  font-family: var(--TTNorms);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--grey-600);
+}

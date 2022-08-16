@@ -7,7 +7,12 @@ import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 import { Filter } from '../../../components/Filter/Filter';
 import { Catalog } from '../../../components/Catalog/Catalog';
 
-const filters = ['Some filter', 'Some filter', 'Some filter', 'Some filter', 'Some filter'];
+const companyType = ['Manufacturer', 'Wholesaler', 'Resaller', 'Dropshipper', 'Trading Company', 'Something', 'Something else'];
+const legalForm = [
+  'Limited Liability Company', 'Joint-stock company', 'Partnership', 'Internet shop', 'Consumer cooperative', 'Something', 'Something else'];
+const annualTurner = ['From 50 million', 'From 50 to 100 million', 'More 100 million'];
+const employees = ['Up to 50', 'From 50 to 100', 'More 100'];
+const country = ['Russia', 'Malaysia', 'Singapure'];
 
 const CatalogPage: NextPage = () => (
   <div className={styles.page}>
@@ -29,10 +34,11 @@ const CatalogPage: NextPage = () => (
         </nav>
       </div>
       <div className={styles.content__filtersBar}>
-        <Filter filters={filters} name="Filter" htmlType="checkbox" />
-        <Filter filters={filters} name="Filter" htmlType="checkbox" />
-        <Filter filters={filters} name="Filter" htmlType="checkbox" />
-        <Filter filters={filters} name="Filter" htmlType="checkbox" />
+        <Filter filters={companyType} label="Company type" name="companyType" htmlType="checkbox" />
+        <Filter filters={legalForm} label="Legal form" name="legalForm" htmlType="checkbox" />
+        <Filter filters={annualTurner} label="Annual turner" name="annualTurner" htmlType="checkbox" />
+        <Filter filters={employees} label="Total number of employees" name="employees" htmlType="checkbox" />
+        <Filter filters={country} label="Country" name="country" htmlType="checkbox" />
       </div>
       <Catalog className={styles.content__catalog} />
     </main>

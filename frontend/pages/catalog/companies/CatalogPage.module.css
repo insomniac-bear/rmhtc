@@ -28,6 +28,9 @@
 
 .content__filtersBar {
   grid-area: filtersBar;
+  display: grid;
+  gap: 40px 0;
+  align-content: start;
 }
 
 .content__catalog {
