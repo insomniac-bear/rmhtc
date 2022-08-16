@@ -6,6 +6,7 @@ import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 import { Filter } from '../../../components/Filter/Filter';
 import { Catalog } from '../../../components/Catalog/Catalog';
+import { Footer } from '../../../components/Footer/Footer';
 
 const companyType = ['Manufacturer', 'Wholesaler', 'Resaller', 'Dropshipper', 'Trading Company', 'Something', 'Something else'];
 const legalForm = [
@@ -42,7 +43,7 @@ const CatalogPage: NextPage = () => (
       </div>
       <Catalog className={styles.content__catalog} />
     </main>
-    <footer className={styles.footer}><h2>footer</h2></footer>
+    <Footer />
   </div>
 );
 

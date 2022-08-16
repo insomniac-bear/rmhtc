@@ -1,39 +1,41 @@
 .card {
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 0 10px;
-  grid-template-areas: 
-  'logo name'
-  'geo geo'
-  'description description'
-  'activities activities';
-  max-width: 223px;
-  width: 100%;
-  background-color: var(--grey-100);
-  border: 1px solid var(--accent-blue-200);
-  border-radius: 10px;
-  padding: 20px;
+	display: grid;
+
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 223px;
+	padding: 20px;
+
+	border: 1px solid var(--accent-blue-200);
+	border-radius: 10px;
+	background-color: var(--grey-100);
+	grid-template-columns: 44px 1fr;
+	gap: 0 10px;
+	grid-template-areas:
+		"logo name"
+		"geo geo"
+		"description description"
+		"activities activities";
 }
 
 .card__logo {
-  grid-area: logo;
+	grid-area: logo;
 }
 
 .card__heading {
-  margin: 0;
-  grid-area: name;
-  font-family: var(--RobotoSlab);
-  font-style: normal;
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 22px;
+	margin: 0;
 
-  color: var(--grey-600);
+	color: var(--grey-600);
+
+	font-family: var(--RobotoSlab);
+	font-size: 17px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 22px;
+	grid-area: name;
 }
 
 .card__geo {
-  grid-area: geo;
 	position: relative;
 
 	display: flex;
@@ -41,8 +43,9 @@
 
 	box-sizing: border-box;
 	width: fit-content;
+	margin: 12px 0 15px;
 	padding: 0 0 0 5px;
-  margin: 12px 0 15px 0;
+	grid-area: geo;
 }
 
 .card__geo::before {
@@ -59,71 +62,79 @@
 
 .card__geoText {
 	margin: 0 0 0 5px;
-  
+
 	color: var(--grey-500);
 
 	font-family: var(--TTNorms);
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 17px;
-  
 }
 
 .card__description {
-  grid-area: description;
-  margin: 0 0 15px 0;
-  max-width: 183px;
-  max-height: 40px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  font-family: var(--TTNorms);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  color: var(--grey-600);
+	display: box;
+	overflow: hidden;
 
+	max-width: 183px;
+	max-height: 40px;
+	margin: 0 0 15px;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+	grid-area: description;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
 .card__activities {
-  grid-area: activities;
-  list-style-type: none;
-  margin: 0;
-  padding: 15px 0 0 0;
-  display: flex;
-  gap: 0 15px;
-  box-sizing: border-box;
-  border-top: 0.5px solid var(--grey-300);
-  max-width: 170px;
+	display: flex;
+
+	box-sizing: border-box;
+	max-width: 170px;
+	margin: 0;
+	padding: 15px 0 0;
+
+	list-style-type: none;
+
+	border-top: 0.5px solid var(--grey-300);
+	grid-area: activities;
+	gap: 0 15px;
 }
 
 .activitiesItem {
-  display: grid;
-  gap: 5px 0;
+	display: grid;
+	gap: 5px 0;
 }
 
 .card__activityName {
-  display: block;
-  font-family: var(--TTNorms);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  color: var(--grey-400);
+	display: block;
+
+	color: var(--grey-400);
+
+	font-family: var(--TTNorms);
+	font-size: 12px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 14px;
 }
 
 .card__activityLink {
-  font-family: var(--TTNorms);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  transition: 0.3s;
-  color: var(--link);
+	transition: 0.3s;
+
+	color: var(--link);
+
+	font-family: var(--TTNorms);
+	font-size: 12px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 14px;
 }
 
 .card__activityLink:hover {
-  color: var(--link-hover);
+	color: var(--link-hover);
 }
