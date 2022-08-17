@@ -2,7 +2,7 @@ import { IRawAddress } from 'src/address/types/rawAddress.interface';
 import { IContact } from 'src/contacts/types';
 import { IMessenger } from 'src/messengers/types';
 
-export type TModerated = 'idle' | 'pending' | 'success' | 'failed';
+export type TModerated = 'idle' | 'pending' | 'process' | 'success' | 'failed';
 export type TQcEmployes = '0 - 50' | '51 - 100' | 'more than 100';
 export type TBudgetOfYear =
   | '0 - 100 000'

@@ -7,22 +7,14 @@ import {
 } from '@nestjs/common';
 import { Op } from 'sequelize';
 import { AddressService } from 'src/address/address.service';
-import { AddressType } from 'src/address/entity/address-type.entity';
-import { Address } from 'src/address/entity/address.entity';
-import { City } from 'src/address/entity/city.entity';
-import { Country } from 'src/address/entity/country.entity';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtPayload } from 'src/auth/types';
 import { ContactsService } from 'src/contacts/contacts.service';
-import { ContactType } from 'src/contacts/entity/contact-type.entity';
-import { Contact } from 'src/contacts/entity/contact.entity';
 import {
   BUSINESS_TYPE_REPOSITORY,
   COMPANY_REPOSITORY,
   LEGAL_FORM_REPOSITORY,
 } from 'src/core/constants';
-import { MessengerType } from 'src/messengers/entity/messenger-type.entity';
-import { Messenger } from 'src/messengers/entity/messenger.entity';
 import { MessengersService } from 'src/messengers/messengers.service';
 import {
   createCompanyDto,
@@ -32,6 +24,7 @@ import {
 import { BusinessType } from './entity/business-type.entity';
 import { Company } from './entity/company.entity';
 import { LegalForm } from './entity/legal-form.entity';
+import { allFields } from './entity/query-options';
 import { IFullCompany } from './types';
 
 @Injectable()
@@ -65,38 +58,7 @@ export class CompanyService {
       where: {
         userUuid: sub,
       },
-      include: [
-        {
-          model: Address,
-          include: [
-            {
-              model: AddressType,
-            },
-          ],
-        },
-        {
-          model: Contact,
-          include: [
-            {
-              model: ContactType,
-            },
-          ],
-        },
-        {
-          model: Messenger,
-          include: [
-            {
-              model: MessengerType,
-            },
-          ],
-        },
-        {
-          model: BusinessType,
-        },
-        {
-          model: LegalForm,
-        },
-      ],
+      include: allFields,
     });
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -123,44 +85,7 @@ export class CompanyService {
       where: {
         uuid: companyUuid,
       },
-      include: [
-        {
-          model: Address,
-          include: [
-            {
-              model: AddressType,
-            },
-            {
-              model: City,
-            },
-            {
-              model: Country,
-            },
-          ],
-        },
-        {
-          model: Contact,
-          include: [
-            {
-              model: ContactType,
-            },
-          ],
-        },
-        {
-          model: Messenger,
-          include: [
-            {
-              model: MessengerType,
-            },
-          ],
-        },
-        {
-          model: BusinessType,
-        },
-        {
-          model: LegalForm,
-        },
-      ],
+      include: allFields,
     });
   }
 
@@ -258,44 +183,12 @@ export class CompanyService {
       where: {
         moderated: 'pending',
       },
-      include: [
-        {
-          model: Address,
-          include: [
-            {
-              model: AddressType,
-            },
-          ],
-        },
-        {
-          model: Contact,
-          include: [
-            {
-              model: ContactType,
-            },
-          ],
-        },
-        {
-          model: Messenger,
-          include: [
-            {
-              model: MessengerType,
-            },
-          ],
-        },
-        {
-          model: BusinessType,
-        },
-        {
-          model: LegalForm,
-        },
-      ],
+      include: allFields,
     });
   }
 
   async getCompanyForModerate(uuid) {
-    console.log(uuid);
-    return await this.companyEntity.findOne({
+    const company = await this.companyEntity.findOne({
       where: {
         [Op.and]: [
           uuid,
@@ -304,39 +197,11 @@ export class CompanyService {
           },
         ],
       },
-      include: [
-        {
-          model: Address,
-          include: [
-            {
-              model: AddressType,
-            },
-          ],
-        },
-        {
-          model: Contact,
-          include: [
-            {
-              model: ContactType,
-            },
-          ],
-        },
-        {
-          model: Messenger,
-          include: [
-            {
-              model: MessengerType,
-            },
-          ],
-        },
-        {
-          model: BusinessType,
-        },
-        {
-          model: LegalForm,
-        },
-      ],
+      include: allFields,
     });
+    company.moderated = 'process';
+    await company.save();
+    return company;
   }
 
   async getLegalForms() {
