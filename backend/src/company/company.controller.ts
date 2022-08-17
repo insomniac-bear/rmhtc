@@ -118,7 +118,7 @@ export class CompanyController {
   @UseGuards(RolesGuard)
   @Patch('/moderate/decline')
   declineCompanyFromModerate(
-    @Body() { reason },
+    @Body() data,
     @Query() query,
     @Req() req,
     @Res({ passthrough: true }) res
@@ -126,7 +126,7 @@ export class CompanyController {
     return this.companiesService.declainCompanyFromModerate(
       req.user,
       res,
-      { ...reason },
+      data,
       query
     );
   }
