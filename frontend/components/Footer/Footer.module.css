@@ -1,0 +1,137 @@
+.footer {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100%;
+
+	background-color: var(--grey-300);
+}
+
+.footer__signup {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100%;
+	padding: 81px 0 67px;
+
+	background-color: var(--accent-red-300);
+}
+
+.footer__signup > .footer__signupTitle {
+	width: 100%;
+	max-width: 544px;
+	margin: 0 0 15px;
+
+	text-align: center;
+
+	color: var(--grey-100);
+}
+
+.footer__description {
+	width: 100%;
+	max-width: 544px;
+	margin: 0 0 30px;
+
+	text-align: center;
+
+	color: var(--grey-100);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+}
+
+.footer__signupButton {
+	box-sizing: border-box;
+	padding: 5px 45px 5px 20px;
+
+	cursor: pointer;
+
+	color: var(--accent-red-400);
+	border: none;
+	border-radius: 10px;
+	background-color: var(--grey-100);
+	background-image: url("../../images/arrow-red-right.svg");
+	background-repeat: no-repeat;
+	background-position: center right 20px;
+	background-size: 20px;
+
+	font-family: var(--TTNorms);
+	font-size: 20px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 25px;
+}
+
+.footer__mainContainer {
+	display: grid;
+	align-items: center;
+
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 1440px;
+	padding: 80px 0 0;
+	gap: 75px 0;
+	grid-template-areas:
+		"logo nav social"
+		"rights rights rights";
+}
+
+.footer__logo {
+	grid-area: logo;
+}
+
+.footer__nav {
+	grid-area: nav;
+	gap: 40px;
+}
+
+.footer__social {
+	display: flex;
+	align-items: center;
+
+	width: fit-content;
+	height: fit-content;
+	margin: 0;
+	padding: 0;
+
+	list-style-type: none;
+	justify-self: end;
+	gap: 0 20px;
+}
+
+.footer__copyrightWrapper {
+	display: flex;
+	justify-content: space-between;
+
+	box-sizing: border-box;
+	width: 100%;
+	padding: 25px 0 26px;
+
+	border-top: 1px solid var(--grey-400);
+	grid-area: rights;
+}
+
+.footer__copyright {
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 12px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 14px;
+}
+
+.footer__developed {
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 12px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 14px;
+}
