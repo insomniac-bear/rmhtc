@@ -175,7 +175,7 @@ export class CompanyService {
     });
     const idleModerateCompanyCount = await this.companyEntity.count({
       where: {
-        [Op.and]: [{ userUuid }, { moderated: 'idle' }],
+        [Op.and]: [{ userUuid }, { moderated: 'pending' }],
       },
     });
     const failedModerateCompanyCount = await this.companyEntity.count({
@@ -215,13 +215,13 @@ export class CompanyService {
         })
       : null;
 
-    const listOfAdressPromise =
-      rawCompanyData.addressess.length > 0
-        ? rawCompanyData.addressess.map((address) =>
-            this.addressService.createOrUpdateAddress(company.uuid, address)
-          )
-        : [];
-    await Promise.all(listOfAdressPromise);
+    // const listOfAdressPromise =
+    //   rawCompanyData.addressess.length > 0
+    //     ? rawCompanyData.addressess.map((address) =>
+    //         this.addressService.createOrUpdateAddress(company.uuid, address)
+    //       )
+    //     : [];
+    // await Promise.all(listOfAdressPromise);
 
     const companyData = createCompanyDto(rawCompanyData);
     if (isModerate) companyData.moderated = 'pending';

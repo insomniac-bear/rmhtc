@@ -21,16 +21,16 @@ async function bootstrap() {
   const PORT = process.env.API_LOCAL_PORT || 8000;
   const app = await NestFactory.create(AppModule);
 
-  // app.enableCors({
-  //   origin: (origin, cb) => {
-  //     if (!allowedDomains.includes(origin)) {
-  //       return cb(new ForbiddenException('Access Denied! CORS POLICY'), false);
-  //     }
-  //     return cb(null, true);
-  //   },
-  //   methods: 'GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS',
-  //   credentials: true,
-  // });
+  app.enableCors({
+    origin: (origin, cb) => {
+      if (!allowedDomains.includes(origin)) {
+        return cb(new ForbiddenException('Access Denied! CORS POLICY'), false);
+      }
+      return cb(null, true);
+    },
+    methods: 'GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS',
+    credentials: true,
+  });
   app.use(cookieParser());
 
   const config = new DocumentBuilder()

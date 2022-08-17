@@ -15,6 +15,11 @@
 	grid-template-columns: 20px repeat(3, minmax(100px, 180px)) 22px;
 }
 
+.card:hover {
+	cursor: pointer;
+	opacity: .8;
+}
+
 .card_character {
 	display: flex;
 	overflow: hidden;

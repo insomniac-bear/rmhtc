@@ -35,7 +35,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   return (
     <section className={styles.moderation}>
       <ul className={`${styles.moderation_cardList} ${className}`} {...props}>
-        {isLoading && <Loader />}
+        {isLoading && <Loader className={styles.moderation__loader} />}
         {moderateCompanies && !isLoading && moderateCompanies.map((item: any) => (
           <li key={item.uuid}>
             <Link href={`/admin/moderation/company/${item.uuid}`}>

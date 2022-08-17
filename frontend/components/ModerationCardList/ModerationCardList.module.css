@@ -34,3 +34,7 @@
 .moderation__pagination {
 	grid-area: pagination;
 }
+
+.moderation__loader {
+	margin: 0 auto;
+}
