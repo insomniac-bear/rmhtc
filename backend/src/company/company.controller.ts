@@ -67,6 +67,23 @@ export class CompanyController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Roles('USER')
+  @UseGuards(RolesGuard)
+  @Patch('/user/save')
+  saveUserCompany(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() companyData: IFullCompany
+  ) {
+    return this.companiesService.updateUsersCompany(
+      req.user,
+      companyData,
+      false,
+      res
+    );
+  }
+
   @ApiOperation({ summary: 'Получение компаний для модерации' })
   @ApiResponse({ status: 200, type: [CompanyDto] })
   @UseGuards(JwtAuthGuard)

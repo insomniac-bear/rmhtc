@@ -140,16 +140,18 @@ export class CompanyService {
         })
       : null;
 
-    // const listOfAdressPromise =
-    //   rawCompanyData.addressess.length > 0
-    //     ? rawCompanyData.addressess.map((address) =>
-    //         this.addressService.createOrUpdateAddress(company.uuid, address)
-    //       )
-    //     : [];
-    // await Promise.all(listOfAdressPromise);
+    const listOfAdressPromise =
+      rawCompanyData.addressess.length > 0
+        ? rawCompanyData.addressess.map((address) =>
+            this.addressService.createOrUpdateAddress(company.uuid, address)
+          )
+        : [];
+    if (listOfAdressPromise.length > 0) {
+      await Promise.all(listOfAdressPromise);
+    }
 
     const companyData = createCompanyDto(rawCompanyData);
-    if (isModerate) companyData.moderated = 'pending';
+    companyData.moderated = isModerate ? 'pending' : 'idle';
 
     await company.update({
       ...companyData,
