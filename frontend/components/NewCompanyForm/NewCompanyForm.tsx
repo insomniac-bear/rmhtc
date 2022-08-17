@@ -187,12 +187,10 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
       legalForm: data.legalForm,
     };
     try {
-      const response = await updateCompany(preparedFormData);
-      console.log(response);
+      await updateCompany(preparedFormData);
     } catch (error: any) {
       throw new Error(error.message);
     }
-    console.log(preparedFormData);
   };
 
   return (

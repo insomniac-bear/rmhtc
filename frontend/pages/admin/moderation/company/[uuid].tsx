@@ -11,7 +11,6 @@ const ModerationPage: NextPage = () => {
   const isReject = router.query.modal === 'reject';
   const { uuid } = router.query;
 
-  console.log(router);
   return (
     <div>
       <CompanyCard />

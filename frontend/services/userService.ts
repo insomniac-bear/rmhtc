@@ -102,5 +102,10 @@ export const userAPI = apiService.injectEndpoints({
         body: data,
       }),
     }),
+    getLegalForms: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/companies/legal-forms',
+      }),
+    }),
   }),
 });
