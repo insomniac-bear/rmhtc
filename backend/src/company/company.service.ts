@@ -205,7 +205,7 @@ export class CompanyService {
     return {
       status: 'success',
       accessToken,
-      companies: companies.map((company) => createCompanyDto(company)),
+      companies: companies.map((company) => createCompanyDto(company, true)),
     };
   }
 
