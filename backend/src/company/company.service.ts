@@ -141,8 +141,8 @@ export class CompanyService {
       : null;
 
     const listOfAdressPromise =
-      rawCompanyData.addressess.length > 0
-        ? rawCompanyData.addressess.map((address) =>
+      rawCompanyData.addresses.length > 0
+        ? rawCompanyData.addresses.map((address) =>
             this.addressService.createOrUpdateAddress(company.uuid, address)
           )
         : [];
