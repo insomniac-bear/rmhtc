@@ -1,3 +1,6 @@
-import { DetailedHTMLProps, LiHTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { ICompanyData } from '../../types';
 
-export interface ICatalogCompanyPreview extends DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {}
+export interface ICatalogCompanyPreview extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  company: ICompanyData;
+}

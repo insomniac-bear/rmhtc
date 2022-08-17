@@ -4,8 +4,7 @@
 
 .filter__heading {
 	margin: 0 0 15px;
-
-	font-family: var(--RobotoSlab);
+	font-style: normal;
 	font-size: 14px;
 	line-height: 17px;
 }

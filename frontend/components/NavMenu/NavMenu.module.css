@@ -19,6 +19,10 @@
 	line-height: 26px;
 }
 
+.navMenu__link_active {
+	color: var(--accent-red-400);
+}
+
 .navMenu__link:hover {
-	color: #FF2E00;
+	color: var(--accent-red-400);
 }

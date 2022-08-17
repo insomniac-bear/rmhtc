@@ -17,7 +17,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   const { moderateCompanies } = useAppSelector((store) => store.admin);
   const [getModerateCompanies, { isLoading }] = adminAPI.useGetModerateCompaniesMutation();
   const dispatch = useAppDispatch();
-  const filters = Array.from(new Set(cardData.map((item) => item.type)));
+  const filters = Array.from(new Set(cardData.map((item) => item.type))).map((el, i) => ({ id: i, value: el, label: el }));
 
   useEffect(() => {
     const getCompanies = async () => {

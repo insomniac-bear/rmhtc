@@ -1,7 +1,13 @@
 import { DetailedHTMLProps, FormHTMLAttributes } from 'react';
 
+type TFilter = {
+  id: string | number;
+  value: string | number;
+  label: string | number;
+}
+
 export interface IFilter extends DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
-  filters: string[];
+  filters: TFilter[];
   label?: string;
   name: string;
   htmlType: 'radio' | 'checkbox';

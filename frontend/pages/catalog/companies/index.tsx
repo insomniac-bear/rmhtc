@@ -5,15 +5,9 @@ import styles from './CatalogPage.module.css';
 import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 import { Filter } from '../../../components/Filter/Filter';
-import { Catalog } from '../../../components/Catalog/Catalog';
 import { Footer } from '../../../components/Footer/Footer';
-
-const companyType = ['Manufacturer', 'Wholesaler', 'Resaller', 'Dropshipper', 'Trading Company', 'Something', 'Something else'];
-const legalForm = [
-  'Limited Liability Company', 'Joint-stock company', 'Partnership', 'Internet shop', 'Consumer cooperative', 'Something', 'Something else'];
-const annualTurner = ['From 50 million', 'From 50 to 100 million', 'More 100 million'];
-const employees = ['Up to 50', 'From 50 to 100', 'More 100'];
-const country = ['Russia', 'Malaysia', 'Singapure'];
+import { CompaniesCatalog } from '../../../components/CompaniesCatalog/CompaniesCatalog';
+import { companyType, legalForm, annualTurner, employees, country} from './catalogMockData';
 
 const CatalogPage: NextPage = () => (
   <div className={styles.page}>
@@ -28,12 +22,25 @@ const CatalogPage: NextPage = () => (
         <SimpleSearch />
         <nav>
           <ul className={styles.content__nav}>
-            <li><Link href="/catalog/companies"><a className={`${styles.nav__link} ${styles.nav__link_active}`}>Companies</a></Link></li>
-            <li><Link href="/catalog/companies"><a className={styles.nav__link}>Offers</a></Link></li>
-            <li><Link href="/catalog/companies"><a className={styles.nav__link}>Requests</a></Link></li>
+            <li>
+              <Link href="/catalog/companies">
+                <a className={`${styles.nav__link} ${styles.nav__link_active}`}>Companies</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/catalog/companies">
+                <a className={styles.nav__link}>Offers</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/catalog/companies">
+                <a className={styles.nav__link}>Requests</a>
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
+      <CompaniesCatalog />
       <div className={styles.content__filtersBar}>
         <Filter filters={companyType} label="Company type" name="companyType" htmlType="checkbox" />
         <Filter filters={legalForm} label="Legal form" name="legalForm" htmlType="checkbox" />
@@ -41,7 +48,6 @@ const CatalogPage: NextPage = () => (
         <Filter filters={employees} label="Total number of employees" name="employees" htmlType="checkbox" />
         <Filter filters={country} label="Country" name="country" htmlType="checkbox" />
       </div>
-      <Catalog className={styles.content__catalog} />
     </main>
     <Footer />
   </div>
