@@ -180,16 +180,38 @@ export class CompanyService {
     };
   }
 
-  async getCompaniesForModerate() {
-    return await this.companyEntity.findAll({
+  async getCompaniesForModerate(accessTokenPayload: JwtPayload, res) {
+    const { sub, role, email } = accessTokenPayload;
+
+    const companies = await this.companyEntity.findAll({
       where: {
         moderated: 'pending',
       },
       include: allFields,
     });
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      companies: companies.map((company) => createCompanyDto(company)),
+    };
   }
 
-  async getCompanyForModerate(uuid) {
+  async getCompanyForModerate(accessTokenPayload: JwtPayload, res, uuid) {
+    const { sub, role, email } = accessTokenPayload;
+
     const company = await this.companyEntity.findOne({
       where: {
         [Op.and]: [
@@ -203,7 +225,60 @@ export class CompanyService {
     });
     company.moderated = 'process';
     await company.save();
-    return company;
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      company,
+    };
+  }
+
+  async declainCompanyFromModerate(
+    accessTokenPayload: JwtPayload,
+    res,
+    data,
+    query
+  ) {
+    const { sub, role, email } = accessTokenPayload;
+
+    const company = await this.companyEntity.findByPk(query.uuid);
+
+    if (!company) {
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+    }
+
+    await company.update({
+      moderated: 'failed',
+      moderatedReason: data.reason,
+    });
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+    };
   }
 
   async getLegalForms() {

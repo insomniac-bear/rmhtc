@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Query,
   Patch,
   Res,
   Req,
@@ -30,6 +31,12 @@ import { IFullCompany } from './types';
 @Controller('companies')
 export class CompanyController {
   constructor(private readonly companiesService: CompanyService) {}
+
+  /**
+   * ******************************************
+   * Users routes
+   * ******************************************
+   */
 
   @ApiOperation({ summary: 'Получение компаний пользователя' })
   @ApiHeader({
@@ -84,14 +91,44 @@ export class CompanyController {
     );
   }
 
+  /**
+   * ******************************************
+   * Moderation Routes
+   * ******************************************
+   */
+
   @ApiOperation({ summary: 'Получение компаний для модерации' })
   @ApiResponse({ status: 200, type: [CompanyDto] })
   @UseGuards(JwtAuthGuard)
   @Roles('ADMINISTRATOR')
   @UseGuards(RolesGuard)
   @Get('/moderate')
-  getCompaniesForModerate() {
-    return this.companiesService.getCompaniesForModerate();
+  getCompaniesForModerate(@Req() req, @Res({ passthrough: true }) res) {
+    return this.companiesService.getCompaniesForModerate(req.user, res);
+  }
+
+  @ApiOperation({ summary: 'Отклонение компании с модерации' })
+  @ApiResponse({ status: 200 })
+  @ApiParam({
+    name: 'Company uuid',
+    example: '?uuid=9e4536eb-26f5-48b0-8c79-bd5ef7d71be9',
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Patch('/moderate/decline')
+  declineCompanyFromModerate(
+    @Body() { reason },
+    @Query() query,
+    @Req() req,
+    @Res({ passthrough: true }) res
+  ) {
+    return this.companiesService.declainCompanyFromModerate(
+      req.user,
+      res,
+      { ...reason },
+      query
+    );
   }
 
   @ApiOperation({ summary: 'Получение компании для модерации' })
@@ -104,9 +141,19 @@ export class CompanyController {
   @Roles('ADMINISTRATOR')
   @UseGuards(RolesGuard)
   @Get('/moderate/:uuid')
-  getCompanyForModerate(@Param() uuid) {
-    return this.companiesService.getCompanyForModerate(uuid);
+  getCompanyForModerate(
+    @Param() uuid,
+    @Req() req,
+    @Res({ passthrough: true }) res
+  ) {
+    return this.companiesService.getCompanyForModerate(req.user, res, uuid);
   }
+
+  /**
+   * ******************************************
+   * Utils routes
+   * ******************************************
+   */
 
   @ApiOperation({ summary: 'Получение юридических форм' })
   @ApiResponse({
