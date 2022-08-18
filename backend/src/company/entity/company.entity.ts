@@ -216,7 +216,7 @@ export class Company extends Model<Company> {
   legalForm: LegalForm;
 
   @HasMany(() => Address)
-  addressess: Address;
+  addresses: Address;
 
   @HasMany(() => Contact)
   contacts: Contact;

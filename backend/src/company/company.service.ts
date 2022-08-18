@@ -129,27 +129,56 @@ export class CompanyService {
     if (!company)
       throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
 
-    const legalForm = rawCompanyData.legalForm
-      ? await this.legalFormEntity.findOne({
-          where: { value: rawCompanyData.legalForm },
-        })
+    const legalForm = rawCompanyData.legalFormUuid
+      ? await this.legalFormEntity.findByPk(rawCompanyData.legalFormUuid)
       : null;
-    const businessType = rawCompanyData.businessType
-      ? await this.businessTypeEntity.findOne({
-          where: { value: rawCompanyData.businessType },
-        })
+    const businessType = rawCompanyData.businessTypeUuid
+      ? await this.businessTypeEntity.findByPk(rawCompanyData.businessTypeUuid)
       : null;
 
-    // const listOfAdressPromise =
-    //   rawCompanyData.addressess.length > 0
-    //     ? rawCompanyData.addressess.map((address) =>
-    //         this.addressService.createOrUpdateAddress(company.uuid, address)
-    //       )
-    //     : [];
-    // await Promise.all(listOfAdressPromise);
+    const listOfAdressPromise =
+      rawCompanyData?.addresses?.length > 0
+        ? rawCompanyData.addresses.map((address) =>
+            this.addressService.createOrUpdateAddress(company.uuid, address)
+          )
+        : [];
+
+    const listOfContactsPromise =
+      rawCompanyData?.contacts?.length > 0
+        ? rawCompanyData.contacts.map((contact) =>
+            this.contactsService.createContact(
+              contact.type,
+              contact.value,
+              company.uuid
+            )
+          )
+        : [];
+
+    const listOfMessengerPromise =
+      rawCompanyData?.messengers?.length > 0
+        ? rawCompanyData.messengers.map((messenger) =>
+            this.messengersService.createMessenger(
+              messenger.type,
+              messenger.value,
+              company.uuid
+            )
+          )
+        : [];
+
+    if (listOfAdressPromise.length > 0) {
+      await Promise.all(listOfAdressPromise);
+    }
+
+    if (listOfContactsPromise.length > 0) {
+      await Promise.all(listOfContactsPromise);
+    }
+
+    if (listOfMessengerPromise.length > 0) {
+      await Promise.all(listOfMessengerPromise);
+    }
 
     const companyData = createCompanyDto(rawCompanyData);
-    if (isModerate) companyData.moderated = 'pending';
+    companyData.moderated = isModerate ? 'pending' : 'idle';
 
     await company.update({
       ...companyData,
@@ -178,22 +207,48 @@ export class CompanyService {
     };
   }
 
-  async getCompaniesForModerate() {
-    return await this.companyEntity.findAll({
+  async getCompaniesForModerate(accessTokenPayload: JwtPayload, res) {
+    const { sub, role, email } = accessTokenPayload;
+
+    const companies = await this.companyEntity.findAll({
       where: {
-        moderated: 'pending',
+        moderated: {
+          [Op.or]: ['pending', 'process'],
+        },
       },
       include: allFields,
     });
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      companies: companies.map((company) => createCompanyDto(company, true)),
+    };
   }
 
-  async getCompanyForModerate(uuid) {
+  async getCompanyForModerate(accessTokenPayload: JwtPayload, res, uuid) {
+    const { sub, role, email } = accessTokenPayload;
+
     const company = await this.companyEntity.findOne({
       where: {
         [Op.and]: [
           uuid,
           {
-            moderated: 'pending',
+            moderated: {
+              [Op.or]: ['pending', 'process'],
+            },
           },
         ],
       },
@@ -201,7 +256,60 @@ export class CompanyService {
     });
     company.moderated = 'process';
     await company.save();
-    return company;
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      company,
+    };
+  }
+
+  async declainCompanyFromModerate(
+    accessTokenPayload: JwtPayload,
+    res,
+    data,
+    query
+  ) {
+    const { sub, role, email } = accessTokenPayload;
+
+    const company = await this.companyEntity.findByPk(query.uuid);
+
+    if (!company) {
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+    }
+
+    await company.update({
+      moderated: 'failed',
+      moderatedReason: data.reason,
+    });
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+    };
   }
 
   async getLegalForms() {

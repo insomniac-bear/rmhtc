@@ -8,5 +8,11 @@ export const adminAPI = apiService.injectEndpoints({
         credentials: 'include',
       }),
     }),
+    getCurrentCompany: build.mutation<any, any>({
+      query: (id: string) => ({
+        url: `/api/v1/companies/moderate/${id}`,
+        credentials: 'include',
+      }),
+    }),
   }),
 });

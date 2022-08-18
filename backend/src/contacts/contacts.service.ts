@@ -33,28 +33,44 @@ export class ContactsService {
   }
 
   async createContact(
-    contactType: string,
+    contactTypeUuid: string,
     contactValue: string,
     companyUuid: string
   ): Promise<Contact> {
-    const typeOfContact = await this.contactTypeRepository.findOne({
-      where: {
-        value: contactType,
-      },
-    });
+    const typeOfContact = await this.contactTypeRepository.findByPk(
+      contactTypeUuid
+    );
 
-    if (!typeOfContact)
+    if (!typeOfContact) {
       throw new HttpException(
         'Not found type of contact',
         HttpStatus.NOT_FOUND
       );
+    }
 
-    const contact = await this.contactRepository.create({
-      contactTypeUuid: typeOfContact.uuid,
-      value: contactValue,
-      companyUuid,
+    const existContact = await this.contactRepository.findOne({
+      where: {
+        value: contactValue,
+      },
     });
 
-    return contact;
+    existContact
+      ? await existContact.update({
+          contactTypeUuid,
+          value: contactValue,
+          companyUuid,
+        })
+      : await this.contactRepository.create({
+          contactTypeUuid,
+          value: contactValue,
+          companyUuid,
+        });
+
+    return this.contactRepository.findOne({
+      where: {
+        contactTypeUuid,
+        companyUuid,
+      },
+    });
   }
 }
