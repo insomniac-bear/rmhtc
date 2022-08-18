@@ -7,14 +7,20 @@ import {
 } from '@nestjs/common';
 import { Op } from 'sequelize';
 import { AddressService } from 'src/address/address.service';
+import { AddressType } from 'src/address/entity/address-type.entity';
+import { Address } from 'src/address/entity/address.entity';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtPayload } from 'src/auth/types';
 import { ContactsService } from 'src/contacts/contacts.service';
+import { ContactType } from 'src/contacts/entity/contact-type.entity';
+import { Contact } from 'src/contacts/entity/contact.entity';
 import {
   BUSINESS_TYPE_REPOSITORY,
   COMPANY_REPOSITORY,
   LEGAL_FORM_REPOSITORY,
 } from 'src/core/constants';
+import { MessengerType } from 'src/messengers/entity/messenger-type.entity';
+import { Messenger } from 'src/messengers/entity/messenger.entity';
 import { MessengersService } from 'src/messengers/messengers.service';
 import {
   createCompanyDto,
@@ -141,13 +147,28 @@ export class CompanyService {
       : null;
 
     const listOfAdressPromise =
-      rawCompanyData.addresses.length > 0
+      rawCompanyData?.addresses?.length > 0
         ? rawCompanyData.addresses.map((address) =>
             this.addressService.createOrUpdateAddress(company.uuid, address)
           )
         : [];
+    const listOfContactsPromise =
+      rawCompanyData?.contacts?.length > 0
+        ? rawCompanyData.contacts.map((contact) =>
+            this.contactsService.createContact(
+              contact.type,
+              contact.value,
+              company.uuid
+            )
+          )
+        : [];
+
     if (listOfAdressPromise.length > 0) {
       await Promise.all(listOfAdressPromise);
+    }
+
+    if (listOfContactsPromise.length > 0) {
+      await Promise.all(listOfContactsPromise);
     }
 
     const companyData = createCompanyDto(rawCompanyData);
@@ -185,7 +206,9 @@ export class CompanyService {
 
     const companies = await this.companyEntity.findAll({
       where: {
-        moderated: 'pending',
+        moderated: {
+          [Op.or]: ['pending', 'process'],
+        },
       },
       include: allFields,
     });
@@ -217,7 +240,9 @@ export class CompanyService {
         [Op.and]: [
           uuid,
           {
-            moderated: 'pending',
+            moderated: {
+              [Op.or]: ['pending', 'process'],
+            },
           },
         ],
       },
