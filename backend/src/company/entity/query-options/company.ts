@@ -39,11 +39,3 @@ export const allFields = [
     model: LegalForm,
   },
 ];
-
-export const ModerationOptions = {
-  idle: { moderated: 'idle' },
-  pending: { moderated: 'pending' },
-  process: { moderated: 'process' },
-  success: { moderated: 'success' },
-  failed: { moderated: 'failed' },
-};

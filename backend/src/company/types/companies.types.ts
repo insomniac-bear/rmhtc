@@ -33,7 +33,7 @@ export class ICompany {
 export class IFullCompany extends ICompany {
   businessType?: string;
   legalForm?: string;
-  addressess?: Array<IRawAddress>;
+  addresses?: Array<IRawAddress>;
   contacts?: Array<IContact>;
   messengers?: Array<IMessenger>;
 }

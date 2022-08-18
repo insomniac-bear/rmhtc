@@ -144,27 +144,51 @@ export class CompanyDto {
   messengers?: Array<IMessenger>;
 }
 
-export const createCompanyDto = (companyRawData) => {
-  return {
-    uuid: companyRawData?.uuid,
-    name: companyRawData?.name,
-    logoUrl: companyRawData?.logoUrl,
-    regNumber: companyRawData?.regNumber,
-    regNumName: companyRawData?.regNumName,
-    regDocUrl: companyRawData?.regDocUrl,
-    issuingAuthority: companyRawData?.issuingAuthority,
-    description: companyRawData?.description,
-    yearOfFoundation: companyRawData?.yearOfFoundation,
-    website: companyRawData?.website,
-    ceo: companyRawData?.ceo,
-    ceoDocUrl: companyRawData?.ceoDocUrl,
-    qcEmployees: companyRawData?.qcEmployees,
-    budgetOfYear: companyRawData?.budgetOfYear,
-    currencyOfBudget: companyRawData?.currencyOfBudget,
-    moderated: companyRawData?.moderated,
-    moderatedReason: companyRawData?.moderatedReason,
-    addresses: companyRawData?.addressess?.map((address) =>
-      createAddressDto(address)
-    ),
-  };
+export const createCompanyDto = (companyRawData, isCreatedData = false) => {
+  return isCreatedData
+    ? {
+        uuid: companyRawData?.uuid,
+        name: companyRawData?.name,
+        logoUrl: companyRawData?.logoUrl,
+        regNumber: companyRawData?.regNumber,
+        regNumName: companyRawData?.regNumName,
+        regDocUrl: companyRawData?.regDocUrl,
+        issuingAuthority: companyRawData?.issuingAuthority,
+        description: companyRawData?.description,
+        yearOfFoundation: companyRawData?.yearOfFoundation,
+        website: companyRawData?.website,
+        ceo: companyRawData?.ceo,
+        ceoDocUrl: companyRawData?.ceoDocUrl,
+        qcEmployees: companyRawData?.qcEmployees,
+        budgetOfYear: companyRawData?.budgetOfYear,
+        currencyOfBudget: companyRawData?.currencyOfBudget,
+        moderated: companyRawData?.moderated,
+        moderatedReason: companyRawData?.moderatedReason,
+        addresses: companyRawData?.addressess?.map((address) =>
+          createAddressDto(address)
+        ),
+        createdAt: companyRawData?.createdAt,
+      }
+    : {
+        uuid: companyRawData?.uuid,
+        name: companyRawData?.name,
+        logoUrl: companyRawData?.logoUrl,
+        regNumber: companyRawData?.regNumber,
+        regNumName: companyRawData?.regNumName,
+        regDocUrl: companyRawData?.regDocUrl,
+        issuingAuthority: companyRawData?.issuingAuthority,
+        description: companyRawData?.description,
+        yearOfFoundation: companyRawData?.yearOfFoundation,
+        website: companyRawData?.website,
+        ceo: companyRawData?.ceo,
+        ceoDocUrl: companyRawData?.ceoDocUrl,
+        qcEmployees: companyRawData?.qcEmployees,
+        budgetOfYear: companyRawData?.budgetOfYear,
+        currencyOfBudget: companyRawData?.currencyOfBudget,
+        moderated: companyRawData?.moderated,
+        moderatedReason: companyRawData?.moderatedReason,
+        addresses: companyRawData?.addressess?.map((address) =>
+          createAddressDto(address)
+        ),
+      };
 };

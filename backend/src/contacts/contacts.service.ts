@@ -43,11 +43,18 @@ export class ContactsService {
       },
     });
 
-    if (!typeOfContact)
+    if (!typeOfContact) {
       throw new HttpException(
         'Not found type of contact',
         HttpStatus.NOT_FOUND
       );
+    }
+
+    const existContact = await this.contactRepository.findOne({
+      where: {
+        value: contactValue,
+      },
+    });
 
     const contact = await this.contactRepository.create({
       contactTypeUuid: typeOfContact.uuid,

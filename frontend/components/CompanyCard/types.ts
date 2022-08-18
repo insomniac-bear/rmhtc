@@ -39,7 +39,8 @@ export type TLegalInfoData = {
 };
 
 export type TContactsData = {
-  addresses: TNewAddress[];
-  contacts: ICompanyContact[];
-  messengers: ICompanyContact[];
-};
+  addresses: TNewAddress[] | [];
+  contacts: ICompanyContact[] | [];
+  messengers: ICompanyContact[] | [];
+}
+
