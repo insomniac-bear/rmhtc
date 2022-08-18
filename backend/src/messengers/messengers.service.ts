@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import {
   MESSENGER_REPOSITORY,
   MESSENGER_TYPE_REPOSITORY,
@@ -26,11 +26,44 @@ export class MessengersService {
     );
   }
 
-  async saveMessenger(messengerTypeUuid, value, companyUuid) {
-    return await this.messengerEntity.create({
-      value,
-      messengerTypeUuid,
-      companyUuid,
+  async createMessenger(
+    messengerTypeUuid: string,
+    value: string,
+    companyUuid: string
+  ): Promise<Messenger> {
+    const typeOfMessenger = await this.messengerTypeEntity.findByPk(
+      messengerTypeUuid
+    );
+
+    if (!typeOfMessenger) {
+      throw new HttpException(
+        'Not found type of messenger',
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    const existMessenger = await this.messengerEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    existMessenger
+      ? await existMessenger.update({
+          messengerTypeUuid,
+          value,
+          companyUuid,
+        })
+      : await this.messengerEntity.create({
+          messengerTypeUuid,
+          value,
+          companyUuid,
+        });
+    return this.messengerEntity.findOne({
+      where: {
+        messengerTypeUuid,
+        companyUuid,
+      },
     });
   }
 }

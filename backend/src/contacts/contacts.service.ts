@@ -56,12 +56,12 @@ export class ContactsService {
 
     existContact
       ? await existContact.update({
-          contactTypeUuid: typeOfContact.uuid,
+          contactTypeUuid,
           value: contactValue,
           companyUuid,
         })
       : await this.contactRepository.create({
-          contactTypeUuid: typeOfContact.uuid,
+          contactTypeUuid,
           value: contactValue,
           companyUuid,
         });
