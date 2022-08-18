@@ -17,7 +17,7 @@ export const CompanyCardPreview: FC<ICompanyCardPreview> = ({
     </p>
     <p className={styles.card_character}>
       <span className={styles.card_characterType}>Date</span>
-      {card.createdAt.split('T')[0]}
+      {card.createdAt?.split('T')[0]}
     </p>
     <div className={card.toggled ? `${styles.card_lockIcon}` : `${styles.card_unlockIcon}`} />
   </div>
