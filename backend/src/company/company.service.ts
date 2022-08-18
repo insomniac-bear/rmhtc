@@ -135,15 +135,11 @@ export class CompanyService {
     if (!company)
       throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
 
-    const legalForm = rawCompanyData.legalForm
-      ? await this.legalFormEntity.findOne({
-          where: { value: rawCompanyData.legalForm },
-        })
+    const legalForm = rawCompanyData.legalFormUuid
+      ? await this.legalFormEntity.findByPk(rawCompanyData.legalFormUuid)
       : null;
-    const businessType = rawCompanyData.businessType
-      ? await this.businessTypeEntity.findOne({
-          where: { value: rawCompanyData.businessType },
-        })
+    const businessType = rawCompanyData.businessTypeUuid
+      ? await this.businessTypeEntity.findByPk(rawCompanyData.businessTypeUuid)
       : null;
 
     const listOfAdressPromise =
