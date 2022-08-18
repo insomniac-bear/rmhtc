@@ -2,10 +2,6 @@ import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './CompanyCard.module.css';
-<<<<<<< HEAD
-import { ICompanyData } from '../../types';
-=======
->>>>>>> 82888e1cab13a9c9ee21feee14c8be0b75912beb
 import { ICompanyCard } from './CompanyCard.props';
 import { CardHeader } from './components/CardHeader/CardHeader';
 import { CompanyCharacteristics } from './components/CompanyCharacteristics/CompanyCharacteristics';
@@ -37,25 +33,16 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
     console.log('Rejected!');
   };
   useEffect(() => {
-<<<<<<< HEAD
-    // Поменять на запрос одной конкретной компании когда будет endpoint--------------------
-=======
->>>>>>> 82888e1cab13a9c9ee21feee14c8be0b75912beb
     const getCompanies = async () => {
       try {
         const response: any = await getCompany(uuid);
-        dispatch(setCurrentCompany(response.data));
+        dispatch(setCurrentCompany(response.data.companies));
       } catch (error: any) {
         throw new Error(error.message);
       }
     };
     getCompanies();
-<<<<<<< HEAD
-    //-------------------------------------------------------------------------------------
-  }, [dispatch, getModerateCompanies]);
-=======
   }, [dispatch, getCompany, uuid]);
->>>>>>> 82888e1cab13a9c9ee21feee14c8be0b75912beb
   return (
     <section className={`${styles.company} ${className}`} {...props}>
       {isLoading && <Loader />}
