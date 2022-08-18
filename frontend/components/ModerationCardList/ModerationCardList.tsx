@@ -4,20 +4,19 @@ import {
 import Link from 'next/link';
 import styles from './ModerationCardList.module.css';
 import { IModerationCardList } from './ModerationCardList.props';
-import { cardData } from './cardData';
+import { filters } from './cardListMockData';
 import { CompanyCardPreview } from '../CompanyCardPreview/CompanyCardPreview';
 import { Pagination } from '../Pagination/Pagination';
-import { Filter } from '../Filter/Filter';
 import { adminAPI } from '../../services/adminService';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setModerateCompanies } from '../../services/slices/admin';
 import { Loader } from '../Loader/Loader';
+import { RadioFilter } from '../RadioFilter/RadioFilter';
 
 export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ...props }) => {
   const { moderateCompanies } = useAppSelector((store) => store.admin);
   const [getModerateCompanies, { isLoading }] = adminAPI.useGetModerateCompaniesMutation();
   const dispatch = useAppDispatch();
-  const filters = Array.from(new Set(cardData.map((item) => item.type))).map((el, i) => ({ id: i, value: el, label: el }));
 
   useEffect(() => {
     const getCompanies = async () => {
@@ -52,7 +51,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
         goForward={() => 1}
         goBack={() => 1}
       />
-      <Filter className={styles.moderation__filter} filters={filters} name="objectType" label="Object type" htmlType="radio" />
+      <RadioFilter className={styles.moderation__filter} filters={filters} name="objectType" label="Object type" htmlType="radio" />
     </section>
   );
 };

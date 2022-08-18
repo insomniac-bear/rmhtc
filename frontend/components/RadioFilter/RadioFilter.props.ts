@@ -6,7 +6,7 @@ type TFilter = {
   label: string | number;
 }
 
-export interface IFilter extends DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
+export interface IRadioFilter extends DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
   filters: TFilter[];
   label?: string;
   name: string;

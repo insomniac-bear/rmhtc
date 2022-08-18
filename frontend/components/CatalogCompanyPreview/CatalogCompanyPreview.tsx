@@ -20,15 +20,15 @@ export const CatalogCompanyPreview: FC<ICatalogCompanyPreview> = ({ company, cla
       <ul className={styles.card__activities}>
         <li className={styles.activitiesItem}>
           <span className={styles.card__activityName}>News</span>
-          <Link href="companies"><a className={styles.card__activityLink}>8567</a></Link>
+          <Link href="#"><a className={styles.card__activityLink}>8567</a></Link>
         </li>
         <li className={styles.activitiesItem}>
           <span className={styles.card__activityName}>Requests</span>
-          <Link href="companies"><a className={styles.card__activityLink}>34</a></Link>
+          <Link href="#"><a className={styles.card__activityLink}>34</a></Link>
         </li>
         <li className={styles.activitiesItem}>
           <span className={styles.card__activityName}>Offers</span>
-          <Link href="companies"><a className={styles.card__activityLink}>87 662</a></Link>
+          <Link href="#"><a className={styles.card__activityLink}>87 662</a></Link>
         </li>
       </ul>
     </div>

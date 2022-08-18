@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
-import styles from './Checkbox.module.css';
+import styles from './Radio.module.css';
 
-export const Checkbox = forwardRef(({
+export const Radio = forwardRef(({
   className = '', onChange, children, name, errors, isValidated = true, checked,
 }: any, ref: any) => (
   <>
@@ -12,8 +12,8 @@ export const Checkbox = forwardRef(({
         id={name}
         name={name}
         className={styles.checkbox__input}
+        type="radio"
         checked={checked}
-        type="checkbox"
       />
       <span className={styles.checkbox__text}>{children}</span>
     </label>
