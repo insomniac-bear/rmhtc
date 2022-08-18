@@ -17,6 +17,10 @@ export class MessengersController {
     messengerTypeUuid: string,
     companyUuid: string
   ) {
-    this.messengerService.saveMessenger(messengerTypeUuid, value, companyUuid);
+    this.messengerService.createMessenger(
+      messengerTypeUuid,
+      value,
+      companyUuid
+    );
   }
 }

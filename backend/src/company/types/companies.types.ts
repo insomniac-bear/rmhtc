@@ -31,8 +31,8 @@ export class ICompany {
 }
 
 export class IFullCompany extends ICompany {
-  businessType?: string;
-  legalForm?: string;
+  businessTypeUuid?: string;
+  legalFormUuid?: string;
   addresses?: Array<IRawAddress>;
   contacts?: Array<IContact>;
   messengers?: Array<IMessenger>;

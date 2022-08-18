@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { createAddressDto } from 'src/address/dto';
 import { IAddress } from 'src/address/types';
+import { createContactDto } from 'src/contacts/dto';
 import { IContact } from 'src/contacts/types';
+import { createMessengerDto } from 'src/messengers/dto';
 import { IMessenger } from 'src/messengers/types';
 import { TBudgetOfYear, TModerated, TQcEmployes } from '../types';
 
@@ -164,8 +166,14 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         currencyOfBudget: companyRawData?.currencyOfBudget,
         moderated: companyRawData?.moderated,
         moderatedReason: companyRawData?.moderatedReason,
-        addresses: companyRawData?.addressess?.map((address) =>
+        addresses: companyRawData?.addresses?.map((address) =>
           createAddressDto(address)
+        ),
+        contacts: companyRawData?.contacts?.map((contact) =>
+          createContactDto(contact)
+        ),
+        messengers: companyRawData?.messengers?.map((messenger) =>
+          createMessengerDto(messenger)
         ),
         createdAt: companyRawData?.createdAt,
       }
@@ -187,8 +195,14 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         currencyOfBudget: companyRawData?.currencyOfBudget,
         moderated: companyRawData?.moderated,
         moderatedReason: companyRawData?.moderatedReason,
-        addresses: companyRawData?.addressess?.map((address) =>
+        addresses: companyRawData?.addresses?.map((address) =>
           createAddressDto(address)
+        ),
+        contacts: companyRawData?.contacts?.map((contact) =>
+          createContactDto(contact)
+        ),
+        messengers: companyRawData?.messengers?.map((messenger) =>
+          createMessengerDto(messenger)
         ),
       };
 };

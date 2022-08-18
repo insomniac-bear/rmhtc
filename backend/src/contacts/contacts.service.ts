@@ -33,15 +33,13 @@ export class ContactsService {
   }
 
   async createContact(
-    contactType: string,
+    contactTypeUuid: string,
     contactValue: string,
     companyUuid: string
   ): Promise<Contact> {
-    const typeOfContact = await this.contactTypeRepository.findOne({
-      where: {
-        value: contactType,
-      },
-    });
+    const typeOfContact = await this.contactTypeRepository.findByPk(
+      contactTypeUuid
+    );
 
     if (!typeOfContact) {
       throw new HttpException(
@@ -56,12 +54,23 @@ export class ContactsService {
       },
     });
 
-    const contact = await this.contactRepository.create({
-      contactTypeUuid: typeOfContact.uuid,
-      value: contactValue,
-      companyUuid,
-    });
+    existContact
+      ? await existContact.update({
+          contactTypeUuid,
+          value: contactValue,
+          companyUuid,
+        })
+      : await this.contactRepository.create({
+          contactTypeUuid,
+          value: contactValue,
+          companyUuid,
+        });
 
-    return contact;
+    return this.contactRepository.findOne({
+      where: {
+        contactTypeUuid,
+        companyUuid,
+      },
+    });
   }
 }

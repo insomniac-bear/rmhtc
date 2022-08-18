@@ -129,25 +129,52 @@ export class CompanyService {
     if (!company)
       throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
 
-    const legalForm = rawCompanyData.legalForm
-      ? await this.legalFormEntity.findOne({
-          where: { value: rawCompanyData.legalForm },
-        })
+    const legalForm = rawCompanyData.legalFormUuid
+      ? await this.legalFormEntity.findByPk(rawCompanyData.legalFormUuid)
       : null;
-    const businessType = rawCompanyData.businessType
-      ? await this.businessTypeEntity.findOne({
-          where: { value: rawCompanyData.businessType },
-        })
+    const businessType = rawCompanyData.businessTypeUuid
+      ? await this.businessTypeEntity.findByPk(rawCompanyData.businessTypeUuid)
       : null;
 
     const listOfAdressPromise =
-      rawCompanyData.addresses.length > 0
+      rawCompanyData?.addresses?.length > 0
         ? rawCompanyData.addresses.map((address) =>
             this.addressService.createOrUpdateAddress(company.uuid, address)
           )
         : [];
+
+    const listOfContactsPromise =
+      rawCompanyData?.contacts?.length > 0
+        ? rawCompanyData.contacts.map((contact) =>
+            this.contactsService.createContact(
+              contact.type,
+              contact.value,
+              company.uuid
+            )
+          )
+        : [];
+
+    const listOfMessengerPromise =
+      rawCompanyData?.messengers?.length > 0
+        ? rawCompanyData.messengers.map((messenger) =>
+            this.messengersService.createMessenger(
+              messenger.type,
+              messenger.value,
+              company.uuid
+            )
+          )
+        : [];
+
     if (listOfAdressPromise.length > 0) {
       await Promise.all(listOfAdressPromise);
+    }
+
+    if (listOfContactsPromise.length > 0) {
+      await Promise.all(listOfContactsPromise);
+    }
+
+    if (listOfMessengerPromise.length > 0) {
+      await Promise.all(listOfMessengerPromise);
     }
 
     const companyData = createCompanyDto(rawCompanyData);
@@ -185,7 +212,9 @@ export class CompanyService {
 
     const companies = await this.companyEntity.findAll({
       where: {
-        moderated: 'pending',
+        moderated: {
+          [Op.or]: ['pending', 'process'],
+        },
       },
       include: allFields,
     });
@@ -217,7 +246,9 @@ export class CompanyService {
         [Op.and]: [
           uuid,
           {
-            moderated: 'pending',
+            moderated: {
+              [Op.or]: ['pending', 'process'],
+            },
           },
         ],
       },
