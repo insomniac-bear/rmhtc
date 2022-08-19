@@ -1,4 +1,4 @@
-import { TQcEmployes, TBudgetOfYear, TModerated } from '../types';
+import { TQcEmployees, TBudgetOfYear, TModerated } from '../types';
 import { IAddress } from '../../address/types';
 import { IMessenger } from 'src/messengers/types';
 import { IContact } from 'src/contacts/types';
@@ -15,12 +15,13 @@ export class CompanyDataDto {
   website?: string;
   ceo?: string;
   ceoDocUrl?: string;
-  qcEmployees?: TQcEmployes;
+  qcEmployees?: TQcEmployees;
   budgetOfYear?: TBudgetOfYear;
   currencyOfBudget?: string;
   moderated?: TModerated;
   moderatedReason?: string;
-  addressess?: Array<IAddress>;
+  moderatedAuthorUuid?: string;
+  addresses?: Array<IAddress>;
   contacts?: Array<IContact>;
   messengers?: Array<IMessenger>;
   businessType?: string;

@@ -5,7 +5,7 @@ import { createContactDto } from 'src/contacts/dto';
 import { IContact } from 'src/contacts/types';
 import { createMessengerDto } from 'src/messengers/dto';
 import { IMessenger } from 'src/messengers/types';
-import { TBudgetOfYear, TModerated, TQcEmployes } from '../types';
+import { TBudgetOfYear, TModerated, TQcEmployees } from '../types';
 
 export class CompanyDto {
   @ApiProperty({
@@ -86,7 +86,7 @@ export class CompanyDto {
     example: '0 - 50',
     description: 'Численность сотрудников компании',
   })
-  qcEmployees?: TQcEmployes;
+  qcEmployees?: TQcEmployees;
 
   @ApiProperty({
     example: '0 - 100 000',
@@ -105,12 +105,6 @@ export class CompanyDto {
     description: 'Статус модерации',
   })
   moderated?: TModerated;
-
-  @ApiProperty({
-    example: 'Failed documents',
-    description: 'Причина отклонения с модерации',
-  })
-  moderatedReason?: string;
 
   @ApiProperty({
     example: 'Manufacture',
@@ -133,7 +127,7 @@ export class CompanyDto {
   @ApiProperty({
     description: 'Массив адресов компании',
   })
-  addressess?: Array<IAddress>;
+  addresses?: Array<IAddress>;
 
   @ApiProperty({
     description: 'Массив контактов компании',
@@ -165,7 +159,8 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         budgetOfYear: companyRawData?.budgetOfYear,
         currencyOfBudget: companyRawData?.currencyOfBudget,
         moderated: companyRawData?.moderated,
-        moderatedReason: companyRawData?.moderatedReason,
+        moderatedReason: companyRawData?.moderation?.reason,
+        moderatedAuthorUuid: companyRawData?.moderation?.authorUuid,
         addresses: companyRawData?.addresses?.map((address) =>
           createAddressDto(address)
         ),
@@ -194,7 +189,8 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         budgetOfYear: companyRawData?.budgetOfYear,
         currencyOfBudget: companyRawData?.currencyOfBudget,
         moderated: companyRawData?.moderated,
-        moderatedReason: companyRawData?.moderatedReason,
+        moderatedReason: companyRawData?.moderation?.reason,
+        moderatedAuthorUuid: companyRawData?.moderation?.authorUuid,
         addresses: companyRawData?.addresses?.map((address) =>
           createAddressDto(address)
         ),

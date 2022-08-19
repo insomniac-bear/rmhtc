@@ -10,6 +10,7 @@ import { AddressModule } from './address/address.module';
 import { MinioClientModule } from './core/minio-client/minio-client.module';
 import { MessengersModule } from './messengers/messengers.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { ModerationModule } from './moderation/moderation.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ContactsModule } from './contacts/contacts.module';
     MinioClientModule,
     MessengersModule,
     ContactsModule,
+    ModerationModule,
   ],
 })
 export class AppModule {}

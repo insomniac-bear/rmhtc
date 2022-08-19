@@ -12,8 +12,9 @@ import {
 import { Address } from 'src/address/entity/address.entity';
 import { Contact } from 'src/contacts/entity/contact.entity';
 import { Messenger } from 'src/messengers/entity/messenger.entity';
+import { Moderation } from 'src/moderation/entity/moderation.entity';
 import { User } from 'src/users/entity/user.entity';
-import { TModerated, TQcEmployes, TBudgetOfYear } from '../types';
+import { TModerated, TQcEmployees, TBudgetOfYear } from '../types';
 import { BusinessType } from './business-type.entity';
 import { LegalForm } from './legal-form.entity';
 
@@ -154,7 +155,7 @@ export class Company extends Model<Company> {
     type: DataType.STRING,
     allowNull: true,
   })
-  qcEmployees: TQcEmployes;
+  qcEmployees: TQcEmployees;
 
   @ApiProperty({
     example: '0 - 100 000',
@@ -187,16 +188,6 @@ export class Company extends Model<Company> {
   })
   moderated: TModerated;
 
-  @ApiProperty({
-    example: 'Failed documents',
-    description: 'Причина отклонения с модерации',
-  })
-  @Column({
-    type: DataType.STRING,
-    allowNull: true,
-  })
-  moderatedReason: string;
-
   @ForeignKey(() => User)
   userUuid: string;
 
@@ -205,6 +196,9 @@ export class Company extends Model<Company> {
 
   @ForeignKey(() => LegalForm)
   legalFormUuid: string;
+
+  @ForeignKey(() => Moderation)
+  moderationUuid: string;
 
   @BelongsTo(() => User)
   user: User;
@@ -223,4 +217,7 @@ export class Company extends Model<Company> {
 
   @HasMany(() => Messenger)
   messengers: Messenger;
+
+  @BelongsTo(() => Moderation)
+  moderation: Moderation;
 }

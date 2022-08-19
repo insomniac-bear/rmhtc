@@ -11,6 +11,7 @@ import {
 } from 'sequelize-typescript';
 import { EmailToken } from 'src/auth/entity/email-token.entity';
 import { RefreshToken } from 'src/auth/entity/refresh-token.entity';
+import { Moderation } from 'src/moderation/entity/moderation.entity';
 import { Role } from 'src/roles/entity/roles.entity';
 
 @Table({
@@ -112,4 +113,7 @@ export class User extends Model<User> {
 
   @HasOne(() => RefreshToken)
   refreshToken: RefreshToken;
+
+  @HasOne(() => Moderation)
+  moderation: Moderation;
 }

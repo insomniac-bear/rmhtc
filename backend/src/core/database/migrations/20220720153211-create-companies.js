@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
      *
@@ -86,16 +86,11 @@ module.exports = {
         defaultValue: null,
       },
       moderated: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('idle', 'pending', 'process', 'success', 'failed'),
         allowNull: false,
         defaultValue: 'idle',
       },
-      moderatedReason: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null
-      },
-        createdAt: {
+      createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
       },
@@ -106,13 +101,13 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
-    * Add reverting commands here.
-    *
-    * Example:
-    * await queryInterface.dropTable('users');
-    */
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
     return await queryInterface.dropTable('companies');
-  }
+  },
 };
