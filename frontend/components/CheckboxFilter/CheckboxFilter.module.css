@@ -16,9 +16,10 @@
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
-
+	overflow-y: hidden;
 	margin: 0 0 5px;
-	gap: 10px 0;
+	transition: height 1s;
+	column-gap: 10px;
 }
 
 .filter__checkbox > input {
