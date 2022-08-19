@@ -37,7 +37,7 @@ export const CheckboxFilter: FC<ICheckboxFilter> = ({
         {filters.map((filter) => (
           <Checkbox
             key={filter.id}
-            className={styles.filter__checkbox}
+            className={styles.filter__input}
             isValidated={false}
             value={filter.value}
             {...register(fieldName)}
@@ -47,9 +47,9 @@ export const CheckboxFilter: FC<ICheckboxFilter> = ({
         ))}
       </div>
       {isHidden && filters.length > elementsForShow && (
-        <button className={styles.filter__expandButton} onClick={() => handleShow()} type="button">Show more</button>
+        <button className={styles.filter__button} onClick={() => handleShow()} type="button">Show more</button>
       )}
-      {!isHidden && <button className={styles.filter__expandButton} onClick={() => handleHide()} type="button">Roll up</button>}
+      {!isHidden && <button className={styles.filter__button} onClick={() => handleHide()} type="button">Roll up</button>}
     </fieldset>
   );
 };

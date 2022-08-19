@@ -1,5 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { TBasicInfoData, TLegalInfoData, ICompanyData } from '../../types';
+import { TBasicInfoData, TLegalInfoData } from '../../types';
+import { ICompanyData } from '../../../../types';
 
 export interface ICompanyCharacteristics extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;

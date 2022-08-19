@@ -12,10 +12,12 @@
 .catalog__itemsList {
 	display: grid;
 	align-content: start;
-	list-style-type: none;
+
 	width: 100%;
 	margin: 0;
 	padding: 0;
+
+	list-style-type: none;
 	gap: 20px;
 	grid-template-columns: repeat(auto-fill, minmax(223px, 1fr));
 }

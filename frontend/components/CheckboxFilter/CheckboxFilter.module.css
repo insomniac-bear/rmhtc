@@ -1,33 +1,36 @@
 .filter {
 	max-width: 200px;
-	border: none;
 	margin: 0;
 	padding: 0;
+
+	border: none;
 }
 
 .filter__heading {
 	margin: 0 0 15px;
-	font-style: normal;
+
 	font-size: 14px;
+	font-style: normal;
 	line-height: 17px;
 }
 
 .filter__container {
 	display: flex;
+	overflow-y: hidden;
 	align-items: flex-start;
 	flex-direction: column;
-	overflow-y: hidden;
+
 	margin: 0 0 5px;
+
 	transition: height 1s;
-	column-gap: 10px;
 }
 
-.filter__checkbox > input {
+.filter__input > input {
 	width: 15px;
 	height: 15px;
 }
 
-.filter__expandButton {
+.filter__button {
 	margin: 0;
 	padding: 0;
 
