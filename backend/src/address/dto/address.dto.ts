@@ -3,6 +3,7 @@ import { IAddress } from '../types/adress.interface';
 
 export const createAddressDto = (addressRawData: Address): IAddress => {
   return {
+    uuid: addressRawData?.uuid,
     postCode: addressRawData?.postCode,
     street: addressRawData?.street,
     buildNum: addressRawData?.buildNum,
