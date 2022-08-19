@@ -96,7 +96,7 @@ export class AddressService {
   async getAllCountries() {
     const countries = await this.countryEntity.findAll();
 
-    if (!!countries) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    if (!countries) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
 
     return countries;
   }
@@ -104,7 +104,7 @@ export class AddressService {
   async getAllCities() {
     const cities = await this.cityEntity.findAll();
 
-    if (!!cities) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    if (!cities) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
 
     return cities;
   }
