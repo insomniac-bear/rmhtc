@@ -11,10 +11,14 @@ import { CompaniesCatalog } from '../../../components/CompaniesCatalog/Companies
 import {
   companyType, legalForm, annualTurner, employees, country,
 } from './catalogMockData';
+import { Button } from '../../../components/Button/Button';
 
 type FormData = {
-  companyType: [];
-  legalFrom: [];
+  annualTurner?: string[];
+  companyType?: string[];
+  country?: string[];
+  employees?: string[];
+  legalForm?: string[];
 };
 
 const CatalogPage: NextPage = () => {
@@ -57,10 +61,13 @@ const CatalogPage: NextPage = () => {
         <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
           <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
           <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />
-          {/* <CheckboxFilter filters={annualTurner} /> */}
-          {/* <CheckboxFilter filters={employees} /> */}
-          {/* <CheckboxFilter filters={country} /> */}
-          <button type="submit">s</button>
+          <CheckboxFilter filters={annualTurner} label="Annual Turner" register={register} fieldName="annualTurner" />
+          <CheckboxFilter filters={employees} label="Total number of employees" register={register} fieldName="employees" />
+          <CheckboxFilter filters={country} label="Country" register={register} fieldName="country" />
+          <div className={styles.content__filtersControls}>
+            <Button className={styles.content__filtersButton} type="reset">Reset</Button>
+            <Button className={styles.content__filtersButton} appearance="primary" type="submit">Apply</Button>
+          </div>
         </form>
       </main>
       <Footer />

@@ -11,5 +11,5 @@ export interface ICheckboxFilter extends DetailedHTMLProps<FieldsetHTMLAttribute
   filters: TFilter[];
   label?: string;
   fieldName: string;
-  register: UseFormRegister
+  register: UseFormRegister<any>
 }

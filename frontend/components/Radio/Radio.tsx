@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import styles from './Radio.module.css';
 
 export const Radio = forwardRef(({
-  className = '', onChange, children, name, errors, isValidated = true, checked,
+  className = '', onChange, children, name, value, errors, isValidated = true, checked,
 }: any, ref: any) => (
   <>
     <label htmlFor={name} className={`${styles.checkbox} ${className}`}>
@@ -11,6 +11,7 @@ export const Radio = forwardRef(({
         ref={ref}
         id={name}
         name={name}
+        value={value}
         className={styles.checkbox__input}
         type="radio"
         checked={checked}

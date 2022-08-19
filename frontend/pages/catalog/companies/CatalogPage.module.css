@@ -39,6 +39,21 @@
 	align-content: start;
 }
 
+.content__filtersControls {
+	box-sizing: border-box;
+	padding: 10px 0 0 0;
+	display: flex;
+	gap: 0 5px
+}
+
+.content__filtersButton {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+	padding: 6px 10px;
+}
+
 .content__catalog {
 	grid-area: catalog;
 }
