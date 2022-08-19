@@ -16,11 +16,11 @@ export class BusinessTypeDocDescription {
   readonly value: string;
 }
 
-export const createBusinesTypeDto = (
-  rawBusinesTypeData: BusinessType
+export const createBusinessTypeDto = (
+  rawBusinessTypeData: BusinessType
 ): IBusinessType => {
   return {
-    uuid: rawBusinesTypeData?.uuid,
-    value: rawBusinesTypeData?.value,
+    uuid: rawBusinessTypeData?.uuid,
+    value: rawBusinessTypeData?.value,
   };
 };

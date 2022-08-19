@@ -1,4 +1,5 @@
 export interface IAddress {
+  readonly uuid?: string;
   readonly postCode?: string;
   readonly street?: string;
   readonly buildNum?: string;

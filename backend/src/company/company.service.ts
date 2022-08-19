@@ -18,7 +18,7 @@ import {
 import { MessengersService } from 'src/messengers/messengers.service';
 import {
   createCompanyDto,
-  createBusinesTypeDto,
+  createBusinessTypeDto,
   createLegalFormsDto,
 } from './dto';
 import { BusinessType } from './entity/business-type.entity';
@@ -136,7 +136,7 @@ export class CompanyService {
       ? await this.businessTypeEntity.findByPk(rawCompanyData.businessTypeUuid)
       : null;
 
-    const listOfAdressPromise =
+    const listOfAddressPromise =
       rawCompanyData?.addresses?.length > 0
         ? rawCompanyData.addresses.map((address) =>
             this.addressService.createOrUpdateAddress(company.uuid, address)
@@ -165,8 +165,8 @@ export class CompanyService {
           )
         : [];
 
-    if (listOfAdressPromise.length > 0) {
-      await Promise.all(listOfAdressPromise);
+    if (listOfAddressPromise.length > 0) {
+      await Promise.all(listOfAddressPromise);
     }
 
     if (listOfContactsPromise.length > 0) {
@@ -271,11 +271,11 @@ export class CompanyService {
     return {
       status: 'success',
       accessToken,
-      company,
+      company: createCompanyDto(company, false),
     };
   }
 
-  async declainCompanyFromModerate(
+  async declineCompanyFromModerate(
     accessTokenPayload: JwtPayload,
     res,
     data,
@@ -322,7 +322,7 @@ export class CompanyService {
   async getBusinessTypes() {
     const rawBusinessTypesData = await this.businessTypeEntity.findAll();
     return rawBusinessTypesData.map((rawBusinessType) =>
-      createBusinesTypeDto(rawBusinessType)
+      createBusinessTypeDto(rawBusinessType)
     );
   }
 }

@@ -123,7 +123,7 @@ export class CompanyController {
     @Req() req,
     @Res({ passthrough: true }) res
   ) {
-    return this.companiesService.declainCompanyFromModerate(
+    return this.companiesService.declineCompanyFromModerate(
       req.user,
       res,
       data,
