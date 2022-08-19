@@ -7,12 +7,12 @@ import { ICheckboxFilter } from './CheckboxFilter.props';
 import { animation } from './CheckboxFilter.animation';
 
 export const CheckboxFilter: FC<ICheckboxFilter> = ({
-  filters, label, className = '', register, ...props
+  filters, label, className = '', register, fieldName, ...props
 }) => {
   // Убрать хардкод фильтра когда появится что-то кроме компаний
   const [isHidden, setIsHidden] = useState(true);
   return (
-    <form className={`${styles.filter} ${className}`} {...props}>
+    <fieldset className={`${styles.filter} ${className}`} {...props}>
       <Title size="s" tag="h2" className={styles.filter__heading}>{label}</Title>
       <div className={styles.filter__container}>
         <AnimatePresence initial={false}>
@@ -22,8 +22,7 @@ export const CheckboxFilter: FC<ICheckboxFilter> = ({
               className={styles.filter__checkbox}
               isValidated={false}
               value={filter.value}
-              name={filter.value}
-              {...register(filter.value)}
+              {...register(fieldName)}
             >
               {filter.label}
             </Checkbox>
@@ -37,7 +36,7 @@ export const CheckboxFilter: FC<ICheckboxFilter> = ({
                 className={styles.filter__checkbox}
                 isValidated={false}
                 value={filter.value}
-                name={filter.value}
+                {...register(fieldName)}
               >
                 {filter.label}
               </Checkbox>
@@ -49,6 +48,6 @@ export const CheckboxFilter: FC<ICheckboxFilter> = ({
         <button className={styles.filter__expandButton} onClick={() => setIsHidden(false)} type="button">Show more</button>
       )}
       {!isHidden && <button className={styles.filter__expandButton} onClick={() => setIsHidden(true)} type="button">Roll up</button>}
-    </form>
+    </fieldset>
   );
 };

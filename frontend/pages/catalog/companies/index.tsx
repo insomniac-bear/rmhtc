@@ -13,13 +13,12 @@ import {
 } from './catalogMockData';
 
 type FormData = {
-  type: [];
-  legal: [];
+  companyType: [];
+  legalFrom: [];
 };
 
 const CatalogPage: NextPage = () => {
-  const { handleSubmit, register, watch } = useForm<FormData>();
-  console.log(watch());
+  const { handleSubmit, register } = useForm<FormData>();
   const submitFormHandler = (data: FormData) => {
     console.log(data);
   };
@@ -55,14 +54,14 @@ const CatalogPage: NextPage = () => {
           </nav>
         </div>
         <CompaniesCatalog />
-        <div className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
-          <CheckboxFilter filters={companyType} label="Company type" register={register} />
-          {/* <CheckboxFilter filters={legalForm} label="Legal form" register={register} /> */}
+        <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
+          <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
+          <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />
           {/* <CheckboxFilter filters={annualTurner} /> */}
           {/* <CheckboxFilter filters={employees} /> */}
           {/* <CheckboxFilter filters={country} /> */}
           <button type="submit">s</button>
-        </div>
+        </form>
       </main>
       <Footer />
     </div>
