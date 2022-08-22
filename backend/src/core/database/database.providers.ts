@@ -12,6 +12,7 @@ import { ContactType } from 'src/contacts/entity/contact-type.entity';
 import { Contact } from 'src/contacts/entity/contact.entity';
 import { MessengerType } from 'src/messengers/entity/messenger-type.entity';
 import { Messenger } from 'src/messengers/entity/messenger.entity';
+import { Moderation } from 'src/moderation/entity/moderation.entity';
 import { Role } from 'src/roles/entity/roles.entity';
 import { User } from 'src/users/entity/user.entity';
 import { SEQUELIZE, DEVELOPMENT, LOCAL, PRODUCTION } from '../constants';
@@ -52,6 +53,7 @@ export const databaseProviders = [
         Messenger,
         Contact,
         ContactType,
+        Moderation,
       ]);
       return sequelize;
     },

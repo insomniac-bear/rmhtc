@@ -3,7 +3,7 @@ import { IContact } from 'src/contacts/types';
 import { IMessenger } from 'src/messengers/types';
 
 export type TModerated = 'idle' | 'pending' | 'process' | 'success' | 'failed';
-export type TQcEmployes = '0 - 50' | '51 - 100' | 'more than 100';
+export type TQcEmployees = '0 - 50' | '51 - 100' | 'more than 100';
 export type TBudgetOfYear =
   | '0 - 100 000'
   | '100 000 - 1 000 000'
@@ -23,7 +23,7 @@ export class ICompany {
   website?: string;
   ceo?: string;
   ceoDocUrl?: string;
-  qcEmployees?: TQcEmployes;
+  qcEmployees?: TQcEmployees;
   budgetOfYear?: TBudgetOfYear;
   currencyOfBudget?: string;
   moderated?: TModerated;

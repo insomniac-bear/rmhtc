@@ -16,6 +16,7 @@ import {
   LEGAL_FORM_REPOSITORY,
 } from 'src/core/constants';
 import { MessengersService } from 'src/messengers/messengers.service';
+import { ModerationService } from 'src/moderation/moderation.service';
 import {
   createCompanyDto,
   createBusinessTypeDto,
@@ -39,12 +40,15 @@ export class CompanyService {
     private readonly authService: AuthService,
     private readonly addressService: AddressService,
     private readonly contactsService: ContactsService,
-    private readonly messengersService: MessengersService
+    private readonly messengersService: MessengersService,
+    private readonly moderationService: ModerationService
   ) {}
 
   async createCompany(companyName: string, userUuid: string): Promise<Company> {
+    const moderationNote = await this.moderationService.createModerationNote();
     const company = await this.companyEntity.create({
       name: companyName,
+      moderationUuid: moderationNote.uuid,
       userUuid,
     });
     await this.addressService.createAddress(company.uuid);
@@ -254,8 +258,23 @@ export class CompanyService {
       },
       include: allFields,
     });
+
+    if (company.moderationUuid && company.moderationUuid !== sub) {
+      throw new HttpException(
+        'Company already moderating',
+        HttpStatus.FORBIDDEN
+      );
+    }
+
     company.moderated = 'process';
     await company.save();
+
+    await this.moderationService.updateModerationNote(
+      company.moderationUuid,
+      null,
+      sub
+    );
+
     const { accessToken, refreshToken } = await this.authService.getTokens(
       sub,
       email,
@@ -291,8 +310,13 @@ export class CompanyService {
 
     await company.update({
       moderated: 'failed',
-      moderatedReason: data.reason,
     });
+
+    await this.moderationService.updateModerationNote(
+      company.moderationUuid,
+      data.reason,
+      sub
+    );
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
       sub,

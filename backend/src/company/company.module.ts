@@ -6,6 +6,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { AddressModule } from 'src/address/address.module';
 import { ContactsModule } from 'src/contacts/contacts.module';
 import { MessengersModule } from 'src/messengers/messengers.module';
+import { ModerationModule } from 'src/moderation/moderation.module';
 
 @Module({
   controllers: [CompanyController],
@@ -15,6 +16,7 @@ import { MessengersModule } from 'src/messengers/messengers.module';
     AddressModule,
     ContactsModule,
     MessengersModule,
+    ModerationModule,
   ],
   exports: [CompanyService, ...companyProviders],
 })
