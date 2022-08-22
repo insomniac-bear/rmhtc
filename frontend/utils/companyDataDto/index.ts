@@ -10,6 +10,6 @@ export const companyAddressDataDto = (data: ICompanyAddress) => ({
     buildNum: data?.buildNum,
     roomNum: data?.roomNum,
   },
-  value: Object.values(data).join(', ').replace(`, ${data?.addressType}`, ''),
+  value: `${data?.postCode}, ${data?.country}, ${data?.city}, ${data?.street}, ${data?.buildNum}, ${data?.roomNum}`,
   uuid: data?.uuid,
 });
