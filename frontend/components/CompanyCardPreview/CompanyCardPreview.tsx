@@ -26,5 +26,5 @@ export const CompanyCardPreview: FC<ICompanyCardPreview> = ({
       </p>
       <div className={card.moderated === 'process' && user.uuid !== moderator ? `${styles.card_lockIcon}` : `${styles.card_unlockIcon}`} />
     </div>
-);
-}
+  );
+};

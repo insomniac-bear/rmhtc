@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './CompanyCard.module.css';
@@ -7,8 +7,11 @@ import { CardHeader } from './components/CardHeader/CardHeader';
 import { CompanyCharacteristics } from './components/CompanyCharacteristics/CompanyCharacteristics';
 import { Button } from '../Button/Button';
 import {
-  headerDataDto, basicInfoDataDto, legalInfoDataDto, contactsIfoDataDto,
-} from './dataDto/dataDto';
+  headerDataDto,
+  basicInfoDataDto,
+  legalInfoDataDto,
+  contactsIfoDataDto,
+} from '../../utils/companyDataDto/companyCardDataDto';
 import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
 import { adminAPI } from '../../services/adminService';
 import { Loader } from '../Loader/Loader';
@@ -21,13 +24,20 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const { data: response, isLoading } = adminAPI.useGetCurrentCompanyQuery(uuid, { skip: uuid === undefined });
   const headerData = response && headerDataDto(response.company);
   const contactsData = response && contactsIfoDataDto(response.company);
+
   const handleApprove = () => {
     console.log('Approved!');
   };
 
-  if (response && user.uuid !== response.company?.moderatedAuthorUuid) {
-    router.push({ pathname: '/admin/moderation' });
-  }
+  const handleReject = () => {
+    console.log('Rejected!');
+  };
+
+  useEffect(() => {
+    if (response && user.uuid !== response.company?.moderatedAuthorUuid) {
+      router.push({ pathname: '/admin/moderation' });
+    }
+  }, [response, router, user.uuid]);
 
   return (
     <section className={`${styles.company} ${className}`} {...props}>
@@ -41,12 +51,16 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
           <div className={styles.company__controls}>
             <Link href="/admin/moderation/?modal=approved">
               <a>
-                <Button className={styles.company__button} onClick={handleApprove} type="button" appearance="primary">Approve</Button>
+                <Button className={styles.company__button} onClick={handleApprove} type="button" appearance="primary">
+                  Approve
+                </Button>
               </a>
             </Link>
             <Link href={`/admin/moderation/company/${uuid}/?modal=reject`}>
               <a>
-                <Button className={styles.company__button} type="button" appearance="ghost">Reject</Button>
+                <Button className={styles.company__button} onClick={handleReject} type="button" appearance="ghost">
+                  Reject
+                </Button>
               </a>
             </Link>
           </div>

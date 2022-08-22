@@ -18,6 +18,7 @@
 
 	font-family: var(--TTNorms);
 	font-size: 14px;
+	line-height: 16px;
 }
 
 .checkbox__input {

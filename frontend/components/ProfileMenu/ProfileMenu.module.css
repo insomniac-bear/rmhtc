@@ -19,18 +19,19 @@
 
 .profileMenu__user {
 	composes: container;
+
 	display: flex;
 }
 
 .profileMenu__admin {
 	composes: container;
+
 	display: grid;
 	grid-template-columns: 40px 1fr;
-	grid-template-areas: 
-	'img name'
-	'img role';
+	grid-template-areas:
+		"img name"
+		"img role";
 }
-
 
 .profileMenu__userImg {
 	grid-area: img;
@@ -41,7 +42,7 @@
 
 	width: 40px;
 	height: 40px;
-	
+
 	border-radius: 50%;
 }
 
@@ -49,27 +50,27 @@
 	grid-area: name;
 
 	margin: 0;
-	
+
 	color: var(--grey-600);
-	
+
 	font-family: var(--TTNorms);
 	font-size: 16px;
 	line-height: 1.24;
 }
 
 .profileMenu__userRole {
-	grid-area: role;
+	color: var(--grey-500);
+
 	font-family: var(--TTNorms);
 	font-size: 12px;
 	line-height: 1.16;
-	color: var(--grey-500);
-
+	grid-area: role;
 }
 
 .profileMenu__navLinks {
 	display: flex;
 	flex-direction: column;
-	
+
 	box-sizing: border-box;
 	margin: 0;
 	padding: 24px 20px 40px;
