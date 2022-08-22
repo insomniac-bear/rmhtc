@@ -125,8 +125,11 @@ export class CompanyService {
     accessTokenPayload: JwtPayload,
     rawCompanyData: IFullCompany,
     isModerate = false,
+    files,
     res
   ) {
+    console.log(files);
+
     const { sub, role, email } = accessTokenPayload;
     const company = await this.companyEntity.findByPk(rawCompanyData.uuid);
 

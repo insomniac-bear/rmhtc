@@ -88,6 +88,7 @@ export class CompanyController {
       req.user,
       companyData,
       true,
+      files,
       res
     );
   }
@@ -99,12 +100,20 @@ export class CompanyController {
   saveUserCompany(
     @Req() req,
     @Res({ passthrough: true }) res,
+    @UploadedFiles()
+    files: {
+      logo?: Express.Multer.File[];
+      authorityHead?: Express.Multer.File[];
+      registration?: Express.Multer.File[];
+      presentation?: Express.Multer.File[];
+    },
     @Body() companyData: IFullCompany
   ) {
     return this.companiesService.updateUsersCompany(
       req.user,
       companyData,
       false,
+      files,
       res
     );
   }
