@@ -259,8 +259,6 @@ export class CompanyService {
       include: allFields,
     });
 
-    console.log(company.moderation);
-
     if (
       company.moderation.authorUuid &&
       company.moderation.authorUuid !== sub &&

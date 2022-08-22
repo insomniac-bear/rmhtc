@@ -1,5 +1,5 @@
 import { Address } from '../entity/address.entity';
-import { IAddress } from '../types/adress.interface';
+import { IAddress } from '../types';
 
 export const createAddressDto = (addressRawData: Address): IAddress => {
   return {

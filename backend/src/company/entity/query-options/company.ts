@@ -1,5 +1,7 @@
 import { AddressType } from 'src/address/entity/address-type.entity';
 import { Address } from 'src/address/entity/address.entity';
+import { City } from 'src/address/entity/city.entity';
+import { Country } from 'src/address/entity/country.entity';
 import { ContactType } from 'src/contacts/entity/contact-type.entity';
 import { Contact } from 'src/contacts/entity/contact.entity';
 import { MessengerType } from 'src/messengers/entity/messenger-type.entity';
@@ -14,6 +16,12 @@ export const allFields = [
     include: [
       {
         model: AddressType,
+      },
+      {
+        model: City,
+      },
+      {
+        model: Country,
       },
     ],
   },
