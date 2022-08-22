@@ -259,7 +259,11 @@ export class CompanyService {
       include: allFields,
     });
 
-    if (company.moderationUuid && company.moderationUuid !== sub) {
+    if (
+      company.moderationUuid &&
+      company.moderationUuid !== sub &&
+      company.moderated === 'process'
+    ) {
       throw new HttpException(
         'Company already moderating',
         HttpStatus.FORBIDDEN

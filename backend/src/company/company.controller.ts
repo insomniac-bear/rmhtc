@@ -7,7 +7,9 @@ import {
   Res,
   Req,
   Param,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiHeader,
@@ -16,6 +18,7 @@ import {
   ApiTags,
   ApiParam,
 } from '@nestjs/swagger';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -61,9 +64,24 @@ export class CompanyController {
   @Roles('USER')
   @UseGuards(RolesGuard)
   @Patch('/user')
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'logo', maxCount: 1 },
+      { name: 'authorityHead', maxCount: 1 },
+      { name: 'registration', maxCount: 1 },
+      { name: 'presentation', maxCount: 1 },
+    ])
+  )
   updateUserCompany(
     @Req() req,
     @Res({ passthrough: true }) res,
+    @UploadedFiles()
+    files: {
+      logo?: Express.Multer.File[];
+      authorityHead?: Express.Multer.File[];
+      registration?: Express.Multer.File[];
+      presentation?: Express.Multer.File[];
+    },
     @Body() companyData: IFullCompany
   ) {
     return this.companiesService.updateUsersCompany(
