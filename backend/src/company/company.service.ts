@@ -259,9 +259,11 @@ export class CompanyService {
       include: allFields,
     });
 
+    console.log(company.moderation);
+
     if (
-      company.moderationUuid &&
-      company.moderationUuid !== sub &&
+      company.moderation.authorUuid &&
+      company.moderation.authorUuid !== sub &&
       company.moderated === 'process'
     ) {
       throw new HttpException(
