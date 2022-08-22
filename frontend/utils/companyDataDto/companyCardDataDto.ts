@@ -1,25 +1,12 @@
-import { findGeo } from './utils';
-import { ICompanyAddress, ICompanyData } from '../types';
-
-export const addressDataDto = (data: ICompanyAddress) => ({
-  type: data?.addressType,
-  address: {
-    postCode: data?.postCode,
-    country: data?.country,
-    city: data?.city,
-    street: data?.street,
-    buildNum: data?.buildNum,
-    roomNum: data?.roomNum,
-  },
-  value: Object.values(data).join(', ').replace(`, ${data?.addressType}`, ''),
-  uuid: data?.uuid,
-});
+import { findGeo } from '../utils';
+import { ICompanyData } from '../../types';
+import { companyAddressDataDto } from '.';
 
 export const headerDataDto = (data: ICompanyData) => ({
   logoUrl: data?.logoUrl,
   name: data?.name,
   description: data?.description,
-  geo: findGeo(data?.addresses?.map((el) => addressDataDto(el))),
+  geo: findGeo(data?.addresses?.map((el) => companyAddressDataDto(el))),
 });
 
 export const basicInfoDataDto = (data: ICompanyData) => ({
@@ -40,7 +27,7 @@ export const legalInfoDataDto = (data: ICompanyData) => ({
 });
 
 export const contactsIfoDataDto = (data: ICompanyData) => ({
-  addresses: data?.addresses?.map((el) => addressDataDto(el)),
+  addresses: data?.addresses?.map((el) => companyAddressDataDto(el)),
   contacts: data?.contacts,
   messengers: data?.messengers,
 });

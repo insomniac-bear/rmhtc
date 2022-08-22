@@ -1,4 +1,4 @@
-import { TNewAddress } from '../types';
+import { TNewAddress } from '../components/CompanyCard/types';
 
 export const findGeo = (arr: TNewAddress[]): string | null => {
   const current = arr?.find((el: any) => el.addressType === 'Legal' || 'Actual' || 'Mailing');

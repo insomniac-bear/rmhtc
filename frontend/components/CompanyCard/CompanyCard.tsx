@@ -7,8 +7,11 @@ import { CardHeader } from './components/CardHeader/CardHeader';
 import { CompanyCharacteristics } from './components/CompanyCharacteristics/CompanyCharacteristics';
 import { Button } from '../Button/Button';
 import {
-  headerDataDto, basicInfoDataDto, legalInfoDataDto, contactsIfoDataDto,
-} from './dataDto/dataDto';
+  headerDataDto,
+  basicInfoDataDto,
+  legalInfoDataDto,
+  contactsIfoDataDto,
+} from '../../utils/companyDataDto/companyCardDataDto';
 import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { adminAPI } from '../../services/adminService';
@@ -33,7 +36,7 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
     const getCompanies = async () => {
       try {
         const response: any = await getCompany(uuid);
-        dispatch(setCurrentCompany(response.data));
+        dispatch(setCurrentCompany(response.data.companies));
       } catch (error: any) {
         throw new Error(error.message);
       }
@@ -52,12 +55,16 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
           <div className={styles.company__controls}>
             <Link href="/admin/moderation/?modal=approved">
               <a>
-                <Button className={styles.company__button} onClick={handleApprove} type="button" appearance="primary">Approve</Button>
+                <Button className={styles.company__button} onClick={handleApprove} type="button" appearance="primary">
+                  Approve
+                </Button>
               </a>
             </Link>
             <Link href={`/admin/moderation/company/${uuid}/?modal=reject`}>
               <a>
-                <Button className={styles.company__button} onClick={handleReject} type="button" appearance="ghost">Reject</Button>
+                <Button className={styles.company__button} onClick={handleReject} type="button" appearance="ghost">
+                  Reject
+                </Button>
               </a>
             </Link>
           </div>

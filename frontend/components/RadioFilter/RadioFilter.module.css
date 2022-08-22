@@ -1,0 +1,42 @@
+.filter {
+	max-width: 200px;
+}
+
+.filter__heading {
+	margin: 0 0 15px;
+
+	font-size: 14px;
+	font-style: normal;
+	line-height: 17px;
+}
+
+.filter__container {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+
+	margin: 0 0 5px;
+	gap: 10px 0;
+}
+
+.filter__checkbox > input {
+	width: 15px;
+	height: 15px;
+}
+
+.filter__expandButton {
+	margin: 0;
+	padding: 0;
+
+	cursor: pointer;
+
+	color: var(--link);
+	border: none;
+	background-color: inherit;
+
+	font-family: var(--TTNorms);
+	font-size: 12px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 14px;
+}
