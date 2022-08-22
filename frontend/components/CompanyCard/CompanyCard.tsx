@@ -12,9 +12,11 @@ import {
 import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
 import { adminAPI } from '../../services/adminService';
 import { Loader } from '../Loader/Loader';
+import { useAppSelector } from '../../services/hooks';
 
 export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const router = useRouter();
+  const { user } = useAppSelector((store) => store.user);
   const { uuid } = router.query;
   const { data: response, isLoading } = adminAPI.useGetCurrentCompanyQuery(uuid, { skip: uuid === undefined });
   const headerData = response && headerDataDto(response.company);
@@ -22,6 +24,11 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const handleApprove = () => {
     console.log('Approved!');
   };
+
+  if (response && user.uuid !== response.company?.moderatedAuthorUuid) {
+    router.push({ pathname: '/admin/moderation' });
+  }
+
   return (
     <section className={`${styles.company} ${className}`} {...props}>
       {isLoading && <Loader />}

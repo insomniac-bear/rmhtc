@@ -18,7 +18,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
   const [getModerateCompanies, { isLoading }] = adminAPI.useGetModerateCompaniesMutation();
   const dispatch = useAppDispatch();
   const filters = Array.from(new Set(cardData.map((item) => item.type)));
-  console.log(moderateCompanies);
+
   useEffect(() => {
     const getCompanies = async () => {
       try {
@@ -38,8 +38,10 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
         {isLoading && <Loader className={styles.moderation__loader} />}
         {moderateCompanies && !isLoading && moderateCompanies.map((item: any) => (
           <li key={item.uuid}>
-            <Link href={`/admin/moderation/company/${item.uuid}`}>
-              <CompanyCardPreview card={item} type="Company" />
+            <Link href={`/admin/moderation/company/${item.uuid}`} passHref>
+              <a>
+                <CompanyCardPreview card={item} type="Company" />
+              </a>
             </Link>
           </li>
         ))}
