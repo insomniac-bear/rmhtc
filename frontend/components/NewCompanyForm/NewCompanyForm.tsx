@@ -183,7 +183,6 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
         },
       ],
     };
-    console.log(preparedFormData);
 
     try {
       await updateCompany(preparedFormData);
@@ -270,7 +269,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
         <p className={styles.newCompanyForm__caption}>Logo</p>
         <FileInput
           className={styles.newCompanyForm__logoFileInput}
-          placeholder="SVG (no more than 5 Mb)"
+          placeholder="Image (no more than 5 Mb)"
           errors={errors.logo}
           accept="image/*"
           {...register('logo', {
