@@ -1,18 +1,3 @@
-export interface IBusinessType {
-  createdAt: string | null;
-  updatedAt: string | null;
-  uuid: string | null;
-  value: string | null;
-}
-
-export interface ILegalForm {
-  createdAt: string | null;
-  shortValue: string | null;
-  updatedAt: string | null;
-  uuid: string | null;
-  value: string | null;
-}
-
 export interface ICompanyContact {
   type: string | null;
   value: string | null;
@@ -49,8 +34,8 @@ export interface ICompanyData {
   moderatedReason: string | null;
   createdAt: string;
   addresses: ICompanyAddress[] | [];
-  legalForm: ILegalForm | null | undefined;
-  businessType: IBusinessType | null | undefined;
+  legalForm: string | null;
+  businessType: string | null;
   messengers: ICompanyContact[] | [];
   contacts: ICompanyContact[] | [];
 }

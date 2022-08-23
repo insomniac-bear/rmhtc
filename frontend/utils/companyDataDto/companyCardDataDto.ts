@@ -12,12 +12,12 @@ export const headerDataDto = (data: ICompanyData) => ({
 export const basicInfoDataDto = (data: ICompanyData) => ({
   website: data?.website,
   ceo: data?.ceo,
-  businessType: data?.businessType?.value,
+  businessType: data?.businessType,
   ceoDocUrl: data?.ceoDocUrl,
 });
 
 export const legalInfoDataDto = (data: ICompanyData) => ({
-  legalForm: data?.legalForm?.shortValue,
+  legalForm: data?.legalForm,
   qcEmployees: data?.qcEmployees,
   budgetOfYear: data?.budgetOfYear,
   yearOfFoundation: data?.yearOfFoundation,
