@@ -183,7 +183,6 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
         },
       ],
     };
-    console.log(preparedFormData);
 
     try {
       await updateCompany(preparedFormData);

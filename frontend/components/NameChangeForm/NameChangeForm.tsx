@@ -21,8 +21,8 @@ export const NameChangeForm: FC<INameChangeFormProps> = () => {
   const user = useAppSelector((store) => store.user.user);
   const { handleSubmit, register, formState: { errors } } = useForm<FormData>({
     defaultValues: {
-      name: user.name || 'First name',
-      surname: user.surname || 'Last name',
+      name: user.name || '',
+      surname: user.surname || '',
     },
   });
   const [updateUser, { isLoading }] = userAPI.useUpdateUserMutation();
@@ -34,7 +34,6 @@ export const NameChangeForm: FC<INameChangeFormProps> = () => {
     } catch (error: any) {
       throw new Error(error);
     }
-
     router.back();
   };
 
