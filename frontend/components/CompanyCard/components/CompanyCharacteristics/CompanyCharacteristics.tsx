@@ -1,5 +1,5 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { FC } from 'react';
-import Link from 'next/link';
 import { Container } from '../../../Container/Container';
 import { Title } from '../../../Title/Title';
 import styles from './CompanyCharacteristics.module.css';
@@ -37,15 +37,13 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
           <li className={styles.card__item} key={el}>
             <p className={styles.card__name}>{transformedKeys[el]}</p>
             { linkRegex.test(transformedKeys[el]) ? (
-              <Link
-                rel="noreferrer"
-                target="_blank"
+              <a
                 href={hrefFilter(dataProperties[el]) ? dataProperties[el]?.toString()! : ''}
+                target="_blank"
+                className={styles.card__link}
               >
-                <a className={styles.card__link}>
-                  {transformedKeys[el] === 'Link' ? dataProperties[el] : 'Document link'}
-                </a>
-              </Link>
+                {transformedKeys[el] === 'Link' ? dataProperties[el] : 'Document link'}
+              </a>
             ) : (
               <p className={styles.card__value}>{dataProperties[el]}</p>
             )}
