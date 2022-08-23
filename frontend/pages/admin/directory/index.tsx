@@ -9,6 +9,28 @@ type FormData = {
   searchParams: string;
 };
 
+const addresses = [
+  {
+    type: 'Country',
+    uuid: 'abc',
+    values: [{ uuid: 1, value: 'russia', label: 'Russia' }, { uuid: 2, value: 'unitedKingdom', label: 'United Kingdom' }],
+  },
+  {
+    type: 'City',
+    uuid: 'abcd',
+    values: [{ uuid: 11, value: 'moscow', label: 'Moscow' }, { uuid: 22, value: 'omsk', label: 'Omsk' }],
+  },
+  {
+    type: 'Address type',
+    uuid: 'abcdef',
+    values: [
+      { uuid: 111, value: 'legal', label: 'Legal address' },
+      { uuid: 222, value: 'post', label: 'Post address' },
+      { uuid: 333, value: 'actual', label: 'Actual address' },
+    ],
+  },
+];
+
 const DirectoryPage: NextPage = () => {
   const { handleSubmit, register } = useForm<FormData>();
   const submitFormHandler = (data: FormData) => {
@@ -34,7 +56,7 @@ const DirectoryPage: NextPage = () => {
           <ul className={styles.controls__nav}>
             <li>
               <Link href="/admin/moderation/addresses">
-                <a className={`${styles.nav__link} ${styles.controls__link_active}`}>Addresses</a>
+                <a className={`${styles.controls__link} ${styles.controls__link_active}`}>Addresses</a>
               </Link>
             </li>
             <li>
@@ -59,7 +81,37 @@ const DirectoryPage: NextPage = () => {
         </nav>
       </div>
       <main className={styles.content}>
-        <h1>123</h1>
+        <ul className={styles.content__list}>
+          {addresses.map((el: any) => (
+            <li key={el.uuid}>
+              <div className={styles.directory}>
+                <p className={styles.directory__columnName}>{el.type}</p>
+                <p className={styles.directory__columnName}>Actions</p>
+                <ul className={styles.directory__list}>
+                  {el.values.map((item: any) => (
+                    <li key={item.uuid}>
+                      <p className={styles.directory__item}>{item.value}</p>
+                      <div className={styles.directory__itemControls}>
+                        <button type="button" className={styles.directory__controlButton}>r</button>
+                        <button type="button" className={styles.directory__controlButton}>wr</button>
+                      </div>
+                    </li>
+                  ))}
+                  <li>
+                    <form action="submit">
+                      <input
+                        type="text"
+                        className={styles.directory__addField}
+                        placeholder={`+ New ${el.type.toLowerCase()}`}
+                      />
+                      <button type="submit">Add</button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   );
