@@ -12,6 +12,7 @@ import { FileInput } from '../FileInput/FileInput';
 import { Button } from '../Button/Button';
 import { CombineSelectInput } from '../CombineSelectInput/CombineSelectInput';
 import { userAPI } from '../../services/userService';
+import { Loader } from '../Loader/Loader';
 
 type TLegalAddress = {
   country: string;
@@ -22,9 +23,9 @@ type TLegalAddress = {
   office: string;
 };
 
-type TSocial = {
-  name: string;
-  data: string;
+type TMessenger = {
+  type: string;
+  value: string;
 };
 
 type TContact = {
@@ -42,11 +43,11 @@ type TFormData = {
   description: string;
   link: string;
   head: string;
-  authDocument: File[];
+  authorityHead: File[];
   type: string;
   logo: File;
   legalAddress: TLegalAddress;
-  socials: TSocial[];
+  messengers: TMessenger[];
   contacts: TContact[];
   legalForm: string;
   employees: string;
@@ -61,8 +62,32 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
   const router = useRouter();
   const [updateCompany] = userAPI.useEditCompanyMutation();
 
+  const { data: legalFormsQueryData, isLoading: isGetLegalFormsLoading } = userAPI.useGetLegalFormsQuery('');
+  const { data: businessTypesQueryData } = userAPI.useGetBusinessTypesQuery('');
+  const { data: countriesQueryData } = userAPI.useGetCountriesQuery('');
+  const { data: citiesQueryData } = userAPI.useGetCitiesQuery('');
+  const { data: messengersQueryData } = userAPI.useGetMessengersTypesQuery('');
+  const { data: contactsQueryData } = userAPI.useGetContactsTypesQuery('');
+
+  const getOptionsFromQueryData = (queryData: any) => {
+    if (queryData) {
+      return queryData.map((option: any) => ({
+        value: option.uuid,
+        label: option.value,
+      }));
+    }
+    return [];
+  };
+
+  const legalFormsOptions = getOptionsFromQueryData(legalFormsQueryData);
+  const businessTypesOptions = getOptionsFromQueryData(businessTypesQueryData);
+  const countriesOptions = getOptionsFromQueryData(countriesQueryData);
+  const citiesOptions = getOptionsFromQueryData(citiesQueryData);
+  const messengersOptions = getOptionsFromQueryData(messengersQueryData);
+  const contactsOptions = getOptionsFromQueryData(contactsQueryData);
+
   const defaultValues = {
-    socials: [{}],
+    messengers: [{}],
     contacts: [{}],
     name: company.name,
   };
@@ -77,48 +102,6 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' },
-  ];
-
-  const socialsOptions = [
-    { value: 'facebook', label: 'Facebook' },
-    { value: 'instagram', label: 'Instagram' },
-    { value: 'twitter', label: 'Twitter' },
-    { value: 'linkedIn', label: 'LinkedIn' },
-    { value: 'vk', label: 'VK' },
-  ];
-
-  const contactsOptions = [
-    { value: 'email', label: 'Email' },
-    { value: 'tel', label: 'Telephone number' },
-    { value: 'telegram', label: 'Telegram' },
-    { value: 'fax', label: 'Skype' },
-    { value: 'zoom', label: 'Zoom' },
-    { value: 'whatsApp', label: 'WhatsApp' },
-  ];
-
-  const legalFormsOptions = [
-    { value: 'Limited Liability Company', label: 'Limited Liability Company' },
-    { value: 'Limited trade development', label: 'Joint-stock company' },
-    { value: 'Limited Liability Partnerships', label: 'Limited Liability Partnerships' },
-    { value: 'Open Joint Stock Company', label: 'Open Joint Stock Company' },
-    { value: 'Individual Entrepreneur ', label: 'Individual Entrepreneur ' },
-    // { value: 'consumerCooperative', label: 'Consumer cooperative' },
-    // { value: 'stateUnitaryEnterprise', label: 'State unitary enterprise' },
-    // { value: 'municipalUnitaryEnterprise', label: 'Municipal unitary enterprise' },
-    // { value: 'fund', label: 'Fund' },
-  ];
-
-  const companyTypeOptions = [
-    { value: 'Manufacturer', label: 'Manufacturer' },
-    { value: 'Wholesaler', label: 'Wholesaler' },
-    { value: 'Reseller', label: 'Reseller' },
-    { value: 'Dropshipper', label: 'Dropshipper' },
-    { value: 'Trading Company', label: 'Trading Company' },
-    { value: 'Buying Office', label: 'Buying Office' },
-    { value: 'Agent', label: 'Agent' },
-    { value: 'Association', label: 'Association' },
-    { value: 'Government', label: 'Government' },
-    { value: 'Business Service', label: 'Business Service' },
   ];
 
   const employeesOptions = [
@@ -168,6 +151,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
 
   const submitFormHandler = async (data: TFormData) => {
     const preparedFormData = {
+      authorityHead: data.authorityHead,
       uuid: router.query.uuid,
       name: data.name,
       logoUrl: null,
@@ -183,15 +167,32 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
       qcEmployees: data.employees,
       budgetOfYear: data.annualTurnover,
       currencyOfBudget: 'RUB',
-      businessType: data.type,
-      legalForm: data.legalForm,
+      businessTypeUuid: data.type,
+      legalFormUuid: data.legalForm,
+      messengers: data.messengers,
+      contacts: data.contacts,
+      addresses: [
+        {
+          addressTypeUuid: '1a277000-eac1-44aa-9f1e-9b5a8b7e4ece',
+          countryUuid: 'b918f47e-2041-47b8-a62c-0c551e1d6cd9',
+          cityUuid: '1dd0189c-15f9-41d2-afba-8d503a750baa',
+          postCode: data.legalAddress.postCode,
+          street: data.legalAddress.street,
+          buildNum: data.legalAddress.house,
+          roomNum: data.legalAddress.office,
+        },
+      ],
     };
+    console.log(preparedFormData);
+
     try {
       await updateCompany(preparedFormData);
     } catch (error: any) {
       throw new Error(error.message);
     }
   };
+
+  if (isGetLegalFormsLoading) return <Loader />;
 
   return (
     <form encType="multipart/form-data" onSubmit={handleSubmit(submitFormHandler)} className={`${styles.newCompanyForm} ${className}`} {...props}>
@@ -239,9 +240,9 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
         <FileInput
           multiple
           placeholder="PDF, JPG (no more than 100 Mb)"
-          errors={errors.authDocument}
+          errors={errors.authorityHead}
           accept="image/*,.pdf"
-          {...register('authDocument', {
+          {...register('authorityHead', {
             // required: 'Document to confirm is required.',
           })}
         />
@@ -254,7 +255,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
                 instanceId="selectCompanyTypeBox"
                 id="selectCompanyTypeBox"
                 placeholder="-"
-                options={companyTypeOptions}
+                options={businessTypesOptions}
                 styles={customSelectStyles}
                 onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
                 value={options.find((option) => option.value === value)}
@@ -282,23 +283,37 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
       <fieldset className={styles.newCompanyForm__fieldset}>
         <p className={styles.newCompanyForm__caption}>Legal address</p>
         <fieldset className={styles.newCompanyForm__addressFieldset}>
-          <CustomInput
-            placeholder="Country"
-            className={styles.newCompanyForm__input}
-            errors={errors.legalAddress?.country}
-            label="country"
-            {...register('legalAddress.country', {
-              // required: 'Country is required.',
-            })}
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            name="legalAddress.country"
+            render={({ field: { value, onChange } }) => (
+              <Select
+                instanceId="selectLegalAddressCountryBox"
+                id="selectLegalAddressCountryBox"
+                placeholder="Countries"
+                options={countriesOptions}
+                styles={customSelectStyles}
+                onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
+                value={options.find((option) => option.value === value)}
+              />
+            )}
           />
-          <CustomInput
-            placeholder="City"
-            className={styles.newCompanyForm__input}
-            errors={errors.legalAddress?.city}
-            label="city"
-            {...register('legalAddress.city', {
-              // required: 'City is required.',
-            })}
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            name="legalAddress.city"
+            render={({ field: { value, onChange } }) => (
+              <Select
+                instanceId="selectLegalAddressCityBox"
+                id="selectLegalAddressCityBox"
+                placeholder="City"
+                options={citiesOptions}
+                styles={customSelectStyles}
+                onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
+                value={options.find((option) => option.value === value)}
+              />
+            )}
           />
           <CustomInput
             placeholder="Street"
@@ -306,7 +321,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.street}
             label="street"
             {...register('legalAddress.street', {
-              // required: 'Street is required.',
+              required: 'Street is required.',
             })}
           />
           <CustomInput
@@ -315,7 +330,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.house}
             label="house"
             {...register('legalAddress.house', {
-              // required: 'House is required.',
+              required: 'House is required.',
             })}
           />
           <CustomInput
@@ -324,7 +339,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.postCode}
             label="postCode"
             {...register('legalAddress.postCode', {
-              // required: 'Post code is required.',
+              required: 'Post code is required.',
             })}
           />
           <CustomInput
@@ -333,19 +348,19 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             errors={errors.legalAddress?.office}
             label="office"
             {...register('legalAddress.office', {
-              // required: 'Office is required.',
+              required: 'Office is required.',
             })}
           />
         </fieldset>
         <p className={styles.newCompanyForm__caption}>Social networks</p>
         <CombineSelectInput
           {...{
-            control, register, defaultValues: { ...defaultValues.socials }, getValues, setValue, errors,
+            control, register, defaultValues: { ...defaultValues.messengers }, getValues, setValue, errors,
           }}
-          options={socialsOptions}
-          selectPlaceholder="Socials"
+          options={messengersOptions}
+          selectPlaceholder="Messenger"
           inputPlaceholder="URL/userlink"
-          name="socials"
+          name="messengers"
           maxFields={3}
         />
         <p className={styles.newCompanyForm__caption}>Contacts</p>

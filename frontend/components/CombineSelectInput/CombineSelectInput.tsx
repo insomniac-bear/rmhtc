@@ -48,7 +48,7 @@ export const CombineSelectInput = ({
             <Controller
               control={control}
               name={`${name}Select${fieldIndex}`}
-              {...register(`${`${name}.${fieldIndex}`}.name`, {
+              {...register(`${`${name}.${fieldIndex}`}.type`, {
                 // required: `Select ${name}`,
               })}
               render={({ field: { value, onChange } }) => (
@@ -70,7 +70,7 @@ export const CombineSelectInput = ({
               placeholder={inputPlaceholder}
               className={styles.combineSelectInput__input}
               errors={errors[name] && errors[name][0].data}
-              {...register(`${`${name}.${fieldIndex}`}.data`, {
+              {...register(`${`${name}.${fieldIndex}`}.value`, {
                 // required: `${name.charAt(0).toUpperCase() + name.slice(1)} is required`,
               })}
             />
@@ -88,7 +88,7 @@ export const CombineSelectInput = ({
         disabled={fields.length >= maxFields}
         className={styles.combineSelectInput__addFieldBtn}
         type="button"
-        onClick={() => append({ name: '', data: '' })}
+        onClick={() => append({ type: '', value: '' })}
       >
         Add
       </button>
