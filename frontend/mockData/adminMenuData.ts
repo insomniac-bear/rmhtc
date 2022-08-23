@@ -12,24 +12,24 @@ export const adminMenuData = [
       {
         id: 'asd',
         title: 'Addresses',
-        link: 'admin/addresses',
+        link: '/addresses',
       },
       {
         id: 'dsa',
         title: 'Company',
-        link: 'admin/company',
+        link: '/company',
       },
       {
         id: 'asdf',
         title: 'Offers',
-        link: 'admin/offers',
+        link: '/offers',
       },
       {
         id: 'dsas',
         title: 'Contacts and Social network',
-        link: 'admin/contacts',
+        link: '/contacts',
       },
     ],
-    link: '/admin/management',
+    link: '/admin/directory',
   },
 ];
