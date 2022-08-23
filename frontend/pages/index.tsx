@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { Events } from '../components/Events/Events';
 import { Header } from '../components/Header/Header';
 import { Headline } from '../components/Headline/Headline';
@@ -9,6 +10,10 @@ import { Modal } from '../components/Modal/Modal';
 import { SetPasswordForm } from '../components/SetPasswordForm/SetPasswordForm';
 import { SignupForm } from '../components/SignupForm/SignupForm';
 import { SignupSuccessMessage } from '../components/SignupSuccessMessage/SignupSuccessMessage';
+import { logoutUser } from '../services/api/api';
+import { useAppDispatch } from '../services/hooks';
+import { setUserAuth, setUser, clearUser } from '../services/slices/users';
+import { userAPI } from '../services/userService';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -19,6 +24,28 @@ const Home: NextPage = () => {
   const isLoginModal = router.query.modal === 'login';
   const isSignupSuccessModal = router.query.modal === 'signup_success';
   const isVerifyEmailSuccessModal = router.query.modal === 'verify_email_success';
+
+  const [checkAuth] = userAPI.useCheckAuthMutation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    async function checkToken() {
+      try {
+        const response: any = await checkAuth('');
+        if (response.data) {
+          dispatch(setUserAuth(true));
+          dispatch(setUser(response.data.userData));
+        } else {
+          dispatch(logoutUser);
+          dispatch(setUserAuth(false));
+          dispatch(clearUser());
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
+    }
+    checkToken();
+  }, [checkAuth, dispatch]);
 
   return (
     <div>
