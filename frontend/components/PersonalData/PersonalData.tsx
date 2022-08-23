@@ -63,7 +63,6 @@ export const PersonalData: FC<IPersonalDataProps> = ({ className }) => {
           </ul>
           <div className={styles.personalData__controls}>
             <Button onClick={handleLogOut} className={styles.personalData__logOutButton} type="button">Log Out</Button>
-            <Button className={styles.personalData__deleteAccountButton} type="button">Delete account</Button>
           </div>
         </div>
       </Container>
