@@ -29,7 +29,6 @@
 
 	border-color: transparent;
 	background-color: var(--grey-100);
-
 	background-image: url("./checkbox.svg");
 	background-repeat: no-repeat;
 	background-position: center;
@@ -45,7 +44,6 @@
 	display: block;
 
 	width: 100%;
-
 	max-width: 356px;
 	min-height: 20px;
 	margin: 5px 0 0;

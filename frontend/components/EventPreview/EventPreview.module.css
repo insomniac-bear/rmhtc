@@ -1,9 +1,9 @@
 .eventPreview {
 	display: flex;
-
 	flex-direction: column;
 
 	box-sizing: border-box;
+
 	width: 263px;
 	height: 263px;
 	padding: 20px;

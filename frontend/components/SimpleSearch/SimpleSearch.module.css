@@ -20,7 +20,6 @@
 	color: var(--grey-600);
 	border: 1px solid var(--accent-red-100);
 	border-radius: 10px 0 0 10px;
-
 	background: var(--grey-100);
 	composes: text;
 }

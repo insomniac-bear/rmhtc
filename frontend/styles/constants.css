@@ -1,5 +1,5 @@
-@import url("../vendor/fonts/fonts.css");
-@import url("../vendor/normalize.css");
+@import "../vendor/fonts/fonts.css";
+@import "../vendor/normalize.css";
 
 :root {
 	--black: #000;

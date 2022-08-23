@@ -1,11 +1,9 @@
 .card {
 	display: grid;
-
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 223px;
 	padding: 20px;
-
 	border: 1px solid var(--accent-blue-200);
 	border-radius: 10px;
 	background-color: var(--grey-100);
@@ -24,9 +22,7 @@
 
 .card__heading {
 	margin: 0;
-
 	color: var(--grey-600);
-
 	font-size: 17px;
 	font-weight: 500;
 	font-style: normal;
@@ -36,10 +32,8 @@
 
 .card__geo {
 	position: relative;
-
 	display: flex;
 	align-items: center;
-
 	box-sizing: border-box;
 	width: fit-content;
 	margin: 12px 0 15px;
@@ -50,9 +44,7 @@
 .card__geo::before {
 	width: 12px;
 	height: 15px;
-
 	content: "";
-
 	background-image: url("../../images/geo-point.svg");
 	background-repeat: no-repeat;
 	background-position: center;
@@ -61,9 +53,7 @@
 
 .card__geoText {
 	margin: 0 0 0 5px;
-
 	color: var(--grey-500);
-
 	font-family: var(--TTNorms);
 	font-size: 14px;
 	font-weight: 400;
@@ -71,16 +61,14 @@
 }
 
 .card__description {
+	/* stylelint-disable */
 	display: -webkit-box;
-
+  /* stylelint-enable */
 	overflow: hidden;
-
 	max-width: 183px;
 	max-height: 40px;
 	margin: 0 0 15px;
-
 	color: var(--grey-600);
-
 	font-family: var(--TTNorms);
 	font-size: 16px;
 	font-weight: 400;
@@ -93,14 +81,11 @@
 
 .card__activities {
 	display: flex;
-
 	box-sizing: border-box;
 	max-width: 170px;
 	margin: 0;
 	padding: 15px 0 0;
-
 	list-style-type: none;
-
 	border-top: 0.5px solid var(--grey-300);
 	grid-area: activities;
 	gap: 0 15px;
@@ -113,9 +98,7 @@
 
 .card__activityName {
 	display: block;
-
 	color: var(--grey-400);
-
 	font-family: var(--TTNorms);
 	font-size: 12px;
 	font-weight: 400;
@@ -125,9 +108,7 @@
 
 .card__activityLink {
 	transition: 0.3s;
-
 	color: var(--link);
-
 	font-family: var(--TTNorms);
 	font-size: 12px;
 	font-weight: 400;

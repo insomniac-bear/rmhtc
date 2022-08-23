@@ -76,7 +76,6 @@ button.events__filterBtn_dropDown:hover {
 	justify-content: center;
 
 	margin-top: 60px;
-
 	padding: 0;
 
 	list-style: none;
@@ -96,7 +95,6 @@ button.events__filterBtn_dropDown:hover {
 	height: 20px;
 
 	content: "";
-
 	transition: 0.5s;
 
 	background-image: url("../../images/button-arrow-primary.svg");
