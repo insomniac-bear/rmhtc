@@ -203,7 +203,7 @@ export class AddressService {
       );
     }
 
-    await this.addressTypeEntity.create({ value });
+    await existValue.update({ value });
     const types = await this.addressTypeEntity.findAll();
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -291,7 +291,7 @@ export class AddressService {
       );
     }
 
-    await this.countryEntity.create({ value });
+    await existValue.update({ value });
     const countries = await this.countryEntity.findAll();
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -310,6 +310,94 @@ export class AddressService {
       status: 'success',
       accessToken,
       countries,
+    };
+  }
+
+  async createCity(
+    accessTokenPayload: JwtPayload,
+    res,
+    value: string
+  ): Promise<{ status: string; accessToken: string; cities: City[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.cityEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (candidate) {
+      throw new HttpException(`${value} already exist`, HttpStatus.BAD_REQUEST);
+    }
+
+    await this.cityEntity.create({ value });
+    const cities = await this.cityEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      cities,
+    };
+  }
+
+  async updateCity(
+    accessTokenPayload: JwtPayload,
+    res,
+    uuid: string,
+    value: string
+  ): Promise<{ status: string; accessToken: string; cities: City[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.cityEntity.findByPk(uuid);
+
+    if (!candidate) {
+      throw new HttpException(`City isn't exist`, HttpStatus.BAD_REQUEST);
+    }
+
+    const existValue = await this.cityEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (existValue) {
+      throw new HttpException(
+        `City with value ${value} already exist`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    await existValue.update({ value });
+    const cities = await this.countryEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      cities,
     };
   }
 }

@@ -122,4 +122,36 @@ export class AddressController {
       data.value
     );
   }
+
+  @ApiOperation({ summary: 'Создание нового города' })
+  @ApiResponse({
+    status: 201,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Post('/city')
+  createCity(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() data: { value: string }
+  ) {
+    return this.addressService.createCity(req.user, res, data.value);
+  }
+
+  @ApiOperation({ summary: 'Обновление существующего города' })
+  @ApiResponse({
+    status: 200,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Patch('/city')
+  updateCity(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() data: { uuid: string; value: string }
+  ) {
+    return this.addressService.updateCity(req.user, res, data.uuid, data.value);
+  }
 }
