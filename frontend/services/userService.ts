@@ -112,6 +112,11 @@ export const userAPI = apiService.injectEndpoints({
         url: '/api/v1/companies/business-types',
       }),
     }),
+    getAddressesTypes: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/address/types',
+      }),
+    }),
     getCountries: build.query<any, any>({
       query: () => ({
         url: '/api/v1/address/countries',

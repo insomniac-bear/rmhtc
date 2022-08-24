@@ -22,7 +22,7 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
     const getCompanies = async () => {
       try {
         const response: any = await getModerateCompanies('');
-        dispatch(setModerateCompanies(response.data));
+        dispatch(setModerateCompanies(response.data.companies));
       } catch (error: any) {
         throw new Error(error.message);
       }
