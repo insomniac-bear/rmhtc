@@ -52,19 +52,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -163,19 +152,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -274,19 +252,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -385,19 +352,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -496,19 +452,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
