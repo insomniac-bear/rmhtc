@@ -67,7 +67,7 @@ export class AddressController {
 
   @ApiOperation({ summary: 'Обновление существующего типа адреса' })
   @ApiResponse({
-    status: 201,
+    status: 200,
   })
   @UseGuards(JwtAuthGuard)
   @Roles('ADMINISTRATOR')
@@ -79,6 +79,43 @@ export class AddressController {
     @Body() data: { uuid: string; value: string }
   ) {
     return this.addressService.updateAddressType(
+      req.user,
+      res,
+      data.uuid,
+      data.value
+    );
+  }
+
+  @ApiOperation({ summary: 'Создание новой страны' })
+  @ApiResponse({
+    status: 201,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Post('/country')
+  createCountry(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() data: { value: string }
+  ) {
+    return this.addressService.createCountry(req.user, res, data.value);
+  }
+
+  @ApiOperation({ summary: 'Обновление существующей страны' })
+  @ApiResponse({
+    status: 200,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Patch('/country')
+  updateCountry(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() data: { uuid: string; value: string }
+  ) {
+    return this.addressService.updateCountry(
       req.user,
       res,
       data.uuid,
