@@ -45,7 +45,7 @@ export class MessengersController {
     @Body() data: CreateTypeDto
   ) {
     const { sub } = req.user;
-    return this.messengerService.createMessengerType(data.value);
+    return this.messengerService.createMessengerType(sub, res, data.value);
   }
 
   @ApiOperation({ summary: 'Обновление существующего типа мессенджера' })
@@ -63,6 +63,11 @@ export class MessengersController {
     @Body() data: UpdateTypeDto
   ) {
     const { sub } = req.user;
-    return this.messengerService.updateMessengerType(data.uuid, data.value);
+    return this.messengerService.updateMessengerType(
+      sub,
+      res,
+      data.uuid,
+      data.value
+    );
   }
 }

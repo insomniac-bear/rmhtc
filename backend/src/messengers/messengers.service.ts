@@ -1,4 +1,12 @@
-import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  HttpException,
+  HttpStatus,
+  forwardRef,
+} from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtPayload } from 'src/auth/types';
 import {
   MESSENGER_REPOSITORY,
   MESSENGER_TYPE_REPOSITORY,
@@ -16,7 +24,9 @@ export class MessengersService {
     @Inject(MESSENGER_REPOSITORY)
     private readonly messengerEntity: typeof Messenger,
     @Inject(MESSENGER_TYPE_REPOSITORY)
-    private readonly messengerTypeEntity: typeof MessengerType
+    private readonly messengerTypeEntity: typeof MessengerType,
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService
   ) {}
 
   async getAllTypesOfMessenger(): Promise<MessengerTypeDto[]> {
@@ -67,7 +77,12 @@ export class MessengersService {
     });
   }
 
-  async createMessengerType(value: string): Promise<MessengerType[]> {
+  async createMessengerType(
+    accessTokenPayload: JwtPayload,
+    res,
+    value: string
+  ): Promise<{ status: string; accessToken: string; types: MessengerType[] }> {
+    const { sub, role, email } = accessTokenPayload;
     const candidate = await this.messengerTypeEntity.findOne({
       where: {
         value,
@@ -82,13 +97,34 @@ export class MessengersService {
     }
     await this.messengerTypeEntity.create({ value });
     const types = await this.messengerTypeEntity.findAll();
-    return types;
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      types,
+    };
   }
 
   async updateMessengerType(
+    accessTokenPayload: JwtPayload,
+    res,
     uuid: string,
     value: string
-  ): Promise<MessengerType[]> {
+  ): Promise<{ status: string; accessToken: string; types: MessengerType[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
     const candidate = await this.messengerTypeEntity.findByPk(uuid);
 
     if (!candidate) {
@@ -109,6 +145,24 @@ export class MessengersService {
     }
     await candidate.update({ value });
 
-    return await this.messengerTypeEntity.findAll();
+    const types = await this.messengerTypeEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      types,
+    };
   }
 }
