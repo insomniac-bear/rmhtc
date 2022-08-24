@@ -39,7 +39,7 @@ const DirectoryPage: NextPage = () => {
 
   return (
     <div>
-      <div className={styles.controls}>
+      {/* <div className={styles.controls}>
         <form
           onSubmit={handleSubmit(submitFormHandler)}
           className={styles.search}
@@ -79,7 +79,7 @@ const DirectoryPage: NextPage = () => {
             </li>
           </ul>
         </nav>
-      </div>
+      </div> */}
       <main className={styles.content}>
         <ul className={styles.content__list}>
           {addresses.map((el: any) => (
@@ -98,13 +98,13 @@ const DirectoryPage: NextPage = () => {
                     </li>
                   ))}
                   <li>
-                    <form action="submit">
+                    <form action="submit" className={styles.directory__newItem}>
                       <input
                         type="text"
                         className={styles.directory__addField}
                         placeholder={`+ New ${el.type.toLowerCase()}`}
                       />
-                      <button type="submit">Add</button>
+                      <button type="submit" className={styles.directory__addBtn}>Add</button>
                     </form>
                   </li>
                 </ul>
