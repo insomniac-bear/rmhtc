@@ -7,6 +7,7 @@ import { AddressModule } from 'src/address/address.module';
 import { ContactsModule } from 'src/contacts/contacts.module';
 import { MessengersModule } from 'src/messengers/messengers.module';
 import { ModerationModule } from 'src/moderation/moderation.module';
+import { MinioClientModule } from 'src/core/minio-client/minio-client.module';
 
 @Module({
   controllers: [CompanyController],
@@ -17,6 +18,7 @@ import { ModerationModule } from 'src/moderation/moderation.module';
     ContactsModule,
     MessengersModule,
     ModerationModule,
+    MinioClientModule,
   ],
   exports: [CompanyService, ...companyProviders],
 })

@@ -4,12 +4,13 @@ import {
   Get,
   Query,
   Patch,
+  Post,
   Res,
   Req,
   Param,
-  UploadedFiles,
   UseGuards,
   UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import {
   ApiHeader,
@@ -18,7 +19,7 @@ import {
   ApiTags,
   ApiParam,
 } from '@nestjs/swagger';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -29,6 +30,7 @@ import {
   LegalFormDocDescription,
 } from './dto';
 import { IFullCompany } from './types';
+import { BufferedFile } from 'src/core/minio-client/types/minio.interface';
 
 @ApiTags('Companies')
 @Controller('companies')
@@ -64,31 +66,15 @@ export class CompanyController {
   @Roles('USER')
   @UseGuards(RolesGuard)
   @Patch('/user')
-  @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'logo', maxCount: 1 },
-      { name: 'authorityHead', maxCount: 1 },
-      { name: 'registration', maxCount: 1 },
-      { name: 'presentation', maxCount: 1 },
-    ])
-  )
   updateUserCompany(
     @Req() req,
     @Res({ passthrough: true }) res,
-    @UploadedFiles()
-    files: {
-      logo?: Express.Multer.File[];
-      authorityHead?: Express.Multer.File[];
-      registration?: Express.Multer.File[];
-      presentation?: Express.Multer.File[];
-    },
     @Body() companyData: IFullCompany
   ) {
     return this.companiesService.updateUsersCompany(
       req.user,
       companyData,
       true,
-      files,
       res
     );
   }
@@ -100,21 +86,33 @@ export class CompanyController {
   saveUserCompany(
     @Req() req,
     @Res({ passthrough: true }) res,
-    @UploadedFiles()
-    files: {
-      logo?: Express.Multer.File[];
-      authorityHead?: Express.Multer.File[];
-      registration?: Express.Multer.File[];
-      presentation?: Express.Multer.File[];
-    },
     @Body() companyData: IFullCompany
   ) {
     return this.companiesService.updateUsersCompany(
       req.user,
       companyData,
       false,
-      files,
       res
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Roles('USER')
+  @UseGuards(RolesGuard)
+  @Post('/logo')
+  @UseInterceptors(FileInterceptor('logo'))
+  uploadLogo(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Query() query,
+    @UploadedFile() file: BufferedFile
+  ) {
+    return this.companiesService.uploadFile(
+      req.user,
+      res,
+      query,
+      file,
+      'logoUrl'
     );
   }
 
