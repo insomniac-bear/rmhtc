@@ -1,5 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/auth/roles-auth.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
 import { AddressService } from './address.service';
 import { AddressTypeDto } from './dto';
 
@@ -35,5 +47,42 @@ export class AddressController {
   @Get('/cities')
   getCities() {
     return this.addressService.getAllCities();
+  }
+
+  @ApiOperation({ summary: 'Создание нового типа адреса' })
+  @ApiResponse({
+    status: 201,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Post('/type')
+  createType(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() data: { value: string }
+  ) {
+    return this.addressService.createAddressType(req.user, res, data.value);
+  }
+
+  @ApiOperation({ summary: 'Обновление существующего типа адреса' })
+  @ApiResponse({
+    status: 201,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Roles('ADMINISTRATOR')
+  @UseGuards(RolesGuard)
+  @Patch('/type')
+  updateType(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() data: { uuid: string; value: string }
+  ) {
+    return this.addressService.updateAddressType(
+      req.user,
+      res,
+      data.uuid,
+      data.value
+    );
   }
 }

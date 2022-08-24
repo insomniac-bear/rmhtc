@@ -32,7 +32,7 @@ export class MessengersController {
 
   @ApiOperation({ summary: 'Создание нового типа мессенджера' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     type: [MessengerTypeDto],
   })
   @UseGuards(JwtAuthGuard)
