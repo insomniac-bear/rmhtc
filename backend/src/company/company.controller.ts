@@ -116,6 +116,66 @@ export class CompanyController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Roles('USER')
+  @UseGuards(RolesGuard)
+  @Post('/regdoc')
+  @UseInterceptors(FileInterceptor('regdoc'))
+  uploadRegDoc(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Query() query,
+    @UploadedFile() file: BufferedFile
+  ) {
+    return this.companiesService.uploadFile(
+      req.user,
+      res,
+      query,
+      file,
+      'regDocUrl'
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Roles('USER')
+  @UseGuards(RolesGuard)
+  @Post('/ceo')
+  @UseInterceptors(FileInterceptor('ceo'))
+  uploadCeoDoc(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Query() query,
+    @UploadedFile() file: BufferedFile
+  ) {
+    return this.companiesService.uploadFile(
+      req.user,
+      res,
+      query,
+      file,
+      'ceoDocUrl'
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Roles('USER')
+  @UseGuards(RolesGuard)
+  @Post('/presentation')
+  @UseInterceptors(FileInterceptor('presentation'))
+  uploadPresentation(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Query() query,
+    @UploadedFile() file: BufferedFile
+  ) {
+    return this.companiesService.uploadFile(
+      req.user,
+      res,
+      query,
+      file,
+      'presentationUrl'
+    );
+  }
+
   /**
    * ******************************************
    * Moderation Routes

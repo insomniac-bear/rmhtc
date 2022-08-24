@@ -14,6 +14,7 @@ export class ICompany {
   uuid?: string;
   name?: string;
   logoUrl?: string;
+  presentationUrl?: string;
   regNumName?: string;
   regNumber?: string;
   regDocUrl?: string;
