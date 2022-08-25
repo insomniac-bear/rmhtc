@@ -47,6 +47,9 @@ export class CompanyService {
     private readonly minioClientService: MinioClientService
   ) {}
 
+  /**
+   * Функции пользователя
+   */
   async createCompany(companyName: string, userUuid: string): Promise<Company> {
     const moderationNote = await this.moderationService.createModerationNote();
     const company = await this.companyEntity.create({
@@ -269,16 +272,24 @@ export class CompanyService {
     };
   }
 
-  async getCompaniesForModerate(accessTokenPayload: JwtPayload, res) {
+  /**
+   * Функции модерирования
+   */
+  async getCompaniesForModerate(accessTokenPayload: JwtPayload, res, query) {
     const { sub, role, email } = accessTokenPayload;
 
-    const companies = await this.companyEntity.findAll({
+    const limit = 6;
+    const page = query.page ? query.page : 0;
+
+    const companies = await this.companyEntity.findAndCountAll({
       where: {
         moderated: {
           [Op.or]: ['pending', 'process'],
         },
       },
       include: allFields,
+      offset: page * limit,
+      limit,
     });
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -296,7 +307,10 @@ export class CompanyService {
     return {
       status: 'success',
       accessToken,
-      companies: companies.map((company) => createCompanyDto(company, true)),
+      companies: companies.rows.map((company) => {
+        return createCompanyDto(company, true);
+      }),
+      count: companies.count,
     };
   }
 
@@ -398,6 +412,51 @@ export class CompanyService {
     };
   }
 
+  async moderateCompany(
+    accessTokenPayload: JwtPayload,
+    res,
+    data: {
+      status: 'failed' | 'success';
+      reason: string;
+    },
+    query
+  ) {
+    const { sub, role, email } = accessTokenPayload;
+
+    const company = await this.companyEntity.findByPk(query.uuid);
+
+    if (!company) {
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+    }
+
+    await company.update({
+      moderated: data.status,
+    });
+
+    await this.moderationService.updateModerationNote(
+      company.moderationUuid,
+      data.reason,
+      sub
+    );
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+    };
+  }
+
   async getLegalForms() {
     const rawLegalFormsData = await this.legalFormEntity.findAll();
     return rawLegalFormsData.map((rawLegalForm) =>
@@ -410,5 +469,30 @@ export class CompanyService {
     return rawBusinessTypesData.map((rawBusinessType) =>
       createBusinessTypeDto(rawBusinessType)
     );
+  }
+
+  /**
+   * Общие функции
+   */
+  async getApproveCompanies(query) {
+    const limit = 10;
+    const page = query.page ? query.page : 0;
+
+    const companies = await this.companyEntity.findAndCountAll({
+      where: {
+        moderated: 'success',
+      },
+      include: allFields,
+      offset: page * limit,
+      limit,
+    });
+
+    return {
+      status: 'success',
+      companies: companies.rows.map((company) => {
+        return createCompanyDto(company, true);
+      }),
+      count: companies.count,
+    };
   }
 }
