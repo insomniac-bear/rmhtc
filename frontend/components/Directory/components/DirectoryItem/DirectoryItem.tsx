@@ -18,7 +18,7 @@ export const DirectoryItem: FC<IDirectoryItem> = ({ value, className, ...props }
           </button>
         </>
       )}
-      {isEdited && <EditForm onAdd={() => setIsEdited(false)} label={value} isHidden={isEdited} />}
+      {isEdited && <EditForm onAdd={() => setIsEdited(false)} label={value} isFormHidden={isEdited} />}
     </div>
   );
 };

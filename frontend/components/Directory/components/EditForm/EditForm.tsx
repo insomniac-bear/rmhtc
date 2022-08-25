@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './EditForm.module.css';
@@ -8,7 +9,7 @@ type FormData = {
 };
 
 export const EditForm: FC<IEditForm> = ({
-  isHidden, label, onAdd, className, ...props
+  isFormHidden, label, onAdd, className, ...props
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { handleSubmit, register } = useForm<FormData>({
@@ -17,7 +18,7 @@ export const EditForm: FC<IEditForm> = ({
     },
   });
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 0) {
+    if (e.target.value.length > 0 && e.target.value !== label) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -25,12 +26,15 @@ export const EditForm: FC<IEditForm> = ({
   };
 
   const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value.length || e.target.value === label) {
-      setIsVisible(false);
-
-      if (onAdd) {
-        onAdd();
-      }
+    setIsVisible(false);
+    if (label) {
+      e.target.value = label;
+    }
+    if (!label) {
+      e.target.value = '';
+    }
+    if (onAdd) {
+      onAdd();
     }
   };
   const submitFormHandler = (data: FormData) => {
@@ -46,7 +50,7 @@ export const EditForm: FC<IEditForm> = ({
       <input
         type="text"
         className={styles.form__input}
-        autoFocus={isHidden}
+        autoFocus={isFormHidden}
         placeholder={!label ? '+ New item' : ''}
         {...register('item', {
           onChange(e) { handleChange(e); },

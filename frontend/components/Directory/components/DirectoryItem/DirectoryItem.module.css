@@ -17,6 +17,9 @@
 	font-size: 16px;
 	line-height: 20px;
 	margin: 0;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item__editBtn {
