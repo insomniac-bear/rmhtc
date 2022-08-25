@@ -14,28 +14,30 @@ export interface ICompanyAddress {
   uuid: string;
 }
 export interface ICompanyData {
-  uuid: string;
-  name: string | null;
-  logoUrl: string | null;
-  regNumber: string | null;
-  regNumName: string | null;
-  regDocUrl: string | null;
-  issuingAuthority: string | null;
-  description: string | null;
-  yearOfFoundation: number | null;
-  website: string | null;
+  addresses: ICompanyAddress | [];
+  budgetOfYear: string | null;
+  businessType: string | null;
   ceo: string | null;
   ceoDocUrl: string | null;
-  qcEmployees: string | null;
-  budgetOfYear: string | null;
+  contacts: ICompanyContact | [];
+  createdAt: string | null;
   currencyOfBudget: string | null;
+  description: string | null;
+  issuingAuthority: string | null;
+  legalForm: string | null;
+  logoUrl: string | null;
+  messengers: ICompanyContact | [];
   moderated: string | null;
   moderatedAuthorUuid: string | null;
   moderatedReason: string | null;
-  createdAt: string;
-  addresses: ICompanyAddress[] | [];
-  legalForm: string | null;
-  businessType: string | null;
-  messengers: ICompanyContact[] | [];
-  contacts: ICompanyContact[] | [];
+  name: string | null;
+  presentationUrl: string | null;
+  qcEmployees: string | null;
+  regDocUrl: string | null;
+  regNumName: string | null;
+  regNumber: string | null;
+  shortLegalForm: string | null;
+  uuid: string | null;
+  website: string | null;
+  yearOfFoundation: string | null;
 }

@@ -1,4 +1,4 @@
-export const catalogMokData = [
+export const catalogMockData = [
   {
     uuid: '5cb19f69-4a86-48e5-b2b5-654b3e6c297f',
     name: 'Horns',
