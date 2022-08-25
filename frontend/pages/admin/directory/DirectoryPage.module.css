@@ -1,12 +1,3 @@
-.text {
-	font-family: var(--TTNorms);
-	font-style: normal;
-	font-weight: 400;
-	font-size: 16px;
-	line-height: 20px;
-	margin: 0;
-}
-
 .content__list {
 	display: grid;
 	align-content: start;
@@ -18,68 +9,4 @@
 	list-style-type: none;
 	gap: 40px;
 	grid-template-columns: repeat(auto-fill, minmax(298px, 1fr));
-}
-
-.directory {
-  max-width: 298px;
-  width: 100%;
-  background-color: var(--grey-100);
-  display: flex;
-  flex-direction: column;
-	padding: 20px 16px 28px;
-}
-
-.directory__columns {
-	composes: text;
-	color: var(--grey-500);
-	margin: 0 0 10px 0;
-	display: flex;
-	justify-content: space-between;
-}
-
-.directory__list {
-	width: 100%;
-	margin: 0;
-	padding: 22px 0 0 0;
-	border-top: 1px solid var(--grey-500);
-
-	list-style-type: none;
-}
-
-.directory__item {
-	composes: text;
-	
-	color: var(--grey-600);
-}
-
-.directory__itemControls {
-
-}
-
-.directory__controlButton {
-
-}
-.directory__newItem {
-	position: relative;
-	max-width: 240px;
-}
-.directory__addField {
-	composes: text;
-	height: 28px;
-	width: 100%;
-}
-
-.directory__addField::placeholder {
-	text-align: center;
-	color: var(--accent-red-300);
-}
-
-.directory__addBtn {
-	position: absolute;
-	right: 23px;
-	top: 4px;
-	border: none;
-	background-color: transparent;
-	composes: text;
-	color: var(--accent-red-300);
 }

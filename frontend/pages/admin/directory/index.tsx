@@ -1,41 +1,44 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
+import { nanoid } from 'nanoid';
 import styles from './DirectoryPage.module.css';
 import { withAuthLayout } from '../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../components/Directory/Directory';
+import { adminAPI } from '../../../services/adminService';
 
-const addresses = [
-  {
-    type: 'Country',
-    uuid: 'abc',
-    values: [{ uuid: 1, value: 'russia', label: 'Russia' }, { uuid: 2, value: 'unitedKingdom', label: 'United Kingdom' }],
-  },
-  {
-    type: 'City',
-    uuid: 'abcd',
-    values: [{ uuid: 11, value: 'moscow', label: 'Moscow' }, { uuid: 22, value: 'omsk', label: 'Omsk' }],
-  },
-  {
-    type: 'Address type',
-    uuid: 'abcdef',
-    values: [
-      { uuid: 111, value: 'legal', label: 'Legal address' },
-      { uuid: 222, value: 'post', label: 'Post address' },
-      { uuid: 333, value: 'actual', label: 'Actual address' },
-    ],
-  },
-];
+const addressesDataDto = (dataArr: any) => dataArr.map((el: any) => ({ id: nanoid(), values: el.values, type: el.type }));
 
-const DirectoryPage: NextPage = () => (
-  <main className={styles.content}>
-    <ul className={styles.content__list}>
-      {addresses.map((el: any) => (
-        <li key={el.uuid}>
-          <Directory obj={el} />
-        </li>
-      ))}
-    </ul>
-  </main>
-);
+const DirectoryPage: NextPage = () => {
+  const [data, setData] = useState(null);
+
+  const [getAddressesTypes] = adminAPI.useLazyGetAddressesTypesQuery();
+  const [getCountries] = adminAPI.useLazyGetAllCountriesQuery();
+  const [getCities] = adminAPI.useLazyGetAllCitiesQuery();
+
+  useEffect(() => {
+    Promise.all([getAddressesTypes(''), getCountries(''), getCities('')]).then(([addressesTypes, countries, cities]) => {
+      setData(addressesDataDto([
+        { values: addressesTypes.data, type: 'Address' },
+        { values: countries.data, type: 'Country' },
+        { values: cities.data, type: 'City' },
+      ]));
+    });
+  }, [getAddressesTypes, getCountries, getCities]);
+
+  console.log(data); // ------------------------
+
+  return (
+    <main className={styles.content}>
+      <ul className={styles.content__list}>
+        {data && data.map((obj: any) => (
+          <li key={obj.id}>
+            <Directory directory={obj} />
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+};
 
 export default withAuthLayout(DirectoryPage);

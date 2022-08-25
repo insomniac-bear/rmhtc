@@ -1,34 +1,41 @@
 .form {
+	position: relative;
 	width: 100%;
-	display: flex;
-	justify-content: space-between;
 }
 
-.form__input {
-	border: none;
-	
-  font-family: var(--TTNorms);
+.text {
+	font-family: var(--TTNorms);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 20px;
 	margin: 0;
-	padding: 0;
+}
+
+.form__input {
+	composes: text;
 	height: 28px;
-	max-width: 200px;
 	width: 100%;
-	color: var(--grey-600);
+	border: none;
+	padding: 0 0 0 10px;
 }
 
 .form__input:focus {
-	outline: none;
+	outline-color: #000;
+	outline-style: solid;
+}
+
+.form__input::placeholder {
+	text-align: center;
+	color: var(--accent-red-300);
 }
 
 .form__submitBtn {
-	box-sizing: border-box;
+	position: absolute;
+	right: 0px;
+	top: 4px;
 	border: none;
-	cursor: pointer;
 	background-color: transparent;
-	padding:  4px 14px;
-	margin: 0;
+	composes: text;
+	color: var(--accent-red-300);
 }

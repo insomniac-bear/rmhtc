@@ -1,24 +1,44 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-import Image from 'next/image';
-import { FC } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './EditForm.module.css';
 import { IEditForm } from './EditForm.props';
-import editIcon from '../../../../images/edit-icon-secondary.svg';
 
 type FormData = {
-  newValue: string;
+  item: string;
 };
 
-export const EditForm: FC<IEditForm> = ({ value, className, ...props }) => {
+export const EditForm: FC<IEditForm> = ({
+  isHidden, label, onAdd, className, ...props
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
   const { handleSubmit, register } = useForm<FormData>({
     defaultValues: {
-      newValue: value,
+      item: label,
     },
   });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 0) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.value.length || e.target.value === label) {
+      setIsVisible(false);
+
+      if (onAdd) {
+        onAdd();
+      }
+    }
+  };
   const submitFormHandler = (data: FormData) => {
-    data.newValue.toLowerCase();
+    data.item.toLowerCase();
     console.log(data);
+    if (onAdd) {
+      onAdd();
+    }
   };
 
   return (
@@ -26,11 +46,14 @@ export const EditForm: FC<IEditForm> = ({ value, className, ...props }) => {
       <input
         type="text"
         className={styles.form__input}
-        {...register('newValue')}
+        autoFocus={isHidden}
+        placeholder={!label ? '+ New item' : ''}
+        {...register('item', {
+          onChange(e) { handleChange(e); },
+          onBlur(e) { handleBlur(e); },
+        })}
       />
-      <button type="submit" className={styles.form__submitBtn}>
-        <Image src={editIcon} alt="Edit" />
-      </button>
+      {isVisible && <button type="submit" className={styles.form__submitBtn}>Add</button>}
     </form>
   );
 };

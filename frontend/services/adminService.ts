@@ -14,5 +14,20 @@ export const adminAPI = apiService.injectEndpoints({
         credentials: 'include',
       }),
     }),
+    getAddressesTypes: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/address/types',
+      }),
+    }),
+    getAllCountries: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/address/countries',
+      }),
+    }),
+    getAllCities: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/address/cities',
+      }),
+    }),
   }),
 });
