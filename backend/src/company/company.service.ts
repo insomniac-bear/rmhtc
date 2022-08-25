@@ -15,6 +15,8 @@ import {
   COMPANY_REPOSITORY,
   LEGAL_FORM_REPOSITORY,
 } from 'src/core/constants';
+import { MinioClientService } from 'src/core/minio-client/minio-client.service';
+import { BufferedFile } from 'src/core/minio-client/types/minio.interface';
 import { MessengersService } from 'src/messengers/messengers.service';
 import { ModerationService } from 'src/moderation/moderation.service';
 import {
@@ -41,7 +43,8 @@ export class CompanyService {
     private readonly addressService: AddressService,
     private readonly contactsService: ContactsService,
     private readonly messengersService: MessengersService,
-    private readonly moderationService: ModerationService
+    private readonly moderationService: ModerationService,
+    private readonly minioClientService: MinioClientService
   ) {}
 
   async createCompany(companyName: string, userUuid: string): Promise<Company> {
@@ -121,15 +124,67 @@ export class CompanyService {
     };
   }
 
+  async uploadFile(
+    jwtTokenPayload: JwtPayload,
+    res,
+    query: { uuid: string },
+    file: BufferedFile,
+    type: string
+  ) {
+    const { sub, email, role } = jwtTokenPayload;
+
+    if (file.size > 3145728) {
+      console.log(file.size);
+      throw new HttpException(
+        'Uploading file to very large',
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    const { uuid } = query;
+    const company = await this.getUserCompany(uuid);
+    if (!company) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+
+    if (company[type]) {
+      const pathArr = company[type].split('/');
+      const objectName = pathArr[pathArr.length - 1];
+      await this.minioClientService.delete(`companies/${uuid}/`, objectName);
+    }
+
+    const fileUrl = await this.minioClientService.upload(
+      `companies/${uuid}/`,
+      file
+    );
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    const updatedCompany = await company.update({ [type]: fileUrl });
+
+    await this.authService.saveRefreshToken(sub, refreshToken);
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      userData: createCompanyDto(updatedCompany),
+    };
+  }
+
   async updateUsersCompany(
     accessTokenPayload: JwtPayload,
     rawCompanyData: IFullCompany,
     isModerate = false,
-    files,
     res
   ) {
-    console.log(files);
-
     const { sub, role, email } = accessTokenPayload;
     const company = await this.companyEntity.findByPk(rawCompanyData.uuid);
 

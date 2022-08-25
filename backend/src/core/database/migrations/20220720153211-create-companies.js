@@ -25,6 +25,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      presentationUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       regNumName: {
         type: DataTypes.STRING,
         allowNull: true,

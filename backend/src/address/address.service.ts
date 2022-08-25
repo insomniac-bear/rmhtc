@@ -1,4 +1,12 @@
-import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  HttpException,
+  HttpStatus,
+  forwardRef,
+} from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtPayload } from 'src/auth/types';
 import {
   ADDRESS_REPOSITORY,
   ADDRESS_TYPE_REPOSITORY,
@@ -19,7 +27,9 @@ export class AddressService {
     @Inject(ADDRESS_TYPE_REPOSITORY)
     private readonly addressTypeEntity: typeof AddressType,
     @Inject(COUNTRY_REPOSITORY) private readonly countryEntity: typeof Country,
-    @Inject(CITY_REPOSITORY) private readonly cityEntity: typeof City
+    @Inject(CITY_REPOSITORY) private readonly cityEntity: typeof City,
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService
   ) {}
 
   async createOrUpdateAddress(
@@ -124,7 +134,270 @@ export class AddressService {
     return addressType;
   }
 
-  async createAddressType(addressType: string) {
-    return await this.addressTypeEntity.create({ value: addressType });
+  async createAddressType(
+    accessTokenPayload: JwtPayload,
+    res,
+    value: string
+  ): Promise<{ status: string; accessToken: string; types: AddressType[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.addressTypeEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (candidate) {
+      throw new HttpException(`${value} already exist`, HttpStatus.BAD_REQUEST);
+    }
+
+    await this.addressTypeEntity.create({ value });
+    const types = await this.addressTypeEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      types,
+    };
+  }
+
+  async updateAddressType(
+    accessTokenPayload: JwtPayload,
+    res,
+    uuid: string,
+    value: string
+  ): Promise<{ status: string; accessToken: string; types: AddressType[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.addressTypeEntity.findByPk(uuid);
+
+    if (!candidate) {
+      throw new HttpException(
+        `Address Type isn't exist`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    const existValue = await this.addressTypeEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (existValue) {
+      throw new HttpException(
+        `Address type with value ${value} already exist`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    await existValue.update({ value });
+    const types = await this.addressTypeEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      types,
+    };
+  }
+
+  async createCountry(
+    accessTokenPayload: JwtPayload,
+    res,
+    value: string
+  ): Promise<{ status: string; accessToken: string; countries: Country[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.countryEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (candidate) {
+      throw new HttpException(`${value} already exist`, HttpStatus.BAD_REQUEST);
+    }
+
+    await this.countryEntity.create({ value });
+    const countries = await this.countryEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      countries,
+    };
+  }
+
+  async updateCountry(
+    accessTokenPayload: JwtPayload,
+    res,
+    uuid: string,
+    value: string
+  ): Promise<{ status: string; accessToken: string; countries: Country[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.countryEntity.findByPk(uuid);
+
+    if (!candidate) {
+      throw new HttpException(`Country isn't exist`, HttpStatus.BAD_REQUEST);
+    }
+
+    const existValue = await this.countryEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (existValue) {
+      throw new HttpException(
+        `Country with value ${value} already exist`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    await existValue.update({ value });
+    const countries = await this.countryEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      countries,
+    };
+  }
+
+  async createCity(
+    accessTokenPayload: JwtPayload,
+    res,
+    value: string
+  ): Promise<{ status: string; accessToken: string; cities: City[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.cityEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (candidate) {
+      throw new HttpException(`${value} already exist`, HttpStatus.BAD_REQUEST);
+    }
+
+    await this.cityEntity.create({ value });
+    const cities = await this.cityEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      cities,
+    };
+  }
+
+  async updateCity(
+    accessTokenPayload: JwtPayload,
+    res,
+    uuid: string,
+    value: string
+  ): Promise<{ status: string; accessToken: string; cities: City[] }> {
+    const { sub, role, email } = accessTokenPayload;
+
+    const candidate = await this.cityEntity.findByPk(uuid);
+
+    if (!candidate) {
+      throw new HttpException(`City isn't exist`, HttpStatus.BAD_REQUEST);
+    }
+
+    const existValue = await this.cityEntity.findOne({
+      where: {
+        value,
+      },
+    });
+
+    if (existValue) {
+      throw new HttpException(
+        `City with value ${value} already exist`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    await existValue.update({ value });
+    const cities = await this.countryEntity.findAll();
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+      cities,
+    };
   }
 }

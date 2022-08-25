@@ -152,13 +152,3 @@
 	font-family: var(--TTNorms);
 	font-size: 16px;
 }
-
-.personalData__deleteAccountButton {
-	padding: 0;
-
-	color: var(--grey-500);
-	border: none;
-
-	font-family: var(--TTNorms);
-	font-size: 16px;
-}

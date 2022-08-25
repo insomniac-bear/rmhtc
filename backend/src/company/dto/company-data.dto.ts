@@ -6,6 +6,7 @@ import { IContact } from 'src/contacts/types';
 export class CompanyDataDto {
   name?: string;
   logoUrl?: string;
+  presentationUrl?: string;
   regNumName?: string;
   regNumber?: string;
   regDocUrl?: string;
