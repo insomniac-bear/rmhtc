@@ -238,7 +238,6 @@ export class CompanyController {
    * Utils routes
    * ******************************************
    */
-
   @ApiOperation({ summary: 'Получение юридических форм' })
   @ApiResponse({
     status: 200,
@@ -259,5 +258,15 @@ export class CompanyController {
   @Get('/business-types')
   getBusinessType() {
     return this.companiesService.getBusinessTypes();
+  }
+
+  @ApiOperation({ summary: 'Получение всех одобренных компаний' })
+  @ApiResponse({
+    status: 200,
+    description: 'Получение всех одобренных компаний',
+  })
+  @Get('/')
+  getApproveCompanies(@Query() query) {
+    return this.companiesService.getApproveCompanies(query);
   }
 }

@@ -47,6 +47,9 @@ export class CompanyService {
     private readonly minioClientService: MinioClientService
   ) {}
 
+  /**
+   * Функции пользователя
+   */
   async createCompany(companyName: string, userUuid: string): Promise<Company> {
     const moderationNote = await this.moderationService.createModerationNote();
     const company = await this.companyEntity.create({
@@ -269,6 +272,9 @@ export class CompanyService {
     };
   }
 
+  /**
+   * Функции модерирования
+   */
   async getCompaniesForModerate(accessTokenPayload: JwtPayload, res, query) {
     const { sub, role, email } = accessTokenPayload;
 
@@ -463,5 +469,30 @@ export class CompanyService {
     return rawBusinessTypesData.map((rawBusinessType) =>
       createBusinessTypeDto(rawBusinessType)
     );
+  }
+
+  /**
+   * Общие функции
+   */
+  async getApproveCompanies(query) {
+    const limit = 10;
+    const page = query.page ? query.page : 0;
+
+    const companies = await this.companyEntity.findAndCountAll({
+      where: {
+        moderated: 'success',
+      },
+      include: allFields,
+      offset: page * limit,
+      limit,
+    });
+
+    return {
+      status: 'success',
+      companies: companies.rows.map((company) => {
+        return createCompanyDto(company, true);
+      }),
+      count: companies.count,
+    };
   }
 }
