@@ -29,8 +29,8 @@ type TMessenger = {
 };
 
 type TContact = {
-  name: string;
-  data: string;
+  type: string;
+  value: string;
 };
 
 type TRegistrationNumber = {
@@ -65,6 +65,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
   const { data: legalFormsQueryData, isLoading: isGetLegalFormsLoading } = userAPI.useGetLegalFormsQuery('');
   const { data: businessTypesQueryData } = userAPI.useGetBusinessTypesQuery('');
   const { data: countriesQueryData } = userAPI.useGetCountriesQuery('');
+  const { data: addressesTypesQueryData } = userAPI.useGetAddressesTypesQuery('');
   const { data: citiesQueryData } = userAPI.useGetCitiesQuery('');
   const { data: messengersQueryData } = userAPI.useGetMessengersTypesQuery('');
   const { data: contactsQueryData } = userAPI.useGetContactsTypesQuery('');
@@ -150,8 +151,8 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
   };
 
   const submitFormHandler = async (data: TFormData) => {
+    const legalAddress = addressesTypesQueryData.find((el: any) => el.value === 'Legal');
     const preparedFormData = {
-      authorityHead: data.authorityHead,
       uuid: router.query.uuid,
       name: data.name,
       logoUrl: null,
@@ -169,13 +170,13 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
       currencyOfBudget: 'RUB',
       businessTypeUuid: data.type,
       legalFormUuid: data.legalForm,
-      messengers: data.messengers,
-      contacts: data.contacts,
+      messengers: data.messengers[0].value ? data.messengers : [],
+      contacts: data.contacts[0].value ? data.contacts : [],
       addresses: [
         {
-          addressTypeUuid: '1a277000-eac1-44aa-9f1e-9b5a8b7e4ece',
-          countryUuid: 'b918f47e-2041-47b8-a62c-0c551e1d6cd9',
-          cityUuid: '1dd0189c-15f9-41d2-afba-8d503a750baa',
+          addressTypeUuid: legalAddress.uuid,
+          countryUuid: data.legalAddress.country,
+          cityUuid: data.legalAddress.city,
           postCode: data.legalAddress.postCode,
           street: data.legalAddress.street,
           buildNum: data.legalAddress.house,

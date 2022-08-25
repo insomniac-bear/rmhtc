@@ -28,6 +28,13 @@ export class CompanyDto {
   readonly logoUrl?: string;
 
   @ApiProperty({
+    example:
+      'https://s3.rmhtc.add.company/companyUuid/images/[hashed data of create].pdf',
+    description: 'Ссылка на презентацию компании',
+  })
+  readonly presentationUrl?: string;
+
+  @ApiProperty({
     example: 'OGRN',
     description: 'Название идентификатора компании',
   })
@@ -146,6 +153,8 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         uuid: companyRawData?.uuid,
         name: companyRawData?.name,
         logoUrl: companyRawData?.logoUrl,
+        ceoDocUrl: companyRawData?.ceoDocUrl,
+        presentationUrl: companyRawData?.presentationUrl,
         regNumber: companyRawData?.regNumber,
         regNumName: companyRawData?.regNumName,
         regDocUrl: companyRawData?.regDocUrl,
@@ -154,7 +163,6 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         yearOfFoundation: companyRawData?.yearOfFoundation,
         website: companyRawData?.website,
         ceo: companyRawData?.ceo,
-        ceoDocUrl: companyRawData?.ceoDocUrl,
         qcEmployees: companyRawData?.qcEmployees,
         budgetOfYear: companyRawData?.budgetOfYear,
         currencyOfBudget: companyRawData?.currencyOfBudget,
@@ -179,6 +187,8 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         uuid: companyRawData?.uuid,
         name: companyRawData?.name,
         logoUrl: companyRawData?.logoUrl,
+        ceoDocUrl: companyRawData?.ceoDocUrl,
+        presentationUrl: companyRawData?.presentationUrl,
         regNumber: companyRawData?.regNumber,
         regNumName: companyRawData?.regNumName,
         regDocUrl: companyRawData?.regDocUrl,
@@ -187,7 +197,6 @@ export const createCompanyDto = (companyRawData, isCreatedData = false) => {
         yearOfFoundation: companyRawData?.yearOfFoundation,
         website: companyRawData?.website,
         ceo: companyRawData?.ceo,
-        ceoDocUrl: companyRawData?.ceoDocUrl,
         qcEmployees: companyRawData?.qcEmployees,
         budgetOfYear: companyRawData?.budgetOfYear,
         currencyOfBudget: companyRawData?.currencyOfBudget,
