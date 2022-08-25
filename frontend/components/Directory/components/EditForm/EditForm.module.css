@@ -33,6 +33,7 @@
 }
 
 .form__submitBtn {
+	cursor: pointer;
 	position: absolute;
 	right: 0px;
 	top: 4px;

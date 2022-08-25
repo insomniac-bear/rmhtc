@@ -12,7 +12,7 @@ export const adminMenuData = [
       {
         id: 'asd',
         title: 'Addresses',
-        link: '/',
+        link: '/addresses',
       },
       {
         id: 'dsa',
@@ -30,6 +30,6 @@ export const adminMenuData = [
         link: '/contacts',
       },
     ],
-    link: '/admin/directory/addresses',
+    link: '/admin/directory',
   },
 ];

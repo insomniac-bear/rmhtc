@@ -1,7 +1,12 @@
 import { FormHTMLAttributes, DetailedHTMLProps } from 'react';
 
 export interface IEditForm extends DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
-  label?: string;
-  onAdd?: () => void;
+  hideForm?: () => void;
   isFormHidden?: boolean;
+  item?: any;
+  formType: 'patch' | 'add';
+  fetchParams: {
+    route: string;
+    type: string;
+  }
 }

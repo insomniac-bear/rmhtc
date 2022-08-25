@@ -8,27 +8,25 @@ import { adminAPI } from '../../../../services/adminService';
 import { Loader } from '../../../../components/Loader/Loader';
 import { directoryDataDto } from '../../../../utils/directoryDataDto';
 
-const AddressesDirectoryPage: NextPage = () => {
+const ContactsDirectoryPage: NextPage = () => {
   const [data, setData] = useState<null | any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [getCountries] = adminAPI.useLazyGetAllCountriesQuery();
-  const [getCities] = adminAPI.useLazyGetAllCitiesQuery();
-  const [getAddressesTypes] = adminAPI.useLazyGetAddressesTypesQuery();
+  const [getContacts] = adminAPI.useLazyGetAllContactsQuery();
+  const [getMessengers] = adminAPI.useLazyGetAllMessengersQuery();
 
   useEffect(() => {
-    Promise.all([getCountries(''), getCities(''), getAddressesTypes('')]).then(([countries, cities, addressesTypes]) => {
+    Promise.all([getContacts(''), getMessengers('')]).then(([contacts, messengers]) => {
       setData(directoryDataDto([
-        { values: countries.data, fetchParams: { type: 'country', route: 'address' }, label: 'Country' },
-        { values: cities.data, fetchParams: { type: 'city', route: 'address' }, label: 'City' },
-        { values: addressesTypes.data, fetchParams: { type: 'type', route: 'address' }, label: 'Address' },
+        { values: contacts.data, fetchParams: { type: 'type', route: 'contacts' }, label: 'Contact' },
+        { values: messengers.data, fetchParams: { type: 'type', route: 'messengers' }, label: 'Messenger' },
       ]));
     })
       .then(() => setIsLoading(false))
       .catch((err) => {
         throw new Error(err);
       });
-  }, [getAddressesTypes, getCountries, getCities]);
+  }, [getContacts, getMessengers]);
 
   console.log(data); // ------------------------
 
@@ -46,4 +44,4 @@ const AddressesDirectoryPage: NextPage = () => {
   );
 };
 
-export default withAuthLayout(AddressesDirectoryPage);
+export default withAuthLayout(ContactsDirectoryPage);

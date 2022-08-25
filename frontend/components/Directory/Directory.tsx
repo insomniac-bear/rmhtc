@@ -7,17 +7,17 @@ import { IDirectory } from './Directory.props';
 export const Directory:FC<IDirectory> = ({ directory, className, ...props }) => (
   <div className={`${styles.directory} ${className}`} {...props}>
     <p className={styles.directory__columns}>
-      <span>{`${directory.type} type`}</span>
+      <span>{`${directory.label} type`}</span>
       <span>Actions</span>
     </p>
     <ul className={styles.directory__list}>
       {directory.values.map((item: any) => (
         <li key={item.uuid}>
-          <DirectoryItem value={item.value} />
+          <DirectoryItem item={item} fetchParams={directory.fetchParams} />
         </li>
       ))}
       <li>
-        <EditForm />
+        <EditForm formType="add" fetchParams={directory.fetchParams} />
       </li>
     </ul>
   </div>

@@ -8,27 +8,25 @@ import { adminAPI } from '../../../../services/adminService';
 import { Loader } from '../../../../components/Loader/Loader';
 import { directoryDataDto } from '../../../../utils/directoryDataDto';
 
-const AddressesDirectoryPage: NextPage = () => {
+const CompanyDirectoryPage: NextPage = () => {
   const [data, setData] = useState<null | any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [getCountries] = adminAPI.useLazyGetAllCountriesQuery();
-  const [getCities] = adminAPI.useLazyGetAllCitiesQuery();
-  const [getAddressesTypes] = adminAPI.useLazyGetAddressesTypesQuery();
+  const [getBusinessTypes] = adminAPI.useLazyGetCompaniesBusinessTypesQuery();
+  const [getLegalForms] = adminAPI.useLazyGetCompaniesLegalFormsQuery();
 
   useEffect(() => {
-    Promise.all([getCountries(''), getCities(''), getAddressesTypes('')]).then(([countries, cities, addressesTypes]) => {
+    Promise.all([getBusinessTypes(''), getLegalForms('')]).then(([businessTypes, legalForms]) => {
       setData(directoryDataDto([
-        { values: countries.data, fetchParams: { type: 'country', route: 'address' }, label: 'Country' },
-        { values: cities.data, fetchParams: { type: 'city', route: 'address' }, label: 'City' },
-        { values: addressesTypes.data, fetchParams: { type: 'type', route: 'address' }, label: 'Address' },
+        { values: businessTypes.data, fetchParams: { type: 'type', route: 'business-type' }, label: 'Business' },
+        { values: legalForms.data, fetchParams: { type: 'type', route: 'legal-form' }, label: 'Legal form' },
       ]));
     })
       .then(() => setIsLoading(false))
       .catch((err) => {
         throw new Error(err);
       });
-  }, [getAddressesTypes, getCountries, getCities]);
+  }, [getBusinessTypes, getLegalForms]);
 
   console.log(data); // ------------------------
 
@@ -46,4 +44,4 @@ const AddressesDirectoryPage: NextPage = () => {
   );
 };
 
-export default withAuthLayout(AddressesDirectoryPage);
+export default withAuthLayout(CompanyDirectoryPage);

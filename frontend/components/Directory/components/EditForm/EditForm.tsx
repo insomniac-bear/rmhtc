@@ -1,47 +1,51 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { adminAPI } from '../../../../services/adminService';
 import styles from './EditForm.module.css';
 import { IEditForm } from './EditForm.props';
 
 type FormData = {
-  item: string;
+  itemValue: string;
 };
 
 export const EditForm: FC<IEditForm> = ({
-  isFormHidden, label, onAdd, className, ...props
+  isFormHidden, formType, item, hideForm, fetchParams, className, ...props
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isBtnVisible, setIsBtnVisible] = useState(false);
   const { handleSubmit, register } = useForm<FormData>({
     defaultValues: {
-      item: label,
+      itemValue: item?.value,
     },
   });
+  const [patchItem] = adminAPI.usePatchDirectoryItemMutation();
+  const [postItem] = adminAPI.usePostNewDirectoryItemMutation();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 0 && e.target.value !== label) {
-      setIsVisible(true);
+    if (e.target.value.length > 0) {
+      setIsBtnVisible(true);
     } else {
-      setIsVisible(false);
+      setIsBtnVisible(false);
     }
   };
 
-  const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsVisible(false);
-    if (label) {
-      e.target.value = label;
-    }
-    if (!label) {
-      e.target.value = '';
-    }
-    if (onAdd) {
-      onAdd();
-    }
-  };
+  // const handleBlur = () => {
+  //   setIsVisible(false);
+  //   if (onAdd) {
+  //     onAdd();
+  //   }
+  // };
   const submitFormHandler = (data: FormData) => {
-    data.item.toLowerCase();
-    console.log(data);
-    if (onAdd) {
-      onAdd();
+    const value = data.itemValue;
+    if (formType === 'patch') {
+      patchItem({
+        route: fetchParams.route, type: fetchParams.type, uuid: item.uuid, value,
+      });
+    }
+    if (formType === 'add') {
+      postItem({
+        route: fetchParams.route, type: fetchParams.type, value,
+      });
     }
   };
 
@@ -51,13 +55,13 @@ export const EditForm: FC<IEditForm> = ({
         type="text"
         className={styles.form__input}
         autoFocus={isFormHidden}
-        placeholder={!label ? '+ New item' : ''}
-        {...register('item', {
+        placeholder={formType === 'add' ? '+ New item' : ''}
+        {...register('itemValue', {
           onChange(e) { handleChange(e); },
-          onBlur(e) { handleBlur(e); },
+          // onBlur() { handleBlur(); },
         })}
       />
-      {isVisible && <button type="submit" className={styles.form__submitBtn}>Add</button>}
+      {isBtnVisible && <button type="submit" className={styles.form__submitBtn}>Add</button>}
     </form>
   );
 };
