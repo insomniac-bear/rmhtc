@@ -13,16 +13,18 @@
 }
 
 .form__input {
+	background-color: transparent;
 	composes: text;
 	height: 28px;
 	width: 100%;
 	border: none;
-	padding: 0 0 0 10px;
+	padding: 0 40px 0 10px;
 }
 
 .form__input:focus {
-	outline-color: #000;
-	outline-style: solid;
+	border: 1px solid #000;
+	border-radius: 5px;
+	outline: none;
 }
 
 .form__input::placeholder {

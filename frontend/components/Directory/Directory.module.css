@@ -9,6 +9,8 @@
 
 .directory {
   max-width: 298px;
+	height: 420px;
+	overflow-y: auto;
   width: 100%;
   background-color: var(--grey-100);
   display: flex;

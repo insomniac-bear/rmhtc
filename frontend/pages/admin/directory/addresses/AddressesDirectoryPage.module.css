@@ -1,12 +1,18 @@
-.content__list {
+.container {
+	box-sizing: border-box;
+	padding: 117px 60px 0;
+	display: flex;
+	max-width: 1065px;
+}
+
+.list {
 	display: grid;
 	align-content: start;
-
 	width: 100%;
 	margin: 0;
 	padding: 0;
 
 	list-style-type: none;
-	gap: 40px;
+	gap: 25px;
 	grid-template-columns: repeat(auto-fill, minmax(298px, 1fr));
 }
