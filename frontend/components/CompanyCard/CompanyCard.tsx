@@ -22,16 +22,12 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const { user } = useAppSelector((store) => store.user);
   const { uuid } = router.query;
   const { data: response, isLoading } = adminAPI.useGetCurrentCompanyQuery(uuid, { skip: uuid === undefined });
+  const [approveCompany] = adminAPI.useApproveCompanyMutation();
   const headerData = response && headerDataDto(response.company);
   const contactsData = response && contactsIfoDataDto(response.company);
-  console.log(response);
-  
-  const handleApprove = () => {
-    console.log('Approved!');
-  };
 
-  const handleReject = () => {
-    console.log('Rejected!');
+  const handleApprove = () => {
+    approveCompany({ uuid });
   };
 
   useEffect(() => {
@@ -59,7 +55,7 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
             </Link>
             <Link href={`/admin/moderation/company/${uuid}/?modal=reject`}>
               <a>
-                <Button className={styles.company__button} onClick={handleReject} type="button" appearance="ghost">
+                <Button className={styles.company__button} type="button" appearance="ghost">
                   Reject
                 </Button>
               </a>

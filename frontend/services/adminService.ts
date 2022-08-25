@@ -16,14 +16,23 @@ export const adminAPI = apiService.injectEndpoints({
     }),
     rejectCompany: build.mutation<any, any>({
       query: ({ uuid, reason }) => ({
-        url: '/api/v1/companies/moderate/decline',
+        url: `/api/v1/companies/moderate/change?uuid=${uuid}`,
         method: 'PATCH',
         credentials: 'include',
         body: {
+          status: 'failed',
           reason,
         },
-        params: {
-          uuid,
+      }),
+    }),
+    approveCompany: build.mutation<any, any>({
+      query: ({ uuid }) => ({
+        url: `/api/v1/companies/moderate/change?uuid=${uuid}`,
+        method: 'PATCH',
+        credentials: 'include',
+        body: {
+          status: 'success',
+          reason: '',
         },
       }),
     }),
