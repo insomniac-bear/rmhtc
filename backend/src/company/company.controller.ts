@@ -188,11 +188,15 @@ export class CompanyController {
   @Roles('ADMINISTRATOR')
   @UseGuards(RolesGuard)
   @Get('/moderate')
-  getCompaniesForModerate(@Req() req, @Res({ passthrough: true }) res) {
-    return this.companiesService.getCompaniesForModerate(req.user, res);
+  getCompaniesForModerate(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Query() query
+  ) {
+    return this.companiesService.getCompaniesForModerate(req.user, res, query);
   }
 
-  @ApiOperation({ summary: 'Отклонение компании с модерации' })
+  @ApiOperation({ summary: 'Изменение статуса модерации компании' })
   @ApiResponse({ status: 200 })
   @ApiParam({
     name: 'Company uuid',
@@ -201,19 +205,14 @@ export class CompanyController {
   @UseGuards(JwtAuthGuard)
   @Roles('ADMINISTRATOR')
   @UseGuards(RolesGuard)
-  @Patch('/moderate/decline')
-  declineCompanyFromModerate(
+  @Patch('/moderate/change')
+  moderateCompany(
     @Body() data,
     @Query() query,
     @Req() req,
     @Res({ passthrough: true }) res
   ) {
-    return this.companiesService.declineCompanyFromModerate(
-      req.user,
-      res,
-      data,
-      query
-    );
+    return this.companiesService.moderateCompany(req.user, res, data, query);
   }
 
   @ApiOperation({ summary: 'Получение компании для модерации' })
@@ -247,7 +246,7 @@ export class CompanyController {
     type: LegalFormDocDescription,
   })
   @Get('/legal-forms')
-  getLegalFroms() {
+  getLegalForms() {
     return this.companiesService.getLegalForms();
   }
 

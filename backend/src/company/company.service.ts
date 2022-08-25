@@ -269,16 +269,21 @@ export class CompanyService {
     };
   }
 
-  async getCompaniesForModerate(accessTokenPayload: JwtPayload, res) {
+  async getCompaniesForModerate(accessTokenPayload: JwtPayload, res, query) {
     const { sub, role, email } = accessTokenPayload;
 
-    const companies = await this.companyEntity.findAll({
+    const limit = 6;
+    const page = query.page ? query.page : 0;
+
+    const companies = await this.companyEntity.findAndCountAll({
       where: {
         moderated: {
           [Op.or]: ['pending', 'process'],
         },
       },
       include: allFields,
+      offset: page * limit,
+      limit,
     });
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -296,7 +301,10 @@ export class CompanyService {
     return {
       status: 'success',
       accessToken,
-      companies: companies.map((company) => createCompanyDto(company, true)),
+      companies: companies.rows.map((company) => {
+        return createCompanyDto(company, true);
+      }),
+      count: companies.count,
     };
   }
 
@@ -372,6 +380,51 @@ export class CompanyService {
 
     await company.update({
       moderated: 'failed',
+    });
+
+    await this.moderationService.updateModerationNote(
+      company.moderationUuid,
+      data.reason,
+      sub
+    );
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    return {
+      status: 'success',
+      accessToken,
+    };
+  }
+
+  async moderateCompany(
+    accessTokenPayload: JwtPayload,
+    res,
+    data: {
+      status: 'failed' | 'success';
+      reason: string;
+    },
+    query
+  ) {
+    const { sub, role, email } = accessTokenPayload;
+
+    const company = await this.companyEntity.findByPk(query.uuid);
+
+    if (!company) {
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+    }
+
+    await company.update({
+      moderated: data.status,
     });
 
     await this.moderationService.updateModerationNote(
