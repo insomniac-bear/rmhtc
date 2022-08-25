@@ -14,19 +14,19 @@ export interface ICompanyAddress {
   uuid: string;
 }
 export interface ICompanyData {
-  addresses: ICompanyAddress | [];
+  addresses: ICompanyAddress[] | [];
   budgetOfYear: string | null;
   businessType: string | null;
   ceo: string | null;
   ceoDocUrl: string | null;
-  contacts: ICompanyContact | [];
+  contacts: ICompanyContact[] | [];
   createdAt: string | null;
   currencyOfBudget: string | null;
   description: string | null;
   issuingAuthority: string | null;
   legalForm: string | null;
   logoUrl: string | null;
-  messengers: ICompanyContact | [];
+  messengers: ICompanyContact[] | [];
   moderated: string | null;
   moderatedAuthorUuid: string | null;
   moderatedReason: string | null;

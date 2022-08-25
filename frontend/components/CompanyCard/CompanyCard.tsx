@@ -24,7 +24,8 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   const { data: response, isLoading } = adminAPI.useGetCurrentCompanyQuery(uuid, { skip: uuid === undefined });
   const headerData = response && headerDataDto(response.company);
   const contactsData = response && contactsIfoDataDto(response.company);
-
+  console.log(response);
+  
   const handleApprove = () => {
     console.log('Approved!');
   };

@@ -14,6 +14,7 @@ export const basicInfoDataDto = (data: ICompanyData) => ({
   ceo: data?.ceo,
   businessType: data?.businessType,
   ceoDocUrl: data?.ceoDocUrl,
+  presentationUrl: data?.presentationUrl,
 });
 
 export const legalInfoDataDto = (data: ICompanyData) => ({

@@ -26,6 +26,7 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
     budgetOfYear: 'Annual turner',
     yearOfFoundation: 'Year of foundation of the company',
     regDocUrl: 'Registration document',
+    presentationUrl: 'Presentation',
     [data?.regNumName || '']: `${data?.regNumName}`, // Не уверен что это хорошее решение
   };
 
