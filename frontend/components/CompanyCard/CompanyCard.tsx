@@ -31,7 +31,7 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
   };
 
   useEffect(() => {
-    if (response && user.uuid !== response.company?.moderatedAuthorUuid) {
+    if (response && response.company?.moderatedAuthorUuid && user.uuid !== response.company?.moderatedAuthorUuid) {
       router.push({ pathname: '/admin/moderation' });
     }
   }, [response, router, user.uuid]);

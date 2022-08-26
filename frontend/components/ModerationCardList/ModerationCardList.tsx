@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './ModerationCardList.module.css';
 import { IModerationCardList } from './ModerationCardList.props';
@@ -10,13 +10,18 @@ import { Loader } from '../Loader/Loader';
 import { RadioFilter } from '../RadioFilter/RadioFilter';
 
 export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ...props }) => {
-  const { data: companiesData, isLoading } = adminAPI.useGetModerateCompaniesQuery('');
+  const [getCompanies, { isLoading, data }] = adminAPI.useLazyGetModerateCompaniesQuery();
 
+  useEffect(() => {
+    getCompanies('');
+  }, []);
+  console.log(data);
+  
   return (
     <section className={styles.moderation}>
       <ul className={`${styles.moderation_cardList} ${className}`} {...props}>
         {isLoading && <Loader className={styles.moderation__loader} />}
-        {companiesData && !isLoading && companiesData.companies.map((item: any) => (
+        {data && !isLoading && data.companies.map((item: any) => (
           <li key={item.uuid}>
             <Link href={`/admin/moderation/company/${item.uuid}`} passHref>
               <a>
