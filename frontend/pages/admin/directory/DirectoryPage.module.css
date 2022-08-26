@@ -1,13 +1,15 @@
 .container {
-	box-sizing: border-box;
-	padding: 117px 60px 0;
 	display: flex;
+
+	box-sizing: border-box;
 	max-width: 1065px;
+	padding: 117px 60px 0;
 }
 
 .list {
 	display: grid;
 	align-content: start;
+
 	width: 100%;
 	margin: 0;
 	padding: 0;
