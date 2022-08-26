@@ -288,6 +288,7 @@ export class CompanyService {
         },
       },
       include: allFields,
+      distinct: true,
       offset: page * limit,
       limit,
     });
@@ -483,6 +484,7 @@ export class CompanyService {
         moderated: 'success',
       },
       include: allFields,
+      distinct: true,
       offset: page * limit,
       limit,
     });
