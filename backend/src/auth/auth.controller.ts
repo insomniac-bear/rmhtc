@@ -17,13 +17,14 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { RegistrationResponseDto } from './dto';
+import { RegistrationResponseDto, RegistrationUserDto } from './dto';
 import { AuthService } from './auth.service';
 import { UserDataDto, UserDto } from 'src/users/dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Response } from 'express';
 import { Roles } from './roles-auth.decorator';
 import { RolesGuard } from './roles.guard';
+import { ConfirmEmailDto, ResponseConfirmEmail } from './dto/confirm-email.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -36,20 +37,20 @@ export class AuthController {
   @Post('/registration')
   registration(
     @Body()
-    email: string
+    email: RegistrationUserDto
   ) {
     return this.authService.registration(email);
   }
 
   @ApiOperation({ summary: 'Подтверждение email' })
-  @ApiResponse({ status: 200, type: UserDto })
+  @ApiResponse({ status: 200, type: ResponseConfirmEmail })
   @ApiQuery({
     name: 'emailToken',
     example: '?emailToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
   })
   @HttpCode(HttpStatus.OK)
   @Get('/email-verify')
-  confirmEmail(@Query() query) {
+  confirmEmail(@Query() query: ConfirmEmailDto) {
     return this.authService.confirmEmail(query);
   }
 
