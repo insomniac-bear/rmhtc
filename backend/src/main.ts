@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
@@ -32,6 +32,7 @@ async function bootstrap() {
   //   credentials: true,
   // });
   app.use(cookieParser());
+  app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
     .setTitle('ITC')

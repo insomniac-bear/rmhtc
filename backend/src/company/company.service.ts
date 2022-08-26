@@ -279,7 +279,7 @@ export class CompanyService {
     const { sub, role, email } = accessTokenPayload;
 
     const limit = 6;
-    const page = query.page ? query.page : 0;
+    const page = query.page ? query.page - 1 : 0;
 
     const companies = await this.companyEntity.findAndCountAll({
       where: {
@@ -477,7 +477,7 @@ export class CompanyService {
    */
   async getApproveCompanies(query) {
     const limit = 10;
-    const page = query.page ? query.page : 0;
+    const page = query.page ? query.page - 1 : 0;
 
     const companies = await this.companyEntity.findAndCountAll({
       where: {

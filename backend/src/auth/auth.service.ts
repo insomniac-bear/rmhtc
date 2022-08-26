@@ -21,6 +21,7 @@ import {
   REFRESH_TOKEN_REPOSITORY,
   USER_REPOSITORY,
 } from 'src/core/constants';
+import { ConfirmEmailDto } from './dto/confirm-email.dto';
 
 @Injectable()
 export class AuthService {
@@ -64,7 +65,7 @@ export class AuthService {
     };
   }
 
-  async confirmEmail(query: Tokens) {
+  async confirmEmail(query: ConfirmEmailDto) {
     const { sub: userUuid } = await this.jwtService.verify(query.emailToken, {
       secret: process.env.JWT_MAIL_SECRET,
     });

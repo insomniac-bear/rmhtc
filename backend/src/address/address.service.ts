@@ -203,7 +203,7 @@ export class AddressService {
       );
     }
 
-    await existValue.update({ value });
+    await candidate.update({ value });
     const types = await this.addressTypeEntity.findAll();
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
