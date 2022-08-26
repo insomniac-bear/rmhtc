@@ -291,7 +291,7 @@ export class AddressService {
       );
     }
 
-    await existValue.update({ value });
+    await candidate.update({ value });
     const countries = await this.countryEntity.findAll();
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -379,8 +379,8 @@ export class AddressService {
       );
     }
 
-    await existValue.update({ value });
-    const cities = await this.countryEntity.findAll();
+    await candidate.update({ value });
+    const cities = await this.cityEntity.findAll();
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
       sub,
