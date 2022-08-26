@@ -24,27 +24,27 @@ const AddressesDirectoryPage: NextPage = () => {
 
     setCitiesDirectory({ values: citiesRes, fetchParams: { type: 'city', route: 'address', label: 'cities' }, uuid: nanoid() });
 
-    setAddressDirectory({ values: addressRes, fetchParams: { type: 'type', route: 'address', label: 'type' }, uuid: nanoid() });
+    setAddressDirectory({ values: addressRes, fetchParams: { type: 'type', route: 'address', label: 'types' }, uuid: nanoid() });
   }, [countriesRes, citiesRes, addressRes]);
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
         <li>
           {isCountriesLoading && <Loader />}
-          {!isCountriesLoading && countriesDirectory.values && (
+          {!isCountriesLoading && countriesDirectory?.values && (
             <Directory directory={countriesDirectory} setDirectory={setCountriesDirectory} label="Country" />
           )}
         </li>
         <li>
           {isCitiesLoading && <Loader />}
-          {!isCitiesLoading && citiesDirectory.values && (
-            <Directory directory={citiesDirectory} setDirectory={setCountriesDirectory} label="City" />
+          {!isCitiesLoading && citiesDirectory?.values && (
+            <Directory directory={citiesDirectory} setDirectory={setCitiesDirectory} label="City" />
           )}
         </li>
         <li>
           {isAddressLoading && <Loader />}
-          {!isAddressLoading && addressDirectory.values && (
-            <Directory directory={addressDirectory} setDirectory={setCountriesDirectory} label="Address" />
+          {!isAddressLoading && addressDirectory?.values && (
+            <Directory directory={addressDirectory} setDirectory={setAddressDirectory} label="Address" />
           )}
         </li>
       </ul>

@@ -1,44 +1,41 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
 import { adminAPI } from '../../../../services/adminService';
 import { Loader } from '../../../../components/Loader/Loader';
-import { directoryDataDto } from '../../../../utils/directoryDataDto';
 
 const CompanyDirectoryPage: NextPage = () => {
-  const [data, setData] = useState<null | any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [businessTypesDirectory, setBusinessTypesDirectory] = useState<null | any>(null);
+  const [legalFormsDirectory, setLegalFormsDirectory] = useState<null | any>(null);
 
-  const [getBusinessTypes] = adminAPI.useLazyGetCompaniesBusinessTypesQuery();
-  const [getLegalForms] = adminAPI.useLazyGetCompaniesLegalFormsQuery();
+  const { data: businessTypesRes, isLoading: isBusinessTypesLoading } = adminAPI.useGetCompaniesBusinessTypesQuery('');
+  const { data: legalFormsRes, isLoading: isLegalFormsLoading } = adminAPI.useGetCompaniesLegalFormsQuery('');
 
   useEffect(() => {
-    Promise.all([getBusinessTypes(''), getLegalForms('')]).then(([businessTypes, legalForms]) => {
-      setData(directoryDataDto([
-        { values: businessTypes.data, fetchParams: { type: 'type', route: 'business-type' }, label: 'Business' },
-        { values: legalForms.data, fetchParams: { type: 'type', route: 'legal-form' }, label: 'Legal form' },
-      ]));
-    })
-      .then(() => setIsLoading(false))
-      .catch((err) => {
-        throw new Error(err);
-      });
-  }, [getBusinessTypes, getLegalForms]);
+    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type', label: 'type' }, uuid: nanoid() });
 
-  console.log(data); // ------------------------
+    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form', label: 'type' }, uuid: nanoid() });
+  }, [businessTypesRes, legalFormsRes]);
 
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
-        {isLoading && !data && <Loader />}
-        {data && data.map((obj: any) => (
-          <li key={obj.id}>
-            <Directory directory={obj} />
-          </li>
-        ))}
+        <li>
+          {isBusinessTypesLoading && <Loader />}
+          {!isBusinessTypesLoading && businessTypesDirectory?.values && (
+            <Directory directory={businessTypesDirectory} setDirectory={setBusinessTypesDirectory} label="Bussines" />
+          )}
+        </li>
+        <li>
+          {isLegalFormsLoading && <Loader />}
+          {!isLegalFormsLoading && legalFormsDirectory?.values && (
+            <Directory directory={legalFormsDirectory} setDirectory={setLegalFormsDirectory} label="Legal form" />
+          )}
+        </li>
       </ul>
     </div>
   );

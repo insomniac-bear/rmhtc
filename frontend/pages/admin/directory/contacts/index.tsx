@@ -1,44 +1,41 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
 import { adminAPI } from '../../../../services/adminService';
 import { Loader } from '../../../../components/Loader/Loader';
-import { directoryDataDto } from '../../../../utils/directoryDataDto';
 
 const ContactsDirectoryPage: NextPage = () => {
-  const [data, setData] = useState<null | any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [contactsDirectory, setContactsDirectory] = useState<null | any>(null);
+  const [messengersDirectory, setMessengersDirectory] = useState<null | any>(null);
 
-  const [getContacts] = adminAPI.useLazyGetAllContactsQuery();
-  const [getMessengers] = adminAPI.useLazyGetAllMessengersQuery();
+  const { data: contactsRes, isLoading: isContactsLoading } = adminAPI.useGetAllContactsQuery('');
+  const { data: messengersRes, isLoading: isMessengersLoading } = adminAPI.useGetAllMessengersQuery('');
 
   useEffect(() => {
-    Promise.all([getContacts(''), getMessengers('')]).then(([contacts, messengers]) => {
-      setData(directoryDataDto([
-        { values: contacts.data, fetchParams: { type: 'type', route: 'contacts' }, label: 'Contact' },
-        { values: messengers.data, fetchParams: { type: 'type', route: 'messengers' }, label: 'Messenger' },
-      ]));
-    })
-      .then(() => setIsLoading(false))
-      .catch((err) => {
-        throw new Error(err);
-      });
-  }, [getContacts, getMessengers]);
+    setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts', label: 'types' }, uuid: nanoid() });
 
-  console.log(data); // ------------------------
+    setMessengersDirectory({ values: messengersRes, fetchParams: { type: 'type', route: 'messengers', label: 'types' }, uuid: nanoid() });
+  }, [contactsRes, messengersRes]);
 
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
-        {isLoading && !data && <Loader />}
-        {data && data.map((obj: any) => (
-          <li key={obj.id}>
-            <Directory directory={obj} />
-          </li>
-        ))}
+        <li>
+          {isContactsLoading && <Loader />}
+          {!isContactsLoading && contactsDirectory?.values && (
+            <Directory directory={contactsDirectory} setDirectory={setContactsDirectory} label="Contact" />
+          )}
+        </li>
+        <li>
+          {isMessengersLoading && <Loader />}
+          {!isMessengersLoading && messengersDirectory?.values && (
+            <Directory directory={messengersDirectory} setDirectory={setMessengersDirectory} label="Messenger" />
+          )}
+        </li>
       </ul>
     </div>
   );
