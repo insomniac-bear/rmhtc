@@ -14,9 +14,13 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
 
   useEffect(() => {
     getCompanies('');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(data);
-  
+
+  const goToPage = (num: number | string) => {
+    getCompanies(num);
+  };
+
   return (
     <section className={styles.moderation}>
       <ul className={`${styles.moderation_cardList} ${className}`} {...props}>
@@ -31,14 +35,14 @@ export const ModerationCardList: FC<IModerationCardList> = ({ className = '', ..
           </li>
         ))}
       </ul>
-      <Pagination
-        className={styles.moderation__pagination}
-        currentPage={1}
-        pageNumbers={[1]}
-        goToPage={() => 1}
-        goForward={() => 1}
-        goBack={() => 1}
-      />
+      {data && data?.count > data.companies.length && (
+        <Pagination
+          className={styles.moderation__pagination}
+          count={data.count}
+          offset={data.companies.length}
+          goToPage={goToPage}
+        />
+      )}
       <RadioFilter className={styles.moderation__filter} filters={filters} name="objectType" label="Object type" />
     </section>
   );

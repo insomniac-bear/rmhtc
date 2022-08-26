@@ -3,8 +3,8 @@ import { apiService } from './apiService';
 export const adminAPI = apiService.injectEndpoints({
   endpoints: (build) => ({
     getModerateCompanies: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/companies/moderate',
+      query: (page) => ({
+        url: `/api/v1/companies/moderate${page ? `?page=${page}` : ''}`,
         credentials: 'include',
       }),
     }),
