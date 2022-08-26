@@ -19,7 +19,14 @@ type FormData = {
 };
 
 export const EditForm: FC<IEditForm> = ({
-  isFormHidden, formType, item, hideForm, fetchParams, className, ...props
+  isFormHidden,
+  formType,
+  item,
+  hideForm,
+  fetchParams,
+  setDirectory,
+  className,
+  ...props
 }) => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isBtnsVisible, setIsBtnsVisible] = useState(true);
@@ -55,16 +62,51 @@ export const EditForm: FC<IEditForm> = ({
     }
   };
 
-  const submitFormHandler = (data: FormData) => {
+  const submitFormHandler = async (data: FormData) => {
     const value = data.itemValue;
+
     if (formType === 'patch') {
       patchItem({
         route: fetchParams.route, type: fetchParams.type, uuid: item.uuid, value,
+      }).then((res: any) => {
+        console.log(res);
+        if (res.data.status === 'success') {
+          setDirectory((prevState: any) => ({
+            ...prevState,
+            values: res.data[fetchParams.label],
+          }));
+        }
+      }).catch((err) => {
+        console.log(err);
+      }).finally(() => {
+        if (hideForm) {
+          hideForm();
+        } else {
+          setIsBtnsVisible(true);
+          formRef?.current?.reset();
+        }
       });
     }
+
     if (formType === 'add') {
       postItem({
         route: fetchParams.route, type: fetchParams.type, value,
+      }).then((res: any) => {
+        if (res.data.status === 'success') {
+          setDirectory((prevState: any) => ({
+            ...prevState,
+            values: res.data[fetchParams.label],
+          }));
+        }
+      }).catch((err) => {
+        console.log(err);
+      }).finally(() => {
+        if (hideForm) {
+          hideForm();
+        } else {
+          setIsBtnsVisible(true);
+          formRef?.current?.reset();
+        }
       });
     }
   };
