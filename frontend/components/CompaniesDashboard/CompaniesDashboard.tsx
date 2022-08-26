@@ -8,25 +8,21 @@ import { Container } from '../Container/Container';
 import { Title } from '../Title/Title';
 import styles from './CompaniesDashboard.module.css';
 import { ICompaniesDashboardProps } from './CompaniesDashboard.props';
+import { Loader } from '../Loader/Loader';
 
 export const CompaniesDashboard: FC<ICompaniesDashboardProps> = ({ className, ...props }) => {
   const companies = useAppSelector((store) => store.user.userCompanies);
   const userCompaniesCounts = useAppSelector((store) => store.user.user.counts);
   const dispatch = useAppDispatch();
 
-  const [getUserCompanies] = userAPI.useGetUserCompaniesMutation();
+  const { data: userCompaniesQueryData, isLoading, refetch } = userAPI.useGetUserCompaniesQuery('');
 
   useEffect(() => {
-    const getCompanies = async () => {
-      try {
-        const response: any = await getUserCompanies('');
-        dispatch(setCompanies(response.data.companies));
-      } catch (error: any) {
-        throw new Error(error.message);
-      }
-    };
-    getCompanies();
-  }, [dispatch, getUserCompanies]);
+    refetch();
+    if (userCompaniesQueryData) dispatch(setCompanies(userCompaniesQueryData.companies));
+  }, [dispatch, userCompaniesQueryData, refetch]);
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className={`${styles.companiesDashboard} ${className}`} {...props}>

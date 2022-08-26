@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -29,6 +30,7 @@ const Home: NextPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const accessToken = Cookies.get('accessToken');
     async function checkToken() {
       try {
         const response: any = await checkAuth('');
@@ -44,7 +46,7 @@ const Home: NextPage = () => {
         console.log(error);
       }
     }
-    checkToken();
+    if (accessToken) checkToken();
   }, [checkAuth, dispatch]);
 
   return (

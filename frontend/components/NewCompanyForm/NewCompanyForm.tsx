@@ -52,15 +52,17 @@ type TFormData = {
   legalForm: string;
   employees: string;
   annualTurnover: string;
-  year: number;
+  year: string;
   registrationDocument: File;
   registrationNumber: TRegistrationNumber;
   registrationAuthority: string;
+  presentation: File;
 };
 
-export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, className, ...props }) => {
+export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, ...props }) => {
   const router = useRouter();
-  const [updateCompany] = userAPI.useEditCompanyMutation();
+  const [moderateCompany] = userAPI.useEditCompanyMutation();
+  const [saveCompany] = userAPI.useSaveCompanyDataMutation();
 
   const { data: legalFormsQueryData, isLoading: isGetLegalFormsLoading } = userAPI.useGetLegalFormsQuery('');
   const { data: businessTypesQueryData } = userAPI.useGetBusinessTypesQuery('');
@@ -81,9 +83,18 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
   };
 
   const legalFormsOptions = getOptionsFromQueryData(legalFormsQueryData);
+  const legalFormDefaultOption = legalFormsOptions.find((option: any) => option.label === company.legalForm);
+  console.log(legalFormDefaultOption);
+
   const businessTypesOptions = getOptionsFromQueryData(businessTypesQueryData);
+  const businessTypeDefaultOption = businessTypesOptions.find((option: any) => option.label === company.businessType);
+
   const countriesOptions = getOptionsFromQueryData(countriesQueryData);
+  const countryDefaultOption = countriesOptions.find((option: any) => option.label === company.addresses[0].country);
+
   const citiesOptions = getOptionsFromQueryData(citiesQueryData);
+  const cityDefaultOption = citiesOptions.find((option: any) => option.label === company.addresses[0].city);
+
   const messengersOptions = getOptionsFromQueryData(messengersQueryData);
   const contactsOptions = getOptionsFromQueryData(contactsQueryData);
 
@@ -91,6 +102,17 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
     messengers: [{}],
     contacts: [{}],
     name: company.name,
+    description: company.description,
+    link: company.website,
+    head: company.ceo,
+    year: company.yearOfFoundation,
+    registrationAuthority: company.issuingAuthority,
+    legalAddress: {
+      street: company.addresses[0].street,
+      house: company.addresses[0].buildNum,
+      postCode: company.addresses[0].postCode,
+      office: company.addresses[0].roomNum,
+    },
   };
 
   const {
@@ -98,6 +120,10 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
   } = useForm<TFormData>({
     defaultValues,
   });
+
+  // useEffect(() => {
+  //   setValue('employees', { value: '100+', label: 'More 100' });
+  // }, []);
 
   const options = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -111,16 +137,22 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
     { value: '100+', label: 'More 100' },
   ];
 
+  const defaultEmployeesOption = employeesOptions.find((option) => option.value === company.qcEmployees);
+
   const annualTurnoverOptions = [
     { value: '0 - 100000', label: 'Up to 100000 million' },
     { value: '100000 - 1000000', label: 'From 100000 to 1 million' },
     { value: '1000000+', label: 'More 1 million' },
   ];
 
+  const defaultAnnualTurnoverOption = annualTurnoverOptions.find((option) => option.value === company.budgetOfYear);
+
   const regNumberOptions = [
     { value: 'inn', label: 'INN' },
     { value: 'ogrn', label: 'OGRN' },
   ];
+
+  const defaultRegNumberOption = regNumberOptions.find((option) => option.value === company.regNumName);
 
   const customSelectStyles: any = {
     valueContainer: (styles: any) => ({
@@ -150,7 +182,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
     }),
   };
 
-  const submitFormHandler = async (data: TFormData) => {
+  const prepareFormData = (data: TFormData) => {
     const legalAddress = addressesTypesQueryData.find((el: any) => el.value === 'Legal');
     const preparedFormData = {
       uuid: router.query.uuid,
@@ -183,10 +215,26 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
           roomNum: data.legalAddress.office,
         },
       ],
+      presentation: data.presentation,
     };
 
+    return preparedFormData;
+  };
+
+  const submitFormHandler = async (data: TFormData) => {
+    const preparedDataToSend = prepareFormData(data);
     try {
-      await updateCompany(preparedFormData);
+      await moderateCompany(preparedDataToSend);
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
+  const saveFormHandler = async () => {
+    const values = getValues();
+    const preparedDataToSend = prepareFormData(values);
+    try {
+      await saveCompany(preparedDataToSend);
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -246,12 +294,22 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             // required: 'Document to confirm is required.',
           })}
         />
+        <p className={styles.newCompanyForm__caption}>Presentation of company</p>
+        <FileInput
+          placeholder="PDF(no more than 100 Mb)"
+          errors={errors.presentation}
+          accept=".pdf"
+          {...register('presentation', {
+            // required: 'Document to confirm is required.',
+          })}
+        />
         <p className={styles.newCompanyForm__caption}>Company type</p>
         <Controller
           control={control}
           render={({ field: { value, onChange } }) => (
             <div className={styles.newCompanyForm__select}>
               <Select
+                defaultValue={businessTypeDefaultOption}
                 instanceId="selectCompanyTypeBox"
                 id="selectCompanyTypeBox"
                 placeholder="-"
@@ -289,6 +347,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             name="legalAddress.country"
             render={({ field: { value, onChange } }) => (
               <Select
+                defaultValue={countryDefaultOption}
                 instanceId="selectLegalAddressCountryBox"
                 id="selectLegalAddressCountryBox"
                 placeholder="Countries"
@@ -305,6 +364,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             name="legalAddress.city"
             render={({ field: { value, onChange } }) => (
               <Select
+                defaultValue={cityDefaultOption}
                 instanceId="selectLegalAddressCityBox"
                 id="selectLegalAddressCityBox"
                 placeholder="City"
@@ -385,6 +445,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
           name="legalForm"
           render={({ field: { value, onChange } }) => (
             <Select
+              defaultValue={legalFormDefaultOption}
               instanceId="selectLegalFormBox"
               id="selectLegalFormBox"
               placeholder="Choose one legal form"
@@ -402,6 +463,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
           name="employees"
           render={({ field: { value, onChange } }) => (
             <Select
+              defaultValue={defaultEmployeesOption}
               instanceId="selectEmployeesBox"
               id="selectEmployeesBox"
               placeholder="-"
@@ -419,6 +481,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
           name="annualTurnover"
           render={({ field: { value, onChange } }) => (
             <Select
+              defaultValue={defaultAnnualTurnoverOption}
               instanceId="selectAnnualTurnoverBox"
               id="selectAnnualTurnoverBox"
               placeholder="-"
@@ -456,6 +519,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
             name="registrationNumber.name"
             render={({ field: { value, onChange } }) => (
               <Select
+                defaultValue={defaultRegNumberOption}
                 instanceId="selectRegistrationNumberTypeBox"
                 id="selectRegistrationNumberTypeBox"
                 placeholder="OGRN"
@@ -487,7 +551,8 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company = {}, classNa
       </fieldset>
       <div className={styles.newCompanyForm__buttons}>
         <Button type="button">Cancel</Button>
-        <Button type="submit" appearance="primary">Save Data</Button>
+        <Button onClick={() => saveFormHandler()} type="button" appearance="primary">Save Data</Button>
+        <Button type="submit" appearance="primary">Send to moderate</Button>
       </div>
     </form>
   );
