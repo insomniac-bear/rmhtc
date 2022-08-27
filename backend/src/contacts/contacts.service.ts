@@ -5,6 +5,7 @@ import {
   HttpStatus,
   forwardRef,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtPayload } from 'src/auth/types';
 import {
@@ -14,7 +15,6 @@ import {
 import { createContactTypeDto } from './dto';
 import { ContactType } from './entity/contact-type.entity';
 import { Contact } from './entity/contact.entity';
-import { IContactType } from './types/contact-type.interface';
 
 @Injectable()
 export class ContactsService {
@@ -27,7 +27,7 @@ export class ContactsService {
     private readonly authService: AuthService
   ) {}
 
-  async getAllContactTypes(): Promise<IContactType[]> {
+  async getAllContactTypes() {
     const rawContactTypes = await this.contactTypeRepository.findAll();
     const contactTypes = rawContactTypes.map((contactType) =>
       createContactTypeDto(contactType)
@@ -35,7 +35,7 @@ export class ContactsService {
     return contactTypes;
   }
 
-  async getCompanyContacts(companyUuid: string): Promise<Contact[]> {
+  async getCompanyContacts(companyUuid: string) {
     const contacts = await this.contactRepository.findAll({
       where: { companyUuid },
     });
@@ -46,7 +46,7 @@ export class ContactsService {
     contactTypeUuid: string,
     contactValue: string,
     companyUuid: string
-  ): Promise<Contact> {
+  ) {
     const typeOfContact = await this.contactTypeRepository.findByPk(
       contactTypeUuid
     );
@@ -86,13 +86,9 @@ export class ContactsService {
 
   async createContactType(
     accessTokenPayload: JwtPayload,
-    res,
+    res: Response,
     value: string
-  ): Promise<{
-    status: string;
-    accessToken: string;
-    types: IContactType[];
-  }> {
+  ) {
     const { sub, role, email } = accessTokenPayload;
 
     const candidate = await this.contactTypeRepository.findOne({
@@ -132,10 +128,10 @@ export class ContactsService {
 
   async updateContactType(
     accessTokenPayload: JwtPayload,
-    res,
+    res: Response,
     uuid: string,
     value: string
-  ): Promise<{ status: string; accessToken: string; types: IContactType[] }> {
+  ) {
     const { sub, role, email } = accessTokenPayload;
 
     const candidate = await this.contactTypeRepository.findByPk(uuid);
