@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
@@ -15,7 +16,6 @@ import {
 import { Button } from '../../../components/Button/Button';
 import { userAPI } from '../../../services/userService';
 import { Loader } from '../../../components/Loader/Loader';
-import { ICompanyData } from '../../../types';
 
 type FormData = {
   annualTurner?: string[];
@@ -37,7 +37,7 @@ const CatalogPage: NextPage = () => {
   const handleGetMore = () => {
     if (companiesData && companiesData.count > 9) {
       getCompanies(companiesData.page + 1)
-        .then((res) => setCompaniesData((prevState) => ({
+        .then((res) => setCompaniesData((prevState: any) => ({
           ...prevState,
           companies: prevState?.companies.concat(res.data.companies),
           page: prevState.page + 1,
@@ -47,7 +47,7 @@ const CatalogPage: NextPage = () => {
 
   useEffect(() => {
     getCompanies('')
-      .then((res) => setCompaniesData({...res.data, page: 1 }))
+      .then((res) => setCompaniesData({ ...res.data, page: 1 }))
       .catch((err) => {
         throw new Error(err);
       });
