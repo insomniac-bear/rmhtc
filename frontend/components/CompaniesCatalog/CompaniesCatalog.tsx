@@ -13,9 +13,7 @@ export const CompaniesCatalog: FC<ICompaniesCatalog> = ({
       {data.companies.map((item: ICompanyData) => (
         <li key={item.uuid}>
           <Link href={`/catalog/companies/company/${item.uuid}`} passHref>
-            <a>
-              <CatalogCompanyPreview company={item} />
-            </a>
+            <CatalogCompanyPreview company={item} />
           </Link>
         </li>
       ))}
