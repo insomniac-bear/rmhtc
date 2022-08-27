@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
@@ -18,14 +17,11 @@ const AddressesDirectoryPage: NextPage = () => {
   const { data: addressRes, isLoading: isAddressLoading } = adminAPI.useGetAddressesTypesQuery('');
 
   useEffect(() => {
-    setCountriesDirectory({
-      values: countriesRes, fetchParams: { type: 'country', route: 'address', label: 'countries' }, uuid: nanoid(),
-    });
-
-    setCitiesDirectory({ values: citiesRes, fetchParams: { type: 'city', route: 'address', label: 'cities' }, uuid: nanoid() });
-
-    setAddressDirectory({ values: addressRes, fetchParams: { type: 'type', route: 'address', label: 'types' }, uuid: nanoid() });
+    setCountriesDirectory({ values: countriesRes, fetchParams: { type: 'country', route: 'address', label: 'countries' } });
+    setCitiesDirectory({ values: citiesRes, fetchParams: { type: 'city', route: 'address', label: 'cities' } });
+    setAddressDirectory({ values: addressRes, fetchParams: { type: 'type', route: 'address', label: 'types' } });
   }, [countriesRes, citiesRes, addressRes]);
+
   return (
     <div className={styles.container}>
       <ul className={styles.list}>

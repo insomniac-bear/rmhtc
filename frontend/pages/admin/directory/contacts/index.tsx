@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
@@ -16,9 +15,8 @@ const ContactsDirectoryPage: NextPage = () => {
   const { data: messengersRes, isLoading: isMessengersLoading } = adminAPI.useGetAllMessengersQuery('');
 
   useEffect(() => {
-    setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts', label: 'types' }, uuid: nanoid() });
-
-    setMessengersDirectory({ values: messengersRes, fetchParams: { type: 'type', route: 'messengers', label: 'types' }, uuid: nanoid() });
+    setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts', label: 'types' } });
+    setMessengersDirectory({ values: messengersRes, fetchParams: { type: 'type', route: 'messengers', label: 'types' } });
   }, [contactsRes, messengersRes]);
 
   return (

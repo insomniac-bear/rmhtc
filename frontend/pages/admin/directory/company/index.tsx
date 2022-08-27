@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
@@ -16,9 +15,8 @@ const CompanyDirectoryPage: NextPage = () => {
   const { data: legalFormsRes, isLoading: isLegalFormsLoading } = adminAPI.useGetCompaniesLegalFormsQuery('');
 
   useEffect(() => {
-    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type', label: 'type' }, uuid: nanoid() });
-
-    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form', label: 'type' }, uuid: nanoid() });
+    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type', label: 'type' } });
+    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form', label: 'type' } });
   }, [businessTypesRes, legalFormsRes]);
 
   return (
