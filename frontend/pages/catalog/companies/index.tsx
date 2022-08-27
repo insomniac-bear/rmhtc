@@ -12,6 +12,8 @@ import {
   companyType, legalForm, annualTurner, employees, country,
 } from './catalogMockData';
 import { Button } from '../../../components/Button/Button';
+import { userAPI } from '../../../services/userService';
+import { Loader } from '../../../components/Loader/Loader';
 
 type FormData = {
   annualTurner?: string[];
@@ -23,9 +25,11 @@ type FormData = {
 
 const CatalogPage: NextPage = () => {
   const { handleSubmit, register } = useForm<FormData>();
+  const { data: companiesData, isLoading: isCompaniesLoading } = userAPI.useGetAllCompaniesQuery('');
   const submitFormHandler = (data: FormData) => {
     console.log(data);
   };
+
   return (
     <div className={styles.page}>
       <Head>
@@ -57,7 +61,8 @@ const CatalogPage: NextPage = () => {
             </ul>
           </nav>
         </div>
-        <CompaniesCatalog />
+        {isCompaniesLoading && <Loader />}
+        {!isCompaniesLoading && companiesData && <CompaniesCatalog data={companiesData.companies} />}
         <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
           <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
           <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />

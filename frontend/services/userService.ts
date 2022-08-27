@@ -137,5 +137,10 @@ export const userAPI = apiService.injectEndpoints({
         url: '/api/v1/contacts/types',
       }),
     }),
+    getAllCompanies: build.query<any, any>({
+      query: (page) => ({
+        url: `/api/v1/companies${page ? `?page=${page}` : ''}`,
+      }),
+    }),
   }),
 });
