@@ -140,9 +140,9 @@ export class UsersService {
     return transformUser;
   }
 
-  async compareUserPassword(uuid, password) {
+  async compareUserPassword(uuid: string, password: string): Promise<boolean> {
     const user = await this.userEntity.findByPk(uuid);
-    return await bcrypt.compare(password, user.password);
+    return await bcrypt.compare<boolean>(password, user.password);
   }
 
   async getUserByParam(param: string, value: string): Promise<UserDto> {
