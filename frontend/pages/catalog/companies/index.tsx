@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
 import Head from 'next/head';
@@ -14,6 +15,7 @@ import {
 import { Button } from '../../../components/Button/Button';
 import { userAPI } from '../../../services/userService';
 import { Loader } from '../../../components/Loader/Loader';
+import { ICompanyData } from '../../../types';
 
 type FormData = {
   annualTurner?: string[];
@@ -24,11 +26,32 @@ type FormData = {
 };
 
 const CatalogPage: NextPage = () => {
+  const [companiesData, setCompaniesData] = useState<any | null>(null);
+  const [getCompanies, { isLoading: isCompaniesLoading }] = userAPI.useLazyGetAllCompaniesQuery();
   const { handleSubmit, register } = useForm<FormData>();
-  const { data: companiesData, isLoading: isCompaniesLoading } = userAPI.useGetAllCompaniesQuery('');
+
   const submitFormHandler = (data: FormData) => {
     console.log(data);
   };
+
+  const handleGetMore = () => {
+    if (companiesData && companiesData.count > 9) {
+      getCompanies(companiesData.page + 1)
+        .then((res) => setCompaniesData((prevState) => ({
+          ...prevState,
+          companies: prevState?.companies.concat(res.data.companies),
+          page: prevState.page + 1,
+        })));
+    }
+  };
+
+  useEffect(() => {
+    getCompanies('')
+      .then((res) => setCompaniesData({...res.data, page: 1 }))
+      .catch((err) => {
+        throw new Error(err);
+      });
+  }, []);
 
   return (
     <div className={styles.page}>
@@ -62,7 +85,7 @@ const CatalogPage: NextPage = () => {
           </nav>
         </div>
         {isCompaniesLoading && <Loader />}
-        {!isCompaniesLoading && companiesData && <CompaniesCatalog data={companiesData.companies} />}
+        {!isCompaniesLoading && companiesData && <CompaniesCatalog data={companiesData} onGetMore={handleGetMore} />}
         <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
           <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
           <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />
