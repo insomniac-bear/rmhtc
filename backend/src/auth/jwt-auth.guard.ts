@@ -41,7 +41,7 @@ export class JwtAuthGuard implements CanActivate {
         secret: process.env.JWT_REFRESH_SECRET,
       });
 
-      if (user) {
+      if (user.uuid) {
         req.user = user;
         return true;
       } else throw new UnauthorizedException({ message: 'jwt expired' });

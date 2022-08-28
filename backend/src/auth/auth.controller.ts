@@ -29,8 +29,6 @@ import { AuthService } from './auth.service';
 import { UserDto } from 'src/users/dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Request, Response } from 'express';
-import { Roles } from './roles-auth.decorator';
-import { RolesGuard } from './roles.guard';
 import { ConfirmEmailDto, ResponseConfirmEmail } from './dto/confirm-email.dto';
 import { ResponseLogoutDto } from './dto/logout.dto';
 
@@ -121,11 +119,14 @@ export class AuthController {
     description: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
   @ApiResponse({ status: 200, type: UserDto })
-  @Roles('USER', 'ADMINISTRATOR')
-  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
+  // @Roles('USER', 'ADMINISTRATOR')
+  // @UseGuards(RolesGuard)
   @Get('/check')
   check(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const accessToken = req.headers.authorization.split(' ')[1];
+    const accessToken = req.headers.authorization
+      ? req.headers.authorization.split(' ')[1]
+      : undefined;
     const { refreshToken }: { refreshToken: string } = req.cookies;
 
     return this.authService.checkAuth(accessToken, refreshToken, res);

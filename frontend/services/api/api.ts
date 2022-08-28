@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://localhost:8003';
 
 const checkResponce = (res: Response) => {
   if (!res.ok) {
