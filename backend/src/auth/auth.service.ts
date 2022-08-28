@@ -172,7 +172,6 @@ export class AuthService {
 
   async checkAuth(at: string, rt: string, res: Response) {
     try {
-      console.log(at);
       if (!at) {
         console.log(at);
         throw new HttpException('jwt expired', HttpStatus.FORBIDDEN);
@@ -218,8 +217,6 @@ export class AuthService {
         'uuid',
         refreshPayload.sub
       );
-
-      console.log(user);
 
       if (!user.uuid) {
         throw new HttpException('jwt expired', HttpStatus.FORBIDDEN);
