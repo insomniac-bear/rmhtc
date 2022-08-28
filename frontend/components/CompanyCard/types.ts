@@ -25,6 +25,7 @@ export type TBasicInfoData = {
   ceo: string | null;
   businessType: string | null | undefined;
   ceoDocUrl: string | null;
+  presentationUrl: string | null;
   [key: string]: string | null | undefined;
 };
 
@@ -32,7 +33,7 @@ export type TLegalInfoData = {
   legalForm: string | null | undefined;
   qcEmployees: string | null;
   budgetOfYear: string | null;
-  yearOfFoundation: number | null;
+  yearOfFoundation: string | null;
   regDocUrl: string | null;
   issuingAuthority: string | null;
   [key: string]: string | number | null | undefined;
