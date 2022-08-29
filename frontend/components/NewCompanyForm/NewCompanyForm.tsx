@@ -90,10 +90,10 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
   const businessTypeDefaultOption = businessTypesOptions.find((option: any) => option.label === company.businessType);
 
   const countriesOptions = getOptionsFromQueryData(countriesQueryData);
-  const countryDefaultOption = countriesOptions.find((option: any) => option.label === company.addresses[0].country);
+  const countryDefaultOption = countriesOptions.find((option: any) => option.label === company.addresses[0]?.country);
 
   const citiesOptions = getOptionsFromQueryData(citiesQueryData);
-  const cityDefaultOption = citiesOptions.find((option: any) => option.label === company.addresses[0].city);
+  const cityDefaultOption = citiesOptions.find((option: any) => option.label === company.addresses[0]?.city);
 
   const messengersOptions = getOptionsFromQueryData(messengersQueryData);
   const contactsOptions = getOptionsFromQueryData(contactsQueryData);
@@ -108,10 +108,10 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     year: company.yearOfFoundation,
     registrationAuthority: company.issuingAuthority,
     legalAddress: {
-      street: company.addresses[0].street,
-      house: company.addresses[0].buildNum,
-      postCode: company.addresses[0].postCode,
-      office: company.addresses[0].roomNum,
+      street: company?.addresses[0]?.street,
+      house: company?.addresses[0]?.buildNum,
+      postCode: company?.addresses[0]?.postCode,
+      office: company?.addresses[0]?.roomNum,
     },
   };
 
