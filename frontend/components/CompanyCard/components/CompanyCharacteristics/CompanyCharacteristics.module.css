@@ -54,7 +54,7 @@
 
 .card__value {
 	max-width: 356px;
-
+	word-wrap: break-word;
 	color: var(--grey-600);
 
 	font-size: 20px;

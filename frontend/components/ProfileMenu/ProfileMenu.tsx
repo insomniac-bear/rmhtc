@@ -25,9 +25,9 @@ export const ProfileMenu: FC<IProfileMenuProps> = ({ menuData, className = '', .
     } catch (error: any) {
       throw new Error(error.message);
     } finally {
-      router.push('/');
-      dispatch(clearUser());
       Cookies.remove('accessToken');
+      await dispatch(clearUser());
+      router.push('/');
     }
   };
 

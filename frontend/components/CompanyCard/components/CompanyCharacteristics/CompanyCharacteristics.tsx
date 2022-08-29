@@ -1,5 +1,5 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { FC } from 'react';
-import Link from 'next/link';
 import { Container } from '../../../Container/Container';
 import { Title } from '../../../Title/Title';
 import styles from './CompanyCharacteristics.module.css';
@@ -9,7 +9,7 @@ function hrefFilter<TValue>(value: TValue | null | undefined | number): value is
   return value !== null && value !== undefined && typeof value !== 'number';
 }
 
-const linkRegex = /document|Document|Link/;
+const linkRegex = /document|Document|Link|Presentation/;
 export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
   title, data, dto,
 }) => {
@@ -26,6 +26,7 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
     budgetOfYear: 'Annual turner',
     yearOfFoundation: 'Year of foundation of the company',
     regDocUrl: 'Registration document',
+    presentationUrl: 'Presentation',
     [data?.regNumName || '']: `${data?.regNumName}`, // Не уверен что это хорошее решение
   };
 
@@ -37,15 +38,13 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
           <li className={styles.card__item} key={el}>
             <p className={styles.card__name}>{transformedKeys[el]}</p>
             { linkRegex.test(transformedKeys[el]) ? (
-              <Link
-                rel="noreferrer"
-                target="_blank"
+              <a
                 href={hrefFilter(dataProperties[el]) ? dataProperties[el]?.toString()! : ''}
+                target="_blank"
+                className={styles.card__link}
               >
-                <a className={styles.card__link}>
-                  {transformedKeys[el] === 'Link' ? dataProperties[el] : 'Document link'}
-                </a>
-              </Link>
+                {transformedKeys[el] === 'Link' || transformedKeys[el] === 'Presentation' ? dataProperties[el] : 'Document link'}
+              </a>
             ) : (
               <p className={styles.card__value}>{dataProperties[el]}</p>
             )}

@@ -13,45 +13,38 @@ import {
   contactsIfoDataDto,
 } from '../../utils/companyDataDto/companyCardDataDto';
 import { CompanyContactsList } from './components/CompanyContactsList/CompanyContactsList';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { adminAPI } from '../../services/adminService';
-import { setCurrentCompany } from '../../services/slices/admin';
 import { Loader } from '../Loader/Loader';
+import { useAppSelector } from '../../services/hooks';
 
 export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
-  const { currentCompany } = useAppSelector((store) => store.admin);
-  const [getCompany, { isLoading }] = adminAPI.useGetCurrentCompanyMutation();
-  const dispatch = useAppDispatch();
   const router = useRouter();
+  const { user } = useAppSelector((store) => store.user);
   const { uuid } = router.query;
-  const headerData = currentCompany && headerDataDto(currentCompany);
-  const contactsData = currentCompany && contactsIfoDataDto(currentCompany);
+  const { data: response, isLoading } = adminAPI.useGetCurrentCompanyQuery(uuid, { skip: uuid === undefined });
+  const [approveCompany] = adminAPI.useApproveCompanyMutation();
+  const headerData = response && headerDataDto(response.company);
+  const contactsData = response && contactsIfoDataDto(response.company);
+
   const handleApprove = () => {
-    console.log('Approved!');
+    approveCompany({ uuid });
   };
-  const handleReject = () => {
-    console.log('Rejected!');
-  };
+
   useEffect(() => {
-    const getCompanies = async () => {
-      try {
-        const response: any = await getCompany(uuid);
-        dispatch(setCurrentCompany(response.data.companies));
-      } catch (error: any) {
-        throw new Error(error.message);
-      }
-    };
-    getCompanies();
-  }, [dispatch, getCompany, uuid]);
+    if (response && response.company?.moderatedAuthorUuid && user.uuid !== response.company?.moderatedAuthorUuid) {
+      router.push({ pathname: '/admin/moderation' });
+    }
+  }, [response, router, user.uuid]);
+
   return (
     <section className={`${styles.company} ${className}`} {...props}>
       {isLoading && <Loader />}
-      {currentCompany && headerData && contactsData && !isLoading && (
+      {response && headerData && contactsData && (
         <>
           <CardHeader data={headerData} />
-          <CompanyCharacteristics title="Basic information" data={currentCompany} dto={basicInfoDataDto} />
+          <CompanyCharacteristics title="Basic information" data={response.company} dto={basicInfoDataDto} />
           <CompanyContactsList title="Contact information" data={contactsData} />
-          <CompanyCharacteristics title="Legal information" data={currentCompany} dto={legalInfoDataDto} />
+          <CompanyCharacteristics title="Legal information" data={response.company} dto={legalInfoDataDto} />
           <div className={styles.company__controls}>
             <Link href="/admin/moderation/?modal=approved">
               <a>
@@ -62,7 +55,7 @@ export const CompanyCard: FC<ICompanyCard> = ({ className = '', ...props }) => {
             </Link>
             <Link href={`/admin/moderation/company/${uuid}/?modal=reject`}>
               <a>
-                <Button className={styles.company__button} onClick={handleReject} type="button" appearance="ghost">
+                <Button className={styles.company__button} type="button" appearance="ghost">
                   Reject
                 </Button>
               </a>

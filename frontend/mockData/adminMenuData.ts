@@ -7,8 +7,29 @@ export const adminMenuData = [
   },
   {
     id: '2',
-    title: 'ITC management',
-    innerLinks: [],
-    link: '/admin/management',
+    title: 'ITC directory',
+    innerLinks: [
+      {
+        id: 'asd',
+        title: 'Addresses',
+        link: '/addresses',
+      },
+      {
+        id: 'dsa',
+        title: 'Company',
+        link: '/company',
+      },
+      {
+        id: 'asdf',
+        title: 'Offers',
+        link: '/offers',
+      },
+      {
+        id: 'dsas',
+        title: 'Contacts and Social network',
+        link: '/contacts',
+      },
+    ],
+    link: '/admin/directory',
   },
 ];
