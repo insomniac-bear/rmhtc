@@ -269,4 +269,14 @@ export class CompanyController {
   getApproveCompanies(@Query() query) {
     return this.companiesService.getApproveCompanies(query);
   }
+
+  @ApiOperation({ summary: 'Получение одной одобренной компаний' })
+  @ApiResponse({
+    status: 200,
+    description: 'Получение одной одобренной компаний',
+  })
+  @Get('/:uuid')
+  getCompany(@Param() uuid) {
+    return this.companiesService.getCompany(uuid);
+  }
 }

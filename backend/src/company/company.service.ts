@@ -497,4 +497,12 @@ export class CompanyService {
       count: companies.count,
     };
   }
+
+  async getCompany(uuid: string) {
+    const company = await this.companyEntity.findByPk(uuid);
+    return {
+      status: 'success',
+      company: createCompanyDto(company, false),
+    };
+  }
 }
