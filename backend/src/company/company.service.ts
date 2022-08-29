@@ -499,7 +499,12 @@ export class CompanyService {
   }
 
   async getCompany(uuid: string) {
-    const company = await this.companyEntity.findByPk(uuid);
+    const company = await this.companyEntity.findOne({
+      where: {
+        uuid,
+      },
+      include: allFields,
+    });
     return {
       status: 'success',
       company: createCompanyDto(company, false),
