@@ -9,7 +9,7 @@ function hrefFilter<TValue>(value: TValue | null | undefined | number): value is
   return value !== null && value !== undefined && typeof value !== 'number';
 }
 
-const linkRegex = /document|Document|Link/;
+const linkRegex = /document|Document|Link|Presentation/;
 export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
   title, data, dto,
 }) => {
@@ -43,7 +43,7 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
                 target="_blank"
                 className={styles.card__link}
               >
-                {transformedKeys[el] === 'Link' ? dataProperties[el] : 'Document link'}
+                {transformedKeys[el] === 'Link' || transformedKeys[el] === 'Presentation' ? dataProperties[el] : 'Document link'}
               </a>
             ) : (
               <p className={styles.card__value}>{dataProperties[el]}</p>
