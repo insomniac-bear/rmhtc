@@ -71,7 +71,7 @@
 }
 
 .card__description {
-	display: -webkit-box;
+	display: box;
 
 	overflow: hidden;
 
