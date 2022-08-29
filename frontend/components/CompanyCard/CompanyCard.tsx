@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
