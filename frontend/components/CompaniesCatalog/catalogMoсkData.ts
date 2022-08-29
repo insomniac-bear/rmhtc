@@ -1,4 +1,4 @@
-export const catalogMokData = [
+export const catalogMockData = [
   {
     uuid: '5cb19f69-4a86-48e5-b2b5-654b3e6c297f',
     name: 'Horns',
@@ -18,6 +18,8 @@ export const catalogMokData = [
     currencyOfBudget: 'Rub',
     moderated: null,
     moderatedReason: null,
+    moderatedAuthorUuid: null,
+    createdAt: '12.05.15',
     addresses: [
       {
         postCode: 178567,
@@ -50,19 +52,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -127,6 +118,8 @@ export const catalogMokData = [
     currencyOfBudget: 'Rub',
     moderated: null,
     moderatedReason: null,
+    moderatedAuthorUuid: null,
+    createdAt: '12.05.15',
     addresses: [
       {
         postCode: 178567,
@@ -159,19 +152,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -236,6 +218,8 @@ export const catalogMokData = [
     currencyOfBudget: 'Rub',
     moderated: null,
     moderatedReason: null,
+    moderatedAuthorUuid: null,
+    createdAt: '12.05.15',
     addresses: [
       {
         postCode: 178567,
@@ -268,19 +252,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -345,6 +318,8 @@ export const catalogMokData = [
     currencyOfBudget: 'Rub',
     moderated: null,
     moderatedReason: null,
+    moderatedAuthorUuid: null,
+    createdAt: '12.05.15',
     addresses: [
       {
         postCode: 178567,
@@ -377,19 +352,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',
@@ -454,6 +418,8 @@ export const catalogMokData = [
     currencyOfBudget: 'Rub',
     moderated: null,
     moderatedReason: null,
+    moderatedAuthorUuid: null,
+    createdAt: '12.05.15',
     addresses: [
       {
         postCode: 178567,
@@ -486,19 +452,8 @@ export const catalogMokData = [
         uuid: '3',
       },
     ],
-    legalForm: {
-      createdAt: null,
-      shortValue: null,
-      updatedAt: null,
-      uuid: '2',
-      value: 'Partnership',
-    },
-    businessType: {
-      createdAt: null,
-      updatedAt: null,
-      uuid: '1',
-      value: 'Diller',
-    },
+    legalForm: 'Partnership',
+    businessType: 'Diller',
     messengers: [
       {
         type: 'Telegram',

@@ -9,6 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -41,11 +42,10 @@ export class MessengersController {
   @Post('/type')
   createType(
     @Req() req,
-    @Res({ passthrough: true }) res,
+    @Res({ passthrough: true }) res: Response,
     @Body() data: CreateTypeDto
   ) {
-    const { sub } = req.user;
-    return this.messengerService.createMessengerType(sub, res, data.value);
+    return this.messengerService.createMessengerType(req.user, res, data.value);
   }
 
   @ApiOperation({ summary: 'Обновление существующего типа мессенджера' })
@@ -59,12 +59,11 @@ export class MessengersController {
   @Patch('/type')
   updateType(
     @Req() req,
-    @Res({ passthrough: true }) res,
+    @Res({ passthrough: true }) res: Response,
     @Body() data: UpdateTypeDto
   ) {
-    const { sub } = req.user;
     return this.messengerService.updateMessengerType(
-      sub,
+      req.user,
       res,
       data.uuid,
       data.value

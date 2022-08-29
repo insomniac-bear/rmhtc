@@ -5,6 +5,7 @@ import {
   HttpStatus,
   forwardRef,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtPayload } from 'src/auth/types';
 import {
@@ -79,7 +80,7 @@ export class MessengersService {
 
   async createMessengerType(
     accessTokenPayload: JwtPayload,
-    res,
+    res: Response,
     value: string
   ): Promise<{ status: string; accessToken: string; types: MessengerType[] }> {
     const { sub, role, email } = accessTokenPayload;
@@ -119,7 +120,7 @@ export class MessengersService {
 
   async updateMessengerType(
     accessTokenPayload: JwtPayload,
-    res,
+    res: Response,
     uuid: string,
     value: string
   ): Promise<{ status: string; accessToken: string; types: MessengerType[] }> {

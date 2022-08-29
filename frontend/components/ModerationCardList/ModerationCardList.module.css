@@ -12,7 +12,7 @@
 
 .moderation_cardList {
 	display: grid;
-
+	align-content: start;
 	width: 100vw;
 	max-width: 733px;
 	min-height: 428px;

@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { Loader } from '../../../../../components/Loader/Loader';
 import { NewCompanyForm } from '../../../../../components/NewCompanyForm/NewCompanyForm';
 import { withAuthLayout } from '../../../../../layouts/AuthLayout/AuthLayout';
 import { useAppSelector, useAppDispatch } from '../../../../../services/hooks';
@@ -17,25 +18,19 @@ const EditCompanyPage: NextPage = () => {
   const companies = useAppSelector((store) => store.user.userCompanies);
   const currentCompany: any = companies.find((company) => company.uuid === currentUUID);
 
-  const [getUserCompanies] = userAPI.useGetUserCompaniesMutation();
+  const { data: userCompaniesQueryData, isLoading, refetch } = userAPI.useGetUserCompaniesQuery('');
 
   useEffect(() => {
-    const getCompanies = async () => {
-      try {
-        const response: any = await getUserCompanies('');
-        dispatch(setCompanies(response.data.companies));
-      } catch (error: any) {
-        throw new Error(error.message);
-      }
-    };
-    getCompanies();
-  }, [dispatch, getUserCompanies]);
+    refetch();
+    if (userCompaniesQueryData) dispatch(setCompanies(userCompaniesQueryData.companies));
+  }, [dispatch, userCompaniesQueryData]);
 
   return (
-    <NewCompanyForm
-      className={styles.newCompanyPage__form}
-      company={currentCompany}
-    />
+    <div>
+      {isLoading || !currentCompany
+        ? <Loader />
+        : <NewCompanyForm className={styles.newCompanyPage__form} company={currentCompany} />}
+    </div>
   );
 };
 

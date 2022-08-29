@@ -8,6 +8,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -28,7 +29,7 @@ export class ContactsController {
   @Post('/type')
   createType(
     @Req() req,
-    @Res({ passthrough: true }) res,
+    @Res({ passthrough: true }) res: Response,
     @Body() data: { value: string }
   ) {
     return this.contactsService.createContactType(req.user, res, data.value);
@@ -40,7 +41,7 @@ export class ContactsController {
   @Patch('/type')
   updateType(
     @Req() req,
-    @Res({ passthrough: true }) res,
+    @Res({ passthrough: true }) res: Response,
     @Body() data: { uuid: string; value: string }
   ) {
     return this.contactsService.updateContactType(

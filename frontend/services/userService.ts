@@ -88,7 +88,7 @@ export const userAPI = apiService.injectEndpoints({
         credentials: 'include',
       }),
     }),
-    getUserCompanies: build.mutation<any, any>({
+    getUserCompanies: build.query<any, any>({
       query: () => ({
         url: '/api/v1/companies/user',
         credentials: 'include',
@@ -98,6 +98,14 @@ export const userAPI = apiService.injectEndpoints({
       query: (data) => ({
         method: 'PATCH',
         url: '/api/v1/companies/user',
+        credentials: 'include',
+        body: data,
+      }),
+    }),
+    saveCompanyData: build.mutation<any, any>({
+      query: (data) => ({
+        method: 'PATCH',
+        url: '/api/v1/companies/user/save',
         credentials: 'include',
         body: data,
       }),

@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
   Post,
   Patch,
   Res,
@@ -13,7 +12,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse, ApiTags, ApiHeader } from '@nestjs/swagger';
 import { UserDataDto, UserDto } from './dto';
-import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
 import { BufferedFile } from 'src/core/minio-client/types/minio.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -24,13 +22,6 @@ import { RolesGuard } from 'src/auth/roles.guard';
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
-
-  @ApiOperation({ summary: 'Создание пользователя' })
-  @ApiResponse({ status: 200, type: User })
-  @Post()
-  create(@Body() userDto: UserDataDto) {
-    return this.userService.createUser(userDto);
-  }
 
   @ApiOperation({ summary: 'Обновление данных пользователя' })
   @ApiHeader({
@@ -71,10 +62,5 @@ export class UsersController {
   ) {
     const { sub } = req.user;
     return this.userService.uploadAvatar(sub, image, res);
-  }
-
-  @Get()
-  getAll() {
-    return this.userService.getAllUsers();
   }
 }
