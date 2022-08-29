@@ -120,8 +120,6 @@ export class AuthController {
   })
   @ApiResponse({ status: 200, type: UserDto })
   @UseGuards(JwtAuthGuard)
-  // @Roles('USER', 'ADMINISTRATOR')
-  // @UseGuards(RolesGuard)
   @Get('/check')
   check(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const accessToken = req.headers.authorization
