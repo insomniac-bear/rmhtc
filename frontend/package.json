@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env APP_ENV=develop next dev",
+    "dev:local": "cross-env APP_ENV=local next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,6 +13,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
     "cookie": "^0.5.0",
+    "cross-env": "^7.0.3",
     "framer-motion": "^6.5.1",
     "js-cookie": "^3.0.1",
     "next": "12.1.6",
