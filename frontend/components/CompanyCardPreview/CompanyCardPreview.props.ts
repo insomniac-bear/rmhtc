@@ -1,13 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-
-export interface ICard {
-  uuid: string;
-  name: string;
-  createdAt: string;
-  toggled: boolean;
-}
+import { ICompanyData } from '../../types';
 
 export interface ICompanyCardPreview extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  card: ICard;
+  card: ICompanyData;
   type: 'Company' | 'Offer' | 'Requests' | 'News';
 }

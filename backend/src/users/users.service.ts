@@ -6,6 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
+import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { CompanyService } from 'src/company/company.service';
 import { USER_REPOSITORY } from 'src/core/constants';
@@ -39,7 +40,7 @@ export class UsersService {
     return transformUser;
   }
 
-  async updateUser(uuid, userData: UserDataDto, res) {
+  async updateUser(uuid: string, userData: UserDataDto, res: Response) {
     const user = await this.getUserByParam('uuid', uuid);
     if (!user) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -80,7 +81,7 @@ export class UsersService {
     return users;
   }
 
-  async uploadAvatar(uuid: string, avatar: BufferedFile, res) {
+  async uploadAvatar(uuid: string, avatar: BufferedFile, res: Response) {
     if (avatar.size > 314578)
       throw new HttpException(
         'Uploading file to large',
@@ -124,7 +125,7 @@ export class UsersService {
     };
   }
 
-  async update(uuid: string, updatedData: UserDataDto): Promise<UserDto> {
+  async update(uuid: string, updatedData: UserDataDto) {
     const user = await this.userEntity.findOne({
       where: { uuid },
       include: { all: true },
@@ -136,13 +137,12 @@ export class UsersService {
 
     const counts = await this.companyService.getUsersCompanyCounts(uuid);
 
-    const transformUser = dto(updatedUser, counts);
-    return transformUser;
+    return dto(updatedUser, counts);
   }
 
-  async compareUserPassword(uuid, password) {
+  async compareUserPassword(uuid: string, password: string): Promise<boolean> {
     const user = await this.userEntity.findByPk(uuid);
-    return await bcrypt.compare(password, user.password);
+    return await bcrypt.compare<boolean>(password, user.password);
   }
 
   async getUserByParam(param: string, value: string): Promise<UserDto> {

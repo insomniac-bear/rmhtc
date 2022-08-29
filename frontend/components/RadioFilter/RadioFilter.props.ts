@@ -10,5 +10,4 @@ export interface IRadioFilter extends DetailedHTMLProps<FormHTMLAttributes<HTMLF
   filters: TFilter[];
   label?: string;
   name: string;
-  htmlType: 'radio' | 'checkbox';
 }

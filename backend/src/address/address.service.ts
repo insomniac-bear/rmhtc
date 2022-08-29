@@ -82,7 +82,7 @@ export class AddressService {
   }
 
   async createAddress(addressData) {
-    const { companyUuid, addressType = 'Actual' } = addressData;
+    const { companyUuid, addressType = 'Legal' } = addressData;
     const foundAddressType = await this.getAddressTypeByParam(
       'value',
       addressType

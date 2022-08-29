@@ -476,7 +476,7 @@ export class CompanyService {
    * Общие функции
    */
   async getApproveCompanies(query) {
-    const limit = 10;
+    const limit = 9;
     const page = query.page ? query.page - 1 : 0;
 
     const companies = await this.companyEntity.findAndCountAll({
