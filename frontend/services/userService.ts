@@ -150,5 +150,10 @@ export const userAPI = apiService.injectEndpoints({
         url: `/api/v1/companies${page ? `?page=${page}` : ''}`,
       }),
     }),
+    getCurrentCompany: build.query<any, any>({
+      query: (uuid: string) => ({
+        url: `/api/v1/companies/${uuid}`,
+      }),
+    }),
   }),
 });

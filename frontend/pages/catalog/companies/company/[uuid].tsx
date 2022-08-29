@@ -4,7 +4,7 @@ import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 
 const CompanyPage: NextPage = () => (
   <div>
-    <CompanyCard />
+    <CompanyCard access="general" />
   </div>
 );
 export default withAuthLayout(CompanyPage);
