@@ -276,7 +276,7 @@ export class CompanyController {
     description: 'Получение одной одобренной компаний',
   })
   @Get('/:uuid')
-  getCompany(@Param() uuid) {
-    return this.companiesService.getCompany(uuid);
+  getCompany(@Param() param) {
+    return this.companiesService.getCompany(param.uuid);
   }
 }
