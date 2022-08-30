@@ -39,18 +39,10 @@ export const EditForm: FC<IEditForm> = ({
   const [postItem] = adminAPI.usePostNewDirectoryItemMutation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== item?.value) {
-      setIsBtnsVisible(false);
-    }
-    if (e.target.value === item?.value) {
-      setIsBtnsVisible(true);
-    }
-    if (formType === 'add' && e.target.value !== '') {
-      setIsBtnsVisible(false);
-    }
-    if (formType === 'add' && e.target.value === '') {
-      setIsBtnsVisible(true);
-    }
+    if (e.target.value !== item?.value) setIsBtnsVisible(false);
+    if (e.target.value === item?.value) setIsBtnsVisible(true);
+    if (formType === 'add' && e.target.value !== '') setIsBtnsVisible(false);
+    if (formType === 'add' && e.target.value === '') setIsBtnsVisible(true);
   };
 
   const handleCancel = () => {
@@ -67,9 +59,8 @@ export const EditForm: FC<IEditForm> = ({
 
     if (formType === 'patch') {
       patchItem({
-        route: fetchParams.route, type: fetchParams.type, uuid: item.uuid, value,
+        route: fetchParams.route, type: fetchParams.type, uuid: item!.uuid, value,
       }).then((res: any) => {
-        console.log(res);
         if (res.data.status === 'success') {
           setDirectory((prevState: any) => ({
             ...prevState,

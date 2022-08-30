@@ -24,6 +24,11 @@
 	composes: text;
 }
 
+.form__input:hover {
+	border: 1px solid #000;
+	border-radius: 5px;
+}
+
 .form__input:focus {
 	border: 1px solid #000;
 	border-radius: 5px;
