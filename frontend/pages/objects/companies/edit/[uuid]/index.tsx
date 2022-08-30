@@ -28,7 +28,7 @@ const EditCompanyPage: NextPage = () => {
   return (
     <div>
       {isLoading || !currentCompany
-        ? <Loader />
+        ? <Loader style={{ margin: '120px auto' }} />
         : <NewCompanyForm className={styles.newCompanyPage__form} company={currentCompany} />}
     </div>
   );

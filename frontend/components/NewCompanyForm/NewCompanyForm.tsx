@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 /* eslint-disable no-shadow */
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import Select, { SingleValue } from 'react-select';
@@ -15,8 +16,8 @@ import { userAPI } from '../../services/userService';
 import { Loader } from '../Loader/Loader';
 
 type TLegalAddress = {
-  country: string;
-  city: string;
+  country: any;
+  city: any;
   street: string;
   house: string;
   postCode: string;
@@ -44,13 +45,13 @@ type TFormData = {
   link: string;
   head: string;
   authorityHead: File[];
-  type: string;
+  type: any;
   logo: File;
   legalAddress: TLegalAddress;
   messengers: TMessenger[];
   contacts: TContact[];
-  legalForm: string;
-  employees: string;
+  legalForm: any;
+  employees: any;
   annualTurnover: string;
   year: string;
   registrationDocument: File;
@@ -63,14 +64,34 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
   const router = useRouter();
   const [moderateCompany] = userAPI.useEditCompanyMutation();
   const [saveCompany] = userAPI.useSaveCompanyDataMutation();
+  const [updateCompanyAvatar] = userAPI.useUpdateCompanyAvatarMutation();
+  const [updateCompanyPresentation] = userAPI.useUpdateCompanyPresentationMutation();
+  const [updateCompanyCEO] = userAPI.useUpdateCompanyCEOMutation();
+  const [updateCompanyRegistrationDocument] = userAPI.useUpdateCompanyRegistrationDocumentMutation();
 
-  const { data: legalFormsQueryData, isLoading: isGetLegalFormsLoading } = userAPI.useGetLegalFormsQuery('');
-  const { data: businessTypesQueryData } = userAPI.useGetBusinessTypesQuery('');
-  const { data: countriesQueryData } = userAPI.useGetCountriesQuery('');
-  const { data: addressesTypesQueryData } = userAPI.useGetAddressesTypesQuery('');
-  const { data: citiesQueryData } = userAPI.useGetCitiesQuery('');
-  const { data: messengersQueryData } = userAPI.useGetMessengersTypesQuery('');
-  const { data: contactsQueryData } = userAPI.useGetContactsTypesQuery('');
+  const { data: legalFormsQueryData, isFetching: isLegalFormsQueryFetching, isLoading: isLegalFormsQueryLoading } = userAPI.useGetLegalFormsQuery('');
+  const { data: businessTypesQueryData, isFetching: isBusinessTypesFetching, isLoading: isBusinessTypesLoading } = userAPI.useGetBusinessTypesQuery('');
+  const { data: countriesQueryData, isFetching: isCountriesFetching, isLoading: isCountriesLoading } = userAPI.useGetCountriesQuery('');
+  const { data: addressesTypesQueryData, isFetching: isAddressesTypesFetching, isLoading: isAddressesTypesLoading } = userAPI.useGetAddressesTypesQuery('');
+  const { data: citiesQueryData, isFetching: isCitiesFetching, isLoading: isCitiesLoading } = userAPI.useGetCitiesQuery('');
+  const { data: messengersQueryData, isFetching: isMessengersFetching, isLoading: isMessengersLoading } = userAPI.useGetMessengersTypesQuery('');
+  const { data: contactsQueryData, isFetching: isContactsFetching, isLoading: isContactsLoading } = userAPI.useGetContactsTypesQuery('');
+
+  const isDataFetching = isLegalFormsQueryFetching
+  || isBusinessTypesFetching
+  || isCountriesFetching
+  || isAddressesTypesFetching
+  || isCitiesFetching
+  || isMessengersFetching
+  || isContactsFetching;
+
+  const isQueriesLoading = isLegalFormsQueryLoading
+  || isBusinessTypesLoading
+  || isCountriesLoading
+  || isAddressesTypesLoading
+  || isCitiesLoading
+  || isMessengersLoading
+  || isContactsLoading;
 
   const getOptionsFromQueryData = (queryData: any) => {
     if (queryData) {
@@ -82,9 +103,22 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     return [];
   };
 
+  const transferDataFromCombineSelectInput = (data: any, options: any) => {
+    console.log(data);
+    if (data[0].type) {
+      return data.map((el: any) => {
+        const currentOption = options.find((option: any) => el.type === option.label || el.type === option.value);
+        return {
+          type: currentOption.value,
+          value: el.value,
+        };
+      });
+    }
+    return [];
+  };
+
   const legalFormsOptions = getOptionsFromQueryData(legalFormsQueryData);
   const legalFormDefaultOption = legalFormsOptions.find((option: any) => option.label === company.legalForm);
-  console.log(legalFormDefaultOption);
 
   const businessTypesOptions = getOptionsFromQueryData(businessTypesQueryData);
   const businessTypeDefaultOption = businessTypesOptions.find((option: any) => option.label === company.businessType);
@@ -99,19 +133,29 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
   const contactsOptions = getOptionsFromQueryData(contactsQueryData);
 
   const defaultValues = {
-    messengers: [{}],
-    contacts: [{}],
+    messengers: company.messengers.length ? company.messengers : [{}],
+    contacts: company.contacts.length ? company.contacts : [{}],
     name: company.name,
     description: company.description,
     link: company.website,
     head: company.ceo,
     year: company.yearOfFoundation,
     registrationAuthority: company.issuingAuthority,
+    legalForm: legalFormDefaultOption,
+    type: businessTypeDefaultOption,
+    employees: company.qcEmployees,
+    annualTurnover: company.budgetOfYear,
+    registrationNumber: {
+      name: company.regNumName,
+      number: company.regNumber,
+    },
     legalAddress: {
-      street: company?.addresses[0]?.street,
-      house: company?.addresses[0]?.buildNum,
-      postCode: company?.addresses[0]?.postCode,
-      office: company?.addresses[0]?.roomNum,
+      country: countryDefaultOption,
+      city: cityDefaultOption,
+      street: company.addresses[0]?.street,
+      house: company.addresses[0]?.buildNum,
+      postCode: company.addresses[0]?.postCode,
+      office: company.addresses[0]?.roomNum,
     },
   };
 
@@ -121,9 +165,12 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     defaultValues,
   });
 
-  // useEffect(() => {
-  //   setValue('employees', { value: '100+', label: 'More 100' });
-  // }, []);
+  useEffect(() => {
+    setValue('type', businessTypeDefaultOption);
+    setValue('legalForm', legalFormDefaultOption);
+    setValue('legalAddress.country', countryDefaultOption);
+    setValue('legalAddress.city', cityDefaultOption);
+  }, [businessTypeDefaultOption, cityDefaultOption, countryDefaultOption, legalFormDefaultOption, setValue]);
 
   const options = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -184,10 +231,12 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
 
   const prepareFormData = (data: TFormData) => {
     const legalAddress = addressesTypesQueryData.find((el: any) => el.value === 'Legal');
+    const preparedMessengersData = transferDataFromCombineSelectInput(data.messengers, messengersOptions);
+    const preparedContactsData = transferDataFromCombineSelectInput(data.contacts, contactsOptions);
     const preparedFormData = {
       uuid: router.query.uuid,
       name: data.name,
-      logoUrl: null,
+      logoUrl: company.logoUrl,
       regNumName: data.registrationNumber.name,
       regNumber: data.registrationNumber.number,
       regDocUrl: null,
@@ -200,24 +249,23 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
       qcEmployees: data.employees,
       budgetOfYear: data.annualTurnover,
       currencyOfBudget: 'RUB',
-      businessTypeUuid: data.type,
-      legalFormUuid: data.legalForm,
-      messengers: data.messengers[0].value ? data.messengers : [],
-      contacts: data.contacts[0].value ? data.contacts : [],
+      businessTypeUuid: data.type?.value || data.type,
+      legalFormUuid: data.legalForm?.value || data.legalForm,
+      messengers: preparedMessengersData,
+      contacts: preparedContactsData,
       addresses: [
         {
           addressTypeUuid: legalAddress.uuid,
-          countryUuid: data.legalAddress.country,
-          cityUuid: data.legalAddress.city,
+          countryUuid: data.legalAddress.country?.value || data.legalAddress.country,
+          cityUuid: data.legalAddress.city?.value || data.legalAddress.city,
           postCode: data.legalAddress.postCode,
           street: data.legalAddress.street,
           buildNum: data.legalAddress.house,
           roomNum: data.legalAddress.office,
         },
       ],
-      presentation: data.presentation,
+      presentation: null,
     };
-
     return preparedFormData;
   };
 
@@ -225,6 +273,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     const preparedDataToSend = prepareFormData(data);
     try {
       await moderateCompany(preparedDataToSend);
+      router.back();
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -240,7 +289,55 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     }
   };
 
-  if (isGetLegalFormsLoading) return <Loader />;
+  const updateCompanyAvatarHandler = async (e: any) => {
+    const file = e.target.files[0];
+    try {
+      await updateCompanyAvatar({
+        file,
+        uuid: company.uuid,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateCompanyPresentationHandler = async (e: any) => {
+    const file = e.target.files[0];
+    try {
+      await updateCompanyPresentation({
+        file,
+        uuid: company.uuid,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateCompanyCEOHandler = async (e: any) => {
+    const file = e.target.files[0];
+    try {
+      await updateCompanyCEO({
+        file,
+        uuid: company.uuid,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateCompanyRegistrationDocumentHandler = async (e: any) => {
+    const file = e.target.files[0];
+    try {
+      await updateCompanyRegistrationDocument({
+        file,
+        uuid: company.uuid,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (isDataFetching || isQueriesLoading) return <Loader style={{ margin: '120px auto' }} />;
 
   return (
     <form encType="multipart/form-data" onSubmit={handleSubmit(submitFormHandler)} className={`${styles.newCompanyForm} ${className}`} {...props}>
@@ -286,13 +383,13 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
         />
         <p className={styles.newCompanyForm__caption}>Document confirming the authority of the head of company</p>
         <FileInput
-          multiple
           placeholder="PDF, JPG (no more than 100 Mb)"
           errors={errors.authorityHead}
           accept="image/*,.pdf"
           {...register('authorityHead', {
             // required: 'Document to confirm is required.',
           })}
+          onChange={updateCompanyCEOHandler}
         />
         <p className={styles.newCompanyForm__caption}>Presentation of company</p>
         <FileInput
@@ -302,6 +399,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
           {...register('presentation', {
             // required: 'Document to confirm is required.',
           })}
+          onChange={updateCompanyPresentationHandler}
         />
         <p className={styles.newCompanyForm__caption}>Company type</p>
         <Controller
@@ -318,7 +416,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
                 onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
                 value={options.find((option) => option.value === value)}
               />
-              <p className={styles.newCompanyForm__error}>{errors.type ? errors.type.message : ''}</p>
+              {/* <p className={styles.newCompanyForm__error}>{errors.type ? errors.type.message : ''}</p> */}
             </div>
           )}
           {...register('type', {
@@ -334,6 +432,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
           {...register('logo', {
             // required: 'Logo is required.',
           })}
+          onChange={updateCompanyAvatarHandler}
         />
       </fieldset>
 
@@ -510,6 +609,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
           {...register('registrationDocument', {
             // required: 'Registration document is required.',
           })}
+          onChange={updateCompanyRegistrationDocumentHandler}
         />
         <p className={styles.newCompanyForm__caption}>Registration number</p>
         <fieldset className={styles.newCompanyForm__regNumberFieldset}>
@@ -550,7 +650,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
         />
       </fieldset>
       <div className={styles.newCompanyForm__buttons}>
-        <Button type="button">Cancel</Button>
+        <Button onClick={() => router.back()} type="button">Cancel</Button>
         <Button onClick={() => saveFormHandler()} type="button" appearance="primary">Save Data</Button>
         <Button type="submit" appearance="primary">Send to moderate</Button>
       </div>
