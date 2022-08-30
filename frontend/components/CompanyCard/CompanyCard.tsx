@@ -30,6 +30,8 @@ export const CompanyCard: FC<ICompanyCard> = ({ access, className = '', ...props
   const [approveCompany] = adminAPI.useApproveCompanyMutation();
   const headerData = currentCompany && headerDataDto(currentCompany);
   const contactsData = currentCompany && contactsIfoDataDto(currentCompany);
+  console.log(currentCompany);
+  
 
   const handleApprove = () => {
     approveCompany({ uuid });

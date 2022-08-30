@@ -64,5 +64,7 @@
 
 .card__link {
 	color: var(--link);
+	display: block;
+	width: fit-content;
 	composes: card__value;
 }
