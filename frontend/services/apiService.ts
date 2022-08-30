@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 export const apiService = createApi({
   reducerPath: 'mainAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.SERVER_URL,
+    baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
     prepareHeaders: (headers) => {
       const token = Cookies.get('accessToken');
 

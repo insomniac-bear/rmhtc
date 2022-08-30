@@ -1,9 +1,6 @@
 import Cookies from 'js-cookie';
 
-const API_URL = process.env.SERVER_URL;
-console.log(process.env.APP_ENV);
-
-console.log(API_URL);
+const API_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const checkResponce = (res: Response) => {
   if (!res.ok) {
