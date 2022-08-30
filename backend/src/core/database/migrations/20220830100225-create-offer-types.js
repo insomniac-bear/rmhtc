@@ -9,7 +9,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     const { DataTypes } = Sequelize;
-    return await queryInterface.createTable('contact_types', {
+    return await queryInterface.createTable('offer_types', {
       uuid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -17,10 +17,10 @@ module.exports = {
         unique: true,
         primaryKey: true,
       },
-      value: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: false,
+        unique: true,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -33,13 +33,13 @@ module.exports = {
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return await queryInterface.dropTable('contact_types');
+    return await queryInterface.dropTable('offer_types');
   },
 };

@@ -1,17 +1,15 @@
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
      *
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return queryInterface.addColumn(
-      'addresses',
-      'addressTypeUuid',
-      {
+    return queryInterface
+      .addColumn('addresses', 'addressTypeUuid', {
         type: Sequelize.DataTypes.UUID,
         references: {
           model: 'address_types',
@@ -19,13 +17,9 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
-      }
-    )
-    .then(() => {
-      return queryInterface.addColumn(
-        'addresses',
-        'companyUuid',
-        {
+      })
+      .then(() => {
+        return queryInterface.addColumn('addresses', 'companyUuid', {
           type: Sequelize.DataTypes.UUID,
           references: {
             model: 'companies',
@@ -33,14 +27,10 @@ module.exports = {
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
-        }
-      )
-    })
-    .then(() => {
-      return queryInterface.addColumn(
-        'addresses',
-        'countryUuid',
-        {
+        });
+      })
+      .then(() => {
+        return queryInterface.addColumn('addresses', 'countryUuid', {
           type: Sequelize.DataTypes.UUID,
           references: {
             model: 'countries',
@@ -48,14 +38,10 @@ module.exports = {
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
-        }
-      )
-    })
-    .then(() => {
-      return queryInterface.addColumn(
-        'addresses',
-        'cityUuid',
-        {
+        });
+      })
+      .then(() => {
+        return queryInterface.addColumn('addresses', 'cityUuid', {
           type: Sequelize.DataTypes.UUID,
           references: {
             model: 'cities',
@@ -63,33 +49,24 @@ module.exports = {
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
-        }
-      )
-    });
+        });
+      });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return queryInterface.removeColumn(
-      'addresses',
-      'addressTypeUuid',
-    )
-    .then(() => {
-      return queryInterface.removeColumn(
-        'addresses',
-        'countryUuid',
-      )
-    })
-    .then(() => {
-      return queryInterface.removeColumn(
-        'addresses',
-        'cityUuid',
-      )
-    })
-  }
+    return queryInterface
+      .removeColumn('addresses', 'addressTypeUuid')
+      .then(() => {
+        return queryInterface.removeColumn('addresses', 'countryUuid');
+      })
+      .then(() => {
+        return queryInterface.removeColumn('addresses', 'cityUuid');
+      });
+  },
 };
