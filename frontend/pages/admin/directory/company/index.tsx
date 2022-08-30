@@ -21,20 +21,21 @@ const CompanyDirectoryPage: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>
-        <li>
-          {isBusinessTypesLoading && <Loader />}
-          {!isBusinessTypesLoading && businessTypesDirectory?.values && (
-            <Directory directory={businessTypesDirectory} setDirectory={setBusinessTypesDirectory} label="Bussines" />
-          )}
-        </li>
-        <li>
-          {isLegalFormsLoading && <Loader />}
-          {!isLegalFormsLoading && legalFormsDirectory?.values && (
-            <Directory directory={legalFormsDirectory} setDirectory={setLegalFormsDirectory} label="Legal form" />
-          )}
-        </li>
-      </ul>
+      {isBusinessTypesLoading && isLegalFormsLoading && <Loader />}
+      {!isBusinessTypesLoading && !isLegalFormsLoading && (
+        <ul className={styles.list}>
+          <li>
+            {businessTypesDirectory?.values && (
+              <Directory directory={businessTypesDirectory} setDirectory={setBusinessTypesDirectory} label="Bussines" />
+            )}
+          </li>
+          <li>
+            {legalFormsDirectory?.values && (
+              <Directory directory={legalFormsDirectory} setDirectory={setLegalFormsDirectory} label="Legal form" />
+            )}
+          </li>
+        </ul>
+      )}
     </div>
   );
 };

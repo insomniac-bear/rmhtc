@@ -4,8 +4,9 @@
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 223px;
+	min-height: 224px;
 	padding: 20px;
-
+	cursor: pointer;
 	border: 1px solid var(--accent-blue-200);
 	border-radius: 10px;
 	background-color: var(--grey-100);
@@ -39,7 +40,7 @@
 
 	display: flex;
 	align-items: center;
-
+	
 	box-sizing: border-box;
 	width: fit-content;
 	margin: 12px 0 15px;

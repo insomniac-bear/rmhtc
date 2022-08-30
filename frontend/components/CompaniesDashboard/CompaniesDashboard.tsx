@@ -15,14 +15,16 @@ export const CompaniesDashboard: FC<ICompaniesDashboardProps> = ({ className, ..
   const userCompaniesCounts = useAppSelector((store) => store.user.user.counts);
   const dispatch = useAppDispatch();
 
-  const { data: userCompaniesQueryData, isLoading, refetch } = userAPI.useGetUserCompaniesQuery('');
+  const {
+    data: userCompaniesQueryData, isLoading, isFetching, refetch,
+  } = userAPI.useGetUserCompaniesQuery('');
 
   useEffect(() => {
     refetch();
     if (userCompaniesQueryData) dispatch(setCompanies(userCompaniesQueryData.companies));
   }, [dispatch, userCompaniesQueryData, refetch]);
 
-  if (isLoading) return <Loader />;
+  if (isLoading || isFetching) return <Loader style={{ margin: '120px auto' }} />;
 
   return (
     <div className={`${styles.companiesDashboard} ${className}`} {...props}>

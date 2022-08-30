@@ -24,27 +24,26 @@ const AddressesDirectoryPage: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>
-        <li>
-          {isCountriesLoading && <Loader />}
-          {!isCountriesLoading && countriesDirectory?.values && (
-            <Directory directory={countriesDirectory} setDirectory={setCountriesDirectory} label="Country" />
-          )}
-        </li>
-        <li>
-          {isCitiesLoading && <Loader />}
-          {!isCitiesLoading && citiesDirectory?.values && (
-            <Directory directory={citiesDirectory} setDirectory={setCitiesDirectory} label="City" />
-          )}
-        </li>
-        <li>
-          {isAddressLoading && <Loader />}
-          {!isAddressLoading && addressDirectory?.values && (
-            <Directory directory={addressDirectory} setDirectory={setAddressDirectory} label="Address" />
-          )}
-        </li>
-      </ul>
-
+      {isCountriesLoading && isCitiesLoading && isAddressLoading && <Loader />}
+      {!isCountriesLoading && !isCitiesLoading && !isAddressLoading && (
+        <ul className={styles.list}>
+          <li>
+            {countriesDirectory?.values && (
+              <Directory directory={countriesDirectory} setDirectory={setCountriesDirectory} label="Country" />
+            )}
+          </li>
+          <li>
+            {citiesDirectory?.values && (
+              <Directory directory={citiesDirectory} setDirectory={setCitiesDirectory} label="City" />
+            )}
+          </li>
+          <li>
+            {addressDirectory?.values && (
+              <Directory directory={addressDirectory} setDirectory={setAddressDirectory} label="Address" />
+            )}
+          </li>
+        </ul>
+      )}
     </div>
   );
 };
