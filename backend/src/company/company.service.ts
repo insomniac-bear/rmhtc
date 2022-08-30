@@ -194,10 +194,10 @@ export class CompanyService {
     if (!company)
       throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
 
-    const legalForm = rawCompanyData.legalFormUuid
+    const legalForm = rawCompanyData?.legalFormUuid
       ? await this.legalFormEntity.findByPk(rawCompanyData.legalFormUuid)
       : null;
-    const businessType = rawCompanyData.businessTypeUuid
+    const businessType = rawCompanyData?.businessTypeUuid
       ? await this.businessTypeEntity.findByPk(rawCompanyData.businessTypeUuid)
       : null;
 
@@ -247,8 +247,8 @@ export class CompanyService {
 
     await company.update({
       ...companyData,
-      legalFormUuid: legalForm.uuid,
-      businessTypeUuid: businessType.uuid,
+      legalFormUuid: legalForm?.uuid,
+      businessTypeUuid: businessType?.uuid,
     });
 
     const updatedCompany = await this.getUserCompany(company.uuid);
@@ -495,6 +495,19 @@ export class CompanyService {
         return createCompanyDto(company, true);
       }),
       count: companies.count,
+    };
+  }
+
+  async getCompany(uuid: string) {
+    const company = await this.companyEntity.findOne({
+      where: {
+        uuid,
+      },
+      include: allFields,
+    });
+    return {
+      status: 'success',
+      company: createCompanyDto(company, false),
     };
   }
 }

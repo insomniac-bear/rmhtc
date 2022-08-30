@@ -1,0 +1,38 @@
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 266px;
+	height: 100vh;
+	max-height: 28px;
+	padding: 0 10px 0 0;
+}
+
+.item__value {
+	overflow: hidden;
+
+	max-width: 200px;
+	margin: 0;
+
+	text-overflow: ellipsis;
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+}
+
+.item__editBtn {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 4px;
+
+	cursor: pointer;
+
+	border: none;
+	background-color: transparent;
+}
