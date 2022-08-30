@@ -1,0 +1,15 @@
+.page {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+
+	min-height: 100vh;
+
+	background-color: var(--grey-200);
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+}

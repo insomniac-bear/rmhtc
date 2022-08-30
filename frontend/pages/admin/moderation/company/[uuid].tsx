@@ -13,7 +13,7 @@ const ModerationPage: NextPage = () => {
 
   return (
     <div>
-      <CompanyCard />
+      <CompanyCard access="admin" />
       {isModal && isReject && (
         <Modal onClose={() => router.push(`${uuid}`)} style={{ width: 'fit-content' }}>
           <RejectForm />

@@ -145,6 +145,15 @@ export const userAPI = apiService.injectEndpoints({
         url: '/api/v1/contacts/types',
       }),
     }),
+    getAllCompanies: build.query<any, any>({
+      query: (page) => ({
+        url: `/api/v1/companies${page ? `?page=${page}` : ''}`,
+      }),
+    }),
+    getCurrentCompany: build.query<any, any>({
+      query: (uuid: string) => ({
+        url: `/api/v1/companies/${uuid}`,
+      }),
     updateCompanyAvatar: build.mutation<any, any>({
       async queryFn(data, _queryApi, _extraOptions, fetchWithBQ) {
         const formData = new FormData();
@@ -201,9 +210,9 @@ export const userAPI = apiService.injectEndpoints({
           body: formData,
           credentials: 'include',
         });
-
         return response;
       },
+
     }),
   }),
 });

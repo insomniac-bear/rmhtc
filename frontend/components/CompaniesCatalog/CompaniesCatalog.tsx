@@ -1,16 +1,27 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import styles from './CompaniesCatalog.module.css';
 import { ICompaniesCatalog } from './CompaniesCatalog.props';
-import { catalogMockData } from './catalogMoсkData';
+import { ICompanyData } from '../../types';
 import { CatalogCompanyPreview } from '../CatalogCompanyPreview/CatalogCompanyPreview';
 
-export const CompaniesCatalog: FC<ICompaniesCatalog> = ({ className = '', ...props }) => (
+export const CompaniesCatalog: FC<ICompaniesCatalog> = ({
+  data, onGetMore, className = '', ...props
+}) => (
   <div className={styles.catalog}>
     <ul className={`${styles.catalog__itemsList} ${className}`} {...props}>
-      {catalogMockData.map((item: any) => <li key={item.uuid}><CatalogCompanyPreview company={item} /></li>)}
+      {data.companies.map((item: ICompanyData) => (
+        <li key={item.uuid}>
+          <Link href={`/catalog/companies/company/${item.uuid}`} passHref>
+            <CatalogCompanyPreview company={item} />
+          </Link>
+        </li>
+      ))}
     </ul>
-    <button className={styles.catalog__moreButton} type="button">
-      Show more
-    </button>
+    {data.count > 9 && data.companies.length !== data.count && (
+      <button className={styles.catalog__moreButton} onClick={onGetMore} type="button">
+        Show more
+      </button>
+    )}
   </div>
 );
