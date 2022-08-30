@@ -154,6 +154,65 @@ export const userAPI = apiService.injectEndpoints({
       query: (uuid: string) => ({
         url: `/api/v1/companies/${uuid}`,
       }),
+    updateCompanyAvatar: build.mutation<any, any>({
+      async queryFn(data, _queryApi, _extraOptions, fetchWithBQ) {
+        const formData = new FormData();
+        formData.append('logo', data.file);
+
+        const response = await fetchWithBQ({
+          url: `/api/v1/companies/logo?uuid=${data.uuid}`,
+          method: 'POST',
+          body: formData,
+          credentials: 'include',
+        });
+
+        return response;
+      },
+    }),
+    updateCompanyPresentation: build.mutation<any, any>({
+      async queryFn(data, _queryApi, _extraOptions, fetchWithBQ) {
+        const formData = new FormData();
+        formData.append('presentation', data.file);
+
+        const response = await fetchWithBQ({
+          url: `/api/v1/companies/presentation?uuid=${data.uuid}`,
+          method: 'POST',
+          body: formData,
+          credentials: 'include',
+        });
+
+        return response;
+      },
+    }),
+    updateCompanyCEO: build.mutation<any, any>({
+      async queryFn(data, _queryApi, _extraOptions, fetchWithBQ) {
+        const formData = new FormData();
+        formData.append('ceo', data.file);
+
+        const response = await fetchWithBQ({
+          url: `/api/v1/companies/ceo?uuid=${data.uuid}`,
+          method: 'POST',
+          body: formData,
+          credentials: 'include',
+        });
+
+        return response;
+      },
+    }),
+    updateCompanyRegistrationDocument: build.mutation<any, any>({
+      async queryFn(data, _queryApi, _extraOptions, fetchWithBQ) {
+        const formData = new FormData();
+        formData.append('regdoc', data.file);
+
+        const response = await fetchWithBQ({
+          url: `/api/v1/companies/regdoc?uuid=${data.uuid}`,
+          method: 'POST',
+          body: formData,
+          credentials: 'include',
+        });
+        return response;
+      },
+
     }),
   }),
 });

@@ -173,7 +173,6 @@ export class AuthService {
   async checkAuth(at: string, rt: string, res: Response) {
     try {
       if (!at) {
-        console.log(at);
         throw new HttpException('jwt expired', HttpStatus.FORBIDDEN);
       }
 

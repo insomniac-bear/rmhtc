@@ -60,7 +60,7 @@ export const CombineSelectInput = ({
                     options={options}
                     styles={customSelectStyles}
                     onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-                    value={options.find((option: any) => option.value === value)}
+                    value={options.find((option: any) => option.label === value)}
                   />
                   {/* <p className={styles.combineSelectInput__error}>{errors[name] ? errors[name][0].name.message : ''}</p> */}
                 </div>

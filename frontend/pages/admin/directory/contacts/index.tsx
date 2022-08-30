@@ -21,20 +21,21 @@ const ContactsDirectoryPage: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>
-        <li>
-          {isContactsLoading && <Loader />}
-          {!isContactsLoading && contactsDirectory?.values && (
-            <Directory directory={contactsDirectory} setDirectory={setContactsDirectory} label="Contact" />
-          )}
-        </li>
-        <li>
-          {isMessengersLoading && <Loader />}
-          {!isMessengersLoading && messengersDirectory?.values && (
-            <Directory directory={messengersDirectory} setDirectory={setMessengersDirectory} label="Messenger" />
-          )}
-        </li>
-      </ul>
+      {isContactsLoading && isMessengersLoading && <Loader />}
+      {!isContactsLoading && !isMessengersLoading && (
+        <ul className={styles.list}>
+          <li>
+            {contactsDirectory?.values && (
+              <Directory directory={contactsDirectory} setDirectory={setContactsDirectory} label="Contact" />
+            )}
+          </li>
+          <li>
+            {messengersDirectory?.values && (
+              <Directory directory={messengersDirectory} setDirectory={setMessengersDirectory} label="Messenger" />
+            )}
+          </li>
+        </ul>
+      )}
     </div>
   );
 };

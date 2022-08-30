@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   const isModal = router.query.modal;
-
+  // const user = useAppSelector((store) => store.user);
   const isSignUpModal = router.query.modal === 'signup';
   const isLoginModal = router.query.modal === 'login';
   const isSignupSuccessModal = router.query.modal === 'signup_success';
@@ -37,6 +37,7 @@ const Home: NextPage = () => {
         if (response.data) {
           dispatch(setUserAuth(true));
           dispatch(setUser(response.data.userData));
+          Cookies.set('accessToken', response.data.accessToken);
         } else {
           dispatch(logoutUser);
           dispatch(setUserAuth(false));

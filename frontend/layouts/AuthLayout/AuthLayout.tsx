@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 import { ProfileSideMenu } from '../../components/ProfileSideMenu/ProfileSideMenu';
 import { Header } from '../../components/Header/Header';
 import styles from './AuthLayout.module.css';
@@ -18,8 +19,11 @@ export const AuthLayout: FC<IAuthLayoutProps> = ({ children }) => {
     async function checkToken() {
       try {
         const response: any = await checkAuth('');
-        dispatch(setUserAuth(true));
-        dispatch(setUser(response.data.userData));
+        if (response.data.accessToken) {
+          dispatch(setUserAuth(true));
+          dispatch(setUser(response.data.userData));
+          Cookies.set('accessToken', response.data.accessToken);
+        }
       } catch (error: any) {
         throw new Error(error);
       }
