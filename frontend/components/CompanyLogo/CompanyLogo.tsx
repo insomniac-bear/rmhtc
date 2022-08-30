@@ -19,6 +19,7 @@ export const CompanyLogo: FC<ICompanyLogo> = ({
       className={styles.logo}
       src={url || logoPlaceholder}
       alt={alt || 'Company logo'}
+      layout="fill"
     />
   </div>
 );
