@@ -15,8 +15,8 @@ const ContactsDirectoryPage: NextPage = () => {
   const { data: messengersRes, isLoading: isMessengersLoading } = adminAPI.useGetAllMessengersQuery('');
 
   useEffect(() => {
-    setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts', label: 'types' } });
-    setMessengersDirectory({ values: messengersRes, fetchParams: { type: 'type', route: 'messengers', label: 'types' } });
+    setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts' } });
+    setMessengersDirectory({ values: messengersRes, fetchParams: { type: 'type', route: 'messengers' } });
   }, [contactsRes, messengersRes]);
 
   return (
@@ -26,12 +26,12 @@ const ContactsDirectoryPage: NextPage = () => {
         <ul className={styles.list}>
           <li>
             {contactsDirectory?.values && (
-              <Directory directory={contactsDirectory} setDirectory={setContactsDirectory} label="Contact" />
+              <Directory directory={contactsDirectory} label="Contact" />
             )}
           </li>
           <li>
             {messengersDirectory?.values && (
-              <Directory directory={messengersDirectory} setDirectory={setMessengersDirectory} label="Messenger" />
+              <Directory directory={messengersDirectory} label="Messenger" />
             )}
           </li>
         </ul>

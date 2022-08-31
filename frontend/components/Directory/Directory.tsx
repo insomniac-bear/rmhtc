@@ -5,7 +5,7 @@ import styles from './Directory.module.css';
 import { IDirectory } from './Directory.props';
 
 export const Directory:FC<IDirectory> = ({
-  directory, label, setDirectory, className, ...props
+  directory, label, className, ...props
 }) => (
   <div className={`${styles.directory} ${className}`} {...props}>
     <p className={styles.directory__columns}>
@@ -15,11 +15,11 @@ export const Directory:FC<IDirectory> = ({
     <ul className={styles.directory__list}>
       {directory.values.map((item) => (
         <li key={item.uuid}>
-          <DirectoryItem item={item} fetchParams={directory.fetchParams} setDirectory={setDirectory} />
+          <DirectoryItem item={item} fetchParams={directory.fetchParams} />
         </li>
       ))}
       <li>
-        <EditForm formType="add" fetchParams={directory.fetchParams} setDirectory={setDirectory} />
+        <EditForm formType="add" fetchParams={directory.fetchParams} />
       </li>
     </ul>
   </div>

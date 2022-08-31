@@ -15,8 +15,8 @@ const CompanyDirectoryPage: NextPage = () => {
   const { data: legalFormsRes, isLoading: isLegalFormsLoading } = adminAPI.useGetCompaniesLegalFormsQuery('');
 
   useEffect(() => {
-    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type', label: 'type' } });
-    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form', label: 'type' } });
+    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type' } });
+    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form' } });
   }, [businessTypesRes, legalFormsRes]);
 
   return (
@@ -26,12 +26,12 @@ const CompanyDirectoryPage: NextPage = () => {
         <ul className={styles.list}>
           <li>
             {businessTypesDirectory?.values && (
-              <Directory directory={businessTypesDirectory} setDirectory={setBusinessTypesDirectory} label="Bussines" />
+              <Directory directory={businessTypesDirectory} label="Bussines" />
             )}
           </li>
           <li>
             {legalFormsDirectory?.values && (
-              <Directory directory={legalFormsDirectory} setDirectory={setLegalFormsDirectory} label="Legal form" />
+              <Directory directory={legalFormsDirectory} label="Legal form" />
             )}
           </li>
         </ul>

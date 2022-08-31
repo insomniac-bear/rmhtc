@@ -6,7 +6,7 @@ import { IDirectoryItem } from './DirectoryItem.props';
 import { EditForm } from '../EditForm/EditForm';
 
 export const DirectoryItem: FC<IDirectoryItem> = ({
-  item, fetchParams, setDirectory, className, ...props
+  item, fetchParams, className, ...props
 }) => {
   const [isEdited, setIsEdited] = useState(false);
 
@@ -27,7 +27,6 @@ export const DirectoryItem: FC<IDirectoryItem> = ({
           item={item}
           formType="patch"
           fetchParams={fetchParams}
-          setDirectory={setDirectory}
         />
       )}
     </div>

@@ -24,7 +24,6 @@ export const EditForm: FC<IEditForm> = ({
   item,
   hideForm,
   fetchParams,
-  setDirectory,
   className,
   ...props
 }) => {
@@ -60,15 +59,6 @@ export const EditForm: FC<IEditForm> = ({
     if (formType === 'patch') {
       patchItem({
         route: fetchParams.route, type: fetchParams.type, uuid: item!.uuid, value,
-      }).then((res: any) => {
-        if (res.data.status === 'success') {
-          setDirectory((prevState: any) => ({
-            ...prevState,
-            values: res.data[fetchParams.label],
-          }));
-        }
-      }).catch((err) => {
-        console.log(err);
       }).finally(() => {
         if (hideForm) {
           hideForm();
@@ -82,15 +72,6 @@ export const EditForm: FC<IEditForm> = ({
     if (formType === 'add') {
       postItem({
         route: fetchParams.route, type: fetchParams.type, value,
-      }).then((res: any) => {
-        if (res.data.status === 'success') {
-          setDirectory((prevState: any) => ({
-            ...prevState,
-            values: res.data[fetchParams.label],
-          }));
-        }
-      }).catch((err) => {
-        console.log(err);
       }).finally(() => {
         if (hideForm) {
           hideForm();
@@ -103,7 +84,12 @@ export const EditForm: FC<IEditForm> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(submitFormHandler)} ref={formRef} className={`${styles.form} ${className}`} {...props}>
+    <form
+      onSubmit={handleSubmit(submitFormHandler)}
+      ref={formRef}
+      className={`${styles.form} ${className}`}
+      {...props}
+    >
       <input
         type="text"
         className={styles.form__input}

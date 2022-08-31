@@ -14,5 +14,6 @@ export const apiService = createApi({
       return headers;
     },
   }),
+  tagTypes: ['directory'],
   endpoints: () => ({}),
 });

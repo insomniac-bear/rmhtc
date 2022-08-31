@@ -17,9 +17,9 @@ const AddressesDirectoryPage: NextPage = () => {
   const { data: addressRes, isLoading: isAddressLoading } = adminAPI.useGetAddressesTypesQuery('');
 
   useEffect(() => {
-    setCountriesDirectory({ values: countriesRes, fetchParams: { type: 'country', route: 'address', label: 'countries' } });
-    setCitiesDirectory({ values: citiesRes, fetchParams: { type: 'city', route: 'address', label: 'cities' } });
-    setAddressDirectory({ values: addressRes, fetchParams: { type: 'type', route: 'address', label: 'types' } });
+    setCountriesDirectory({ values: countriesRes, fetchParams: { type: 'country', route: 'address' } });
+    setCitiesDirectory({ values: citiesRes, fetchParams: { type: 'city', route: 'address' } });
+    setAddressDirectory({ values: addressRes, fetchParams: { type: 'type', route: 'address' } });
   }, [countriesRes, citiesRes, addressRes]);
 
   return (
@@ -29,17 +29,17 @@ const AddressesDirectoryPage: NextPage = () => {
         <ul className={styles.list}>
           <li>
             {countriesDirectory?.values && (
-              <Directory directory={countriesDirectory} setDirectory={setCountriesDirectory} label="Country" />
+              <Directory directory={countriesDirectory} label="Country" />
             )}
           </li>
           <li>
             {citiesDirectory?.values && (
-              <Directory directory={citiesDirectory} setDirectory={setCitiesDirectory} label="City" />
+              <Directory directory={citiesDirectory} label="City" />
             )}
           </li>
           <li>
             {addressDirectory?.values && (
-              <Directory directory={addressDirectory} setDirectory={setAddressDirectory} label="Address" />
+              <Directory directory={addressDirectory} label="Address" />
             )}
           </li>
         </ul>
