@@ -154,6 +154,7 @@ export const userAPI = apiService.injectEndpoints({
       query: (uuid: string) => ({
         url: `/api/v1/companies/${uuid}`,
       }),
+    }),
     updateCompanyAvatar: build.mutation<any, any>({
       async queryFn(data, _queryApi, _extraOptions, fetchWithBQ) {
         const formData = new FormData();
