@@ -236,16 +236,13 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     const preparedFormData = {
       uuid: router.query.uuid,
       name: data.name,
-      logoUrl: company.logoUrl,
       regNumName: data.registrationNumber.name,
       regNumber: data.registrationNumber.number,
-      regDocUrl: null,
       issuingAuthority: data.registrationAuthority,
       description: data.description,
       yearOfFoundation: data.year,
       website: data.link,
       ceo: data.head,
-      ceoDocUrl: null,
       qcEmployees: data.employees,
       budgetOfYear: data.annualTurnover,
       currencyOfBudget: 'RUB',
@@ -264,7 +261,6 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
           roomNum: data.legalAddress.office,
         },
       ],
-      presentation: null,
     };
     return preparedFormData;
   };
