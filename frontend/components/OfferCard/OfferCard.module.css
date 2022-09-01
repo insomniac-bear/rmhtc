@@ -5,11 +5,20 @@
   align-items: center;
 }
 
+.offer__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0 100px 0;
+}
+
 .offer__contentControls {
   display: flex;
   max-width: 908px;
   width: 100%;
   border-bottom: 1px solid var(--grey-400);
+  box-sizing: border-box;
   margin: 0 0 45px 0;
 }
 
@@ -37,10 +46,6 @@
   color: var(--accent-red-300);
 }
 
-.offer__container {
-  display: flex;
-  margin: 0 0 100px 0;
-}
 
 .offer__moderationControls {
   display: flex;

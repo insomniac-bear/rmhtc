@@ -13,18 +13,22 @@ export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
     <div className={`${styles.offer} ${className}`} {...props}>
       <OfferHeader />
       <div className={styles.offer__container}>
-        <div className={styles.offer__containerControls}>
+        <div className={styles.offer__contentControls}>
           <button
             type="button"
             onClick={() => setContent('description')}
-            className={`${styles.offer__showContentBtn} ${styles.offer__showContentBtn_active}`}
+            className={content === 'description'
+              ? `${styles.offer__showContentBtn} ${styles.offer__showContentBtn_active}`
+              : `${styles.offer__showContentBtn}`}
           >
             Description
           </button>
           <button
             type="button"
             onClick={() => setContent('characteristic')}
-            className={styles.offer__showContentBtn}
+            className={content === 'characteristic'
+              ? `${styles.offer__showContentBtn} ${styles.offer__showContentBtn_active}`
+              : `${styles.offer__showContentBtn}`}
           >
             Characteristic
           </button>
