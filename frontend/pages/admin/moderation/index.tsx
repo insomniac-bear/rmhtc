@@ -1,10 +1,9 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-// import { ModerationCardList } from '../../../components/ModerationCardList/ModerationCardList';
+import { ModerationCardList } from '../../../components/ModerationCardList/ModerationCardList';
 import { withAuthLayout } from '../../../layouts/AuthLayout/AuthLayout';
 import { Modal } from '../../../components/Modal/Modal';
 import { ModerationMessage } from '../../../components/ModerationMessage/ModerationMessage';
-import { OfferCard } from '../../../components/OfferCard/OfferCard';
 
 const ModerationPage: NextPage = () => {
   const router = useRouter();
@@ -13,8 +12,7 @@ const ModerationPage: NextPage = () => {
   const isRejected = router.query.modal === 'rejected';
   return (
     <>
-      {/* <ModerationCardList /> */}
-      <OfferCard />
+      <ModerationCardList />
       {isModal && (
         <>
           {isApproved && (
@@ -33,8 +31,4 @@ const ModerationPage: NextPage = () => {
   );
 };
 
-// <Modal style={{ width: 'fit-content' }}>
-//   {isApproved && <ModerationMessage message="Сompany successfully published" />}
-//   {isRejected && <ModerationMessage message="Сompany rejected" />}
-// </Modal>
 export default withAuthLayout(ModerationPage);
