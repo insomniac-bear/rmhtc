@@ -1,8 +1,6 @@
 import { FC, useState } from 'react';
-import Image from 'next/image';
 import styles from './OfferCard.module.css';
 import { IOfferCard } from './OfferCard.props';
-import descriptionImage from './descriptionPlaceholder.png';
 import { Button } from '../Button/Button';
 import { OfferHeader } from './components/OfferHeader/OfferHeader';
 import { OfferCharacteristics } from './components/OfferCharacteristics/OfferCharacteristics';
@@ -35,7 +33,7 @@ export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
         )}
         {content === 'description' && (
           <div className={styles.offer__description}>
-            <Image src={descriptionImage} alt="description" />
+            <p className={styles.offere}>sdsd</p>
           </div>
         )}
       </div>

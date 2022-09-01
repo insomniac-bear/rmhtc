@@ -1,9 +1,9 @@
 .slider {
-  grid-area: slider;
   position: relative;
   width: 484px;
   height: 484px;
   margin: 0;
+  overflow: hidden;
 }
 
 .slider > ul {
@@ -20,7 +20,7 @@
   min-height: 100%;
 }
 
-.slider > div {
+.slider__pagination {
   z-index: 1;
   position: absolute;
   width: 400px;
@@ -34,7 +34,7 @@
   gap: 0 5px;
 }
 
-.slider > div > span {
+.slider__bullet {
   cursor: pointer;
   width: 27px;
   height: 2px;
@@ -42,6 +42,6 @@
   background-color: var(--grey-500);
 }
 
-.slider > div > span[class="swiper-pagination-bullet swiper-pagination-bullet-active"] {
+.slider__bullet_active {
   background-color: var(--accent-red-300);
 }
