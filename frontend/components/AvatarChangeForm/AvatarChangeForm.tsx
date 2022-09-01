@@ -19,7 +19,6 @@ export const AvatarChangeForm: FC<IAvatarChangeForm> = ({ className, ...props })
   const handleSetAvatar = async (data: any) => {
     try {
       const newUserData: any = await updateAvatar(data.avatar[0]);
-      console.log(data.avatar[0]);
 
       dispatch(setUser(newUserData.data.userData));
       Cookies.set('accessToken', newUserData.data.accessToken);

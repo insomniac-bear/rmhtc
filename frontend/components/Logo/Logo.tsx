@@ -18,7 +18,7 @@ export const Logo: FC<ILogoProps> = ({
     <Image
       src={logo}
       layout="fill"
-      alt="RMHTC Logo"
+      alt="ITC Logo"
     />
   </div>
 );
