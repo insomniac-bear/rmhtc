@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import styles from './OfferSlider.module.css';
 
-export const OfferSlider = ({ arr, outerСlassName }: any) => {
+export const OfferSlider = ({ arr, outerСlassName = '' }: any) => {
   const pagination = {
     clickable: true,
     horizontalClass: styles.slider__pagination,

@@ -4,6 +4,7 @@ import { IOfferCard } from './OfferCard.props';
 import { Button } from '../Button/Button';
 import { OfferHeader } from './components/OfferHeader/OfferHeader';
 import { OfferCharacteristics } from './components/OfferCharacteristics/OfferCharacteristics';
+import { OfferDescription } from './components/OfferDescription/OfferDescription';
 
 export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
   const [content, setContent] = useState<'description' | 'characteristic'>('description');
@@ -11,31 +12,25 @@ export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
   return (
     <div className={`${styles.offer} ${className}`} {...props}>
       <OfferHeader />
-      <div className={styles.offer__contentControls}>
-        <button
-          type="button"
-          onClick={() => setContent('description')}
-          className={`${styles.offer__showContentBtn} ${styles.offer__showContentBtn_active}`}
-        >
-          Description
-        </button>
-        <button
-          type="button"
-          onClick={() => setContent('characteristic')}
-          className={styles.offer__showContentBtn}
-        >
-          Characteristic
-        </button>
-      </div>
       <div className={styles.offer__container}>
-        {content === 'characteristic' && (
-          <OfferCharacteristics />
-        )}
-        {content === 'description' && (
-          <div className={styles.offer__description}>
-            <p className={styles.offere}>sdsd</p>
-          </div>
-        )}
+        <div className={styles.offer__containerControls}>
+          <button
+            type="button"
+            onClick={() => setContent('description')}
+            className={`${styles.offer__showContentBtn} ${styles.offer__showContentBtn_active}`}
+          >
+            Description
+          </button>
+          <button
+            type="button"
+            onClick={() => setContent('characteristic')}
+            className={styles.offer__showContentBtn}
+          >
+            Characteristic
+          </button>
+        </div>
+        {content === 'characteristic' && <OfferCharacteristics />}
+        {content === 'description' && <OfferDescription />}
       </div>
       <div className={styles.offer__moderationControls}>
         <Button className={styles.offer__moderationBtn} type="button" appearance="primary">
