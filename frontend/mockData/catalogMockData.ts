@@ -35,6 +35,7 @@ export const companyType = [
     label: 'Something else',
   },
 ];
+
 export const legalForm = [
   {
     id: 1,
@@ -67,6 +68,7 @@ export const legalForm = [
     label: 'Something else',
   },
 ];
+
 export const annualTurner = [
   {
     id: 1,
@@ -84,6 +86,7 @@ export const annualTurner = [
     label: 'More 100 million',
   },
 ];
+
 export const employees = [
   {
     id: 1,
@@ -101,6 +104,7 @@ export const employees = [
     label: 'More 100',
   },
 ];
+
 export const country = [
   {
     id: 1,

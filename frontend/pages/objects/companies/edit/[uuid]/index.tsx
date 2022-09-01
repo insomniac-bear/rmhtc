@@ -23,6 +23,7 @@ const EditCompanyPage: NextPage = () => {
   useEffect(() => {
     refetch();
     if (userCompaniesQueryData) dispatch(setCompanies(userCompaniesQueryData.companies));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, userCompaniesQueryData]);
 
   return (
