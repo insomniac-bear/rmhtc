@@ -133,29 +133,29 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
   const contactsOptions = getOptionsFromQueryData(contactsQueryData);
 
   const defaultValues = {
-    messengers: company.messengers.length ? company.messengers : [{}],
-    contacts: company.contacts.length ? company.contacts : [{}],
-    name: company.name,
-    description: company.description,
-    link: company.website,
-    head: company.ceo,
-    year: company.yearOfFoundation,
-    registrationAuthority: company.issuingAuthority,
+    messengers: company?.messengers.length ? company?.messengers : [{}],
+    contacts: company?.contacts.length ? company : [{}],
+    name: company?.name,
+    description: company?.description,
+    link: company?.website,
+    head: company?.ceo,
+    year: company?.yearOfFoundation,
+    registrationAuthority: company?.issuingAuthority,
     legalForm: legalFormDefaultOption,
     type: businessTypeDefaultOption,
-    employees: company.qcEmployees,
-    annualTurnover: company.budgetOfYear,
+    employees: company?.qcEmployees,
+    annualTurnover: company?.budgetOfYear,
     registrationNumber: {
-      name: company.regNumName,
-      number: company.regNumber,
+      name: company?.regNumName,
+      number: company?.regNumber,
     },
     legalAddress: {
       country: countryDefaultOption,
       city: cityDefaultOption,
-      street: company.addresses[0]?.street,
-      house: company.addresses[0]?.buildNum,
-      postCode: company.addresses[0]?.postCode,
-      office: company.addresses[0]?.roomNum,
+      street: company?.addresses[0]?.street,
+      house: company?.addresses[0]?.buildNum,
+      postCode: company?.addresses[0]?.postCode,
+      office: company?.addresses[0]?.roomNum,
     },
   };
 
@@ -184,7 +184,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     { value: '100+', label: 'More 100' },
   ];
 
-  const defaultEmployeesOption = employeesOptions.find((option) => option.value === company.qcEmployees);
+  const defaultEmployeesOption = employeesOptions.find((option) => option.value === company?.qcEmployees);
 
   const annualTurnoverOptions = [
     { value: '0 - 100000', label: 'Up to 100000 million' },
@@ -192,14 +192,14 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     { value: '1000000+', label: 'More 1 million' },
   ];
 
-  const defaultAnnualTurnoverOption = annualTurnoverOptions.find((option) => option.value === company.budgetOfYear);
+  const defaultAnnualTurnoverOption = annualTurnoverOptions.find((option) => option.value === company?.budgetOfYear);
 
   const regNumberOptions = [
     { value: 'inn', label: 'INN' },
     { value: 'ogrn', label: 'OGRN' },
   ];
 
-  const defaultRegNumberOption = regNumberOptions.find((option) => option.value === company.regNumName);
+  const defaultRegNumberOption = regNumberOptions.find((option) => option.value === company?.regNumName);
 
   const customSelectStyles: any = {
     valueContainer: (styles: any) => ({
@@ -231,12 +231,12 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
 
   const prepareFormData = (data: TFormData) => {
     const legalAddress = addressesTypesQueryData.find((el: any) => el.value === 'Legal');
-    const preparedMessengersData = transferDataFromCombineSelectInput(data.messengers, messengersOptions);
-    const preparedContactsData = transferDataFromCombineSelectInput(data.contacts, contactsOptions);
+    const preparedMessengersData = transferDataFromCombineSelectInput(data?.messengers, messengersOptions);
+    const preparedContactsData = transferDataFromCombineSelectInput(data?.contacts, contactsOptions);
     const preparedFormData = {
       uuid: router.query.uuid,
-      name: data.name,
-      regNumName: data.registrationNumber.name,
+      name: data?.name,
+      regNumName: data.registrationNumber?.name,
       regNumber: data.registrationNumber.number,
       issuingAuthority: data.registrationAuthority,
       description: data.description,
@@ -510,7 +510,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
         <p className={styles.newCompanyForm__caption}>Social networks</p>
         <CombineSelectInput
           {...{
-            control, register, defaultValues: { ...defaultValues.messengers }, getValues, setValue, errors,
+            control, register, defaultValues: { ...defaultValues?.messengers }, getValues, setValue, errors,
           }}
           options={messengersOptions}
           selectPlaceholder="Messenger"
@@ -521,7 +521,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
         <p className={styles.newCompanyForm__caption}>Contacts</p>
         <CombineSelectInput
           {...{
-            control, register, defaultValues: { ...defaultValues.contacts }, getValues, setValue, errors,
+            control, register, defaultValues: { ...defaultValues?.contacts }, getValues, setValue, errors,
           }}
           options={contactsOptions}
           selectPlaceholder="Contacts"

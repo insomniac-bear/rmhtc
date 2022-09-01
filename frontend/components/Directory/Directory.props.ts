@@ -7,4 +7,3 @@ export interface IDirectory extends DetailedHTMLProps<HTMLAttributes<HTMLDivElem
   label: string;
   setDirectory: (arg: any) => void;
 }
-
