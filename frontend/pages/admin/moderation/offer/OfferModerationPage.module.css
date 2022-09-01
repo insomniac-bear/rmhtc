@@ -1,6 +1,7 @@
 .page {
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  padding: 100px 0 130px;
+	display: flex;
+	justify-content: center;
+
+	box-sizing: border-box;
+	padding: 100px 0 130px;
 }

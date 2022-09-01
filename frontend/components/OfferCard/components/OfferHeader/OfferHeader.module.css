@@ -1,69 +1,81 @@
 .offer__header {
-  display: grid;
-  grid-template-columns: 484px 390px;
-  grid-template-areas: 
-  'slider title'
-  'slider price'
-  'slider seller'
-  'slider empty'
-  'slider empty';
-  gap: 35px 48px;
-  margin: 0 0 50px 0;
+	display: grid;
+	grid-template-columns: 484px 390px;
+	grid-template-areas:
+		"slider title"
+		"slider price"
+		"slider seller"
+		"slider empty"
+		"slider empty";
+	gap: 35px 48px;
+
+	margin: 0 0 50px;
 }
 
 .offer__slider {
-  grid-area: slider;
+	grid-area: slider;
 }
 
 .offer__title {
-  grid-area: title;
-  margin: 0;
-  font-family: var(--RobotoSlab);
-  font-style: normal;
-  font-weight: 500;
-  font-size: 21px;
-  line-height: 27px;
-  color: var(--grey-600);
-  max-width: 390px;
-  width: 100%;
-  word-break: break-all;
+	width: 100%;
+	max-width: 390px;
+	margin: 0;
+
+	word-break: break-all;
+
+	color: var(--grey-600);
+
+	font-family: var(--RobotoSlab);
+	font-size: 21px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 27px;
+	grid-area: title;
 }
 
 .offer__price {
-  grid-area: price;
-  margin: 0;
-  font-family: var(--RobotoSlab);
-  font-style: normal;
-  font-weight: 500;
-  font-size: 21px;
-  line-height: 27px;
-  color: var(--accent-red-400);
-  max-width: 280px;
-  width: 100%;
-  word-break: break-all;
+	width: 100%;
+	max-width: 280px;
+	margin: 0;
+
+	word-break: break-all;
+
+	color: var(--accent-red-400);
+
+	font-family: var(--RobotoSlab);
+	font-size: 21px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 27px;
+	grid-area: price;
 }
 
 .offer__seller {
-  margin: 0;
-  grid-area: seller;
-  font-family: var(--TTNorms);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 30px;
-  color: var(--link);
-  display: flex;
-  flex-direction: column;
-  max-width: 390px;
-  width: 100%;
-  word-wrap: break-word;
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	max-width: 390px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--link);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 30px;
+	grid-area: seller;
 }
 
 .offer__sellerCaption {
-  font-family: var(--TTNorms);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-  color: var(--grey-500);
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 24px;
 }

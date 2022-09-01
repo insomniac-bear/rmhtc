@@ -1,20 +1,22 @@
 .offer__characteristic {
-  display: flex;
+	display: flex;
 }
 
 .offer__characteristicList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  max-width: 922px;
-  width: 100vw;
-  height: auto;
+	display: flex;
+	flex-direction: column;
+
+	width: 100vw;
+	max-width: 922px;
+	height: auto;
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
 }
 
 .offer__characteristicListItem {
-  display: flex;
+	display: flex;
 	align-items: center;
 
 	box-sizing: border-box;
@@ -26,25 +28,31 @@
 }
 
 .offer__characteristicName {
-  width: 300px;
-  margin: 0;
-  font-family: var(--TTNorms);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  color: var(--grey-500);
-  word-wrap: break-word;
+	width: 300px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
 }
 
 .offer__characteristicValue {
-  width: 430px;
-  margin: 0;
-  font-family: var(--TTNorms);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  color: var(--grey-600);
-  word-wrap: break-word;
+	width: 430px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
 }
