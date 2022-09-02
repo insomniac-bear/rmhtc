@@ -101,7 +101,7 @@ export const logoutUser = () => {
   })
     .then(checkResponce)
     .then((res) => {
-      if (res.service_data.status === 'success' && res.service_data.message === 'redirect') return res;
+      if (res.status.status === 'success') return res;
       return Promise.reject(res);
     });
 };

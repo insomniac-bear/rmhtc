@@ -17,7 +17,7 @@ import { MailService } from './mail.service';
         },
       },
       defaults: {
-        from: '"No Replay" <info@add.company>',
+        from: '"No Reply" <info@add.company>',
       },
       template: {
         dir: join(__dirname, 'templates'),

@@ -64,7 +64,8 @@
 
 .contacts__link {
 	composes: contacts__value;
-
+	display: block;
+	width: fit-content;
 	color: var(--link);
 }
 

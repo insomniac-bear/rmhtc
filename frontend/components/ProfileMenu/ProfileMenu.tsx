@@ -35,7 +35,7 @@ export const ProfileMenu: FC<IProfileMenuProps> = ({ menuData, className = '', .
     <div className={`${styles.profileMenu} ${className}`} {...props}>
       <div className={user.role === 'ADMINISTRATOR' ? `${styles.profileMenu__admin}` : `${styles.profileMenu__user}`}>
         <div className={styles.profileMenu__userImg}>
-          <Image priority alt="profile icon" src={user.avatarUrl || '/profile-icon.svg'} layout="fill" />
+          <Image alt="profile icon" src={user.avatarUrl || '/profile-icon.svg'} layout="fill" />
         </div>
         <p className={styles.profileMenu__userName}>{`${user.name || ''} ${user.surname || ''}`}</p>
         {user.role === 'ADMINISTRATOR' && <span className={styles.profileMenu__userRole}>Administrator</span>}

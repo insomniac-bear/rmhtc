@@ -12,7 +12,7 @@ export const filters = [
   {
     id: 3,
     value: 'company',
-    label: 'Comapny',
+    label: 'Company',
   },
   {
     id: 4,

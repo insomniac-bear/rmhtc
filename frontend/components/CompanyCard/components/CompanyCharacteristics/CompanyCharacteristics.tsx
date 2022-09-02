@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-no-target-blank */
 import { FC } from 'react';
 import { Container } from '../../../Container/Container';
@@ -10,6 +11,7 @@ function hrefFilter<TValue>(value: TValue | null | undefined | number): value is
 }
 
 const linkRegex = /document|Document|Link|Presentation/;
+
 export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
   title, data, dto,
 }) => {
@@ -43,7 +45,15 @@ export const CompanyCharacteristics: FC<ICompanyCharacteristics> = ({
                 target="_blank"
                 className={styles.card__link}
               >
-                {transformedKeys[el] === 'Link' || transformedKeys[el] === 'Presentation' ? dataProperties[el] : 'Document link'}
+                {
+                  dataProperties[el] && transformedKeys[el] === 'Link'
+                    ? dataProperties[el]
+                    : dataProperties[el] && transformedKeys[el] === 'Presentation'
+                      ? 'Presentation link'
+                      : dataProperties[el]
+                        ? 'Document link'
+                        : ''
+                  }
               </a>
             ) : (
               <p className={styles.card__value}>{dataProperties[el]}</p>
