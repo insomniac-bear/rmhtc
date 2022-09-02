@@ -8,6 +8,7 @@ import cardImage4 from '../../image4.jpg';
 import cardImage5 from '../../image5.jpg';
 import { IOfferHeader } from './OfferHeader.props';
 import { OfferSlider } from '../OfferSlider/OfferSlider';
+import { Title } from '../../../Title/Title';
 
 const images = [
   { img: cardImage1, id: 1 },
@@ -20,7 +21,7 @@ const images = [
 export const OfferHeader: FC<IOfferHeader> = ({ className = '', ...props }) => (
   <div className={`${styles.offer__header} ${className}`} {...props}>
     <OfferSlider arr={images} outerСlassName={styles.offer__slider} />
-    <h1 className={styles.offer__title}>Lorem ipsum dolor sit amet, consectetur adipisicing. lore</h1>
+    <Title tag="h1" size="s" className={styles.offer__title}>Lorem ipsum dolor sit amet, consectetur adipisicing. lore</Title>
     <p className={styles.offer__price}>$ 506-987/ piece</p>
     <p className={styles.offer__seller}>
       <span className={styles.offer__sellerCaption}>Seller</span>
