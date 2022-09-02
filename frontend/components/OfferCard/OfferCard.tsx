@@ -5,12 +5,14 @@ import { Button } from '../Button/Button';
 import { OfferHeader } from './components/OfferHeader/OfferHeader';
 import { OfferCharacteristics } from './components/OfferCharacteristics/OfferCharacteristics';
 import { OfferDescription } from './components/OfferDescription/OfferDescription';
+import { OfferRejectMessage } from './components/OfferRejectMessage/OfferRejectMessage';
 
 export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
   const [content, setContent] = useState<'description' | 'characteristic'>('description');
 
   return (
     <div className={`${styles.offer} ${className}`} {...props}>
+      <OfferRejectMessage />
       <OfferHeader />
       <div className={styles.offer__container}>
         <div className={styles.offer__contentControls}>

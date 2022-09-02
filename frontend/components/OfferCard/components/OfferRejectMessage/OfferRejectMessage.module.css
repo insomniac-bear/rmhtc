@@ -1,0 +1,50 @@
+.message {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 90px;
+	margin: 0 0 100px;
+	padding: 15px 0;
+
+	border: 1px solid var(--attention-strong);
+	border-radius: 10px;
+	background: var(--attention-weak);
+	grid-template-areas:
+		"description btn"
+		"message btn";
+}
+
+.text {
+	max-width: 460px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--attention-strong);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+	grid-area: text;
+}
+
+.message__description {
+	grid-area: description;
+	composes: text;
+}
+
+.message__messageText {
+	grid-area: message;
+	composes: text;
+}
+
+.message__btn {
+	height: fit-content;
+	margin: 0 0 0 60px;
+	grid-area: btn;
+}
