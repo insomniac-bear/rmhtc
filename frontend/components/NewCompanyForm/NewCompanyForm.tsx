@@ -12,6 +12,7 @@ import { CustomTextarea } from '../CustomTextarea/CustomTextarea';
 import { FileInput } from '../FileInput/FileInput';
 import { Button } from '../Button/Button';
 import { CombineSelectInput } from '../CombineSelectInput/CombineSelectInput';
+import { apiService } from '../../services/apiService';
 import { userAPI } from '../../services/userService';
 import { Loader } from '../Loader/Loader';
 
@@ -69,13 +70,13 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
   const [updateCompanyCEO] = userAPI.useUpdateCompanyCEOMutation();
   const [updateCompanyRegistrationDocument] = userAPI.useUpdateCompanyRegistrationDocumentMutation();
 
-  const { data: legalFormsQueryData, isFetching: isLegalFormsQueryFetching, isLoading: isLegalFormsQueryLoading } = userAPI.useGetLegalFormsQuery('');
-  const { data: businessTypesQueryData, isFetching: isBusinessTypesFetching, isLoading: isBusinessTypesLoading } = userAPI.useGetBusinessTypesQuery('');
-  const { data: countriesQueryData, isFetching: isCountriesFetching, isLoading: isCountriesLoading } = userAPI.useGetCountriesQuery('');
-  const { data: addressesTypesQueryData, isFetching: isAddressesTypesFetching, isLoading: isAddressesTypesLoading } = userAPI.useGetAddressesTypesQuery('');
-  const { data: citiesQueryData, isFetching: isCitiesFetching, isLoading: isCitiesLoading } = userAPI.useGetCitiesQuery('');
-  const { data: messengersQueryData, isFetching: isMessengersFetching, isLoading: isMessengersLoading } = userAPI.useGetMessengersTypesQuery('');
-  const { data: contactsQueryData, isFetching: isContactsFetching, isLoading: isContactsLoading } = userAPI.useGetContactsTypesQuery('');
+  const { data: legalFormsQueryData, isFetching: isLegalFormsQueryFetching, isLoading: isLegalFormsQueryLoading } = apiService.useGetLegalFormsQuery('');
+  const { data: businessTypesQueryData, isFetching: isBusinessTypesFetching, isLoading: isBusinessTypesLoading } = apiService.useGetBusinessTypesQuery('');
+  const { data: countriesQueryData, isFetching: isCountriesFetching, isLoading: isCountriesLoading } = apiService.useGetCountriesQuery('');
+  const { data: addressesTypesQueryData, isFetching: isAddressesTypesFetching, isLoading: isAddressesTypesLoading } = apiService.useGetAddressesTypesQuery('');
+  const { data: citiesQueryData, isFetching: isCitiesFetching, isLoading: isCitiesLoading } = apiService.useGetCitiesQuery('');
+  const { data: messengersQueryData, isFetching: isMessengersFetching, isLoading: isMessengersLoading } = apiService.useGetMessengersTypesQuery('');
+  const { data: contactsQueryData, isFetching: isContactsFetching, isLoading: isContactsLoading } = apiService.useGetContactsTypesQuery('');
 
   const isDataFetching = isLegalFormsQueryFetching
   || isBusinessTypesFetching

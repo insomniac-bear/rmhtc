@@ -4,19 +4,19 @@ import { useEffect, useState } from 'react';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
-import { adminAPI } from '../../../../services/adminService';
+import { apiService } from '../../../../services/apiService';
 import { Loader } from '../../../../components/Loader/Loader';
 
 const CompanyDirectoryPage: NextPage = () => {
   const [businessTypesDirectory, setBusinessTypesDirectory] = useState<null | any>(null);
   const [legalFormsDirectory, setLegalFormsDirectory] = useState<null | any>(null);
 
-  const { data: businessTypesRes, isLoading: isBusinessTypesLoading } = adminAPI.useGetCompaniesBusinessTypesQuery('');
-  const { data: legalFormsRes, isLoading: isLegalFormsLoading } = adminAPI.useGetCompaniesLegalFormsQuery('');
+  const { data: businessTypesRes, isLoading: isBusinessTypesLoading } = apiService.useGetBusinessTypesQuery('');
+  const { data: legalFormsRes, isLoading: isLegalFormsLoading } = apiService.useGetLegalFormsQuery('');
 
   useEffect(() => {
-    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type', label: 'type' } });
-    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form', label: 'type' } });
+    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type' } });
+    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form' } });
   }, [businessTypesRes, legalFormsRes]);
 
   return (
@@ -26,12 +26,12 @@ const CompanyDirectoryPage: NextPage = () => {
         <ul className={styles.list}>
           <li>
             {businessTypesDirectory?.values && (
-              <Directory directory={businessTypesDirectory} setDirectory={setBusinessTypesDirectory} label="Bussines" />
+              <Directory directory={businessTypesDirectory} label="Bussines" />
             )}
           </li>
           <li>
             {legalFormsDirectory?.values && (
-              <Directory directory={legalFormsDirectory} setDirectory={setLegalFormsDirectory} label="Legal form" />
+              <Directory directory={legalFormsDirectory} label="Legal form" />
             )}
           </li>
         </ul>
