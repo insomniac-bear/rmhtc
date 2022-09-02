@@ -110,41 +110,6 @@ export const userAPI = apiService.injectEndpoints({
         body: data,
       }),
     }),
-    getLegalForms: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/companies/legal-forms',
-      }),
-    }),
-    getBusinessTypes: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/companies/business-types',
-      }),
-    }),
-    getAddressesTypes: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/address/types',
-      }),
-    }),
-    getCountries: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/address/countries',
-      }),
-    }),
-    getCities: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/address/cities',
-      }),
-    }),
-    getMessengersTypes: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/messengers/types',
-      }),
-    }),
-    getContactsTypes: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/contacts/types',
-      }),
-    }),
     getAllCompanies: build.query<any, any>({
       query: (page) => ({
         url: `/api/v1/companies${page ? `?page=${page}` : ''}`,

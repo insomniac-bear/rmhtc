@@ -8,7 +8,7 @@ export const adminAPI = apiService.injectEndpoints({
         credentials: 'include',
       }),
     }),
-    getCurrentCompany: build.query<any, any>({
+    getCurrentModerateCompany: build.query<any, any>({
       query: (uuid: string) => ({
         url: `/api/v1/companies/moderate/${uuid}`,
         credentials: 'include',
@@ -40,48 +40,6 @@ export const adminAPI = apiService.injectEndpoints({
         },
       }),
       invalidatesTags: ['directory'],
-    }),
-    getAddressesTypes: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/address/types',
-      }),
-      providesTags: ['directory'],
-    }),
-    getAllCountries: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/address/countries',
-      }),
-      providesTags: ['directory'],
-    }),
-    getAllCities: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/address/cities',
-      }),
-      providesTags: ['directory'],
-    }),
-    getAllMessengers: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/messengers/types',
-      }),
-      providesTags: ['directory'],
-    }),
-    getAllContacts: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/contacts/types',
-      }),
-      providesTags: ['directory'],
-    }),
-    getCompaniesLegalForms: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/companies/legal-forms',
-      }),
-      providesTags: ['directory'],
-    }),
-    getCompaniesBusinessTypes: build.query<any, any>({
-      query: () => ({
-        url: '/api/v1/companies/business-types',
-      }),
-      providesTags: ['directory'],
     }),
     rejectCompany: build.mutation<any, any>({
       query: ({ uuid, reason }) => ({

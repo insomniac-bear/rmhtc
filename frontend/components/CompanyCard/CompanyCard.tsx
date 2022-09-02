@@ -25,7 +25,7 @@ export const CompanyCard: FC<ICompanyCard> = ({ access, className = '', ...props
   const router = useRouter();
   const { user } = useAppSelector((store) => store.user);
   const { uuid } = router.query;
-  const [getCompanyForModerate] = adminAPI.useLazyGetCurrentCompanyQuery();
+  const [getCompanyForModerate] = adminAPI.useLazyGetCurrentModerateCompanyQuery();
   const [getCompanyForView] = userAPI.useLazyGetCurrentCompanyQuery();
   const [approveCompany] = adminAPI.useApproveCompanyMutation();
   const headerData = currentCompany && headerDataDto(currentCompany);

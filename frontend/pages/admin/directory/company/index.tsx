@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
-import { adminAPI } from '../../../../services/adminService';
+import { apiService } from '../../../../services/apiService';
 import { Loader } from '../../../../components/Loader/Loader';
 
 const CompanyDirectoryPage: NextPage = () => {
   const [businessTypesDirectory, setBusinessTypesDirectory] = useState<null | any>(null);
   const [legalFormsDirectory, setLegalFormsDirectory] = useState<null | any>(null);
 
-  const { data: businessTypesRes, isLoading: isBusinessTypesLoading } = adminAPI.useGetCompaniesBusinessTypesQuery('');
-  const { data: legalFormsRes, isLoading: isLegalFormsLoading } = adminAPI.useGetCompaniesLegalFormsQuery('');
+  const { data: businessTypesRes, isLoading: isBusinessTypesLoading } = apiService.useGetBusinessTypesQuery('');
+  const { data: legalFormsRes, isLoading: isLegalFormsLoading } = apiService.useGetLegalFormsQuery('');
 
   useEffect(() => {
     setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type' } });

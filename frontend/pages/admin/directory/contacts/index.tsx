@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import styles from '../DirectoryPage.module.css';
 import { withAuthLayout } from '../../../../layouts/AuthLayout/AuthLayout';
 import { Directory } from '../../../../components/Directory/Directory';
-import { adminAPI } from '../../../../services/adminService';
+import { apiService } from '../../../../services/apiService';
 import { Loader } from '../../../../components/Loader/Loader';
 
 const ContactsDirectoryPage: NextPage = () => {
   const [contactsDirectory, setContactsDirectory] = useState<null | any>(null);
   const [messengersDirectory, setMessengersDirectory] = useState<null | any>(null);
 
-  const { data: contactsRes, isLoading: isContactsLoading } = adminAPI.useGetAllContactsQuery('');
-  const { data: messengersRes, isLoading: isMessengersLoading } = adminAPI.useGetAllMessengersQuery('');
+  const { data: contactsRes, isLoading: isContactsLoading } = apiService.useGetContactsTypesQuery('');
+  const { data: messengersRes, isLoading: isMessengersLoading } = apiService.useGetMessengersTypesQuery('');
 
   useEffect(() => {
     setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts' } });
