@@ -1,10 +1,10 @@
 .container {
 	display: flex;
+	justify-content: center;
 
 	box-sizing: border-box;
 	max-width: 1065px;
 	padding: 117px 60px 0;
-	justify-content: center;
 }
 
 .list {

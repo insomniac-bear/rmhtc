@@ -1,0 +1,7 @@
+.page {
+	display: flex;
+	justify-content: center;
+
+	box-sizing: border-box;
+	padding: 56px 0 130px;
+}

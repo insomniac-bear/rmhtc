@@ -1,0 +1,58 @@
+.offer__characteristic {
+	display: flex;
+}
+
+.offer__characteristicList {
+	display: flex;
+	flex-direction: column;
+
+	width: 100vw;
+	max-width: 922px;
+	height: auto;
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.offer__characteristicListItem {
+	display: flex;
+	align-items: center;
+
+	box-sizing: border-box;
+	min-height: 70px;
+	padding: 15px 0;
+
+	border-bottom: 1px solid var(--grey-400);
+	gap: 0 160px;
+}
+
+.offer__characteristicName {
+	width: 300px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+}
+
+.offer__characteristicValue {
+	width: 430px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+}

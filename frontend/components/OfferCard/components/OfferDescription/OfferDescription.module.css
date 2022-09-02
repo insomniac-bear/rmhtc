@@ -1,0 +1,38 @@
+/* ----------------------------------------------------- */
+
+/* Поправить стили по готовности макета */
+
+/* ----------------------------------------------------- */
+
+.description {
+	display: flex;
+	flex-direction: column;
+	gap: 20px 0;
+}
+
+.description__text {
+	width: 600px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+}
+
+.description__link {
+	margin: 0;
+
+	color: #0340DF;
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 20px;
+}

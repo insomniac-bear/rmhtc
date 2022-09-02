@@ -31,8 +31,4 @@ const ModerationPage: NextPage = () => {
   );
 };
 
-// <Modal style={{ width: 'fit-content' }}>
-//   {isApproved && <ModerationMessage message="Сompany successfully published" />}
-//   {isRejected && <ModerationMessage message="Сompany rejected" />}
-// </Modal>
 export default withAuthLayout(ModerationPage);

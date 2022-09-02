@@ -7,9 +7,9 @@
 
 	text-align: left;
 
-	color: #2B2B2B;
+	color: var(--grey-600);
 
-	font-family: RobotoSlab, Arial, sans-serif;
+	font-family: var(--RobotoSlab);
 	font-weight: 700;
 	line-height: 1.02;
 }

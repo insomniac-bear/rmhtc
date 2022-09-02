@@ -3,11 +3,11 @@
 	min-width: 400px;
 	padding-left: 165px;
 
-	color: #182339;
+	color: var(--accent-blue-400);
 	background-image: url("../../images/section-title-background.svg");
 	background-position: left;
 	background-size: cover;
 
-	font-family: RobotoSlab, Arial, sans-serif;
+	font-family: var(--RobotoSlab);
 	font-size: 45px;
 }

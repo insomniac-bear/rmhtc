@@ -1,0 +1,78 @@
+.offer__header {
+	display: grid;
+	grid-template-columns: 484px 390px;
+	grid-template-areas:
+		"slider title"
+		"slider price"
+		"slider seller"
+		"slider empty"
+		"slider empty";
+	gap: 35px 48px;
+
+	margin: 0 0 50px;
+}
+
+.offer__slider {
+	grid-area: slider;
+}
+
+.offer__title {
+	width: 100%;
+	max-width: 390px;
+	margin: 0;
+
+	word-break: break-all;
+
+	font-size: 21px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 27px;
+	grid-area: title;
+}
+
+.offer__price {
+	width: 100%;
+	max-width: 280px;
+	margin: 0;
+
+	word-break: break-all;
+
+	color: var(--accent-red-400);
+
+	font-family: var(--RobotoSlab);
+	font-size: 21px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 27px;
+	grid-area: price;
+}
+
+.offer__seller {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	max-width: 390px;
+	margin: 0;
+
+	word-wrap: break-word;
+
+	color: var(--link);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 30px;
+	grid-area: seller;
+}
+
+.offer__sellerCaption {
+	color: var(--grey-500);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 24px;
+}
