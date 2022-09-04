@@ -11,6 +11,9 @@ import { MinioClientModule } from './core/minio-client/minio-client.module';
 import { MessengersModule } from './messengers/messengers.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { ModerationModule } from './moderation/moderation.module';
+import { OfferModule } from './offer/offer.module';
+import { CurrencyModule } from './currency/currency.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -26,6 +29,9 @@ import { ModerationModule } from './moderation/moderation.module';
     MessengersModule,
     ContactsModule,
     ModerationModule,
+    OfferModule,
+    CurrencyModule,
+    CategoryModule,
   ],
 })
 export class AppModule {}

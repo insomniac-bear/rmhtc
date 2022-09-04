@@ -46,8 +46,9 @@ export class MinioClientService {
     const fileBuffer = file.buffer;
 
     this.client.putObject(baseBucket, fileName, fileBuffer, (err, _res) => {
-      if (err)
+      if (err) {
         throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST);
+      }
     });
 
     return `https://${process.env.STORAGE_DEV_ROUTE}/${baseBucket}/${fileName}`;

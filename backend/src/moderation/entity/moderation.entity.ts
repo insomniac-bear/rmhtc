@@ -9,6 +9,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Company } from 'src/company/entity/company.entity';
+import { Offer } from 'src/offer/entity/offer.entity';
 import { User } from 'src/users/entity/user.entity';
 
 @Table({
@@ -37,4 +38,7 @@ export class Moderation extends Model<Moderation> {
 
   @HasOne(() => Company)
   companies: Company;
+
+  @HasOne(() => Offer)
+  offers: Offer;
 }

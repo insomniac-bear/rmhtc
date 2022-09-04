@@ -9,7 +9,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     const { DataTypes } = Sequelize;
-    return await queryInterface.createTable('characteristics', {
+    return await queryInterface.createTable('offers_categories', {
       uuid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -17,15 +17,19 @@ module.exports = {
         unique: true,
         primaryKey: true,
       },
-      name: {
-        type: DataTypes.STRING,
+      offerUuid: {
+        type: Sequelize.DataTypes.UUID,
         allowNull: false,
-        unique: true,
+        references: { model: 'offers', key: 'uuid' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
-      value: {
-        type: DataTypes.STRING,
+      typeUuid: {
+        type: Sequelize.DataTypes.UUID,
         allowNull: false,
-        unique: true,
+        references: { model: 'categories', key: 'uuid' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -45,6 +49,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return await queryInterface.dropTable('characteristics');
+    return await queryInterface.dropTable('offers_categories');
   },
 };

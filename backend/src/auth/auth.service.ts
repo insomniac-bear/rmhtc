@@ -133,7 +133,7 @@ export class AuthService {
 
   async login(data: LoginDto, res: Response) {
     const user = await this.usersService.getUserByParam('email', data.email);
-    if (!user) throw new ForbiddenException('Access denied');
+    if (!user.uuid) throw new ForbiddenException('Access denied');
 
     const passwordMatches = await this.usersService.compareUserPassword(
       user.uuid,
