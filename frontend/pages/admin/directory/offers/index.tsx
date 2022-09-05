@@ -8,21 +8,19 @@ import { apiService } from '../../../../services/apiService';
 import { Loader } from '../../../../components/Loader/Loader';
 
 const OffersDirectoryPage: NextPage = () => {
-  const [contactsDirectory, setContactsDirectory] = useState<null | any>(null);
-  const [messengersDirectory, setMessengersDirectory] = useState<null | any>(null);
+  const [offersCategoriesDirectory, setOffersCategoriesDirectory] = useState<null | any>(null);
 
-  const { data: contactsRes, isLoading: isContactsLoading } = apiService.useGetContactsTypesQuery('');
-  const { data: messengersRes, isLoading: isMessengersLoading } = apiService.useGetMessengersTypesQuery('');
+  const { data: offersCategoriesRes, isLoading: isCategoriesLoading } = apiService.useGetOffersCategoriesQuery('');
 
   useEffect(() => {
-    setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts' } });
-    setMessengersDirectory({ values: messengersRes, fetchParams: { type: 'type', route: 'messengers' } });
-  }, [contactsRes, messengersRes]);
+    setOffersCategoriesDirectory({ values: offersCategoriesDirectory, fetchParams: { type: '', route: 'categories' } });
+    console.log(offersCategoriesRes);
+  }, [offersCategoriesRes]);
 
   return (
     <div className={styles.container}>
-      {isContactsLoading && isMessengersLoading && <Loader />}
-      {!isContactsLoading && !isMessengersLoading && (
+      {isCategoriesLoading && <Loader />}
+      {/* {!isContactsLoading && !isMessengersLoading && (
         <ul className={styles.list}>
           <li>
             {contactsDirectory?.values && (
@@ -35,7 +33,7 @@ const OffersDirectoryPage: NextPage = () => {
             )}
           </li>
         </ul>
-      )}
+      )} */}
     </div>
   );
 };
