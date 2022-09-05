@@ -25,7 +25,7 @@ type FormData = {
   legalForm?: string[];
 };
 
-const CatalogCompaniesPage: NextPage = () => {
+const CatalogOffersPage: NextPage = () => {
   const [companiesData, setCompaniesData] = useState<any | null>(null);
   const [getCompanies, { isLoading: isCompaniesLoading }] = userAPI.useLazyGetAllCompaniesQuery();
   const { handleSubmit, register } = useForm<FormData>();
@@ -103,4 +103,4 @@ const CatalogCompaniesPage: NextPage = () => {
   );
 };
 
-export default CatalogCompaniesPage;
+export default CatalogOffersPage;
