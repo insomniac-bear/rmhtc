@@ -10,18 +10,21 @@ import { Loader } from '../../../../components/Loader/Loader';
 const OffersDirectoryPage: NextPage = () => {
   const [offersCategoriesDirectory, setOffersCategoriesDirectory] = useState<null | any>(null);
   const [currenciesDirectory, setCurrenciesDirectory] = useState<null | any>(null);
+  const [offerTypesDirectory, setOfferTypesDirectory] = useState<null | any>(null);
 
   const { data: offersCategoriesRes, isLoading: isCategoriesLoading } = apiService.useGetOffersCategoriesQuery('');
   const { data: currenciesRes, isLoading: isCurrenciesLoading } = apiService.useGetCurrenciesQuery('');
+  const { data: offerTypesRes, isLoading: isOfferTypesLoading } = apiService.useGetOfferTypesQuery('');
 
   useEffect(() => {
     setOffersCategoriesDirectory({ values: offersCategoriesRes, fetchParams: { type: '', route: 'category' } });
     setCurrenciesDirectory({ values: currenciesRes, fetchParams: { type: '', route: 'currency' } });
-  }, [offersCategoriesRes, currenciesRes]);
+    setOfferTypesDirectory({ values: offerTypesRes, fetchParams: { type: 'type', route: 'offer' } });
+  }, [offersCategoriesRes, currenciesRes, offerTypesRes]);
 
   return (
     <div className={styles.container}>
-      {isCategoriesLoading && isCurrenciesLoading && <Loader />}
+      {isCategoriesLoading && isCurrenciesLoading && isOfferTypesLoading && <Loader />}
       {!isCategoriesLoading && !isCurrenciesLoading && (
         <ul className={styles.list}>
           <li>
@@ -32,6 +35,11 @@ const OffersDirectoryPage: NextPage = () => {
           <li>
             {currenciesDirectory?.values && (
               <Directory directory={currenciesDirectory} label="Currency" />
+            )}
+          </li>
+          <li>
+            {offerTypesDirectory?.values && (
+              <Directory directory={offerTypesDirectory} label="Offer" />
             )}
           </li>
         </ul>

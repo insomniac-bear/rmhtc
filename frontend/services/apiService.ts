@@ -72,5 +72,12 @@ export const apiService = createApi({
       transformResponse: (response: any) => response.currencies,
       providesTags: ['directory'],
     }),
+    getOfferTypes: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/offer/types',
+      }),
+      transformResponse: (response: any) => response.offerTypes,
+      providesTags: ['directory'],
+    }),
   }),
 });
