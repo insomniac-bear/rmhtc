@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { CatalogOfferPreview } from '../CatalogOfferPreview/CatalogOfferPreview';
 import styles from './OffersCatalog.module.css';
 import { IOffersCatalog } from './OffersCatalog.props';
 
@@ -8,7 +9,7 @@ export const OffersCatalog: FC<IOffersCatalog> = ({
   <div className={styles.catalog}>
     <ul className={`${styles.catalog__itemsList} ${className}`} {...props}>
       <li>
-        <h1>Offer</h1>
+        <CatalogOfferPreview />
       </li>
     </ul>
     <button className={styles.catalog__moreButton} type="button">
