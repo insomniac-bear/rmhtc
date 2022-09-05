@@ -9,21 +9,29 @@ import { Loader } from '../../../../components/Loader/Loader';
 
 const OffersDirectoryPage: NextPage = () => {
   const [offersCategoriesDirectory, setOffersCategoriesDirectory] = useState<null | any>(null);
+  const [currenciesDirectory, setCurrenciesDirectory] = useState<null | any>(null);
 
   const { data: offersCategoriesRes, isLoading: isCategoriesLoading } = apiService.useGetOffersCategoriesQuery('');
+  const { data: currenciesRes, isLoading: isCurrenciesLoading } = apiService.useGetCurrenciesQuery('');
 
   useEffect(() => {
     setOffersCategoriesDirectory({ values: offersCategoriesRes, fetchParams: { type: '', route: 'category' } });
-  }, [offersCategoriesRes]);
+    setCurrenciesDirectory({ values: currenciesRes, fetchParams: { type: '', route: 'currency' } });
+  }, [offersCategoriesRes, currenciesRes]);
 
   return (
     <div className={styles.container}>
-      {isCategoriesLoading && <Loader />}
-      {!isCategoriesLoading && (
+      {isCategoriesLoading && isCurrenciesLoading && <Loader />}
+      {!isCategoriesLoading && !isCurrenciesLoading && (
         <ul className={styles.list}>
           <li>
             {offersCategoriesDirectory?.values && (
               <Directory directory={offersCategoriesDirectory} label="Offer category" />
+            )}
+          </li>
+          <li>
+            {currenciesDirectory?.values && (
+              <Directory directory={currenciesDirectory} label="Currency" />
             )}
           </li>
         </ul>
