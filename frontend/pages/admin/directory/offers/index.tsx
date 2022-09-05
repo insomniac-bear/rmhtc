@@ -13,27 +13,21 @@ const OffersDirectoryPage: NextPage = () => {
   const { data: offersCategoriesRes, isLoading: isCategoriesLoading } = apiService.useGetOffersCategoriesQuery('');
 
   useEffect(() => {
-    setOffersCategoriesDirectory({ values: offersCategoriesDirectory, fetchParams: { type: '', route: 'categories' } });
-    console.log(offersCategoriesRes);
+    setOffersCategoriesDirectory({ values: offersCategoriesRes, fetchParams: { type: '', route: 'categories' } });
   }, [offersCategoriesRes]);
 
   return (
     <div className={styles.container}>
       {isCategoriesLoading && <Loader />}
-      {/* {!isContactsLoading && !isMessengersLoading && (
+      {!isCategoriesLoading && (
         <ul className={styles.list}>
           <li>
-            {contactsDirectory?.values && (
-              <Directory directory={contactsDirectory} label="Contact" />
-            )}
-          </li>
-          <li>
-            {messengersDirectory?.values && (
-              <Directory directory={messengersDirectory} label="Messenger" />
+            {offersCategoriesDirectory?.values && (
+              <Directory directory={offersCategoriesDirectory} label="Offer category" />
             )}
           </li>
         </ul>
-      )} */}
+      )}
     </div>
   );
 };
