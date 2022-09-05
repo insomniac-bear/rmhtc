@@ -8,14 +8,13 @@ import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 import { CheckboxFilter } from '../../../components/CheckboxFilter/CheckboxFilter';
 import { Footer } from '../../../components/Footer/Footer';
-import { CompaniesCatalog } from '../../../components/CompaniesCatalog/CompaniesCatalog';
 import {
   companyType, legalForm, annualTurner, employees, country,
 } from '../../../mockData/catalogMockData';
 import { Button } from '../../../components/Button/Button';
 import { userAPI } from '../../../services/userService';
-import { Loader } from '../../../components/Loader/Loader';
 import { NavLink } from '../../../components/NavLink/NavLink';
+import { OffersCatalog } from '../../../components/OffersCatalog/OffersCatalog';
 
 type FormData = {
   annualTurner?: string[];
@@ -26,24 +25,24 @@ type FormData = {
 };
 
 const CatalogOffersPage: NextPage = () => {
-  const [companiesData, setCompaniesData] = useState<any | null>(null);
-  const [getCompanies, { isLoading: isCompaniesLoading }] = userAPI.useLazyGetAllCompaniesQuery();
+  const [a, setCompaniesData] = useState<any | null>(null);
+  const [getCompanies] = userAPI.useLazyGetAllCompaniesQuery();
   const { handleSubmit, register } = useForm<FormData>();
 
   const submitFormHandler = (data: FormData) => {
-    console.log(data);
+    console.log(data, a);
   };
 
-  const handleGetMore = () => {
-    if (companiesData && companiesData.count > 9) {
-      getCompanies(companiesData.page + 1)
-        .then((res) => setCompaniesData((prevState: any) => ({
-          ...prevState,
-          companies: prevState?.companies.concat(res.data.companies),
-          page: prevState.page + 1,
-        })));
-    }
-  };
+  // const handleGetMore = () => {
+  //   if (companiesData && companiesData.count > 9) {
+  //     getCompanies(companiesData.page + 1)
+  //       .then((res) => setCompaniesData((prevState: any) => ({
+  //         ...prevState,
+  //         companies: prevState?.companies.concat(res.data.companies),
+  //         page: prevState.page + 1,
+  //       })));
+  //   }
+  // };
 
   useEffect(() => {
     getCompanies('')
@@ -84,8 +83,7 @@ const CatalogOffersPage: NextPage = () => {
             </ul>
           </nav>
         </div>
-        {isCompaniesLoading && <Loader />}
-        {!isCompaniesLoading && companiesData && <CompaniesCatalog data={companiesData} onGetMore={handleGetMore} />}
+        <OffersCatalog />
         <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
           <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
           <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />
