@@ -35,7 +35,7 @@ export class Category extends Model<Category> {
     allowNull: false,
     unique: true,
   })
-  name: string;
+  value: string;
 
   @BelongsToMany(() => Offer, () => OfferCategory)
   offers: Offer[];

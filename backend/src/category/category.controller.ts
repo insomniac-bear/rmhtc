@@ -29,9 +29,9 @@ export class CategoryController {
   createCategory(
     @Req() req,
     @Res({ passthrough: true }) res,
-    @Body() data: { category: string }
+    @Body() data: { value: string }
   ) {
-    return this.categoryService.createCategory(req.user, res, data.category);
+    return this.categoryService.createCategory(req.user, res, data.value);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -41,13 +41,13 @@ export class CategoryController {
   updateCategory(
     @Req() req,
     @Res({ passthrough: true }) res,
-    @Body() data: { uuid: string; category: string }
+    @Body() data: { uuid: string; value: string }
   ) {
     return this.categoryService.updateCategory(
       req.user,
       res,
       data.uuid,
-      data.category
+      data.value
     );
   }
 }

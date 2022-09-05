@@ -17,7 +17,7 @@ module.exports = {
         unique: true,
         primaryKey: true,
       },
-      name: {
+      value: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
