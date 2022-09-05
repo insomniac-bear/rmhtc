@@ -17,9 +17,9 @@ const AddressesDirectoryPage: NextPage = () => {
   const { data: addressRes, isLoading: isAddressLoading } = apiService.useGetAddressesTypesQuery('');
 
   useEffect(() => {
-    setCountriesDirectory({ values: countriesRes, fetchParams: { type: 'country', route: 'address' } });
-    setCitiesDirectory({ values: citiesRes, fetchParams: { type: 'city', route: 'address' } });
-    setAddressDirectory({ values: addressRes, fetchParams: { type: 'type', route: 'address' } });
+    setCountriesDirectory({ values: countriesRes, fetchParams: { endpoint: 'country', route: 'address' } });
+    setCitiesDirectory({ values: citiesRes, fetchParams: { endpoint: 'city', route: 'address' } });
+    setAddressDirectory({ values: addressRes, fetchParams: { endpoint: 'type', route: 'address' } });
   }, [countriesRes, citiesRes, addressRes]);
 
   return (

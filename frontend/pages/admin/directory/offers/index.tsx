@@ -17,9 +17,9 @@ const OffersDirectoryPage: NextPage = () => {
   const { data: offerTypesRes, isLoading: isOfferTypesLoading } = apiService.useGetOfferTypesQuery('');
 
   useEffect(() => {
-    setOffersCategoriesDirectory({ values: offersCategoriesRes, fetchParams: { type: '', route: 'category' } });
-    setCurrenciesDirectory({ values: currenciesRes, fetchParams: { type: '', route: 'currency' } });
-    setOfferTypesDirectory({ values: offerTypesRes, fetchParams: { type: 'type', route: 'offer' } });
+    setOffersCategoriesDirectory({ values: offersCategoriesRes, fetchParams: { endpoint: '', route: 'category' } });
+    setCurrenciesDirectory({ values: currenciesRes, fetchParams: { endpoint: '', route: 'currency' } });
+    setOfferTypesDirectory({ values: offerTypesRes, fetchParams: { endpoint: 'type', route: 'offer' } });
   }, [offersCategoriesRes, currenciesRes, offerTypesRes]);
 
   return (

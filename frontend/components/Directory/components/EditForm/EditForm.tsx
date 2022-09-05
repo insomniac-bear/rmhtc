@@ -58,7 +58,7 @@ export const EditForm: FC<IEditForm> = ({
 
     if (formType === 'patch') {
       patchItem({
-        route: fetchParams.route, type: fetchParams.type, uuid: item!.uuid, value,
+        route: fetchParams.route, endpoint: fetchParams.endpoint, uuid: item!.uuid, value,
       }).finally(() => {
         if (hideForm) {
           hideForm();
@@ -71,7 +71,7 @@ export const EditForm: FC<IEditForm> = ({
 
     if (formType === 'add') {
       postItem({
-        route: fetchParams.route, type: fetchParams.type, value,
+        route: fetchParams.route, endpoint: fetchParams.endpoint, value,
       }).finally(() => {
         if (hideForm) {
           hideForm();

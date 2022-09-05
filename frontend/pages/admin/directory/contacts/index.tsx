@@ -15,8 +15,8 @@ const ContactsDirectoryPage: NextPage = () => {
   const { data: messengersRes, isLoading: isMessengersLoading } = apiService.useGetMessengersTypesQuery('');
 
   useEffect(() => {
-    setContactsDirectory({ values: contactsRes, fetchParams: { type: 'type', route: 'contacts' } });
-    setMessengersDirectory({ values: messengersRes, fetchParams: { type: 'type', route: 'messengers' } });
+    setContactsDirectory({ values: contactsRes, fetchParams: { endpoint: 'type', route: 'contacts' } });
+    setMessengersDirectory({ values: messengersRes, fetchParams: { endpoint: 'type', route: 'messengers' } });
   }, [contactsRes, messengersRes]);
 
   return (

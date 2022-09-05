@@ -16,9 +16,9 @@ export const adminAPI = apiService.injectEndpoints({
     }),
     patchDirectoryItem: build.mutation<any, any>({
       query: ({
-        route, type, uuid, value,
+        route, endpoint, uuid, value,
       }) => ({
-        url: `/api/v1/${route}/${type}`,
+        url: `/api/v1/${route}/${endpoint}`,
         method: 'PATCH',
         credentials: 'include',
         body: {
@@ -30,9 +30,9 @@ export const adminAPI = apiService.injectEndpoints({
     }),
     postNewDirectoryItem: build.mutation<any, any>({
       query: ({
-        route, type, value,
+        route, endpoint, value,
       }) => ({
-        url: `/api/v1/${route}/${type}`,
+        url: `/api/v1/${route}/${endpoint}`,
         method: 'POST',
         credentials: 'include',
         body: {
