@@ -28,7 +28,7 @@ export class Currency extends Model<Currency> {
     allowNull: true,
     unique: false,
   })
-  name: string;
+  value: string;
 
   @HasMany(() => Offer)
   offers: Offer;

@@ -27,5 +27,5 @@ export class OfferType extends Model<OfferType> {
     allowNull: true,
     unique: false,
   })
-  name: string;
+  value: string;
 }

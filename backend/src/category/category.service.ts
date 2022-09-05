@@ -31,7 +31,7 @@ export class CategoryService {
 
     const candidate = await this.categoryEntity.findOne({
       where: {
-        name: newCategory,
+        value: newCategory,
       },
     });
 
@@ -43,7 +43,7 @@ export class CategoryService {
     }
 
     await this.categoryEntity.create({
-      name: newCategory,
+      value: newCategory,
     });
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
@@ -79,7 +79,7 @@ export class CategoryService {
       throw new HttpException('Category not found', HttpStatus.BAD_REQUEST);
     }
 
-    await candidate.update({ name: newCategoryValue });
+    await candidate.update({ value: newCategoryValue });
 
     const { accessToken, refreshToken } = await this.authService.getTokens(
       sub,
