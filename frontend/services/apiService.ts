@@ -62,8 +62,8 @@ export const apiService = createApi({
       query: () => ({
         url: '/api/v1/category/all',
       }),
-      providesTags: ['directory'],
       transformResponse: (response: any) => response.categories,
+      providesTags: ['directory'],
     }),
   }),
 });

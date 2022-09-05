@@ -13,7 +13,7 @@ const OffersDirectoryPage: NextPage = () => {
   const { data: offersCategoriesRes, isLoading: isCategoriesLoading } = apiService.useGetOffersCategoriesQuery('');
 
   useEffect(() => {
-    setOffersCategoriesDirectory({ values: offersCategoriesRes, fetchParams: { type: '', route: 'categories' } });
+    setOffersCategoriesDirectory({ values: offersCategoriesRes, fetchParams: { type: '', route: 'category' } });
   }, [offersCategoriesRes]);
 
   return (
