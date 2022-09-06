@@ -15,7 +15,7 @@ import {
 import { Button } from '../../../components/Button/Button';
 import { userAPI } from '../../../services/userService';
 import { Loader } from '../../../components/Loader/Loader';
-import { NavLink } from '../../../components/NavLink/NavLink';
+import { CatalogNav } from '../../../components/CatalogNav/CatalogNav';
 
 type FormData = {
   annualTurner?: string[];
@@ -64,25 +64,7 @@ const CatalogCompaniesPage: NextPage = () => {
       <main className={styles.content}>
         <div className={styles.content__searchBar}>
           <SimpleSearch />
-          <nav>
-            <ul className={styles.content__nav}>
-              <li>
-                <NavLink href="/catalog/companies" className={styles.nav__link} activeClass={styles.nav__link_active}>
-                  Companies
-                </NavLink>
-              </li>
-              <li>
-                <NavLink href="/catalog/offers" className={styles.nav__link} activeClass={styles.nav__link_active}>
-                  Offers
-                </NavLink>
-              </li>
-              <li>
-                <NavLink href="/catalog/requests" className={styles.nav__link} activeClass={styles.nav__link_active}>
-                  Requests
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
+          <CatalogNav />
         </div>
         {isCompaniesLoading && <Loader />}
         {!isCompaniesLoading && companiesData && <CompaniesCatalog data={companiesData} onGetMore={handleGetMore} />}
