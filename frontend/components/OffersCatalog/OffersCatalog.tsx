@@ -8,7 +8,7 @@ export const OffersCatalog: FC<IOffersCatalog> = ({
 }) => (
   <div className={styles.catalog}>
     <ul className={`${styles.catalog__itemsList} ${className}`} {...props}>
-      <li>
+      <li className={styles.catalog__item}>
         <CatalogOfferPreview />
       </li>
     </ul>

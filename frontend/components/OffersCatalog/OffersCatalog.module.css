@@ -22,6 +22,10 @@
 	grid-template-columns: repeat(auto-fill, minmax(223px, 1fr));
 }
 
+.catalog__item {
+	width: fit-content;
+}
+
 .catalog__moreButton {
 	box-sizing: border-box;
 	margin: 0;
