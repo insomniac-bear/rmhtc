@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
 import Head from 'next/head';
@@ -9,28 +8,21 @@ import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 import { CheckboxFilter } from '../../../components/CheckboxFilter/CheckboxFilter';
 import { Footer } from '../../../components/Footer/Footer';
 import {
-  companyType, legalForm, annualTurner, employees, country,
+  country,
 } from '../../../mockData/catalogMockData';
 import { Button } from '../../../components/Button/Button';
-import { userAPI } from '../../../services/userService';
 import { NavLink } from '../../../components/NavLink/NavLink';
 import { OffersCatalog } from '../../../components/OffersCatalog/OffersCatalog';
 
 type FormData = {
-  annualTurner?: string[];
-  companyType?: string[];
   country?: string[];
-  employees?: string[];
-  legalForm?: string[];
 };
 
 const CatalogOffersPage: NextPage = () => {
-  const [a, setCompaniesData] = useState<any | null>(null);
-  const [getCompanies] = userAPI.useLazyGetAllCompaniesQuery();
   const { handleSubmit, register } = useForm<FormData>();
 
   const submitFormHandler = (data: FormData) => {
-    console.log(data, a);
+    console.log(data);
   };
 
   // const handleGetMore = () => {
@@ -43,14 +35,6 @@ const CatalogOffersPage: NextPage = () => {
   //       })));
   //   }
   // };
-
-  useEffect(() => {
-    getCompanies('')
-      .then((res) => setCompaniesData({ ...res.data, page: 1 }))
-      .catch((err) => {
-        throw new Error(err);
-      });
-  }, []);
 
   return (
     <div className={styles.page}>
@@ -85,10 +69,6 @@ const CatalogOffersPage: NextPage = () => {
         </div>
         <OffersCatalog />
         <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
-          <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
-          <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />
-          <CheckboxFilter filters={annualTurner} label="Annual Turner" register={register} fieldName="annualTurner" />
-          <CheckboxFilter filters={employees} label="Total number of employees" register={register} fieldName="employees" />
           <CheckboxFilter filters={country} label="Country" register={register} fieldName="country" />
           <div className={styles.content__filtersControls}>
             <Button className={styles.content__filtersButton} type="reset">Reset</Button>

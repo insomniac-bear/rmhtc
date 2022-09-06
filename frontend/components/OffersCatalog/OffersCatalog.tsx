@@ -11,6 +11,30 @@ export const OffersCatalog: FC<IOffersCatalog> = ({
       <li className={styles.catalog__item}>
         <CatalogOfferPreview />
       </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
+      <li className={styles.catalog__item}>
+        <CatalogOfferPreview />
+      </li>
     </ul>
     <button className={styles.catalog__moreButton} type="button">
       Show more
