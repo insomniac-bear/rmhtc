@@ -13,9 +13,11 @@ import {
 import { Button } from '../../../components/Button/Button';
 import { OffersCatalog } from '../../../components/OffersCatalog/OffersCatalog';
 import { CatalogNav } from '../../../components/CatalogNav/CatalogNav';
+import { SearchFilter } from '../../../components/SerachFilter/SearchFilter';
 
 type FormData = {
   country?: string[];
+  category?: string;
 };
 
 const CatalogOffersPage: NextPage = () => {
@@ -45,12 +47,13 @@ const CatalogOffersPage: NextPage = () => {
       </Head>
       <Header middle="navMenu" />
       <main className={styles.content}>
-        <div className={styles.content__searchBar}>
+        <div className={styles.content__navContainer}>
           <SimpleSearch />
           <CatalogNav />
         </div>
         <OffersCatalog />
-        <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
+        <form className={styles.content__filtersSideBar} onSubmit={handleSubmit(submitFormHandler)}>
+          <SearchFilter label="Category" fieldName="category" register={register} placeholder="Enter category" />
           <CheckboxFilter filters={country} label="Country" register={register} fieldName="country" />
           <div className={styles.content__filtersControls}>
             <Button className={styles.content__filtersButton} type="reset">Reset</Button>

@@ -1,6 +1,7 @@
 .card {
 	display: flex;
 	flex-direction: column;
+
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 223px;
@@ -14,60 +15,71 @@
 }
 
 .text {
+	width: 100%;
+	max-width: 192px;
 	margin: 0;
+
+	word-wrap: break-word;
 
 	font-size: 14px;
 	font-weight: 500;
 	font-style: normal;
 	line-height: 17px;
-	word-wrap: break-word;
-	max-width: 192px;
-	width: 100%;
 }
 
 .card__image {
-  border-radius: 9px 9px 0 0;
+	border-radius: 9px 9px 0 0;
 }
 
 .card__textContent {
+	display: grid;
+
 	box-sizing: border-box;
-  display: grid;
+	padding: 15px;
 	grid-template-columns: 173px 20px;
-	grid-template-areas: 
-	'title title'
-	'price price'
-	'description description'
-	'link icon';
+	grid-template-areas:
+		"title title"
+		"price price"
+		"description description"
+		"link icon";
 	gap: 10px 0;
-  padding: 15px;
 }
 
 .card__title {
-	/* Ограничить высоту названия товара? */
 	grid-area: title;
 	composes: text;
+
+	 /* stylelint-disable */
+	display: -webkit-box;
+  /* stylelint-enable */
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
 .card__price {
-	grid-area: price;
 	margin: 0;
-  font-family: var(--RobotoSlab);
-  color: var(--accent-red-400);
+
+	color: var(--accent-red-400);
+
+	font-family: var(--RobotoSlab);
+	grid-area: price;
 
 	composes: text;
 }
 
 .card__description {
-	grid-area: description;
-	/* stylelint-disable */
+	 /* stylelint-disable */
 	display: -webkit-box;
   /* stylelint-enable */
-	overflow: hidden; 
-	margin: 0 0 8px 0;
+	overflow: hidden;
+
+	width: 100%;
 
 	max-width: 193px;
 	max-height: 40px;
-	width: 100%;
+	margin: 0 0 8px;
+
 	color: var(--grey-600);
 
 	font-family: var(--TTNorms);
@@ -75,13 +87,19 @@
 	font-weight: 400;
 	font-style: normal;
 	line-height: 20px;
+	grid-area: description;
 	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical; 
+	-webkit-box-orient: vertical;
 }
 
 .card__link {
-	grid-area: link;
+	overflow: hidden;
+
+	width: fit-content;
+	max-width: 170px;
+
 	transition: 0.3s;
+	text-overflow: ellipsis;
 
 	color: var(--link);
 
@@ -90,10 +108,7 @@
 	font-weight: 400;
 	font-style: normal;
 	line-height: 14px;
-	max-width: 170px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-  width: fit-content;
+	grid-area: link;
 }
 
 .card__link:hover {

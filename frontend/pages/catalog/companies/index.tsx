@@ -62,13 +62,13 @@ const CatalogCompaniesPage: NextPage = () => {
       </Head>
       <Header middle="navMenu" />
       <main className={styles.content}>
-        <div className={styles.content__searchBar}>
+        <div className={styles.content__navContainer}>
           <SimpleSearch />
           <CatalogNav />
         </div>
         {isCompaniesLoading && <Loader />}
         {!isCompaniesLoading && companiesData && <CompaniesCatalog data={companiesData} onGetMore={handleGetMore} />}
-        <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
+        <form className={styles.content__filtersSideBar} onSubmit={handleSubmit(submitFormHandler)}>
           <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
           <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />
           <CheckboxFilter filters={annualTurner} label="Annual Turner" register={register} fieldName="annualTurner" />
