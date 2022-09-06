@@ -50,6 +50,17 @@ module.exports = {
               onUpdate: 'CASCADE',
               onDelete: 'SET NULL',
             });
+          })
+          .then(() => {
+            return queryInterface.addColumn('offers', 'userUuid', {
+              type: Sequelize.DataTypes.UUID,
+              references: {
+                model: 'users',
+                key: 'uuid',
+              },
+              onUpdate: 'CASCADE',
+              onDelete: 'SET NULL',
+            });
           });
       });
   },
@@ -71,6 +82,9 @@ module.exports = {
       })
       .then(() => {
         return queryInterface.removeColumn('offers', 'offerTypeUuid');
+      })
+      .then(() => {
+        return queryInterface.removeColumn('offers', 'userUuid');
       });
   },
 };

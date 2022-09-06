@@ -10,5 +10,5 @@ export class OfferCategory extends Model<OfferCategory> {
   offerUuid: string;
 
   @ForeignKey(() => Category)
-  categoryUuid: string;
+  typeUuid: string;
 }

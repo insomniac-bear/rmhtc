@@ -12,9 +12,11 @@ import {
 } from 'sequelize-typescript';
 import { Category } from 'src/category/entity/category.entity';
 import { OfferCategory } from 'src/category/entity/offer-category.entity';
+import { Company } from 'src/company/entity/company.entity';
 import { TModerated } from 'src/company/types';
 import { Currency } from 'src/currency/entity/currency.entity';
 import { Moderation } from 'src/moderation/entity/moderation.entity';
+import { User } from 'src/users/entity/user.entity';
 import { Characteristic } from './characteristic.entity';
 import { OfferPhoto } from './offer-photo.entity';
 import { OfferType } from './offer-type.entity';
@@ -106,7 +108,19 @@ export class Offer extends Model<Offer> {
   offerTypeUuid: string;
 
   @BelongsTo(() => OfferType)
-  offerTypes: OfferType;
+  offerType: OfferType;
+
+  @ForeignKey(() => Company)
+  companyUuid: string;
+
+  @BelongsTo(() => Company)
+  companies: Company;
+
+  @ForeignKey(() => User)
+  userUuid: string;
+
+  @BelongsTo(() => User)
+  user: User;
 
   @HasMany(() => OfferPhoto)
   offerPhotos: OfferPhoto;
@@ -115,5 +129,5 @@ export class Offer extends Model<Offer> {
   characteristic: Characteristic;
 
   @BelongsToMany(() => Category, () => OfferCategory)
-  categories: Category[];
+  categories: Array<Category & { OfferCategory: OfferCategory }>;
 }

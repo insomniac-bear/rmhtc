@@ -5,13 +5,16 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   HasOne,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { EmailToken } from 'src/auth/entity/email-token.entity';
 import { RefreshToken } from 'src/auth/entity/refresh-token.entity';
+import { Company } from 'src/company/entity/company.entity';
 import { Moderation } from 'src/moderation/entity/moderation.entity';
+import { Offer } from 'src/offer/entity/offer.entity';
 import { Role } from 'src/roles/entity/roles.entity';
 
 @Table({
@@ -116,4 +119,10 @@ export class User extends Model<User> {
 
   @HasOne(() => Moderation)
   moderation: Moderation;
+
+  @HasMany(() => Company)
+  companies: Company;
+
+  @HasMany(() => Offer)
+  offers: Offer;
 }

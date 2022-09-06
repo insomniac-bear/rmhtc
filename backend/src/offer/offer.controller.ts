@@ -12,6 +12,7 @@ import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
+import { CreateOfferDto } from './dto/create-offer.dto';
 import { OfferService } from './offer.service';
 
 @Controller('offer')
@@ -50,5 +51,15 @@ export class OfferController {
       data.uuid,
       data.value
     );
+  }
+
+  @Post()
+  createOffer(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body()
+    data: CreateOfferDto
+  ) {
+    return this.offerService.createOffer(req, res, data);
   }
 }

@@ -10,13 +10,6 @@ module.exports = {
      */
     const { DataTypes } = Sequelize;
     return await queryInterface.createTable('offers_categories', {
-      uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        unique: true,
-        primaryKey: true,
-      },
       offerUuid: {
         type: Sequelize.DataTypes.UUID,
         allowNull: false,
