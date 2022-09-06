@@ -53,7 +53,7 @@ export const EditForm: FC<IEditForm> = ({
     }
   };
 
-  const submitFormHandler = async (data: FormData) => {
+  const submitFormHandler = (data: FormData) => {
     const value = data.itemValue;
 
     if (formType === 'patch') {
