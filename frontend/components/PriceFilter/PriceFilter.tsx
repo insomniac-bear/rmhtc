@@ -16,6 +16,7 @@ export const PriceFilter: FC<IPriceFilter> = ({
 }) => (
   <fieldset className={`${styles.filter} ${className}`} {...props}>
     <Title size="s" tag="h2" className={styles.filter__heading}>Price</Title>
+    {/* Нужно заменить на react-select */}
     <select className={styles.filter__select} {...register('currency')}>
       {options.map((option) => (
         <option key={option.id} className={styles.filter__option} value={option.value}>

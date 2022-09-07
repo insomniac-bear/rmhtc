@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Title } from '../Title/Title';
 import styles from './CatalogOfferPreview.module.css';
 import previewPlaceholder from './offerPreview.png';
-import flag from './SingaporeFlag.png';
+// import flag from './SingaporeFlag.png';
 
 export const CatalogOfferPreview = forwardRef(({ className = '', ...props }:any, ref: any) => (
   <div className={`${styles.card} ${className}`} {...props} ref={ref}>
@@ -27,14 +27,15 @@ export const CatalogOfferPreview = forwardRef(({ className = '', ...props }:any,
           RogaInvestHolding
         </a>
       </Link>
-      <Image
+      {/* Пока не понятно, будет ли флаг и откуда его возьмем */}
+      {/* <Image
         className={styles.card__flagIcon}
         src={flag}
         alt="Flag"
         layout="fixed"
         width={20}
         height={20}
-      />
+      /> */}
     </div>
   </div>
 ));

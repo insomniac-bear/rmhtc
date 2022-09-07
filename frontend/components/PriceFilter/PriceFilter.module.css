@@ -90,12 +90,21 @@
 	appearance: none;
 }
 
+.filter__select::-ms-expand { display: none; }
+
 .filter__select:hover {
 	border: 1px solid var(--grey-500);
 }
 
 .filter__option {
 	color: var(--grey-600);
-
 	font-family: inherit;
+}
+
+.filter__option:checked {
+	background-color: var(--accent-yellow-400);
+}
+
+.filter__option:hover {
+	background-color: var(--accent-yellow-100);
 }

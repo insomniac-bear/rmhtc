@@ -5,11 +5,7 @@ import Head from 'next/head';
 import styles from '../CatalogPage.module.css';
 import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
-import { CheckboxFilter } from '../../../components/CheckboxFilter/CheckboxFilter';
 import { Footer } from '../../../components/Footer/Footer';
-import {
-  country,
-} from '../../../mockData/catalogMockData';
 import { Button } from '../../../components/Button/Button';
 import { OffersCatalog } from '../../../components/OffersCatalog/OffersCatalog';
 import { CatalogNav } from '../../../components/CatalogNav/CatalogNav';
@@ -17,11 +13,10 @@ import { SearchFilter } from '../../../components/SerachFilter/SearchFilter';
 import { PriceFilter } from '../../../components/PriceFilter/PriceFilter';
 
 type FormData = {
-  country?: string[];
   category?: string;
   currency?: string;
-  priceFrom?: string;
-  priceTo?: string;
+  minPrice?: string;
+  maxPrice?: string;
 };
 
 const CatalogOffersPage: NextPage = () => {
@@ -30,17 +25,6 @@ const CatalogOffersPage: NextPage = () => {
   const submitFormHandler = (data: FormData) => {
     console.log(data);
   };
-
-  // const handleGetMore = () => {
-  //   if (companiesData && companiesData.count > 9) {
-  //     getCompanies(companiesData.page + 1)
-  //       .then((res) => setCompaniesData((prevState: any) => ({
-  //         ...prevState,
-  //         companies: prevState?.companies.concat(res.data.companies),
-  //         page: prevState.page + 1,
-  //       })));
-  //   }
-  // };
 
   return (
     <div className={styles.page}>
@@ -58,7 +42,6 @@ const CatalogOffersPage: NextPage = () => {
         <OffersCatalog />
         <form className={styles.content__filtersSideBar} onSubmit={handleSubmit(submitFormHandler)}>
           <SearchFilter label="Category" fieldName="category" register={register} placeholder="Enter category" />
-          <CheckboxFilter filters={country} label="Country" register={register} fieldName="country" />
           <PriceFilter register={register} />
           <div className={styles.content__filtersControls}>
             <Button className={styles.content__filtersButton} type="reset">Reset</Button>
