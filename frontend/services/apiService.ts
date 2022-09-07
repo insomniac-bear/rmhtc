@@ -58,5 +58,26 @@ export const apiService = createApi({
       }),
       providesTags: ['directory'],
     }),
+    getOffersCategories: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/category/all',
+      }),
+      transformResponse: (response: any) => response.categories,
+      providesTags: ['directory'],
+    }),
+    getCurrencies: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/currency/all',
+      }),
+      transformResponse: (response: any) => response.currencies,
+      providesTags: ['directory'],
+    }),
+    getOfferTypes: build.query<any, any>({
+      query: () => ({
+        url: '/api/v1/offer/types',
+      }),
+      transformResponse: (response: any) => response.offerTypes,
+      providesTags: ['directory'],
+    }),
   }),
 });
