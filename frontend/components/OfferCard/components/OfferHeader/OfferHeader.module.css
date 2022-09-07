@@ -4,9 +4,8 @@
 	grid-template-areas:
 		"slider title"
 		"slider price"
-		"slider seller"
-		"slider empty"
-		"slider empty";
+		"slider info"
+		"slider info";
 	gap: 35px 48px;
 
 	margin: 0 0 50px;
@@ -28,6 +27,10 @@
 	font-style: normal;
 	line-height: 27px;
 	grid-area: title;
+
+	display: flex;
+	flex-direction: column;
+	gap: 15px 0;
 }
 
 .offer__price {
@@ -46,6 +49,11 @@
 	line-height: 27px;
 	grid-area: price;
 }
+
+.offer__additionalInfo {
+	grid-area: info;
+}
+
 
 .offer__seller {
 	display: flex;
@@ -67,7 +75,7 @@
 	grid-area: seller;
 }
 
-.offer__sellerCaption {
+.offer__caption {
 	color: var(--grey-500);
 
 	font-family: var(--TTNorms);

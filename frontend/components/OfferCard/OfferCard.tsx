@@ -6,6 +6,8 @@ import { OfferHeader } from './components/OfferHeader/OfferHeader';
 import { OfferCharacteristics } from './components/OfferCharacteristics/OfferCharacteristics';
 import { OfferDescription } from './components/OfferDescription/OfferDescription';
 import { OfferRejectMessage } from './components/OfferRejectMessage/OfferRejectMessage';
+import { offer } from './offerMockData';
+import { offerDescriptionDataDto, offerHeaderDataDto } from '../../utils/offerDataDto/offerCardDataDto';
 
 export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
   const [content, setContent] = useState<'description' | 'characteristic'>('description');
@@ -13,7 +15,7 @@ export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
   return (
     <div className={`${styles.offer} ${className}`} {...props}>
       <OfferRejectMessage />
-      <OfferHeader />
+      <OfferHeader data={offer} dto={offerHeaderDataDto} />
       <div className={styles.offer__container}>
         <div className={styles.offer__contentControls}>
           <button
@@ -35,8 +37,8 @@ export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
             Characteristic
           </button>
         </div>
-        {content === 'characteristic' && <OfferCharacteristics />}
-        {content === 'description' && <OfferDescription />}
+        {content === 'characteristic' && <OfferCharacteristics data={offer.characteristics} />}
+        {content === 'description' && <OfferDescription data={offer} dto={offerDescriptionDataDto} />}
       </div>
       <div className={styles.offer__moderationControls}>
         <Button className={styles.offer__moderationBtn} type="button" appearance="primary">

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { nanoid } from '@reduxjs/toolkit';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import styles from './OfferSlider.module.css';
@@ -26,11 +27,11 @@ export const OfferSlider = ({ arr, outerСlassName = '' }: any) => {
     >
       {arr.map((item: any) => (
         <SwiperSlide
-          key={item.id}
+          key={nanoid()}
           tag="li"
           className={styles.slider__item}
         >
-          <Image src={item.img} alt={item.id} />
+          <Image src={item.url} alt={item.description} />
         </SwiperSlide>
       ))}
     </Swiper>

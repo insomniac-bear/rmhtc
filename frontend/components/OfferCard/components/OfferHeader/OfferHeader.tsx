@@ -1,31 +1,34 @@
 import { FC } from 'react';
-// import Image from 'next/image';
 import styles from './OfferHeader.module.css';
-import cardImage1 from '../../image.png';
-import cardImage2 from '../../image2.jpg';
-import cardImage3 from '../../image3.jpg';
-import cardImage4 from '../../image4.jpg';
-import cardImage5 from '../../image5.jpg';
 import { IOfferHeader } from './OfferHeader.props';
 import { OfferSlider } from '../OfferSlider/OfferSlider';
 import { Title } from '../../../Title/Title';
 
-const images = [
-  { img: cardImage1, id: 1 },
-  { img: cardImage2, id: 2 },
-  { img: cardImage3, id: 3 },
-  { img: cardImage4, id: 4 },
-  { img: cardImage5, id: 5 },
-];
+export const OfferHeader: FC<IOfferHeader> = ({
+  data, dto, className = '', ...props
+}) => {
+  const {
+    photos, name, price, offerType, categories, company,
+  } = dto(data);
 
-export const OfferHeader: FC<IOfferHeader> = ({ className = '', ...props }) => (
-  <div className={`${styles.offer__header} ${className}`} {...props}>
-    <OfferSlider arr={images} outerСlassName={styles.offer__slider} />
-    <Title tag="h1" size="s" className={styles.offer__title}>Lorem ipsum dolor sit amet, consectetur adipisicing. lore</Title>
-    <p className={styles.offer__price}>$ 506-987/ piece</p>
-    <p className={styles.offer__seller}>
-      <span className={styles.offer__sellerCaption}>Seller</span>
-      RogaInvestHolding
-    </p>
-  </div>
-);
+  return (
+    <div className={`${styles.offer__header} ${className}`} {...props}>
+      <OfferSlider arr={photos} outerСlassName={styles.offer__slider} />
+      <Title tag="h1" size="s" className={styles.offer__title}>
+        {name}
+        <span className={styles.offer__caption}>{offerType}</span>
+      </Title>
+      <p className={styles.offer__price}>{price}</p>
+      <div className={styles.offer__additionalInfo}>
+        <p className={styles.offer__seller}>
+          <span className={styles.offer__caption}>Category</span>
+          {categories.join(', ')}
+        </p>
+        <p className={styles.offer__seller}>
+          <span className={styles.offer__caption}>Seller</span>
+          {company}
+        </p>
+      </div>
+    </div>
+  );
+};
