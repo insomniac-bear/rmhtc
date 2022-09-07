@@ -13,7 +13,7 @@ export const Directory:FC<IDirectory> = ({
       <span>Actions</span>
     </p>
     <ul className={styles.directory__list}>
-      {directory.values.map((item) => (
+      {directory.values?.map((item) => (
         <li key={item.uuid}>
           <DirectoryItem item={item} fetchParams={directory.fetchParams} />
         </li>

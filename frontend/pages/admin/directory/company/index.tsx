@@ -15,8 +15,8 @@ const CompanyDirectoryPage: NextPage = () => {
   const { data: legalFormsRes, isLoading: isLegalFormsLoading } = apiService.useGetLegalFormsQuery('');
 
   useEffect(() => {
-    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { type: 'type', route: 'business-type' } });
-    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { type: 'type', route: 'legal-form' } });
+    setBusinessTypesDirectory({ values: businessTypesRes, fetchParams: { endpoint: 'type', route: 'business-type' } });
+    setLegalFormsDirectory({ values: legalFormsRes, fetchParams: { endpoint: 'type', route: 'legal-form' } });
   }, [businessTypesRes, legalFormsRes]);
 
   return (

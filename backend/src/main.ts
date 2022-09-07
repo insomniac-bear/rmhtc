@@ -32,7 +32,12 @@ async function bootstrap() {
   //   credentials: true,
   // });
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      skipNullProperties: true,
+      skipUndefinedProperties: true,
+    })
+  );
 
   const config = new DocumentBuilder()
     .setTitle('ITC')

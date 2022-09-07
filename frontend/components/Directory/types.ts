@@ -6,7 +6,7 @@ export type TValue = {
 }
 
 export type TFetchParams = {
-    type: string;
+    endpoint: string;
     route: string;
     label: string;
   }
