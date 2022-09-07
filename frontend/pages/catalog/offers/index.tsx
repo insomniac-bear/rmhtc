@@ -19,10 +19,13 @@ import { PriceFilter } from '../../../components/PriceFilter/PriceFilter';
 type FormData = {
   country?: string[];
   category?: string;
+  currency?: string;
+  priceFrom?: string;
+  priceTo?: string;
 };
 
 const CatalogOffersPage: NextPage = () => {
-  const { handleSubmit, register, control } = useForm<FormData>();
+  const { handleSubmit, register } = useForm<FormData>();
 
   const submitFormHandler = (data: FormData) => {
     console.log(data);
@@ -56,7 +59,7 @@ const CatalogOffersPage: NextPage = () => {
         <form className={styles.content__filtersSideBar} onSubmit={handleSubmit(submitFormHandler)}>
           <SearchFilter label="Category" fieldName="category" register={register} placeholder="Enter category" />
           <CheckboxFilter filters={country} label="Country" register={register} fieldName="country" />
-          <PriceFilter register={register} control={control} />
+          <PriceFilter register={register} />
           <div className={styles.content__filtersControls}>
             <Button className={styles.content__filtersButton} type="reset">Reset</Button>
             <Button className={styles.content__filtersButton} appearance="primary" type="submit">Apply</Button>

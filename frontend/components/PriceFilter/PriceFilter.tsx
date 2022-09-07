@@ -1,40 +1,35 @@
 import { FC } from 'react';
-import { Controller } from 'react-hook-form';
-import Select from 'react-select';
 import { Title } from '../Title/Title';
 import styles from './PriceFilter.module.css';
 import { IPriceFilter } from './PriceFilter.props';
 
+const options = [
+  { value: 'rub', label: 'Rubles', id: '1' },
+  { value: 'myr', label: 'Ringgit', id: '2' },
+  { value: 'usd', label: 'Dollar', id: '3' },
+  { value: 'eur', label: 'Euro', id: '4' },
+  { value: 'uah', label: 'Yuan', id: '5' },
+];
+
 export const PriceFilter: FC<IPriceFilter> = ({
-  register, control, className = '', ...props
+  register, className = '', ...props
 }) => (
   <fieldset className={`${styles.filter} ${className}`} {...props}>
     <Title size="s" tag="h2" className={styles.filter__heading}>Price</Title>
-    <Controller
-      control={control}
-      render={({ field: { value, onChange } }) => (
-        <div className={styles.filter__select}>
-          <Select
-            defaultValue="Rubles"
-            instanceId="selectCompanyTypeBox"
-            id="selectCompanyTypeBox"
-            placeholder="Rub"
-            // options={businessTypesOptions}
-            // styles={customSelectStyles}
-            // onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-            // value={options.find((option) => option.value === value)}
-          />
-        </div>
-      )}
-      {...register('currency')}
-    />
+    <select className={styles.filter__select} {...register('currency')}>
+      {options.map((option) => (
+        <option key={option.id} className={styles.filter__option} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
     <label htmlFor="priceField" className={styles.filter__priceWrapper}>
       <input
         id="priceField"
         placeholder="265"
         className={styles.filter__priceInput}
         type="number"
-        {...register('from')}
+        {...register('priceFrom')}
       />
       <span>&ndash;</span>
       <input
@@ -42,7 +37,7 @@ export const PriceFilter: FC<IPriceFilter> = ({
         placeholder="786 356 560"
         className={styles.filter__priceInput}
         type="number"
-        {...register('to')}
+        {...register('priceTo')}
       />
     </label>
   </fieldset>
