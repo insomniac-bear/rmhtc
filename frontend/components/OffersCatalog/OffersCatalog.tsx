@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FC } from 'react';
 import { CatalogOfferPreview } from '../CatalogOfferPreview/CatalogOfferPreview';
 import styles from './OffersCatalog.module.css';
@@ -9,31 +10,9 @@ export const OffersCatalog: FC<IOffersCatalog> = ({
   <div className={styles.catalog}>
     <ul className={`${styles.catalog__itemsList} ${className}`} {...props}>
       <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
-      </li>
-      <li className={styles.catalog__item}>
-        <CatalogOfferPreview />
+        <Link href="/catalog/offers/offer/offer" passHref>
+          <CatalogOfferPreview />
+        </Link>
       </li>
     </ul>
     <button className={styles.catalog__moreButton} type="button">

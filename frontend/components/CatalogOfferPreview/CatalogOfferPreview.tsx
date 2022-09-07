@@ -1,14 +1,13 @@
+import { forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
 import { Title } from '../Title/Title';
 import styles from './CatalogOfferPreview.module.css';
-import { ICatalogOfferPreview } from './CatalogOfferPreview.props';
 import previewPlaceholder from './offerPreview.png';
 import flag from './SingaporeFlag.png';
 
-export const CatalogOfferPreview: FC<ICatalogOfferPreview> = ({ className = '', ...props }) => (
-  <div className={`${styles.card} ${className}`} {...props}>
+export const CatalogOfferPreview = forwardRef(({ className = '', ...props }:any, ref: any) => (
+  <div className={`${styles.card} ${className}`} {...props} ref={ref}>
     <Image
       className={styles.card__image}
       src={previewPlaceholder}
@@ -38,4 +37,4 @@ export const CatalogOfferPreview: FC<ICatalogOfferPreview> = ({ className = '', 
       />
     </div>
   </div>
-);
+));

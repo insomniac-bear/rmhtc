@@ -1,0 +1,19 @@
+.page {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+
+	min-height: 100vh;
+
+	background-color: var(--grey-200);
+}
+
+.content {
+	display: flex;
+	align-items: center;
+	flex: 1;
+	flex-direction: column;
+
+	width: 100%;
+}
