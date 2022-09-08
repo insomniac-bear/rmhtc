@@ -13,26 +13,30 @@ export const OfferHeader: FC<IOfferHeader> = ({
   } = dto(data);
 
   return (
-    <div className={`${styles.offer__header} ${className}`} {...props}>
-      <OfferSlider arr={photos} outerСlassName={styles.offer__slider} />
-      <Title tag="h1" size="s" className={styles.offer__title}>
+    <div className={`${styles.header} ${className}`} {...props}>
+      <OfferSlider arr={photos} outerСlassName={styles.header__slider} />
+      <Title tag="h1" size="s" className={styles.header__title}>
         {name}
-        <span className={styles.offer__type}>{offerType}</span>
+        <span className={styles.header__offerType}>{offerType}</span>
       </Title>
-      <p className={styles.offer__price}>{price}</p>
-      <div className={styles.offer__additionalInfoWrapper}>
-        <p className={styles.offer__additional}>
-          <span className={styles.offer__caption}>Category</span>
+      <p className={styles.header__price}>{price}</p>
+      <div className={styles.header__additionalInfoWrapper}>
+        {categories && (
+        <p className={styles.header__additional}>
+          <span className={styles.header__caption}>Category</span>
           {categories.join(', ')}
         </p>
-        <p className={styles.offer__seller}>
-          <span className={styles.offer__caption}>Seller</span>
-          <Link href="#" passHref>
-            <a className={styles.offer__link}>
-              {company}
-            </a>
-          </Link>
-        </p>
+        )}
+        {company && (
+          <p className={styles.header__seller}>
+            <span className={styles.header__caption}>Seller</span>
+            <Link href="#" passHref>
+              <a className={styles.header__link}>
+                {company.name}
+              </a>
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );

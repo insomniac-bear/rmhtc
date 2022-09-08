@@ -22,7 +22,7 @@ export const OfferSlider = ({ arr, outerСlassName = '' }: any) => {
       modules={[Pagination]}
       spaceBetween={0}
       slidesPerView={1}
-      pagination={pagination}
+      pagination={arr.length > 1 && pagination}
       className={`${styles.slider} ${outerСlassName}`}
     >
       {arr.map((item: any) => (

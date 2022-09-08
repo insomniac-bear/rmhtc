@@ -1,4 +1,4 @@
-.offer__header {
+.header {
 	display: grid;
 	grid-template-columns: 484px 390px;
 	grid-template-areas:
@@ -12,11 +12,11 @@
 	margin: 0 0 50px;
 }
 
-.offer__slider {
+.header__slider {
 	grid-area: slider;
 }
 
-.offer__caption {
+.header__caption {
 	color: var(--grey-500);
 
 	font-family: var(--TTNorms);
@@ -28,7 +28,7 @@
 	text-overflow: ellipsis;
 }
 
-.offer__additional {
+.header__additional {
 	display: flex;
 	flex-direction: column;
 
@@ -48,15 +48,15 @@
 	grid-area: seller;
 }
 
-.offer__link {
+.header__link {
 	width: fit-content;
 }
 
-.offer__title {
+.header__title {
 	width: 100%;
 	max-width: 390px;
 	margin: 0;
-
+	min-height: 66px;
 	word-break: break-all;
 
 	font-size: 21px;
@@ -64,17 +64,21 @@
 	font-style: normal;
 	line-height: 27px;
 	grid-area: title;
+}
 
+/* Классу header__title не хватает спецефичности, а лишние обертки плодить не хочется,
+поэтому через селектор*/
+.header > h1 {
 	display: flex;
 	flex-direction: column;
 	gap: 15px 0;
 }
 
-.offer__type {
-	composes: offer__caption;
+.header__offerType {
+	composes: header__caption;
 }
 
-.offer__price {
+.header__price {
 	width: 100%;
 	max-width: 280px;
 	margin: 0;
@@ -91,19 +95,19 @@
 	grid-area: price;
 }
 
-.offer__additionalInfoWrapper {
+.header__additionalInfoWrapper {
 	grid-area: info;
 	display: flex;
 	flex-direction: column;
 	gap: 35px 0;
 }
 
-.offer__categories {
-	composes: offer__additional;
+.header__categories {
+	composes: header__additional;
 }
 
-.offer__seller {
-	composes: offer__additional;
+.header__seller {
+	composes: header__additional;
 	color: var(--link);
 }
 
