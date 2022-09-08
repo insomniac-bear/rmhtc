@@ -20,23 +20,26 @@
 }
 
 .description__link {
+	box-sizing: border-box;
+	width: fit-content;
 	margin: 0;
+	padding: 0 0 0 36px;
+
+	transition: 0.5s;
+
+	color: var(--link);
 	background-image: url("../../../../images/document-icon.svg");
 	background-repeat: no-repeat;
-	background-size: 18px 20px;
 	background-position: left center;
-	color: var(--link);
-	box-sizing: border-box;
-	padding: 0 0 0 36px;
-	width: fit-content;
+	background-size: 18px 20px;
+
 	font-family: var(--TTNorms);
 	font-size: 20px;
 	font-weight: 400;
 	font-style: normal;
 	line-height: 26px;
-	transition: 0.5s;
 }
 
 .description__link:hover {
-	color: var(--link-hover)
+	color: var(--link-hover);
 }

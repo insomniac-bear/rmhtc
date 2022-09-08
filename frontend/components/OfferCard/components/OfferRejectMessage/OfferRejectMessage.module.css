@@ -18,6 +18,7 @@
 }
 
 .text {
+	min-width: 456px;
 	max-width: 460px;
 	margin: 0;
 
@@ -31,7 +32,6 @@
 	font-style: normal;
 	line-height: 20px;
 	grid-area: text;
-	min-width: 456px;
 }
 
 .message__description {

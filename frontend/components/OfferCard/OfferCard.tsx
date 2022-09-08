@@ -16,6 +16,9 @@ export const OfferCard: FC<IOfferCard> = ({ access, className = '', ...props }) 
     <div className={`${styles.offer} ${className}`} {...props}>
       {offer.moderated === 'failed' && <OfferRejectMessage message={offer.moderatedReason} />}
       <OfferHeader data={offer} dto={offerHeaderDataDto} />
+      {/* Если в объекте отсутсвуют характеристики или описание с презентацией?
+        1. Рендерить оба блока или только то что пришло?
+        2. Если 1, то кнопки не нужны? Отобразить название блока вместо левой кнопки?  */}
       <div className={styles.offer__container}>
         <div className={styles.offer__contentControls}>
           <button

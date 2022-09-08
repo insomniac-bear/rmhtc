@@ -36,9 +36,10 @@ export const offer = {
     { url: cardImage4, description: 'photo 4' },
     { url: cardImage5, description: 'photo 5' },
   ],
+  //  Может ли в характеристиках придти неполный объект характеристики - без name или value?
   characteristics: [
     {
-      name: 'width',
+      name: null,
       value: '500 ft',
     },
     {
