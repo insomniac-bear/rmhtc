@@ -9,7 +9,7 @@ import { Footer } from '../../../components/Footer/Footer';
 import { Button } from '../../../components/Button/Button';
 import { OffersCatalog } from '../../../components/OffersCatalog/OffersCatalog';
 import { CatalogNav } from '../../../components/CatalogNav/CatalogNav';
-import { SearchFilter } from '../../../components/SerachFilter/SearchFilter';
+import { SearchFilter } from '../../../components/SearchFilter/SearchFilter';
 import { PriceFilter } from '../../../components/PriceFilter/PriceFilter';
 
 type FormData = {

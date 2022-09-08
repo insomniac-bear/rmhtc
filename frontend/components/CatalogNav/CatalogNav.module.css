@@ -22,8 +22,13 @@
 	font-weight: 400;
 	font-style: normal;
 	line-height: 17px;
+	transition: 0.5s;
 }
 
 .nav__link_active {
 	border: 1px solid var(--accent-blue-400);
+}
+
+.nav__link:hover {
+	background: var(--grey-400);
 }

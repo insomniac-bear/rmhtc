@@ -28,7 +28,11 @@
 }
 
 .card__image {
+	position: relative;
 	border-radius: 9px 9px 0 0;
+	overflow: hidden;
+	width: 221px;
+	height: 166px;
 }
 
 .card__textContent {

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './SearchFilter.module.css';
 import { Title } from '../Title/Title';
-import { ISearchFilter } from './SearchFilter.porps';
+import { ISearchFilter } from './SearchFilter.props';
 
 export const SearchFilter: FC<ISearchFilter> = ({
   label, fieldName, placeholder, register, className = '', ...props

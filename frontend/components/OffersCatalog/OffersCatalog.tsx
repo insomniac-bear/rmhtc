@@ -10,7 +10,7 @@ export const OffersCatalog: FC<IOffersCatalog> = ({
   <div className={styles.catalog}>
     <ul className={`${styles.catalog__itemsList} ${className}`} {...props}>
       <li className={styles.catalog__item}>
-        <Link href="/catalog/offers/offer/offer" passHref>
+        <Link href="/catalog/offers/offer/mockOffer" passHref>
           <CatalogOfferPreview />
         </Link>
       </li>

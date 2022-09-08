@@ -8,13 +8,13 @@ import previewPlaceholder from './offerPreview.png';
 
 export const CatalogOfferPreview = forwardRef(({ className = '', ...props }:any, ref: any) => (
   <div className={`${styles.card} ${className}`} {...props} ref={ref}>
-    <Image
-      className={styles.card__image}
-      src={previewPlaceholder}
-      alt="Placeholder"
-      width={221}
-      height={166}
-    />
+    <div className={styles.card__image}>
+      <Image
+        src={previewPlaceholder}
+        alt="Placeholder"
+        layout="fill"
+      />
+    </div>
     <div className={styles.card__textContent}>
       <Title className={styles.card__title} size="s" tag="h2">Название товара/услугиииииииииииииии</Title>
       <p className={styles.card__price}>From 5 865 $</p>
