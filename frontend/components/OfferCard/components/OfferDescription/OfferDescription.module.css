@@ -1,9 +1,3 @@
-/* ----------------------------------------------------- */
-
-/* Поправить стили по готовности макета */
-
-/* ----------------------------------------------------- */
-
 .description {
 	display: flex;
 	flex-direction: column;
@@ -11,7 +5,7 @@
 }
 
 .description__text {
-	width: 600px;
+	max-width: 600px;
 	margin: 0;
 
 	word-wrap: break-word;
@@ -27,12 +21,22 @@
 
 .description__link {
 	margin: 0;
-
-	color: #0340DF;
-
+	background-image: url("../../../../images/document-icon.svg");
+	background-repeat: no-repeat;
+	background-size: 18px 20px;
+	background-position: left center;
+	color: var(--link);
+	box-sizing: border-box;
+	padding: 0 0 0 36px;
+	width: fit-content;
 	font-family: var(--TTNorms);
-	font-size: 16px;
+	font-size: 20px;
 	font-weight: 400;
 	font-style: normal;
-	line-height: 20px;
+	line-height: 26px;
+	transition: 0.5s;
+}
+
+.description__link:hover {
+	color: var(--link-hover)
 }

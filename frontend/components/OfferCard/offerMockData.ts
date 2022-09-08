@@ -6,7 +6,7 @@ import cardImage5 from './image5.jpg';
 
 export const offer = {
   uuid: '859a5296-72ac-4c6a-8423-b68b0dd50f0d',
-  name: 'Test7',
+  name: 'Lorem ipsum dolor sit amet.',
   price: {
     value: '500',
     currency: 'RUR',
@@ -14,10 +14,16 @@ export const offer = {
     amount: '100',
   },
   priceComment: 'Per unit',
-  description: 'Test',
-  moderated: 'idle',
+  description: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor, sit amet consectetur'
+    + 'adipisicing elit. Officia autem, dolores nemo exercitationem et, sint esse, natus voluptates'
+    + 'tenetur expedita laboriosam. Odio ipsa obcaecati odit. Voluptatem delectus inventore, labore laudantium,'
+    + 'quasi corporis consequuntur odit animi unde distinctio maiores ipsam aliquam?',
+  moderated: 'failed',
+  moderatedAuthorUuid: null,
+  moderatedReason: 'Because.',
+  presentationUrl: 'https://www.youtube.com/',
   currency: 'RUR',
-  offerType: 'Soap',
+  offerType: 'Product',
   company: {
     uuid: 'e5076b42-41c8-4f15-a6a6-d4003148e12e',
     name: 'Horn and Hoves',

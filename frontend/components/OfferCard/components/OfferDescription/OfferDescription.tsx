@@ -10,7 +10,7 @@ export const OfferDescription: FC<IOfferCardDescription> = ({
   return (
     <div className={`${styles.description} ${className}`} {...props}>
       <p className={styles.description__text}>{description}</p>
-      <a href={presentationUrl} className={styles.description__link}>Presentation link</a>
+      {presentationUrl && <a href={presentationUrl} className={styles.description__link}>Offer presentation</a>}
     </div>
   );
 };

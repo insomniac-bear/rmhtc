@@ -31,6 +31,7 @@
 	font-style: normal;
 	line-height: 20px;
 	grid-area: text;
+	min-width: 456px;
 }
 
 .message__description {

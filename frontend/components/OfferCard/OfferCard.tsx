@@ -14,7 +14,7 @@ export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
 
   return (
     <div className={`${styles.offer} ${className}`} {...props}>
-      <OfferRejectMessage />
+      {offer.moderated === 'failed' && <OfferRejectMessage message={offer.moderatedReason} />}
       <OfferHeader data={offer} dto={offerHeaderDataDto} />
       <div className={styles.offer__container}>
         <div className={styles.offer__contentControls}>
