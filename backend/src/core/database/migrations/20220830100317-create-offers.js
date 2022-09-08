@@ -27,7 +27,17 @@ module.exports = {
         allowNull: true,
         unique: false,
       },
-      priceComment: {
+      unit: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: false,
+      },
+      amount: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: false,
+      },
+      unit: {
         type: DataTypes.STRING,
         allowNull: true,
         unique: false,

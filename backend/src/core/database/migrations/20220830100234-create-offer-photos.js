@@ -25,7 +25,7 @@ module.exports = {
       description: {
         type: DataTypes.STRING,
         allowNull: true,
-        unique: true,
+        unique: false,
       },
       createdAt: {
         type: DataTypes.DATE,

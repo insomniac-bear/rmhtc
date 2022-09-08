@@ -1,20 +1,22 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Response } from 'express';
+import { Op } from 'sequelize';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtPayload } from 'src/auth/types';
-import { OfferCategory } from 'src/category/entity/offer-category.entity';
 import {
-  CATEGORY_REPOSITORY,
   CHARACTERISTIC_REPOSITORY,
   OFFER_PHOTO_REPOSITORY,
   OFFER_REPOSITORY,
   OFFER_TYPE_REPOSITORY,
 } from 'src/core/constants';
+import { ModerationService } from 'src/moderation/moderation.service';
+import { createUserOfferResponse } from './dto';
 import { CreateOfferDto } from './dto/create-offer.dto';
 import { Characteristic } from './entity/characteristic.entity';
 import { OfferPhoto } from './entity/offer-photo.entity';
 import { OfferType } from './entity/offer-type.entity';
 import { Offer } from './entity/offer.entity';
+import { fieldsForUserResponse } from './entity/query-options';
 
 @Injectable()
 export class OfferService {
@@ -25,12 +27,12 @@ export class OfferService {
     private readonly offerPhotoEntity: typeof OfferPhoto,
     @Inject(OFFER_TYPE_REPOSITORY)
     private readonly offerTypeEntity: typeof OfferType,
-    @Inject(CATEGORY_REPOSITORY)
-    private readonly offerCategoryEntity: typeof OfferCategory,
     @Inject(CHARACTERISTIC_REPOSITORY)
     private readonly characteristicEntity: typeof Characteristic,
     @Inject(AuthService)
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    @Inject(ModerationService)
+    private readonly moderationService: ModerationService
   ) {}
 
   async getOfferTypes() {
@@ -121,12 +123,14 @@ export class OfferService {
   async createOffer(
     accessTokenPayload: JwtPayload,
     res: Response,
-    data: CreateOfferDto
+    data: CreateOfferDto,
+    isPublish = false
   ) {
     const {
       name,
       price,
-      priceComment,
+      amount,
+      unit,
       description,
       currencyUuid,
       companyUuid,
@@ -134,14 +138,32 @@ export class OfferService {
     } = data;
     const { sub, role, email } = accessTokenPayload;
 
+    const candidate = await this.offerEntity.findOne({
+      where: {
+        name,
+      },
+    });
+
+    if (!!candidate) {
+      throw new HttpException(
+        `Offer with name ${name} already exist`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    const moderationNote = await this.moderationService.createModerationNote();
+
     const newOffer = await this.offerEntity.create({
       name,
       price,
-      priceComment,
+      amount,
+      unit,
       description,
+      moderated: isPublish ? 'pending' : 'idle',
       currencyUuid,
       offerTypeUuid,
       companyUuid,
+      moderationUuid: moderationNote.uuid,
       userUuid: sub,
     });
 
@@ -168,12 +190,45 @@ export class OfferService {
       sameSite: 'lax',
     });
 
+    const userOffers = await this.offerEntity.findByPk(newOffer.uuid, {
+      include: fieldsForUserResponse,
+    });
+
     return {
       status: 'success',
       accessToken,
-      offer: await this.offerEntity.findByPk(newOffer.uuid, {
-        include: { all: true },
-      }),
+      offer: createUserOfferResponse(userOffers),
+    };
+  }
+
+  async getUsersOfferCounts(userUuid) {
+    const offerCount = await this.offerEntity.count({
+      where: { userUuid },
+    });
+
+    const moderatedOfferCount = await this.offerEntity.count({
+      where: {
+        [Op.and]: [{ userUuid }, { moderated: 'success' }],
+      },
+    });
+
+    const idleModeratedOfferCount = await this.offerEntity.count({
+      where: {
+        [Op.and]: [{ userUuid }, { moderated: 'pending' }],
+      },
+    });
+
+    const failedOfferCount = await this.offerEntity.count({
+      where: {
+        [Op.and]: [{ userUuid }, { moderated: 'failed' }],
+      },
+    });
+
+    return {
+      offerCount,
+      moderatedOfferCount,
+      idleModeratedOfferCount,
+      failedOfferCount,
     };
   }
 }

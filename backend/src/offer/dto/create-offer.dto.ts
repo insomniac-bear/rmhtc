@@ -9,7 +9,9 @@ export class CreateOfferDto {
   @IsString()
   price?: string;
   @IsString()
-  priceComment?: string;
+  amount?: string;
+  @IsString()
+  unit?: string;
   @IsString()
   description?: string;
   @IsString()

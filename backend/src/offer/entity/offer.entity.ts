@@ -44,7 +44,7 @@ export class Offer extends Model<Offer> {
   @Column({
     type: DataType.STRING(100),
     allowNull: true,
-    unique: false,
+    unique: true,
   })
   name: string;
 
@@ -58,17 +58,6 @@ export class Offer extends Model<Offer> {
     unique: false,
   })
   price: string;
-
-  @ApiProperty({
-    example: 'Price on request',
-    description: 'Комментарий к цене оффера',
-  })
-  @Column({
-    type: DataType.STRING(250),
-    allowNull: true,
-    unique: false,
-  })
-  priceComment: string;
 
   @ApiProperty({
     example: 'Exclusive crocodile shoes',
@@ -91,6 +80,26 @@ export class Offer extends Model<Offer> {
     allowNull: false,
   })
   moderated: TModerated;
+
+  @ApiProperty({
+    example: 'ft',
+    description: 'Единица измерения',
+  })
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  unit: string;
+
+  @ApiProperty({
+    example: '10',
+    description: 'Количество товара',
+  })
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  amount: string;
 
   @ForeignKey(() => Moderation)
   moderationUuid: string;

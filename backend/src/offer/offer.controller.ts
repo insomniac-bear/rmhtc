@@ -53,6 +53,9 @@ export class OfferController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Roles('USER')
+  @UseGuards(RolesGuard)
   @Post()
   createOffer(
     @Req() req,
@@ -60,6 +63,6 @@ export class OfferController {
     @Body()
     data: CreateOfferDto
   ) {
-    return this.offerService.createOffer(req, res, data);
+    return this.offerService.createOffer(req.user, res, data);
   }
 }
