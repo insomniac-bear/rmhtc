@@ -14,7 +14,7 @@ const OfferModerationPage: NextPage = () => {
 
   return (
     <div className={styles.page}>
-      <OfferCard />
+      <OfferCard access="admin" />
       {isModal && isReject && (
         <Modal onClose={() => router.push(`${uuid}`)} style={{ width: 'fit-content' }}>
           <RejectForm />

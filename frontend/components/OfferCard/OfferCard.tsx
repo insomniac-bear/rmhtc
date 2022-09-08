@@ -9,7 +9,7 @@ import { OfferRejectMessage } from './components/OfferRejectMessage/OfferRejectM
 import { offer } from './offerMockData';
 import { offerDescriptionDataDto, offerHeaderDataDto } from '../../utils/offerDataDto/offerCardDataDto';
 
-export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
+export const OfferCard: FC<IOfferCard> = ({ access, className = '', ...props }) => {
   const [content, setContent] = useState<'description' | 'characteristic'>('description');
 
   return (
@@ -40,14 +40,16 @@ export const OfferCard: FC<IOfferCard> = ({ className = '', ...props }) => {
         {content === 'characteristic' && <OfferCharacteristics data={offer.characteristics} />}
         {content === 'description' && <OfferDescription data={offer} dto={offerDescriptionDataDto} />}
       </div>
-      <div className={styles.offer__moderationControls}>
-        <Button className={styles.offer__moderationBtn} type="button" appearance="primary">
-          Approve
-        </Button>
-        <Button className={styles.offer__moderationBtn} type="button" appearance="ghost">
-          Reject
-        </Button>
-      </div>
+      {access === 'admin' && (
+        <div className={styles.offer__moderationControls}>
+          <Button className={styles.offer__moderationBtn} type="button" appearance="primary">
+            Approve
+          </Button>
+          <Button className={styles.offer__moderationBtn} type="button" appearance="ghost">
+            Reject
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
