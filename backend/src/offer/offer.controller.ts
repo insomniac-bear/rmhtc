@@ -65,4 +65,12 @@ export class OfferController {
   ) {
     return this.offerService.createOffer(req.user, res, data);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Roles('USER')
+  @UseGuards(RolesGuard)
+  @Get('/user')
+  getUsersOffers(@Req() req, @Res({ passthrough: true }) res) {
+    return this.offerService.getUsersOffers(req.user, res);
+  }
 }

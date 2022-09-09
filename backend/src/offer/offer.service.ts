@@ -231,4 +231,35 @@ export class OfferService {
       failedOfferCount,
     };
   }
+
+  async getUsersOffers(accessTokenPayload: JwtPayload, res: Response) {
+    const { sub, role, email } = accessTokenPayload;
+
+    const rawOffers = await this.offerEntity.findAll({
+      where: {
+        userUuid: sub,
+      },
+      include: fieldsForUserResponse,
+    });
+
+    const { accessToken, refreshToken } = await this.authService.getTokens(
+      sub,
+      email,
+      role
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    const userOffers = rawOffers.map((offer) => createUserOfferResponse(offer));
+
+    return {
+      status: 'success',
+      accessToken,
+      offers: userOffers,
+    };
+  }
 }
