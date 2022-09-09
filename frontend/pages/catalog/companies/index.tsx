@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
 import Head from 'next/head';
-import Link from 'next/link';
-import styles from './CatalogPage.module.css';
+import styles from '../CatalogPage.module.css';
 import { Header } from '../../../components/Header/Header';
 import { SimpleSearch } from '../../../components/SimpleSearch/SimpleSearch';
 import { CheckboxFilter } from '../../../components/CheckboxFilter/CheckboxFilter';
@@ -16,6 +15,7 @@ import {
 import { Button } from '../../../components/Button/Button';
 import { userAPI } from '../../../services/userService';
 import { Loader } from '../../../components/Loader/Loader';
+import { CatalogNav } from '../../../components/CatalogNav/CatalogNav';
 
 type FormData = {
   annualTurner?: string[];
@@ -25,7 +25,7 @@ type FormData = {
   legalForm?: string[];
 };
 
-const CatalogPage: NextPage = () => {
+const CatalogCompaniesPage: NextPage = () => {
   const [companiesData, setCompaniesData] = useState<any | null>(null);
   const [getCompanies, { isLoading: isCompaniesLoading }] = userAPI.useLazyGetAllCompaniesQuery();
   const { handleSubmit, register } = useForm<FormData>();
@@ -62,31 +62,13 @@ const CatalogPage: NextPage = () => {
       </Head>
       <Header middle="navMenu" />
       <main className={styles.content}>
-        <div className={styles.content__searchBar}>
+        <div className={styles.content__navContainer}>
           <SimpleSearch />
-          <nav>
-            <ul className={styles.content__nav}>
-              <li>
-                <Link href="/catalog/companies">
-                  <a className={`${styles.nav__link} ${styles.nav__link_active}`}>Companies</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/catalog/companies">
-                  <a className={styles.nav__link}>Offers</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/catalog/companies">
-                  <a className={styles.nav__link}>Requests</a>
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <CatalogNav />
         </div>
         {isCompaniesLoading && <Loader />}
         {!isCompaniesLoading && companiesData && <CompaniesCatalog data={companiesData} onGetMore={handleGetMore} />}
-        <form className={styles.content__filtersBar} onSubmit={handleSubmit(submitFormHandler)}>
+        <form className={styles.content__filtersSideBar} onSubmit={handleSubmit(submitFormHandler)}>
           <CheckboxFilter filters={companyType} label="Company type" register={register} fieldName="companyType" />
           <CheckboxFilter filters={legalForm} label="Legal form" register={register} fieldName="legalForm" />
           <CheckboxFilter filters={annualTurner} label="Annual Turner" register={register} fieldName="annualTurner" />
@@ -103,4 +85,4 @@ const CatalogPage: NextPage = () => {
   );
 };
 
-export default CatalogPage;
+export default CatalogCompaniesPage;

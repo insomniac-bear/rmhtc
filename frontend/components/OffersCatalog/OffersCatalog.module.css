@@ -1,0 +1,49 @@
+.catalog {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100%;
+	max-width: 709px;
+	min-height: 742px;
+	gap: 45px 0;
+}
+
+.catalog__itemsList {
+	display: grid;
+	align-content: start;
+
+	width: 100%;
+	margin: 0;
+	padding: 0;
+
+	list-style-type: none;
+	gap: 20px;
+	grid-template-columns: repeat(auto-fill, minmax(223px, 1fr));
+}
+
+.catalog__item {
+	width: fit-content;
+}
+
+.catalog__moreButton {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0 25px 0 0;
+
+	cursor: pointer;
+
+	color: var(--grey-600);
+	border: none;
+	background-color: inherit;
+	background-image: url("../../images/button-arrow-grey.svg");
+	background-repeat: no-repeat;
+	background-position: top 0 right 5px;
+	background-size: contain;
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 17px;
+}
