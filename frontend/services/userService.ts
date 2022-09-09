@@ -93,6 +93,7 @@ export const userAPI = apiService.injectEndpoints({
         url: '/api/v1/companies/user',
         credentials: 'include',
       }),
+      transformResponse: (response: any) => response.companies,
     }),
     editCompany: build.mutation<any, any>({
       query: (data) => ({
@@ -178,7 +179,14 @@ export const userAPI = apiService.injectEndpoints({
         });
         return response;
       },
-
+    }),
+    createOffer: build.mutation<any, any>({
+      query: (data: any) => ({
+        url: '/api/v1/offer',
+        method: 'POST',
+        body: data,
+        credentials: 'include',
+      }),
     }),
   }),
 });

@@ -15,6 +15,10 @@
 	font-size: 16px;
 }
 
+.customTextarea:focus {
+	border-color: var(--grey-600);
+}
+
 .customTextarea::placeholder {
 	color: var(--grey-500);
 }

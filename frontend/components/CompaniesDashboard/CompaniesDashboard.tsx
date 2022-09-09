@@ -20,8 +20,12 @@ export const CompaniesDashboard: FC<ICompaniesDashboardProps> = ({ className, ..
   } = userAPI.useGetUserCompaniesQuery('');
 
   useEffect(() => {
-    refetch();
-    if (userCompaniesQueryData) dispatch(setCompanies(userCompaniesQueryData.companies));
+    if (userCompaniesQueryData) {
+      console.log(userCompaniesQueryData);
+      dispatch(setCompanies(userCompaniesQueryData));
+    } else {
+      refetch();
+    }
   }, [dispatch, userCompaniesQueryData, refetch]);
 
   if (isLoading || isFetching) return <Loader style={{ margin: '120px auto' }} />;
@@ -64,7 +68,7 @@ export const CompaniesDashboard: FC<ICompaniesDashboardProps> = ({ className, ..
           </li>
         </ul>
       </Container>
-      {!!companies.length && (
+      {companies && companies.length && (
         <ul className={styles.companiesDashboard__companiesList}>
           {companies.map((company: any) => (
             <li key={company.uuid}>

@@ -135,7 +135,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
 
   const defaultValues = {
     messengers: company?.messengers.length ? company?.messengers : [{}],
-    contacts: company?.contacts.length ? company : [{}],
+    contacts: company?.contacts.length ? company?.contacts : [{}],
     name: company?.name,
     description: company?.description,
     link: company?.website,
@@ -172,12 +172,6 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
     setValue('legalAddress.country', countryDefaultOption);
     setValue('legalAddress.city', cityDefaultOption);
   }, [businessTypeDefaultOption, cityDefaultOption, countryDefaultOption, legalFormDefaultOption, setValue]);
-
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
 
   const employeesOptions = [
     { value: '0 - 50', label: 'Up to 50' },
@@ -411,7 +405,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
                 options={businessTypesOptions}
                 styles={customSelectStyles}
                 onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-                value={options.find((option) => option.value === value)}
+                value={businessTypesOptions.find((option: any) => option.value === value)}
               />
               {/* <p className={styles.newCompanyForm__error}>{errors.type ? errors.type.message : ''}</p> */}
             </div>
@@ -450,7 +444,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
                 options={countriesOptions}
                 styles={customSelectStyles}
                 onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-                value={options.find((option) => option.value === value)}
+                value={countriesOptions.find((option: any) => option.value === value)}
               />
             )}
           />
@@ -467,7 +461,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
                 options={citiesOptions}
                 styles={customSelectStyles}
                 onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-                value={options.find((option) => option.value === value)}
+                value={citiesOptions.find((option: any) => option.value === value)}
               />
             )}
           />
@@ -511,7 +505,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
         <p className={styles.newCompanyForm__caption}>Social networks</p>
         <CombineSelectInput
           {...{
-            control, register, defaultValues: { ...defaultValues?.messengers }, getValues, setValue, errors,
+            control, register, defaultValues: { ...defaultValues.messengers }, getValues, setValue, errors,
           }}
           options={messengersOptions}
           selectPlaceholder="Messenger"
@@ -522,7 +516,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
         <p className={styles.newCompanyForm__caption}>Contacts</p>
         <CombineSelectInput
           {...{
-            control, register, defaultValues: { ...defaultValues?.contacts }, getValues, setValue, errors,
+            control, register, defaultValues: { ...defaultValues.contacts }, getValues, setValue, errors,
           }}
           options={contactsOptions}
           selectPlaceholder="Contacts"
@@ -548,7 +542,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
               options={legalFormsOptions}
               styles={customSelectStyles}
               onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-              value={options.find((option) => option.value === value)}
+              value={legalFormsOptions.find((option: any) => option.value === value)}
             />
           )}
         />
@@ -566,7 +560,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
               options={employeesOptions}
               styles={customSelectStyles}
               onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-              value={options.find((option) => option.value === value)}
+              value={employeesOptions.find((option: any) => option.value === value)}
             />
           )}
         />
@@ -584,7 +578,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
               options={annualTurnoverOptions}
               styles={customSelectStyles}
               onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-              value={options.find((option) => option.value === value)}
+              value={annualTurnoverOptions.find((option) => option.value === value)}
             />
           )}
         />
@@ -623,7 +617,7 @@ export const NewCompanyForm: FC<INewCompanyFormProps> = ({ company, className, .
                 options={regNumberOptions}
                 styles={customSelectStyles}
                 onChange={(val: SingleValue<{ value: string; label: string; }>) => onChange(val?.value)}
-                value={options.find((option) => option.value === value)}
+                value={regNumberOptions.find((option) => option.value === value)}
               />
             )}
           />

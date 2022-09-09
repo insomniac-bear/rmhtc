@@ -1,0 +1,67 @@
+.combineInput__fields {
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.combineInput__fieldItem {
+	display: grid;
+	grid-template-columns: 1fr 266px 20px;
+	gap: 10px;
+}
+
+.combineInput__addFieldBtn {
+	cursor: pointer;
+	transition: 0.3s;
+
+	color: var(--link);
+	border: none;
+	background-color: transparent;
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.combineInput__addFieldBtn:hover {
+	color: var(--link-hover);
+}
+
+.combineInput__removeFieldBtn {
+	width: 15px;
+	height: 15px;
+	margin-top: 12px;
+
+	cursor: pointer;
+	transition: 0.3s;
+
+	border: none;
+	background-color: transparent;
+	background-image: url("../../images/cross.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	filter: invert(50%);
+	justify-self: end;
+}
+
+.combineInput__removeFieldBtn:hover {
+	opacity: 0.8;
+}
+
+input.combineInput__input {
+	box-sizing: border-box;
+	max-width: 495px;
+	height: 40px;
+	min-height: 0;
+
+	border: 1px solid var(--grey-400);
+}
+
+.combineInput__error {
+	margin: 0;
+
+	color: var(--attention-strong);
+
+	font-family: var(--TTNorms);
+	font-size: 14px;
+}

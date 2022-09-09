@@ -29,6 +29,7 @@ export const AvatarChangeForm: FC<IAvatarChangeForm> = ({ className, ...props })
 
       fileReader.onload = () => {
         if (fileReader.readyState === 2) setAvatarImage(fileReader.result);
+        console.log(fileReader.result);
       };
 
       fileReader.readAsDataURL(data.avatar[0]);

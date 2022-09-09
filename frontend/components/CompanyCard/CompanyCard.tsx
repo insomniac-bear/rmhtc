@@ -38,14 +38,14 @@ export const CompanyCard: FC<ICompanyCard> = ({ access, className = '', ...props
   useEffect(() => {
     if (access && access === 'admin' && uuid !== undefined) {
       getCompanyForModerate(uuid)
-        .then((res) => setCurrentCompany(res.data?.company));
+        .then((res: any) => setCurrentCompany(res.data?.company));
       if (currentCompany && currentCompany?.moderatedAuthorUuid && user.uuid !== currentCompany?.moderatedAuthorUuid) {
         router.push({ pathname: '/admin/moderation' });
       }
     }
     if (access && access === 'general' && uuid !== undefined) {
       getCompanyForView(uuid)
-        .then((res) => setCurrentCompany(res.data?.company));
+        .then((res: any) => setCurrentCompany(res.data?.company));
     }
   }, [access, router, user.uuid, uuid]);
 

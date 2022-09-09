@@ -16,13 +16,13 @@ const EditCompanyPage: NextPage = () => {
   const currentUUID = router.query.uuid;
 
   const companies = useAppSelector((store) => store.user.userCompanies);
-  const currentCompany: any = companies.find((company) => company.uuid === currentUUID);
+  const currentCompany: any = companies.find((company: any) => company.uuid === currentUUID);
 
   const { data: userCompaniesQueryData, isLoading, refetch } = userAPI.useGetUserCompaniesQuery('');
 
   useEffect(() => {
     refetch();
-    if (userCompaniesQueryData) dispatch(setCompanies(userCompaniesQueryData.companies));
+    if (userCompaniesQueryData) dispatch(setCompanies(userCompaniesQueryData));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, userCompaniesQueryData]);
 

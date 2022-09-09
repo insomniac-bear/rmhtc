@@ -1,0 +1,77 @@
+.newOfferForm {
+  width: 100%;
+	max-width: 718px;
+}
+
+.newOfferForm__head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.newOfferForm__fieldset {
+	display: grid;
+
+	margin: 45px 0 50px;
+	padding: 0;
+
+	border: none;
+	grid-template-columns: 1fr 495px;
+	gap: 10px;
+}
+
+.newOfferForm__caption {
+  margin: 0;
+
+	color: var(--grey-600);
+
+	font-family: var(--TTNorms);
+	font-size: 16px;
+}
+
+.newOfferForm__textarea {
+  max-width: 495px;
+	height: 155px;
+
+	resize: none;
+}
+
+input.newOfferForm__input {
+  border-color: var(--grey-400);
+  padding: 10px 15px;
+  min-height: 40px;
+}
+
+input.newOfferForm__input::-webkit-outer-spin-button,
+input.newOfferForm__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.newOfferForm__types {
+  list-style: none;
+  margin: 0 0 30px 0;
+  padding: 0;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newOfferForm__typesLabel {
+  display: flex;
+  gap: 10px;
+  width: min-content;
+}
+
+.newOfferForm__typesTitle {
+  margin: 0;
+}
+
+.newOfferForm__fileInput {
+  max-width: fit-content;
+}
+
+.newOfferForm__priceFields {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 0 10px;
+}

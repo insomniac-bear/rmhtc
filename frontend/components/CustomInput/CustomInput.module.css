@@ -15,6 +15,10 @@
 	font-size: 16px;
 }
 
+.customInput:focus {
+	border-color: var(--grey-600);
+}
+
 .customInput::placeholder {
 	color: var(--grey-500);
 }
