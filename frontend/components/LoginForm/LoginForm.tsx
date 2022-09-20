@@ -93,7 +93,7 @@ export const LoginForm: FC<ILoginFormProps> = ({ className = '', ...props }) => 
             <Button disabled={isFormValid} className={styles.loginForm__button} appearance="primary" type="submit">Login</Button>
             <div className={styles.loginForm__caption}>
               <span className={styles.loginForm__captionText}>Don’t have an account?</span>
-              <Link href="/?modal=signup" as="/signup">
+              <Link href="/?modal=signup">
                 <a className={`${styles.loginForm__link} ${styles.loginForm__link_signup}`}>Sign Up</a>
               </Link>
             </div>
