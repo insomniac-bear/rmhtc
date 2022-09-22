@@ -1,10 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SimpleSearch } from '../SimpleSearch';
+import { SignupSuccessMessage } from '../SignupSuccessMessage';
 
 export default {
-  title: 'ITC/Simple search',
-  component: SimpleSearch,
+  title: 'ITC/Signup success message',
+  component: SignupSuccessMessage,
+  decorators: [(story) => <div style={{ padding: '5rem', width: '500px' }}>{story()}</div>],
   argTypes: {
     className: {
       type: 'string',
@@ -14,9 +15,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SimpleSearch>;
+} as ComponentMeta<typeof SignupSuccessMessage>;
 
-const Template: ComponentStory<typeof SimpleSearch> = (args) => <SimpleSearch {...args} />;
+const Template: ComponentStory<typeof SignupSuccessMessage> = (args) => <SignupSuccessMessage {...args} />;
 
 export const Playground = Template.bind({});
 

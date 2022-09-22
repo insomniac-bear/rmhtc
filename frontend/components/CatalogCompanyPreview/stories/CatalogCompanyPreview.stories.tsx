@@ -4,7 +4,7 @@ import { CatalogCompanyPreview } from '../CatalogCompanyPreview';
 import { mockCompany } from './mokData';
 
 export default {
-  title: 'ITC/Company/CatalogCompanyPreview',
+  title: 'ITC/Company/Catalog company preview',
   component: CatalogCompanyPreview,
   argTypes: {
     company: {
