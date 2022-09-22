@@ -28,7 +28,6 @@ export default {
     },
     className: {
       type: 'string',
-      defaultValue: '',
       description: 'Дополнительные CSS-классы.',
       control: {
         type: 'none',
