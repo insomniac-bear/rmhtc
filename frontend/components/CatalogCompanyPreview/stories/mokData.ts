@@ -1,4 +1,4 @@
-export const company = {
+export const mockCompany = {
   uuid: '4cb69f69-4a86-48e5-b2b5-654b3e6c297f',
   name: 'Roga Invest Holding',
   logoUrl: null,
