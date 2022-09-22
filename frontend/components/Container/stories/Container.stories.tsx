@@ -17,7 +17,7 @@ export default {
     className: {
       type: 'string',
       defaultValue: '',
-      description: 'Внешний CSS класс для позиционирования элемента.',
+      description: 'Дополнительные CSS-классы.',
       control: {
         type: 'none',
       },

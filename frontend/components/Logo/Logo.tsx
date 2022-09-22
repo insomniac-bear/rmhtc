@@ -2,7 +2,6 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { ILogoProps } from './Logo.props';
 import styles from './Logo.module.css';
-// import logo from '../../public/logo.svg';
 
 export const Logo: FC<ILogoProps> = ({
   className = '', size = 70, ...props
@@ -16,7 +15,7 @@ export const Logo: FC<ILogoProps> = ({
     {...props}
   >
     <Image
-      src="/logo.svg"
+      src="/images/logo.svg"
       layout="fill"
       alt="ITC Logo"
     />
