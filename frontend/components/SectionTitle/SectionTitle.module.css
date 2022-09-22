@@ -4,7 +4,7 @@
 	padding-left: 165px;
 
 	color: var(--accent-blue-400);
-	background-image: url("../../images/section-title-background.svg");
+	background-image: url("../../public/images/section-title-background.svg");
 	background-position: left;
 	background-size: cover;
 
