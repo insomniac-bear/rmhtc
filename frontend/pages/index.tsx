@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { Events } from '../components/Events/Events';
+import { Footer } from '../components/Footer/Footer';
 import { Header } from '../components/Header/Header';
 import { Headline } from '../components/Headline/Headline';
 import { LoginForm } from '../components/LoginForm/LoginForm';
@@ -60,6 +61,7 @@ const Home: NextPage = () => {
       <Header middle="navMenu" />
       <Headline />
       <Events />
+      <Footer />
       {isModal && (
         <>
           {isSignUpModal && (

@@ -76,7 +76,7 @@ export const SignupForm: FC<ISignupForm> = ({ className = '', ...props }): JSX.E
           <Button disabled={!!errors.email || !!errors.politics} className={styles.signupForm__button} appearance="primary" type="submit">Sign up</Button>
           <div className={styles.signupForm__caption}>
             <span className={styles.signupForm__captionText}>Have an account?</span>
-            <Link href="/?modal=login" as="/login">
+            <Link href="/?modal=login">
               <a className={styles.signupForm__link}>Sign in</a>
             </Link>
           </div>

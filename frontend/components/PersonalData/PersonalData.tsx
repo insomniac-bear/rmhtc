@@ -37,7 +37,7 @@ export const PersonalData: FC<IPersonalDataProps> = ({ className }) => {
         <div className={styles.personalData__info}>
           <div className={styles.personalData__fullName}>
             <Title className={styles.personalData__fullNameTitle} tag="h2" size="s">{`${user.name || 'Input'} ${user.surname || 'Name'}`}</Title>
-            <Link href="personal-data/?modal=edit_name" as="/profile/personal-data/edit-name" passHref>
+            <Link href="/profile/personal-data?modal=edit_name" passHref>
               <a><div className={styles.personalData__editIcon} /></a>
             </Link>
           </div>
@@ -47,7 +47,7 @@ export const PersonalData: FC<IPersonalDataProps> = ({ className }) => {
                 <p className={styles.personalData__contactCaption}>Email</p>
                 <p className={styles.personalData__contact}>{user.email || 'Email'}</p>
               </div>
-              <Link href="personal-data/?modal=edit_email" as="/profile/personal-data/edit-email" passHref>
+              <Link href="/profile/personal-data?modal=edit_email" passHref>
                 <a><div className={styles.personalData__editIcon} /></a>
               </Link>
             </li>
@@ -56,7 +56,7 @@ export const PersonalData: FC<IPersonalDataProps> = ({ className }) => {
                 <p className={styles.personalData__contactCaption}>Business role</p>
                 <p className={styles.personalData__contact}>{user.businessRole || 'Input role'}</p>
               </div>
-              <Link href="personal-data/?modal=edit_role" as="/profile/personal-data/edit-role" passHref>
+              <Link href="/profile/personal-data?modal=edit_role" passHref>
                 <a><div className={styles.personalData__editIcon} /></a>
               </Link>
             </li>
