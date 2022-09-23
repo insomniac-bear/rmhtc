@@ -1,10 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { SimpleSearch } from '../SimpleSearch';
+import mdx from './SimpleSearch.docs.mdx';
 
 export default {
   title: 'ITC/Simple search',
   component: SimpleSearch,
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  },
   argTypes: {
     className: {
       type: 'string',

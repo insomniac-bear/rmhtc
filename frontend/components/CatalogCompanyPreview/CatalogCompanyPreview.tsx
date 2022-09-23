@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import { forwardRef } from 'react';
+import { forwardRef, LegacyRef } from 'react';
 import { catalogPreviewDataDto } from '../../utils/companyDataDto/catalogCompanyDataDto';
 import { CompanyLogo } from '../CompanyLogo/CompanyLogo';
 import { Title } from '../Title/Title';
 import styles from './CatalogCompanyPreview.module.css';
+import { ICatalogCompanyPreview } from './CatalogCompanyPreview.props';
 
 export const CatalogCompanyPreview = forwardRef(
-  ({ company, className = '', ...props }: any, ref: any) => {
+  ({ company, className = '', ...props }: ICatalogCompanyPreview, ref: LegacyRef<HTMLDivElement>) => {
     const {
       name, logoUrl, description, geo,
     } = catalogPreviewDataDto(company);

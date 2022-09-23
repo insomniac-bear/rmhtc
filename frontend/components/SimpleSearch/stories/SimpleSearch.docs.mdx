@@ -1,0 +1,51 @@
+# SimpleSearch
+
+```tsx
+import { SimpleSearch } from '../{Relative path}/SimpleSearch';
+```
+## Компонент "Поисковая форма". 
+Простая поисковая форма. Используется на страницах каталога для навигирования по элементам.
+
+```tsx
+  <SimpleSearch />
+```
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const SimpleSearch: FC<ISimpleSearch> = ({ className, ...props }) => {
+        const { handleSubmit, register } = useForm<FormData>();
+        const submitFormHandler = (data: FormData) => {
+          data.searchParams.toLowerCase();
+        };
+
+        return (
+          <form
+            onSubmit={handleSubmit(submitFormHandler)}
+            className={`${styles.search} ${className}`}
+            {...props}
+          >
+            <input
+              className={styles.search__input}
+              type="text"
+              placeholder="Enter keywords"
+              {...register('searchParams')}
+            />
+            <button
+              type="submit"
+              className={styles.search__button}
+            >
+              Search
+            </button>
+          </form>
+        );
+      };
+```

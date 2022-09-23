@@ -1,0 +1,32 @@
+# SectionTitle
+
+```tsx
+import { SectionTitle } from '../{Relative path}/SectionTitle';
+```
+## Компонент "Заголовок секции". 
+Текст заголовков секций на главной странице может быть обернут в комопнент  `SectionTitle`. 
+Имеет встроенный `background`. Используется для выделения заголовка секции.
+
+```tsx
+  <SectionTitle>
+    Some text
+  </SectionTitle>
+```
+
+Имеет базовые стили заголовка в соответствии с дизайн системой. 
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const SectionTitle: FC<ISectionTitleProps> = ({ children, className = '', ...props }) => (
+        <Title className={`${styles.sectionTitle} ${className}`} tag="h2" size="l" {...props}>{children}</Title>
+      );
+```

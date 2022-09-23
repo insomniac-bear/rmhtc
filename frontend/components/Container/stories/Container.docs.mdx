@@ -1,0 +1,39 @@
+# Container
+
+```tsx
+import { Container } from '../{Relative path}/Container';
+```
+## Компонент "Контэйнер". 
+  Используется для удобства группировки и позиционирования элементов. Имеет настраиваемый параметр заднего фона.
+
+```tsx
+  <Container>{children}</Container>
+```
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| isBackgroundLogo              | 'boolean'                               |       -      | Отвечает за наличие / отсутсвие картинки заднего фона         |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const Container: FC<IContainerProps> = ({
+        isBackgroundLogo = false, className = '', children, ...props
+      }) => (
+        <div
+          className={`
+            ${styles.container} 
+            ${isBackgroundLogo ? styles.container_backgroundLogo : ''}
+            ${className}
+          `}
+          {...props}
+        >
+          {children}
+        </div>
+      );
+```

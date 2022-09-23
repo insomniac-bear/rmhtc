@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CompanyLogo } from '../CompanyLogo';
+import mdx from './CompanyLogo.docs.mdx';
 
 export default {
   title: 'ITC/Company/CompanyLogo',
@@ -18,6 +19,11 @@ export default {
       {story()}
     </div>
   )],
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  },
   argTypes: {
     size: {
       description: 'Настройка размера изображения (width & height), принимает числовое значение.',

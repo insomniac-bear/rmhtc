@@ -1,0 +1,37 @@
+# SignupSuccessMessage
+
+```tsx
+import { SignupSuccessMessage } from '../{Relative path}/SignupSuccessMessage';
+```
+## Компонент "Сообщение при успешной регистрации пользователя". 
+Используется для информирования пользователя о успешной регистрации на платформе и необходимых дальнейших шагах.
+
+```tsx
+  <SignupSuccessMessage />
+```
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const SignupSuccessMessage: FC<ISignupSuccessMessageProps> = ({ className = '', ...props }) => {
+        const router = useRouter();
+        const email = router?.query?.signupEmail;
+
+        return (
+          <div className={`${styles.signupSuccessMessage} ${className}`} {...props}>
+            <div className={styles.signupSuccessMessage__text}>
+              {`The confirmation link have been sent to ${email ? `${email}` : 'your email'}. Follow this link to continue working with service.`}
+            </div>
+            <Button className={styles.signupSuccessMessage__button} onClick={() => router.push('/')} type="button" appearance="primary">Ok</Button>
+          </div>
+        );
+      };
+```

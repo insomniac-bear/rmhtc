@@ -2,10 +2,16 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CatalogCompanyPreview } from '../CatalogCompanyPreview';
 import { mockCompany } from './mokData';
+import mdx from './CatalogCompanyPreview.docs.mdx';
 
 export default {
   title: 'ITC/Company/Catalog company preview',
   component: CatalogCompanyPreview,
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  },
   argTypes: {
     company: {
       description: 'Объект компании',

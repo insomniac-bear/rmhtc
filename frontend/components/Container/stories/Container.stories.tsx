@@ -1,10 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Container } from '../Container';
+import mdx from './Container.docs.mdx';
 
 export default {
   title: 'ITC/Container',
   component: Container,
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  },
   argTypes: {
     isBackgroundLogo: {
       type: 'boolean',
@@ -26,13 +32,8 @@ export default {
 
 const Template: ComponentStory<typeof Container> = (args) => <Container {...args} />;
 
-export const Default = Template.bind({});
+export const Playground = Template.bind({});
 
-Default.args = {};
-
-export const WithLogo = Template.bind({});
-
-WithLogo.args = {
-  style: { minHeight: '500px' }, // Чтобы было видно лого
-  isBackgroundLogo: true,
+Playground.args = {
+  isBackgroundLogo: false,
 };
