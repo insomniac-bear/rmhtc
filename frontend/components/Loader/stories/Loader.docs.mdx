@@ -1,0 +1,32 @@
+# Loader
+
+```tsx
+import { Loader } from '../{Relative path}/Loader';
+```
+## Компонент "Loader". 
+Прелоадер показывает, что информация загружается.
+
+```tsx
+  <Loader />
+```
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| style                         | 'object'                                |       -      | Дополнительные инлайн-стили контейнера компонента             |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const Loader: FC<ILoaderProps> = ({ className = '', style, ...props }) => (
+        <div style={style} className={`${styles.loader} ${className}`} {...props}>
+          <div className={styles.loader__circle1} />
+          <div className={styles.loader__circle2} />
+          <div className={styles.loader__circle3} />
+        </div>
+      );
+```

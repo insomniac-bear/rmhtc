@@ -2,7 +2,6 @@ import { FC } from 'react';
 import Image from 'next/image';
 import styles from './CompanyLogo.module.css';
 import { ICompanyLogo } from './CompanyLogo.props';
-import logoPlaceholder from './logoPlaceholder.png';
 
 export const CompanyLogo: FC<ICompanyLogo> = ({
   alt, url, className = '', size = 70, ...props
@@ -16,8 +15,8 @@ export const CompanyLogo: FC<ICompanyLogo> = ({
     {...props}
   >
     <Image
-      className={styles.logo}
-      src={url || logoPlaceholder}
+      // className={styles.logo}
+      src={url || '/images/logo-placeholder.svg'}
       alt={alt || 'Company logo'}
       layout="fill"
     />

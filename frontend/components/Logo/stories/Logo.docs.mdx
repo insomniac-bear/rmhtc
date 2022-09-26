@@ -1,0 +1,46 @@
+# Logo
+
+```tsx
+  import { Logo } from '../{Relative path}/Logo';
+```
+## Компонент "Лого". 
+ Компонент логотипа платформы. Используется в компонентах, в которых необходимо отображение логотипа (например Header, Footer, NavMenu).
+
+```tsx
+  <Logo size={logoSize} />
+```
+Имеет дефолтный размер 70px. 
+
+
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| size                          | 'number'                                |       70     | Отвечает за css-свойствa width и height                       |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const Logo: FC<ILogoProps> = ({
+        className = '', size = 70, ...props
+      }) => (
+        <div
+          style={{
+            width: size,
+            height: size,
+          }}
+          className={`${styles.logo} ${className}`}
+          {...props}
+        >
+          <Image
+            src="/images/logo.svg"
+            layout="fill"
+            alt="ITC Logo"
+          />
+        </div>
+      );
+```

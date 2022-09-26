@@ -1,0 +1,58 @@
+# CompanyLogo
+
+```tsx
+  import { CompanyLogo } from '../{Relative path}/CompanyLogo';
+```
+## Компонент "Логотип компании". 
+
+ Компонент логотипа компании. Используется в компонентах, в которых необходимо отображение логотипа компании 
+ (например: карточка компании, превью карточки компании в каталоге или на странице модерации).
+ 
+ 
+ Имеет встроенную заглушку, отображаемую при условии, если значение ссылки на логотип `null`. 
+
+```tsx
+  <CompanyLogo
+    alt={null}
+    size={70}
+    url={null}
+  />
+```
+Имеет дефолтный размер 70px. 
+
+
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| alt                           | 'string'                                |       -      | Альтернативный текст изображения                              |
+| url                           | 'string'                                |       -      | Ссылка на изображение                                         |
+| size                          | 'number'                                |       70     | Отвечает за css-свойствa width и height                       |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const CompanyLogo: FC<ICompanyLogo> = ({
+        alt, url, className = '', size = 70, ...props
+      }) => (
+        <div
+          style={{
+            width: size,
+            height: size,
+          }}
+          className={`${styles.wrapper} ${className}`}
+          {...props}
+        >
+          <Image
+            // className={styles.logo}
+            src={url || '/images/logo-placeholder.svg'}
+            alt={alt || 'Company logo'}
+            layout="fill"
+          />
+        </div>
+      );
+```

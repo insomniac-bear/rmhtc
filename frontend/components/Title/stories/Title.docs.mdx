@@ -1,0 +1,51 @@
+# Title
+
+```tsx
+import { Title } from '../{Relative path}/Title';
+```
+## Компонент "Заголовок". 
+Текст всех заголовков на странице необходимо обернуть в комопнент  `Title`.
+
+```tsx
+  <Title size={titleSize} tag={titleTag}>{children}</Title>
+```
+
+Имеет базовые стили заголовка в соответствии с дизайн системой: 
+ * font-family
+ * font-weight
+ * line-height
+
+
+
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| tag                           | 'h1', 'h2', 'h3', 'h4'                  |       -      | Отвечает за выбор Html-тега                                   |
+| size                          | 's', 'm', 'l'                           |       -      | Отвечает за css-свойство font-size                            |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+    export const Title: FC<ITitleProps> = ({
+      tag, size, children, className = '', ...props
+    }) => {
+      switch (tag) {
+        case 'h1':
+          return <h1 className={`${styles.title} ${styles[`title_size_${size}`]} ${className}`} {...props}>{children}</h1>;
+        case 'h2':
+          return <h2 className={`${styles.title} ${styles[`title_size_${size}`]} ${className}`} {...props}>{children}</h2>;
+        case 'h3':
+          return <h3 className={`${styles.title} ${styles[`title_size_${size}`]} ${className}`} {...props}>{children}</h3>;
+        case 'h4':
+          return <h4 className={`${styles.title} ${styles[`title_size_${size}`]} ${className}`} {...props}>{children}</h4>;
+        default:
+          return <div />;
+      }
+    };
+```
+

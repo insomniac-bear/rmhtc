@@ -6,7 +6,7 @@ import styles from './SignupSuccessMessage.module.css';
 
 export const SignupSuccessMessage: FC<ISignupSuccessMessageProps> = ({ className = '', ...props }) => {
   const router = useRouter();
-  const email = router.query.signupEmail;
+  const email = router?.query?.signupEmail;
 
   return (
     <div className={`${styles.signupSuccessMessage} ${className}`} {...props}>

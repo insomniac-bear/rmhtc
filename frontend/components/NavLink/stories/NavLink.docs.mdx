@@ -1,0 +1,53 @@
+# NavLink
+
+```tsx
+import { NavLink } from '../{Relative path}/NavLink';
+```
+## Компонент "Навигационная ссылка". 
+  Компонент используется только в рамках внутренней навигации по сайту. Имеет проп активного класса. 
+  Стили активного класса применяются при совпадении пути, переданного в ссылку, с `pathname` Next роутера. Проп exact опциональный и по дефолту `false`. 
+  Это означает, что путь в ссылке будет проверять, начинается ли `pathname` с переданного `href`. При совпадении путей будет применен акстивный класс.
+
+```tsx
+  <NavLink
+  activeClass="link_active"
+  className="link"
+  href="/"
+>
+  Link to Home
+</NavLink>
+```
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| href                          | 'string'                                |       -      | Ссылка на страницу сайта                                      |
+| exact                         | 'boolean'                               |       -      | Модификатор отвечающий за способ сравнения пути ссылки        |
+| activeClass                   | 'string'                                |       -      | CSS-класс активной ссылки                                     |
+| children                      | -                                       |       -      | Элемент или текст оборачиваемый ссылкой                       |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const NavLink: FC<INavLink> = ({
+        href, exact = 'false', children, className, activeClass, ...props
+      }) => {
+        const { pathname } = useRouter();
+        const isActive = exact ? pathname === href : pathname.startsWith(href);
+
+        return (
+          <Link href={href} passHref>
+            <a
+              className={isActive ? `${className} ${activeClass}` : `${className}`}
+              {...props}
+            >
+              {children}
+            </a>
+          </Link>
+        );
+      };
+```
