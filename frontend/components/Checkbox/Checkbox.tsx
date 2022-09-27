@@ -1,9 +1,10 @@
-import { forwardRef } from 'react';
+import { forwardRef, LegacyRef } from 'react';
 import styles from './Checkbox.module.css';
+import { ICheckboxProps } from './Checkbox.props';
 
 export const Checkbox = forwardRef(({
   className = '', onChange, children, name, value, errors, isValidated = true, checked,
-}: any, ref: any) => (
+}: ICheckboxProps, ref: LegacyRef<HTMLInputElement>) => (
   <>
     <label htmlFor={name} className={`${styles.checkbox} ${className}`}>
       <input
