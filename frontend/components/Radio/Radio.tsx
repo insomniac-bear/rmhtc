@@ -1,9 +1,10 @@
-import { forwardRef } from 'react';
+import { forwardRef, LegacyRef } from 'react';
 import styles from './Radio.module.css';
+import { IRadioProps } from './Radio.props';
 
 export const Radio = forwardRef(({
   className = '', onChange, children, name, value, errors, isValidated = true, checked,
-}: any, ref: any) => (
+}: IRadioProps, ref: LegacyRef<HTMLInputElement>) => (
   <>
     <label htmlFor={name} className={`${styles.checkbox} ${className}`}>
       <input

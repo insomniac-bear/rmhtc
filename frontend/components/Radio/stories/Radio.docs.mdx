@@ -1,0 +1,53 @@
+# Radio
+
+```tsx
+import { Radio } from '../{Relative path}/Radio';
+```
+## Компонент "Радио". 
+Радиокнопки нужны, чтобы пользователь мог сделать выбор — только один из нескольких вариантов. Этот компонет — один элемент из списка, одна радиокнопка.
+За название радиокнопки отвечает свойсвто `children`. Лучше его писать с заглавной буквы, точка, чаще всего, не нужна.
+```tsx
+  <Radio onChange={() => {}}>
+    Check me
+  </Radio>
+```
+
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| onChange                      | 'function'                              |       -      | Хендлер изменения поля                                        |
+| name                          | 'string'                                |       -      | HTML-name инпута                                              |
+| value                         | 'string'                                |       -      | HTML-value инпута                                             |
+| errors                        | 'object'                                |       -      | Объект ошибок валидации                                       |
+| isValidated                   | 'boolean'                               |     true     | Отвечает за отображение сообщения об ошибках при их наличии   |
+| checked                       | 'boolean'                               |       -      | Атрибут checked чекбокса                                      |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const Radio = forwardRef(({
+        className = '', onChange, children, name, value, errors, isValidated = true, checked,
+      }: IRadioProps, ref: LegacyRef<HTMLInputElement>) => (
+        <>
+          <label htmlFor={name} className={`${styles.checkbox} ${className}`}>
+            <input
+              onChange={onChange}
+              ref={ref}
+              id={name}
+              name={name}
+              value={value}
+              className={styles.checkbox__input}
+              type="radio"
+              checked={checked}
+            />
+            <span className={styles.checkbox__text}>{children}</span>
+          </label>
+          {isValidated && <span className={styles.checkbox__errorMessage}>{errors && errors.message}</span>}
+        </>
+      ));
+```

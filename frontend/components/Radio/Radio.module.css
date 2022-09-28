@@ -30,7 +30,7 @@
 	border-color: transparent;
 	background-color: var(--grey-100);
 
-	background-image: url("./checkbox.svg");
+	background-image: url("../../public/images/checkbox.svg");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
@@ -38,7 +38,7 @@
 }
 
 .checkbox__input:checked {
-	background-image: url("./checkbox-checked.svg");
+	background-image: url("../../public/images/checkbox-checked.svg");
 }
 
 .checkbox__errorMessage {
