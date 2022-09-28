@@ -4,7 +4,7 @@ import { Container } from '../Container';
 import mdx from './Container.docs.mdx';
 
 export default {
-  title: 'ITC/Container',
+  title: 'ITC/Base/Container',
   component: Container,
   parameters: {
     docs: {

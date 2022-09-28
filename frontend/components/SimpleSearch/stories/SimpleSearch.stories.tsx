@@ -4,7 +4,7 @@ import { SimpleSearch } from '../SimpleSearch';
 import mdx from './SimpleSearch.docs.mdx';
 
 export default {
-  title: 'ITC/Simple search',
+  title: 'ITC/Custom/Simple search',
   component: SimpleSearch,
   parameters: {
     docs: {

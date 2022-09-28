@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SignupSuccessMessage } from '../SignupSuccessMessage';
-import mdx from './SignupSuccessMessage.docs.mdx';
+import { NavMenu } from '../NavMenu';
+import mdx from './NavMenu.docs.mdx';
 
 export default {
-  title: 'ITC/Custom/Signup success message',
-  component: SignupSuccessMessage,
-  decorators: [(story) => <div style={{ padding: '5rem', width: '500px' }}>{story()}</div>],
+  title: 'ITC/Custom/Nav Menu',
+  component: NavMenu,
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {
     docs: {
       page: mdx,
@@ -21,9 +21,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SignupSuccessMessage>;
+} as ComponentMeta<typeof NavMenu>;
 
-const Template: ComponentStory<typeof SignupSuccessMessage> = (args) => <SignupSuccessMessage {...args} />;
+const Template: ComponentStory<typeof NavMenu> = (args) => <NavMenu {...args} />;
 
 export const Playground = Template.bind({});
 

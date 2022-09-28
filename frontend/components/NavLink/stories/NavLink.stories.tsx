@@ -5,7 +5,7 @@ import './NavLinkExample.css';
 import mdx from './NavLink.docs.mdx';
 
 export default {
-  title: 'ITC/Nav Link',
+  title: 'ITC/Base/Nav Link',
   component: NavLink,
   parameters: {
     docs: {

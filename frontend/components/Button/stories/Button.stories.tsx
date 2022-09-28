@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import mdx from './Button.docs.mdx';
 
 export default {
-  title: 'ITC/Button',
+  title: 'ITC/Base/Button',
   component: Button,
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {

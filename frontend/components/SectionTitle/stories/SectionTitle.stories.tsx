@@ -4,7 +4,7 @@ import { SectionTitle } from '../SectionTitle';
 import mdx from './SectionTitle.docs.mdx';
 
 export default {
-  title: 'ITC/Section title',
+  title: 'ITC/Custom/Section title',
   component: SectionTitle,
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {

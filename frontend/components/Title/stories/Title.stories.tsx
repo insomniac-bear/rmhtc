@@ -4,7 +4,7 @@ import { Title } from '../Title';
 import mdx from './Title.docs.mdx';
 
 export default {
-  title: 'ITC/Title',
+  title: 'ITC/Base/Title',
   component: Title,
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {

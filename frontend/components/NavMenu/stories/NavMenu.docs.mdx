@@ -1,0 +1,38 @@
+# NavMenu
+
+```tsx
+import { NavMenu } from '../{Relative path}/NavMenu';
+```
+## Компонент "Навигационное меню". 
+  Необходим для отображения навигационных ссылок платформы. Используется в шапке и футере.
+
+```tsx
+  <NavMenu />
+```
+
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const NavMenu: FC<INavMenuProps> = ({ className = '', ...props }) => (
+        <nav>
+          <ul className={`${styles.navMenu} ${className}`} {...props}>
+            {navMenuMockData.map((navMenuItem) => (
+              <li key={navMenuItem.id}>
+                <NavLink href={navMenuItem.link} exact activeClass={styles.navMenu__link_active} className={styles.navMenu__link}>
+                  {navMenuItem.titleEN}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      );
+```

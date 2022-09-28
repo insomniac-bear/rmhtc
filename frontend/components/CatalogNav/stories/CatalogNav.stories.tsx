@@ -4,7 +4,7 @@ import { CatalogNav } from '../CatalogNav';
 import mdx from './CatalogNav.docs.mdx';
 
 export default {
-  title: 'ITC/Catalog Nav',
+  title: 'ITC/Composite/Catalog Nav',
   component: CatalogNav,
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {

@@ -4,7 +4,7 @@ import { Logo } from '../Logo';
 import mdx from './Logo.docs.mdx';
 
 export default {
-  title: 'ITC/Logo',
+  title: 'ITC/Custom/Logo',
   component: Logo,
   decorators: [(story) => (
     <div

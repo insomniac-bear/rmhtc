@@ -4,7 +4,7 @@ import { Checkbox } from '../Checkbox';
 import mdx from './Checkbox.docs.mdx';
 
 export default {
-  title: 'ITC/Checkbox',
+  title: 'ITC/Base/Checkbox',
   component: Checkbox,
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {

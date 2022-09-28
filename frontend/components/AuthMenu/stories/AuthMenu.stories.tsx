@@ -4,7 +4,7 @@ import { AuthMenu } from '../AuthMenu';
 import mdx from './AuthMenu.docs.mdx';
 
 export default {
-  title: 'ITC/Auth menu',
+  title: 'ITC/Composite/Auth menu',
   component: AuthMenu,
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {

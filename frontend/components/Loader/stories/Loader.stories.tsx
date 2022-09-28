@@ -4,7 +4,7 @@ import { Loader } from '../Loader';
 import mdx from './Loader.docs.mdx';
 
 export default {
-  title: 'ITC/Loader',
+  title: 'ITC/Base/Loader',
   component: Loader,
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   parameters: {
