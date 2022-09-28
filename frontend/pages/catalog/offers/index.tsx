@@ -41,7 +41,7 @@ const CatalogOffersPage: NextPage = () => {
         </div>
         <OffersCatalog />
         <form className={styles.content__filtersSideBar} onSubmit={handleSubmit(submitFormHandler)}>
-          <SearchFilter label="Category" fieldName="category" register={register} placeholder="Enter category" />
+          <SearchFilter label="Category" fieldName="category" {...register('category')} placeholder="Enter category" />
           <PriceFilter register={register} />
           <div className={styles.content__filtersControls}>
             <Button className={styles.content__filtersButton} type="reset">Reset</Button>

@@ -1,0 +1,46 @@
+# SearchFilter
+
+```tsx
+import { SearchFilter } from '../{Relative path}/SearchFilter';
+```
+## Компонент "Поисковый фильтр". 
+Необходим для фильтрации по введенному значениею. Применяется в формах фильтрации.
+
+```tsx
+  <SearchFilter
+    fieldName="category"
+    label=""
+    placeholder="Введите запрос..."
+  />
+```
+
+### Props
+| Свойство                      | Тип                                     | По умолчанию | Описание                                                      |
+|-------------------------------|-----------------------------------------|--------------|---------------------------------------------------------------|
+| label                         | 'string'                                |       -      | Отвечает за отображаемое имя поля                             |
+| placeholder                   | 'string'                                |       -      | Плэйсхолдер поя ввода                                         |
+| fieldName                     | 'string'                                |       -      | Имя поля для атрибута htmlFor у `label`                       |
+| className                     | 'string'                                |       -      | Дополнительный, внешний css-класс                             |
+| ...props                      | -                                       |       -      | Внешние атрибуты                                              |
+
+
+
+
+### Структура компонента
+```tsx
+      export const SearchFilter = forwardRef(({
+        label, fieldName, placeholder, className = '', ...props
+      }: ISearchFilter, ref: LegacyRef<HTMLInputElement>) => (
+        <fieldset className={`${styles.filter} ${className}`} {...props}>
+          <Title size="s" tag="h2" className={styles.filter__heading}>{label}</Title>
+          <label htmlFor={fieldName} className={styles.filter__inputContainer}>
+            <input
+              className={styles.filter_input}
+              placeholder={placeholder}
+              type="text"
+              ref={ref}
+            />
+          </label>
+        </fieldset>
+      ));
+```
